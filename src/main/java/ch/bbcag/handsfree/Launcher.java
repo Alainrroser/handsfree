@@ -22,8 +22,6 @@ public class Launcher {
             int x = (int) (xRelative * screenWidth);
             int y = (int) (yRelative * screenHeight);
             robot.mouseMove(x, y);
-
-            Thread.sleep(50);
         }
 
 //        Application.launch(HandsFreeApplication.class);
