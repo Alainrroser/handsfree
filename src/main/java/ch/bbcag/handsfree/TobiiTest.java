@@ -13,10 +13,13 @@ public class TobiiTest {
         int screenHeight = screenSize.height;
 
         Robot robot = new Robot();
+        
         boolean pressed = false;
-        int buttonPressed = 0;
+        long startTime = 0;
+        long endTime = 0;
         
         while(true) {
+            
             float[] position = Tobii.gazePosition();
             float xRelative = position[0];
             float yRelative = position[1];
@@ -25,35 +28,25 @@ public class TobiiTest {
             int y = (int) (yRelative * screenHeight);
 
             if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
+                endTime = System.currentTimeMillis();
                 robot.mouseMove(x, y);
                 if(pressed) {
-                    if(buttonPressed == 1) {
-                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-                    }
-                    if(buttonPressed == 3) {
-                        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-                    }
                     pressed = false;
                 }
-            } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
-                if(!pressed) {
-//                    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-//                    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+//                if((endTime - startTime) >= 1000) {
+//                    robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
+//                    robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
 //                    pressed = true;
-                }
-            } else if(!Tobii.isLeftEyePresent()) { // The left eye is closed
+//                }
+            } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
+                startTime = System.currentTimeMillis();
                 if(!pressed) {
                     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                     pressed = true;
-                    buttonPressed = 1;
-                }
-            } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
-                if(!pressed) {
-                    robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-                    pressed = true;
-                    buttonPressed = 3;
                 }
             }
         }
     }
+    
 }
