@@ -19,11 +19,28 @@ public class Tobii {
             loadIfNotLoaded();
             return jniGazePosition();
         } catch (Throwable e) {
-            if (!errorReported) {
-                e.printStackTrace();
-                errorReported = true;
-            }
+            reportErrorIfNotReported(e);
             return new float[]{0.5f, 0.5f};
+        }
+    }
+
+    public static boolean isLeftEyePresent() {
+        try {
+            loadIfNotLoaded();
+            return jniIsLeftEyePresent();
+        } catch (Throwable e) {
+            reportErrorIfNotReported(e);
+            return false;
+        }
+    }
+
+    public static boolean isRightEyePresent() {
+        try {
+            loadIfNotLoaded();
+            return jniIsRightEyePresent();
+        } catch (Throwable e) {
+            reportErrorIfNotReported(e);
+            return false;
         }
     }
 
@@ -125,7 +142,18 @@ public class Tobii {
         }
     }
 
+    private static void reportErrorIfNotReported(Throwable e) {
+        if (!errorReported) {
+            e.printStackTrace();
+            errorReported = true;
+        }
+    }
+
     private static native int jniInit();
 
     private static native float[] jniGazePosition();
+
+    private static native boolean jniIsLeftEyePresent();
+    private static native boolean jniIsRightEyePresent();
+
 }

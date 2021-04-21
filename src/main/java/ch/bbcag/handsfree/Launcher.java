@@ -22,6 +22,18 @@ public class Launcher {
             int x = (int) (xRelative * screenWidth);
             int y = (int) (yRelative * screenHeight);
             robot.mouseMove(x, y);
+
+            if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) {
+                System.out.println("your eyes are both open");
+            } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) {
+                System.out.println("your eyes are both closed");
+            } else if(!Tobii.isLeftEyePresent()) {
+                System.out.println("your left eye is closed");
+            } else if(!Tobii.isRightEyePresent()) {
+                System.out.println("your right eye is closed");
+            }
+
+            Thread.sleep(500);
         }
 
 //        Application.launch(HandsFreeApplication.class);
