@@ -5,7 +5,8 @@ import javafx.application.Application;
 public class Launcher {
 
     public static void main(String[] args) throws Exception {
-        Application.launch(HandsFreeApplication.class);
+        new TobiiTest().start();
+        //Application.launch(HandsFreeApplication.class);
     }
 
 }
