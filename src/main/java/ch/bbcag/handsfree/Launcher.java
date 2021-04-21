@@ -4,6 +4,7 @@ import javafx.application.Application;
 import tobii.Tobii;
 
 import java.awt.*;
+import java.awt.event.InputEvent;
 
 public class Launcher {
 
@@ -13,6 +14,7 @@ public class Launcher {
         int screenHeight = screenSize.height;
 
         Robot robot = new Robot();
+        boolean pressed = false;
 
         while(true) {
             float[] position = Tobii.gazePosition();
@@ -21,19 +23,27 @@ public class Launcher {
 
             int x = (int) (xRelative * screenWidth);
             int y = (int) (yRelative * screenHeight);
-            robot.mouseMove(x, y);
 
             if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) {
                 System.out.println("your eyes are both open");
+                robot.mouseMove(x, y);
+                if(pressed) {
+                    pressed = false;
+                }
             } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) {
                 System.out.println("your eyes are both closed");
+                if(!pressed) {
+                    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    pressed = true;
+                }
             } else if(!Tobii.isLeftEyePresent()) {
                 System.out.println("your left eye is closed");
             } else if(!Tobii.isRightEyePresent()) {
                 System.out.println("your right eye is closed");
             }
 
-            Thread.sleep(500);
+            Thread.sleep(10);
         }
 
 //        Application.launch(HandsFreeApplication.class);
