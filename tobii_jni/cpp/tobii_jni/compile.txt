@@ -1,5 +1,0 @@
-VISUAL STUDIO COMPILER COMMAND FOR COMPILING
-Don't use GCC because it won't work
---------------------------------------------
-
-cl.exe /LD /EHsc /I "%JAVA_HOME%\include" /I "%JAVA_HOME%\include\win32" /I "." /I ".\tobii" tobii_api.cpp tobii_device.cpp tobii_jni.cpp "..\..\..\src\main\resources\lib\tobii\x64\tobii_stream_engine.lib" /o tobii_jni_stream_engine.dll

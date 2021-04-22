@@ -1,0 +1,3 @@
+C:/DEV/Java/handsfree/tobii_jni/cpp/tobii_jni/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/DEV/Java/handsfree/tobii_jni/cpp/tobii_jni/cmake-build-debug/CMakeFiles/tobii_jni.dir
+C:/DEV/Java/handsfree/tobii_jni/cpp/tobii_jni/cmake-build-debug/CMakeFiles/rebuild_cache.dir

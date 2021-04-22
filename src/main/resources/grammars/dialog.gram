@@ -1,0 +1,17 @@
+#JSGF V1.0;
+
+grammar dialog;
+
+public <scroll> = (
+    left |
+    up |
+    right |
+    down |
+    scroll down |
+    scroll up |
+    switch open |
+    switch close |
+    new tab |
+    close tab |
+    exit
+);

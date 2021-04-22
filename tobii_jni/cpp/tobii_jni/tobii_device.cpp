@@ -3,6 +3,7 @@
 #include "tobii_headers.h"
 #include <thread>
 #include <chrono>
+#include <iostream>
 
 using namespace std;
 using namespace std::chrono;
@@ -31,6 +32,11 @@ namespace
 		left_eye_present = eye_position->left_validity == TOBII_VALIDITY_VALID;
 		right_eye_present = eye_position->right_validity == TOBII_VALIDITY_VALID;
 	}
+
+	void head_pose_callback(tobii_head_pose_t const* head_pose, void* user_data)
+	{
+        std::cout << head_pose->rotation_xyz[0] << ":" << head_pose->rotation_xyz[1] << ":" << head_pose->rotation_xyz[2] << std::endl;
+    }
 }
 
 TobiiDevice::TobiiDevice(TobiiAPI& api) :
@@ -57,6 +63,12 @@ TobiiDevice::TobiiDevice(TobiiAPI& api) :
 	
 	error = tobii_eye_position_normalized_subscribe(device, eye_position_normalized_callback, NULL);
 	if (error != TOBII_ERROR_NO_ERROR)
+    {
+        throw -2;
+    }
+
+    error = tobii_head_pose_subscribe(device, head_pose_callback, NULL);
+    if (error != TOBII_ERROR_NO_ERROR)
     {
         throw -2;
     }
