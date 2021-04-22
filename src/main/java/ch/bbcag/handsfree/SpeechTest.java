@@ -5,6 +5,7 @@ import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
 
 import java.awt.*;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,7 +70,11 @@ public class SpeechTest {
                     String text = result.getHypothesis();
                     System.out.println("You said: " + text);
 
-                    if(text.equals("left")) {
+                    if(text.equals("press")) {
+                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                    } else if(text.equals("release")) {
+                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    } else if(text.equals("left")) {
                         robot.keyPress(KeyEvent.VK_LEFT);
                         robot.keyRelease(KeyEvent.VK_LEFT);
                     } else if(text.equals("up")) {

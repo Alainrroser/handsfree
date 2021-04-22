@@ -3,6 +3,8 @@
 grammar dialog;
 
 public <scroll> = (
+    press |
+    release |
     left |
     up |
     right |
