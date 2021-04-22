@@ -4,66 +4,52 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.concurrent.Callable;
 
 public class Tobii {
+
     private static boolean verbose = true;
-
     private static boolean loaded = false;
-
     private static boolean errorReported = false;
 
     private static String OS = System.getProperty("os.name").toLowerCase();
 
-    public static float[] gazePosition() {
-        try {
-            loadIfNotLoaded();
-            return jniGazePosition();
-        } catch (Throwable e) {
-            reportErrorIfNotReported(e);
-            return new float[]{0.5f, 0.5f};
-        }
+    public static float[] getGazePosition() {
+        return getValueFromNativeFunction(Tobii::jniGetGazePosition, new float[]{ 0.5f, 0.5f });
     }
 
     public static float getGazeX() {
-        return gazePosition()[0];
+        return getGazePosition()[0];
     }
 
     public static float getGazeY() {
-        return gazePosition()[1];
+        return getGazePosition()[1];
     }
 
     public static float[] getHeadRotation() {
-        try {
-            loadIfNotLoaded();
-            return jniGetHeadRotation();
-        } catch (Throwable e) {
-            reportErrorIfNotReported(e);
-            return new float[]{0.0f, 0.0f, 0.0f};
-        }
+        return getValueFromNativeFunction(Tobii::jniGetHeadRotation, new float[]{ 0.0f, 0.0f, 0.0f });
     }
 
     public static boolean isLeftEyePresent() {
-        try {
-            loadIfNotLoaded();
-            return jniIsLeftEyePresent();
-        } catch (Throwable e) {
-            reportErrorIfNotReported(e);
-            return false;
-        }
+        return getValueFromNativeFunction(Tobii::jniIsLeftEyePresent, false);
     }
 
     public static boolean isRightEyePresent() {
+        return getValueFromNativeFunction(Tobii::jniIsRightEyePresent, false);
+    }
+
+    private static <T> T getValueFromNativeFunction(Callable<T> nativeFunction, T defaultValue) {
         try {
             loadIfNotLoaded();
-            return jniIsRightEyePresent();
-        } catch (Throwable e) {
+            return nativeFunction.call();
+        } catch(Throwable e) {
             reportErrorIfNotReported(e);
-            return false;
+            return defaultValue;
         }
     }
 
     private static void loadIfNotLoaded() throws Exception {
-        if (loaded) return;
+        if(loaded) return;
         loaded = true;
         loadNeededLibraries();
         int code = jniInit();
@@ -79,11 +65,11 @@ public class Tobii {
     private static String getDataDirectoryPath() {
         String appDataDirectoryPath = "";
 
-        if (isWindows()) {
+        if(isWindows()) {
             appDataDirectoryPath = System.getenv("LocalAppData");
-        } else if (isUnix()) {
+        } else if(isUnix()) {
             appDataDirectoryPath = System.getProperty("user.home");
-        } else if (isMac()) {
+        } else if(isMac()) {
             //TODO test following commented lines on Mac
             /*appDataDirectoryPath = System.getProperty("user.home");
             appDataDirectoryPath += "/Library/Application Support";*/
@@ -94,19 +80,19 @@ public class Tobii {
     }
 
     private static void loadTobiiLibraries(String dataDirectoryPath) throws Exception {
-        if (isWindows()) {
+        if(isWindows()) {
             copyResourceIntoDir("/lib/tobii/x64/tobii_stream_engine.dll", dataDirectoryPath);
             copyResourceIntoDir("/lib/tobii/x64/tobii_jni_stream_engine.dll", dataDirectoryPath);
 
             loadLibrary(dataDirectoryPath, "/lib/tobii/x64/tobii_stream_engine.dll");
             loadLibrary(dataDirectoryPath, "/lib/tobii/x64/tobii_jni_stream_engine.dll");
-        } else if (isUnix()) {
+        } else if(isUnix()) {
             copyResourceIntoDir("/lib/tobii/x64/libtobii_stream_engine.so", dataDirectoryPath);
             copyResourceIntoDir("/lib/tobii/x64/libtobii_jni_stream_engine.so", dataDirectoryPath);
 
             loadLibrary(dataDirectoryPath, "/lib/tobii/x64/libtobii_stream_engine.so");
             loadLibrary(dataDirectoryPath, "/lib/tobii/x64/libtobii_jni_stream_engine.so");
-        } else if (isMac()) {
+        } else if(isMac()) {
             //TODO Compile and add MacOS libraries here
         }
     }
@@ -139,13 +125,13 @@ public class Tobii {
     }
 
     private static void printIfVerbose(String what) {
-        if (verbose) {
+        if(verbose) {
             System.out.println("Tobii: " + what);
         }
     }
 
     private static void reportErrorIfNotReported(Throwable e) {
-        if (!errorReported) {
+        if(!errorReported) {
             e.printStackTrace();
             errorReported = true;
         }
@@ -153,7 +139,7 @@ public class Tobii {
 
     private static native int jniInit();
 
-    private static native float[] jniGazePosition();
+    private static native float[] jniGetGazePosition();
     private static native float[] jniGetHeadRotation();
 
     private static native boolean jniIsLeftEyePresent();

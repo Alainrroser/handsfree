@@ -5,8 +5,7 @@ import tobii.Tobii;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class
-TobiiTest {
+public class TobiiTest {
     public void start() throws Exception {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = screenSize.width;
@@ -15,23 +14,23 @@ TobiiTest {
         Robot robot = new Robot();
         
         boolean isLeftButtonPressed = false;
+        boolean isRightButtonPressed = false;
         boolean isRightClickTimerRunning = false;
         long startTime = System.currentTimeMillis();
         
         while(true) {
-            float[] position = Tobii.gazePosition();
+            float[] position = Tobii.getGazePosition();
             float xRelative = position[0];
             float yRelative = position[1];
             
             int x = (int) (xRelative * screenWidth);
             int y = (int) (yRelative * screenHeight);
-            
+
             if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
                 robot.mouseMove(x, y);
 
-                if(isLeftButtonPressed) {
-                    isLeftButtonPressed = false;
-                }
+                isLeftButtonPressed = false;
+                isRightButtonPressed = false;
             } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
                 if(!isLeftButtonPressed) {
                     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
@@ -41,9 +40,10 @@ TobiiTest {
                     isRightClickTimerRunning = false;
                 }
             } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
-                if(!isRightClickTimerRunning) {
+                if(!isRightClickTimerRunning && !isRightButtonPressed) {
                     startTime = System.currentTimeMillis();
                     isRightClickTimerRunning = true;
+                    isRightButtonPressed = true;
                 }
             }
 

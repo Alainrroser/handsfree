@@ -2,37 +2,27 @@
 #include "tobii_headers.h"
 #include "tobii_api.h"
 #include "tobii_device.h"
-//#include <iostream>
-//#include <fstream>
 #include <memory>
 
 using namespace std;
 
-namespace
-{
+namespace {
     unique_ptr<TobiiAPI> tobii_api;
-
     unique_ptr<TobiiDevice> tobii_device;
-
-//    ofstream fout("tobii_jni_out.txt");
 }
 
-JNIEXPORT jint JNICALL Java_tobii_Tobii_jniInit(JNIEnv*, jclass)
-{
-    try
-    {
+JNIEXPORT jint JNICALL Java_tobii_Tobii_jniInit(JNIEnv*, jclass) {
+    try {
         tobii_api = make_unique<TobiiAPI>();
         tobii_device = make_unique<TobiiDevice>(*tobii_api);
-    }
-    catch (int error_code)
-    {
+    } catch(int error_code) {
         return error_code;
     }
+
     return 0;
 }
 
-JNIEXPORT jfloatArray JNICALL Java_tobii_Tobii_jniGazePosition(JNIEnv* env, jclass)
-{
+JNIEXPORT jfloatArray JNICALL Java_tobii_Tobii_jniGetGazePosition(JNIEnv* env, jclass) {
     jfloatArray return_jfloat_array = env->NewFloatArray(2);
     jfloat return_jfloat_array_elements[2];
     return_jfloat_array_elements[0] = tobii_device->get_latest_gaze_point()[0];
@@ -41,8 +31,7 @@ JNIEXPORT jfloatArray JNICALL Java_tobii_Tobii_jniGazePosition(JNIEnv* env, jcla
     return return_jfloat_array;
 }
 
-JNIEXPORT jfloatArray JNICALL Java_tobii_Tobii_jniGetHeadRotation(JNIEnv* env, jclass)
-{
+JNIEXPORT jfloatArray JNICALL Java_tobii_Tobii_jniGetHeadRotation(JNIEnv* env, jclass) {
     jfloatArray return_jfloat_array = env->NewFloatArray(3);
     jfloat return_jfloat_array_elements[3];
     return_jfloat_array_elements[0] = tobii_device->get_head_rotation()[0];
@@ -52,13 +41,11 @@ JNIEXPORT jfloatArray JNICALL Java_tobii_Tobii_jniGetHeadRotation(JNIEnv* env, j
     return return_jfloat_array;
 }
 
-JNIEXPORT jboolean JNICALL Java_tobii_Tobii_jniIsLeftEyePresent(JNIEnv*, jclass)
-{
+JNIEXPORT jboolean JNICALL Java_tobii_Tobii_jniIsLeftEyePresent(JNIEnv*, jclass) {
 	return tobii_device->is_left_eye_present() ? JNI_TRUE : JNI_FALSE;
 }
 
-JNIEXPORT jboolean JNICALL Java_tobii_Tobii_jniIsRightEyePresent(JNIEnv*, jclass)
-{
+JNIEXPORT jboolean JNICALL Java_tobii_Tobii_jniIsRightEyePresent(JNIEnv*, jclass) {
 	return tobii_device->is_right_eye_present() ? JNI_TRUE : JNI_FALSE;
 }
 

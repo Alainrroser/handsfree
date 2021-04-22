@@ -2,7 +2,7 @@
 
 grammar dialog;
 
-public <scroll> = (
+public <commands> = (
     press |
     release |
     left |

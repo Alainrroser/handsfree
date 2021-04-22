@@ -7,12 +7,10 @@ struct tobii_device_t;
 
 class TobiiDevice : public NonCopyable
 {
-    public :
 
+    public:
         TobiiDevice(TobiiAPI& api);
-
         ~TobiiDevice();
-
         tobii_device_t* get_device();
 
         float* get_latest_gaze_point();
@@ -20,8 +18,7 @@ class TobiiDevice : public NonCopyable
 		bool is_left_eye_present();
 		bool is_right_eye_present();
 
-    private :
-
+    private:
         tobii_device_t* device;
 
 };
