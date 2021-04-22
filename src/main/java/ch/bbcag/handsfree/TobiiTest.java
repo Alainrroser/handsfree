@@ -5,7 +5,8 @@ import tobii.Tobii;
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class TobiiTest {
+public class
+TobiiTest {
     public void start() throws Exception {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = screenSize.width;
@@ -13,10 +14,9 @@ public class TobiiTest {
         
         Robot robot = new Robot();
         
-        boolean pressed = false;
-        int timesBlinked = 0;
-        long startTime = 0;
-        long endTime;
+        boolean isLeftButtonPressed = false;
+        boolean isRightClickTimerRunning = false;
+        long startTime = System.currentTimeMillis();
         
         while(true) {
             float[] position = Tobii.gazePosition();
@@ -27,28 +27,28 @@ public class TobiiTest {
             int y = (int) (yRelative * screenHeight);
             
             if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
-                endTime = System.currentTimeMillis();
                 robot.mouseMove(x, y);
-                if(pressed) {
-                    pressed = false;
-                    timesBlinked++;
-                }
-                if(endTime - startTime >= 1000) {
-                    if(timesBlinked == 1) {
-                        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-                        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-                    }
-                    if(timesBlinked == 2) {
-                        robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-                        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-                    }
-                    timesBlinked = 0;
+                if(isLeftButtonPressed) {
+                    isLeftButtonPressed = false;
                 }
             } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
-                if(timesBlinked == 0) {
-                    startTime = System.currentTimeMillis();
+                isRightClickTimerRunning = false;
+                if(!isLeftButtonPressed) {
+                    robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                    robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                    System.out.println("Left Click");
+                    isLeftButtonPressed = true;
                 }
-                pressed = true;
+            } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
+                startTime = System.currentTimeMillis();
+                isRightClickTimerRunning = true;
+            }
+            
+            if(isRightClickTimerRunning && System.currentTimeMillis() - startTime >= 300) {
+                robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+                robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+                System.out.println("Right Click");
+                isRightClickTimerRunning = false;
             }
         }
     }
