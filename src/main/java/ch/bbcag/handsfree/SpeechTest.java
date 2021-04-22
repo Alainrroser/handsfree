@@ -7,6 +7,7 @@ import edu.cmu.sphinx.api.SpeechResult;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,8 +32,6 @@ public class SpeechTest {
 
             LiveSpeechRecognizer recognizer = new LiveSpeechRecognizer(configuration);
             recognizer.startRecognition(true);
-
-            System.out.println("i'm listening");
 
             startListening(recognizer);
         } catch (Exception e) {
@@ -63,6 +62,8 @@ public class SpeechTest {
 
         new Thread(() -> {
             boolean running = true;
+
+            System.out.println("i'm listening");
 
             while(running) {
                 SpeechResult result = recognizer.getResult();

@@ -24,8 +24,10 @@ namespace
 
     void gaze_callback(const tobii_gaze_point_t* gaze_point, void*)
     {
-        latest_gaze_point[0] = gaze_point->position_xy[0];
-        latest_gaze_point[1] = gaze_point->position_xy[1];
+        if(gaze_point->validity == TOBII_VALIDITY_VALID) {
+            latest_gaze_point[0] = gaze_point->position_xy[0];
+            latest_gaze_point[1] = gaze_point->position_xy[1];
+        }
     }
 	
 	void eye_position_normalized_callback(tobii_eye_position_normalized_t const* eye_position, void* user_data)
