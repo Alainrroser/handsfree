@@ -32,6 +32,16 @@ public class Tobii {
         return gazePosition()[1];
     }
 
+    public static float[] getHeadRotation() {
+        try {
+            loadIfNotLoaded();
+            return jniGetHeadRotation();
+        } catch (Throwable e) {
+            reportErrorIfNotReported(e);
+            return new float[]{0.0f, 0.0f, 0.0f};
+        }
+    }
+
     public static boolean isLeftEyePresent() {
         try {
             loadIfNotLoaded();
@@ -144,6 +154,7 @@ public class Tobii {
     private static native int jniInit();
 
     private static native float[] jniGazePosition();
+    private static native float[] jniGetHeadRotation();
 
     private static native boolean jniIsLeftEyePresent();
     private static native boolean jniIsRightEyePresent();

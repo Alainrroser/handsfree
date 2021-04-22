@@ -94,7 +94,7 @@ public class SpeechTest {
                     } else if(text.equals("new tab")) {
                         hotkeyCtrl(robot, KeyEvent.VK_T);
                     } else if(text.equals("close tab")) {
-                        hotkeyCtrl(robot, KeyEvent.VK_Q);
+                        hotkeyCtrl(robot, KeyEvent.VK_W);
                     } else if(text.equals("exit")) {
                         running = false;
                     }
@@ -106,6 +106,6 @@ public class SpeechTest {
             System.out.println("exiting...");
             recognizer.stopRecognition();
             System.exit(0);
-        }).run();
+        }).start();
     }
 }

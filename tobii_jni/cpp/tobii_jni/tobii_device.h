@@ -16,6 +16,7 @@ class TobiiDevice : public NonCopyable
         tobii_device_t* get_device();
 
         float* get_latest_gaze_point();
+        float* get_head_rotation();
 		bool is_left_eye_present();
 		bool is_right_eye_present();
 
