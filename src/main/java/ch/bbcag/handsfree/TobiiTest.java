@@ -15,7 +15,7 @@ public class TobiiTest {
         Robot robot = new Robot();
         
         boolean pressed = false;
-        long startTime = 0;
+        long startTime = System.currentTimeMillis();
         long endTime = 0;
         
         while(true) {
@@ -33,19 +33,20 @@ public class TobiiTest {
                 if(pressed) {
                     pressed = false;
                 }
-//                if((endTime - startTime) >= 1000) {
-//                    robot.mousePress(InputEvent.BUTTON2_DOWN_MASK);
-//                    robot.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
-//                    pressed = true;
-//                }
+                if((endTime - startTime) >= 1000) {
+                    robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+                    robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+                    pressed = true;
+                }
             } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
                 startTime = System.currentTimeMillis();
-                if(!pressed) {
+                if(!pressed && ((endTime - startTime) <= 1000)) {
                     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                     robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                     pressed = true;
                 }
             }
+            Thread.sleep(10);
         }
     }
     
