@@ -1,9 +1,8 @@
 # Technische Dokumentation
-
 * Entwicklungsumgebung
     * Setup
     * Code Style
-        * Keine Lücken zwischen Schlüsselwort und Klammmer
+        * Keine Lücken zwischen Schlüsselwort und Klammer
             * if()
         * Öffnende geschweifte Klammern auf selbe Zeile
             * while(true) {  
@@ -13,10 +12,4 @@
     * Genereller Aufbau der Applikation
     * Klassendiagramm
 * Design
-    * Sequenzdiagramme
-
-Optional
-
-* Mockups
-* ERM
-* Weitere technisch relevante Aspekte
+    * Mockups

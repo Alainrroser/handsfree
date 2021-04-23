@@ -1,5 +1,4 @@
 # Benutzerhandbuch
-
-* Allfällige Installationsanleitung für den Endbenutzer
+* Installationsanleitung
 * Funktionsübersicht
 * Beschreibung der wichtigsten Funktionen
