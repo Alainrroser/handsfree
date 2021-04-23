@@ -41,8 +41,7 @@ namespace {
 
 }
 
-TobiiDevice::TobiiDevice(TobiiAPI& api) :
-    device(nullptr)
+TobiiDevice::TobiiDevice(TobiiAPI& api) : device(nullptr)
 {
     int error = tobii_enumerate_local_device_urls(api.get_api(), url_receiver, NULL);
     if(error != TOBII_ERROR_NO_ERROR) {
