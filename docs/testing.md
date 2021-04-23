@@ -1,6 +1,6 @@
 # Testkonzept
 
-Abschnitt | Inhalt           
+Abschnitt | Inhalt
 --- | ---
 ID | ST-?
 Getestete User Story | #?

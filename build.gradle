@@ -16,12 +16,12 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version:'5prealpha-SNAPSHOT'
-    compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version:'5prealpha-SNAPSHOT'
+    compile group: 'edu.cmu.sphinx', name: 'sphinx4-core', version: '5prealpha-SNAPSHOT'
+    compile group: 'edu.cmu.sphinx', name: 'sphinx4-data', version: '5prealpha-SNAPSHOT'
 }
 
 javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.graphics' ]
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.graphics']
     mainClassName = 'ch.bbcag.handsfree.Launcher'
 }
 
