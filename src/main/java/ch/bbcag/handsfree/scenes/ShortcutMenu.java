@@ -13,9 +13,9 @@ import javafx.scene.layout.VBox;
 
 public class ShortcutMenu extends HandsFreeScene {
     public ShortcutMenu(Navigator navigator, HandsFreeApplication application) {
-        super(application.getPrimaryStage(), application.getVBox(), application.getConfiguration());
-        
-        VBox vBox = application.getVBox();
+        super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
+
+        VBox vBox = (VBox) getContentRootPane();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);

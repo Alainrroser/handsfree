@@ -1,35 +1,23 @@
 package ch.bbcag.handsfree.control;
 
-import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
-import java.awt.*;
-import java.util.List;
 
 public class HandsFreeScene {
 
     private Scene scene;
     private Group group;
+    private Pane contentRootPane;
 
     private Stage stage;
 
     public HandsFreeScene(Stage stage, Pane contentRootPane, HandsFreeSceneConfiguration configuration) {
         this.stage = stage;
+        this.contentRootPane = contentRootPane;
 
         group = new Group();
         scene = new Scene(group);
@@ -54,6 +42,10 @@ public class HandsFreeScene {
         bodyPane.setMinSize(contentRootPane.getWidth(), contentRootPane.getHeight());
         bodyPane.getChildren().add(contentRootPane);
         rootNode.getChildren().add(bodyPane);
+    }
+
+    public Pane getContentRootPane() {
+        return contentRootPane;
     }
 
     public void apply() {

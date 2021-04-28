@@ -19,9 +19,9 @@ public class MainMenu extends HandsFreeScene {
     private String autorunState = "ON";
     
     public MainMenu(Navigator navigator, HandsFreeApplication application) {
-        super(application.getPrimaryStage(), application.getVBox(), application.getConfiguration());
+        super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
     
-        VBox vBox = application.getVBox();
+        VBox vBox = (VBox) getContentRootPane();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);

@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control;
 
+import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.control.button.HandsFreeIconButton;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,6 +12,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.awt.*;
 
@@ -48,9 +50,10 @@ public class HandsFreeStageDecoration extends BorderPane {
         }
 
         HandsFreeIconButton buttonClose = new HandsFreeIconButton("/images/close.png");
-        buttonClose.setOnAction(event -> stage.close());
+        buttonClose.setOnAction(event -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
         buttonClose.setPrefWidth(BUTTON_WIDTH);
         buttonClose.setMaxHeight(Double.MAX_VALUE);
+        buttonClose.setPalette(HandsFreeButtonPalette.CLOSE_PALETTE);
         rightBox.getChildren().add(buttonClose);
 
         ImageView iconView = new ImageView(new Image(HandsFreeScene.class.getResourceAsStream("/images/icon64.png")));

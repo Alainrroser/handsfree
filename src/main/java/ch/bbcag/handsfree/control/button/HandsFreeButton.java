@@ -8,28 +8,54 @@ import javafx.scene.paint.Paint;
 
 public class HandsFreeButton extends Button {
 
-    private int borderRadius = 0;
+    private HandsFreeButtonPalette palette = HandsFreeButtonPalette.DEFAULT_PALETTE;
+    private boolean borderEnabled = false;
+
+    private static final int BORDER_RADIUS = 5;
+    private static final int BORDER_WIDTH = 2;
 
     public HandsFreeButton() {
         updateBackground(Colors.BUTTON);
-
-        setOnMouseEntered(event -> updateBackground(Colors.BUTTON_HOVERED));
-        setOnMouseExited(event -> updateBackground(Colors.BUTTON));
-        setOnMousePressed(event -> updateBackground(Colors.BUTTON_PRESSED));
-        setOnMouseReleased(event -> updateBackground(Colors.BUTTON));
+        configureColorPalette();
     }
 
-    public void addBorder(int width, Paint paint, int radius) {
-        BorderStrokeStyle strokeStyle = BorderStrokeStyle.SOLID;
-        CornerRadii radii = new CornerRadii(radius);
-        BorderWidths widths = new BorderWidths(width);
-        BorderStroke stroke = new BorderStroke(paint, strokeStyle, radii, widths);
+    public void setPalette(HandsFreeButtonPalette palette) {
+        this.palette = palette;
+        configureColorPalette();
+    }
 
-        Border border = new Border(stroke);
-        setBorder(border);
+    public HandsFreeButtonPalette getPalette() {
+        return palette;
+    }
 
-        this.borderRadius = radius;
+    public void addBorder() {
+        borderEnabled = true;
+        updateBorder();
         updateBackground();
+    }
+
+    private void configureColorPalette() {
+        setOnMouseEntered(event -> updateBackground(palette.getHoverColor()));
+        setOnMouseExited(event -> updateBackground(palette.getDefaultColor()));
+        setOnMousePressed(event -> updateBackground(palette.getPressColor()));
+        setOnMouseReleased(event -> updateBackground(palette.getDefaultColor()));
+
+        updateBorder();
+        updateBackground(palette.getDefaultColor());
+    }
+
+    private void updateBorder() {
+        if(borderEnabled) {
+            BorderStrokeStyle strokeStyle = BorderStrokeStyle.SOLID;
+            CornerRadii radii = new CornerRadii(BORDER_RADIUS);
+            BorderWidths widths = new BorderWidths(BORDER_WIDTH);
+            BorderStroke stroke = new BorderStroke(palette.getBorderColor(), strokeStyle, radii, widths);
+
+            Border border = new Border(stroke);
+            setBorder(border);
+        } else {
+            setBorder(null);
+        }
     }
 
     private void updateBackground() {
@@ -37,7 +63,8 @@ public class HandsFreeButton extends Button {
     }
 
     private void updateBackground(Paint paint) {
-        BackgroundFill fill = new BackgroundFill(paint, new CornerRadii(borderRadius), Insets.EMPTY);
+        int backgroundRadius = borderEnabled ? BORDER_RADIUS : 0;
+        BackgroundFill fill = new BackgroundFill(paint, new CornerRadii(backgroundRadius), Insets.EMPTY);
         Background background = new Background(fill);
         setBackground(background);
     }
