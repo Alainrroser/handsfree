@@ -24,7 +24,7 @@ public class HandsFreeStageDecoration extends BorderPane {
     private double dragClickXRelativeToStage;
     private double dragClickYRelativeToStage;
 
-    public HandsFreeStageDecoration(Stage stage, String titleText) {
+    public HandsFreeStageDecoration(Stage stage, HandsFreeSceneConfiguration configuration) {
         this.stage = stage;
 
         setPrefHeight(HEIGHT);
@@ -39,11 +39,13 @@ public class HandsFreeStageDecoration extends BorderPane {
         rightBox.setAlignment(Pos.CENTER_RIGHT);
         setRight(rightBox);
 
-        HandsFreeIconButton buttonMinimize = new HandsFreeIconButton("/images/minimize.png");
-        buttonMinimize.setOnAction(event -> stage.setIconified(true));
-        buttonMinimize.setPrefWidth(BUTTON_WIDTH);
-        buttonMinimize.setMaxHeight(Double.MAX_VALUE);
-        rightBox.getChildren().add(buttonMinimize);
+        if(configuration.isHasMinimizeButton()) {
+            HandsFreeIconButton buttonMinimize = new HandsFreeIconButton("/images/minimize.png");
+            buttonMinimize.setOnAction(event -> stage.setIconified(true));
+            buttonMinimize.setPrefWidth(BUTTON_WIDTH);
+            buttonMinimize.setMaxHeight(Double.MAX_VALUE);
+            rightBox.getChildren().add(buttonMinimize);
+        }
 
         HandsFreeIconButton buttonClose = new HandsFreeIconButton("/images/close.png");
         buttonClose.setOnAction(event -> stage.close());
@@ -56,7 +58,7 @@ public class HandsFreeStageDecoration extends BorderPane {
         iconView.setFitHeight(ICON_SIZE);
         leftBox.getChildren().add(iconView);
 
-        Label title = new Label(titleText);
+        Label title = new Label(configuration.getTitle());
         title.setFont(HandsFreeFont.getFont(20));
         title.setTextFill(Colors.FONT);
         leftBox.getChildren().add(title);

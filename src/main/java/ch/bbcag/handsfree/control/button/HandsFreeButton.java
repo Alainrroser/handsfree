@@ -27,10 +27,8 @@ public class HandsFreeButton extends Button {
 
         Border border = new Border(stroke);
         setBorder(border);
-    }
 
-    public void setBorderRadius(int borderRadius) {
-        this.borderRadius = borderRadius;
+        this.borderRadius = radius;
         updateBackground();
     }
 

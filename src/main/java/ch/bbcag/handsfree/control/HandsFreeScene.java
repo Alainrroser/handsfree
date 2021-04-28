@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
@@ -27,16 +28,25 @@ public class HandsFreeScene {
 
     private Stage stage;
 
-    public HandsFreeScene(Stage stage, Pane contentRootPane, String title) {
+    public HandsFreeScene(Stage stage, Pane contentRootPane, HandsFreeSceneConfiguration configuration) {
         this.stage = stage;
 
         group = new Group();
         scene = new Scene(group);
 
         VBox rootNode = new VBox();
+
+        Paint borderColor = Colors.STAGE_BORDER;
+        BorderStrokeStyle borderStrokeStyle = BorderStrokeStyle.SOLID;
+        CornerRadii cornerRadii = CornerRadii.EMPTY;
+        BorderWidths borderWidths = new BorderWidths(1);
+        BorderStroke borderStroke = new BorderStroke(borderColor, borderStrokeStyle, cornerRadii, borderWidths);
+        Border border = new Border(borderStroke);
+        rootNode.setBorder(border);
+
         group.getChildren().add(rootNode);
 
-        HandsFreeStageDecoration decoration = new HandsFreeStageDecoration(stage, title);
+        HandsFreeStageDecoration decoration = new HandsFreeStageDecoration(stage, configuration);
         rootNode.getChildren().add(decoration);
 
         Pane bodyPane = new Pane();

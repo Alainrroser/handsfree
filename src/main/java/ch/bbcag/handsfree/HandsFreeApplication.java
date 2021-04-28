@@ -1,7 +1,10 @@
 package ch.bbcag.handsfree;
 
+import ch.bbcag.handsfree.control.HandsFreeDialog;
+import ch.bbcag.handsfree.control.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.control.HandsFreeScene;
+import com.sun.javafx.charts.ChartLayoutAnimator;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -22,11 +25,14 @@ public class HandsFreeApplication extends Application {
         box.setMinSize(WIDTH, HEIGHT);
 
         HandsFreeDefaultButton aButton = new HandsFreeDefaultButton("Hello");
-        aButton.setOnAction(event -> Platform.runLater(() -> JOptionPane.showMessageDialog(null, "Greetings!")));
+        aButton.setOnAction(event -> new HandsFreeDialog("Dialog"));
         box.getChildren().add(aButton);
 
         box.getChildren().add(new HandsFreeDefaultButton("World"));
-        HandsFreeScene scene = new HandsFreeScene(primaryStage, box, "HandsFree");
+
+        HandsFreeSceneConfiguration configuration = new HandsFreeSceneConfiguration();
+        configuration.setTitle("HandsFree");
+        HandsFreeScene scene = new HandsFreeScene(primaryStage, box, configuration);
 
         scene.apply();
         primaryStage.show();
