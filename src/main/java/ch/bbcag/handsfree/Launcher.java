@@ -1,14 +1,12 @@
 package ch.bbcag.handsfree;
 
-import javafx.application.Application;
-
-import java.nio.file.Files;
+import ch.bbcag.handsfree.eyetracking.EyeTracking;
 
 public class Launcher {
     
     public static void main(String[] args) throws Exception {
 //        new SpeechTest().start();
-        new TobiiTest().start();
+        new EyeTracking().start();
 //        Application.launch(HandsFreeApplication.class);
     }
     

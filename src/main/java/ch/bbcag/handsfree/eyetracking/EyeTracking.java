@@ -1,11 +1,12 @@
-package ch.bbcag.handsfree;
+package ch.bbcag.handsfree.eyetracking;
 
 import tobii.Tobii;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class TobiiTest {
+public class EyeTracking {
+    
     public void start() throws Exception {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int screenWidth = screenSize.width;
@@ -47,7 +48,7 @@ public class TobiiTest {
                 }
             }
             
-            if(isRightClickTimerRunning && System.currentTimeMillis() - startTime >= 150) {
+            if(isRightClickTimerRunning && ((System.currentTimeMillis() - startTime) >= 150)) {
                 if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
                     robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
                     robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
@@ -56,7 +57,7 @@ public class TobiiTest {
                 isRightClickTimerRunning = false;
             }
             
-            Thread.sleep(50);
+            Thread.sleep(20);
         }
     }
 }
