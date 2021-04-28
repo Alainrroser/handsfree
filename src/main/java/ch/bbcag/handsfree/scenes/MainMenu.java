@@ -7,9 +7,13 @@ import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 
+import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 
 public class MainMenu extends HandsFreeScene {
     
@@ -26,9 +30,7 @@ public class MainMenu extends HandsFreeScene {
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
     
-        String titleText = "HandsFree";
-    
-        Label title = new Label(titleText);
+        Label title = new Label("HandsFree");
         title.setFont(HandsFreeFont.getFont(30));
         title.setTextFill(Colors.FONT);
     
@@ -37,7 +39,6 @@ public class MainMenu extends HandsFreeScene {
         String toggleOnScreenKeyboardText = "On-Screen Keyboard: ";
         String toggleAutoRunText = "Autorun: ";
         String openShortCutMenuText = "Shortcuts";
-    
         HandsFreeDefaultButton toggleEyeTracking = new HandsFreeDefaultButton(toggleEyeTrackingText + eyeTrackingState);
         HandsFreeDefaultButton toggleSpeechControl = new HandsFreeDefaultButton(toggleSpeechControlText + speechControlState);
         HandsFreeDefaultButton toggleOnScreenKeyboard = new HandsFreeDefaultButton(toggleOnScreenKeyboardText + onScreenKeyboardState);
@@ -57,14 +58,17 @@ public class MainMenu extends HandsFreeScene {
             toggleOnScreenKeyboard.setText(toggleOnScreenKeyboardText + onScreenKeyboardState);
         });
         toggleAutorun.setOnAction(event -> {
-            autorunState = toggleState(autorunState);
-            toggleAutorun.setText(toggleAutoRunText + autorunState);
+            HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
+            dialog.show();
+            dialog.setOnConfirmed(() -> {
+                autorunState = toggleState(autorunState);
+                toggleAutorun.setText(toggleAutoRunText + autorunState);
+            });
         });
-        openShortCutMenu.setOnAction(event -> {
-            navigator.navigateTo(SceneType.SHORTCUT_MENU);
-        });
+        openShortCutMenu.setOnAction(event -> navigator.navigateTo(SceneType.SHORTCUT_MENU));
         
         vBox.getChildren().addAll(title, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
+        vBox.setAlignment(Pos.CENTER);
     }
     
     private String toggleState(String state) {
