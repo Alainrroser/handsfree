@@ -6,7 +6,6 @@ settings.gradle
 /.idea/
 /tobii_jni/.idea/
 /tobii_jni/cmake-build-x64/
-/tobii_jni/.idea/workspace.xml
 /tobii_jni/cmake-build-debug-visual-studio/
 
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
