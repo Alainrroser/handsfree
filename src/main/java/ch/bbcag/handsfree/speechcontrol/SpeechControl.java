@@ -1,4 +1,4 @@
-package ch.bbcag.handsfree.speechrecognition;
+package ch.bbcag.handsfree.speechcontrol;
 
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SpeechRecognition {
+public class SpeechControl {
 
     public void start() {
         try {

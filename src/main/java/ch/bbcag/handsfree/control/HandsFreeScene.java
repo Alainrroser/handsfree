@@ -58,7 +58,9 @@ public class HandsFreeScene {
 
     public void apply() {
         stage.setScene(scene);
-        stage.initStyle(StageStyle.UNDECORATED);
+        if(!stage.isShowing()) {
+            stage.initStyle(StageStyle.UNDECORATED);
+        }
     }
 
 }

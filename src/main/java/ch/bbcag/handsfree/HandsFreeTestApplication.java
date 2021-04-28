@@ -10,7 +10,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import tobii.Tobii;
 
 import java.awt.*;
@@ -90,8 +89,8 @@ public class HandsFreeTestApplication extends Application {
         primaryStage.setScene(scene);
         
         primaryStage.setTitle("HandsFree");
-        primaryStage.initStyle(StageStyle.UNDECORATED);
-        primaryStage.setFullScreen(true);
+//        primaryStage.initStyle(StageStyle.UNDECORATED);
+//        primaryStage.setFullScreen(true);
         primaryStage.show();
     }
     
