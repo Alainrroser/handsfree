@@ -2,8 +2,6 @@ package ch.bbcag.handsfree.control;
 
 import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.control.button.HandsFreeIconButton;
-import ch.bbcag.handsfree.scenes.Navigator;
-import ch.bbcag.handsfree.scenes.SceneType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

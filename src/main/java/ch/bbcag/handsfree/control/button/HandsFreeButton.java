@@ -3,6 +3,7 @@ package ch.bbcag.handsfree.control.button;
 import ch.bbcag.handsfree.control.Colors;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 
@@ -11,10 +12,15 @@ public class HandsFreeButton extends Button {
     private HandsFreeButtonPalette palette = HandsFreeButtonPalette.DEFAULT_PALETTE;
     private boolean borderEnabled = false;
 
+    private boolean pressed = false;
+    private boolean hovered = false;
+
     private static final int BORDER_RADIUS = 5;
     private static final int BORDER_WIDTH = 2;
 
     public HandsFreeButton() {
+        setFocusTraversable(false);
+
         updateBackground(Colors.BUTTON);
         configureColorPalette();
     }
@@ -35,13 +41,30 @@ public class HandsFreeButton extends Button {
     }
 
     private void configureColorPalette() {
-        setOnMouseEntered(event -> updateBackground(palette.getHoverColor()));
-        setOnMouseExited(event -> updateBackground(palette.getDefaultColor()));
-        setOnMousePressed(event -> updateBackground(palette.getPressColor()));
-        setOnMouseReleased(event -> updateBackground(palette.getDefaultColor()));
+        setOnMouseEntered(event -> {
+            hovered = true;
+            updateBackground();
+        });
+
+        setOnMouseExited(event -> {
+            hovered = false;
+            updateBackground();
+        });
+
+        setOnMousePressed(this::processMousePress);
+
+        setOnMouseReleased(event -> {
+            pressed = false;
+            updateBackground();
+        });
 
         updateBorder();
         updateBackground(palette.getDefaultColor());
+    }
+
+    public void processMousePress(MouseEvent event) {
+        pressed = true;
+        updateBackground();
     }
 
     private void updateBorder() {
@@ -59,7 +82,15 @@ public class HandsFreeButton extends Button {
     }
 
     private void updateBackground() {
-        updateBackground(getBackground().getFills().get(0).getFill());
+        if(pressed) {
+            updateBackground(palette.getPressColor());
+        } else {
+            if(hovered) {
+                updateBackground(palette.getHoverColor());
+            } else {
+                updateBackground(palette.getDefaultColor());
+            }
+        }
     }
 
     private void updateBackground(Paint paint) {

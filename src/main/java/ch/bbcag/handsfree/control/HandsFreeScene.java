@@ -44,6 +44,10 @@ public class HandsFreeScene {
         rootNode.getChildren().add(bodyPane);
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
     public Region getContentRoot() {
         return contentRoot;
     }
