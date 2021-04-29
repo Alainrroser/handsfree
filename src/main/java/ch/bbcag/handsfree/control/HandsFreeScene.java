@@ -11,13 +11,13 @@ public class HandsFreeScene {
 
     private Scene scene;
     private Group group;
-    private Pane contentRootPane;
+    private Region contentRoot;
 
     private Stage stage;
 
-    public HandsFreeScene(Stage stage, Pane contentRootPane, HandsFreeSceneConfiguration configuration) {
+    public HandsFreeScene(Stage stage, Region contentRoot, HandsFreeSceneConfiguration configuration) {
         this.stage = stage;
-        this.contentRootPane = contentRootPane;
+        this.contentRoot = contentRoot;
 
         group = new Group();
         scene = new Scene(group);
@@ -39,13 +39,13 @@ public class HandsFreeScene {
 
         Pane bodyPane = new Pane();
         bodyPane.setBackground(new Background(new BackgroundFill(Colors.BACKGROUND, null, null)));
-        bodyPane.setMinSize(contentRootPane.getWidth(), contentRootPane.getHeight());
-        bodyPane.getChildren().add(contentRootPane);
+        bodyPane.setMinSize(contentRoot.getWidth(), contentRoot.getHeight());
+        bodyPane.getChildren().add(contentRoot);
         rootNode.getChildren().add(bodyPane);
     }
 
-    public Pane getContentRootPane() {
-        return contentRootPane;
+    public Region getContentRoot() {
+        return contentRoot;
     }
 
     public void apply() {

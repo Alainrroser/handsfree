@@ -2,10 +2,7 @@ package ch.bbcag.handsfree.scenes;
 
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
-import ch.bbcag.handsfree.control.Colors;
-import ch.bbcag.handsfree.control.HandsFreeFont;
-import ch.bbcag.handsfree.control.HandsFreeListView;
-import ch.bbcag.handsfree.control.HandsFreeScene;
+import ch.bbcag.handsfree.control.*;
 import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.control.button.HandsFreeIconButton;
@@ -13,20 +10,20 @@ import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class ShortcutMenu extends HandsFreeScene {
     public ShortcutMenu(Navigator navigator, HandsFreeApplication application) {
-        super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
+        super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
 
-		VBox vBox = (VBox) getContentRootPane();
+		VBox vBox = new VBox();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
-        vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
-        vBox.setMaxSize(Const.WIDTH, Const.HEIGHT);
-        
+        vBox.setMaxHeight(Double.MAX_VALUE);
+
         VBox vBoxTop = new VBox();
         HBox hBoxBack = new HBox();
         HBox hBoxTitle = new HBox();
@@ -57,8 +54,12 @@ public class ShortcutMenu extends HandsFreeScene {
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);
         list.getItems().addAll("Open Documents Folder", "Restart Computer", "Open Emails");
+        list.setMinHeight(500);
         vBox.getChildren().addAll(list);
 
-        vBoxRoot.getChildren().addAll(vBoxTop, recordShortcut, deleteShortcut);
+        HandsFreeScrollPane scrollPane = (HandsFreeScrollPane) getContentRoot();
+        scrollPane.setMinSize(Const.WIDTH, Const.HEIGHT);
+        scrollPane.setMaxSize(Const.WIDTH, Const.HEIGHT);
+        scrollPane.setContent(vBox);
     }
 }

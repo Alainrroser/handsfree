@@ -6,16 +6,12 @@ import ch.bbcag.handsfree.control.Colors;
 import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
-
-import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
 import ch.bbcag.handsfree.control.dialog.HandsFreeMessageDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 
 public class MainMenu extends HandsFreeScene {
     
@@ -27,7 +23,7 @@ public class MainMenu extends HandsFreeScene {
     public MainMenu(Navigator navigator, HandsFreeApplication application) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
     
-		VBox vBox = (VBox) getContentRootPane();
+		VBox vBox = (VBox) getContentRoot();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
@@ -72,7 +68,7 @@ public class MainMenu extends HandsFreeScene {
         });
         openShortCutMenu.setOnAction(event -> navigator.navigateTo(SceneType.SHORTCUT_MENU));
         
-        vBoxRoot.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
+        vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
     }
     
     private String toggleState(String state) {
