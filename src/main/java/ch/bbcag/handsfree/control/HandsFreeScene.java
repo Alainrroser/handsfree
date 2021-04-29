@@ -50,9 +50,14 @@ public class HandsFreeScene {
 
     public void apply() {
         stage.setScene(scene);
+
         if(!stage.isShowing()) {
             stage.initStyle(StageStyle.UNDECORATED);
         }
+    }
+
+    public void centerStageOnScreen() {
+        stage.centerOnScreen();
     }
 
 }

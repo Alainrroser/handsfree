@@ -4,21 +4,18 @@ import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.control.Colors;
 import ch.bbcag.handsfree.control.HandsFreeFont;
+import ch.bbcag.handsfree.control.HandsFreeListView;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
-
 import ch.bbcag.handsfree.control.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.TextAlignment;
 
 public class ShortcutMenu extends HandsFreeScene {
     public ShortcutMenu(Navigator navigator, HandsFreeApplication application) {
@@ -28,6 +25,7 @@ public class ShortcutMenu extends HandsFreeScene {
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
+        vBox.setMaxSize(Const.WIDTH, Const.HEIGHT);
         
         HBox hBoxBack = new HBox();
     
@@ -59,5 +57,10 @@ public class ShortcutMenu extends HandsFreeScene {
         });
         
         vBox.getChildren().addAll(hBoxBack, hBoxTitle, recordShortcut, deleteShortcut);
+
+        HandsFreeListView list = new HandsFreeListView();
+        list.setMaxWidth(Double.MAX_VALUE);
+        list.getItems().addAll("Open Documents Folder", "Restart Computer", "Open Emails");
+        vBox.getChildren().addAll(list);
     }
 }

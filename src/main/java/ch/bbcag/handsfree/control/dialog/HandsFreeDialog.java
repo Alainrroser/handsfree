@@ -5,8 +5,13 @@ import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.HandsFreeSceneConfiguration;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class HandsFreeDialog extends Stage {
@@ -19,8 +24,11 @@ public class HandsFreeDialog extends Stage {
         rootNode.setPadding(new Insets(0, 30, 30, 30));
 
         Label textLabel = new Label(text);
-        textLabel.setFont(HandsFreeFont.getFont(20));
+        textLabel.setFont(HandsFreeFont.getFont(25));
         textLabel.setTextFill(Colors.FONT);
+        textLabel.setWrapText(true);
+        textLabel.setPrefWidth(rootNode.getMinWidth() - 60);
+        textLabel.setAlignment(Pos.CENTER);
         rootNode.setCenter(textLabel);
 
         buttonBox = new BorderPane();
@@ -32,6 +40,7 @@ public class HandsFreeDialog extends Stage {
 
         HandsFreeScene scene = new HandsFreeScene(this, rootNode, configuration);
         scene.apply();
+        scene.centerStageOnScreen();
     }
 
     public BorderPane getButtonBox() {

@@ -29,7 +29,8 @@ public class MainMenu extends HandsFreeScene {
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
-    
+        vBox.setMaxSize(Const.WIDTH, Const.HEIGHT);
+
         Label title = new Label("HandsFree");
         title.setFont(HandsFreeFont.getFont(30));
         title.setTextFill(Colors.FONT);
