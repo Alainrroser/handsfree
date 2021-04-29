@@ -8,10 +8,12 @@ import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 
 import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
+import ch.bbcag.handsfree.control.dialog.HandsFreeMessageDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Cell;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextAlignment;
 
@@ -25,14 +27,19 @@ public class MainMenu extends HandsFreeScene {
     public MainMenu(Navigator navigator, HandsFreeApplication application) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
     
-        VBox vBox = (VBox) getContentRootPane();
-        vBox.setSpacing(Const.V_BOX_SPACING);
-        vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
-        vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
+        VBox vBoxRoot = (VBox) getContentRootPane();
+        vBoxRoot.setSpacing(Const.V_BOX_SPACING);
+        vBoxRoot.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
+        vBoxRoot.setMinSize(Const.WIDTH, Const.HEIGHT);
     
+        HBox hBoxTitle = new HBox();
+        
         Label title = new Label("HandsFree");
         title.setFont(HandsFreeFont.getFont(30));
         title.setTextFill(Colors.FONT);
+        
+        hBoxTitle.getChildren().add(title);
+        hBoxTitle.setAlignment(Pos.CENTER);
     
         String toggleEyeTrackingText = "Eye Tracking: ";
         String toggleSpeechControlText = "Speech Control: ";
@@ -44,7 +51,6 @@ public class MainMenu extends HandsFreeScene {
         HandsFreeDefaultButton toggleOnScreenKeyboard = new HandsFreeDefaultButton(toggleOnScreenKeyboardText + onScreenKeyboardState);
         HandsFreeDefaultButton toggleAutorun = new HandsFreeDefaultButton(toggleAutoRunText + autorunState);
         HandsFreeDefaultButton openShortCutMenu = new HandsFreeDefaultButton(openShortCutMenuText);
-    
         toggleEyeTracking.setOnAction(event -> {
             eyeTrackingState = toggleState(eyeTrackingState);
             toggleEyeTracking.setText(toggleEyeTrackingText + eyeTrackingState);
@@ -58,17 +64,15 @@ public class MainMenu extends HandsFreeScene {
             toggleOnScreenKeyboard.setText(toggleOnScreenKeyboardText + onScreenKeyboardState);
         });
         toggleAutorun.setOnAction(event -> {
-            HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
+            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
             dialog.show();
-            dialog.setOnConfirmed(() -> {
-                autorunState = toggleState(autorunState);
-                toggleAutorun.setText(toggleAutoRunText + autorunState);
-            });
+            autorunState = toggleState(autorunState);
+            toggleAutorun.setText(toggleAutoRunText + autorunState);
+            dialog.closeDialog();
         });
         openShortCutMenu.setOnAction(event -> navigator.navigateTo(SceneType.SHORTCUT_MENU));
         
-        vBox.getChildren().addAll(title, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
-        vBox.setAlignment(Pos.CENTER);
+        vBoxRoot.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
     }
     
     private String toggleState(String state) {
