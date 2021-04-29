@@ -20,7 +20,7 @@ public class MainMenu extends HandsFreeScene {
     private String onScreenKeyboardState = "OFF";
     private String autorunState = "ON";
     
-    public MainMenu(Navigator navigator, HandsFreeApplication application) {
+    public MainMenu(HandsFreeApplication application) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
     
 		VBox vBox = (VBox) getContentRoot();
@@ -66,7 +66,7 @@ public class MainMenu extends HandsFreeScene {
             toggleAutorun.setText(toggleAutoRunText + autorunState);
             dialog.closeDialog();
         });
-        openShortCutMenu.setOnAction(event -> navigator.navigateTo(SceneType.SHORTCUT_MENU));
+        openShortCutMenu.setOnAction(event -> application.getNavigator().navigateTo(SceneType.SHORTCUT_MENU));
         
         vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
     }

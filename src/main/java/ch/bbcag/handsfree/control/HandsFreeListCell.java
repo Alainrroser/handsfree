@@ -1,7 +1,5 @@
 package ch.bbcag.handsfree.control;
 
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ListCell;
 import javafx.scene.layout.Background;

@@ -4,11 +4,13 @@ import ch.bbcag.handsfree.control.HandsFreeStageDecoration;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Objects;
+
 public class HandsFreeIconButton extends HandsFreeButton {
     ImageView view;
     
     public HandsFreeIconButton(String iconLocation) {
-        Image icon = new Image(HandsFreeStageDecoration.class.getResourceAsStream(iconLocation));
+        Image icon = new Image(Objects.requireNonNull(HandsFreeStageDecoration.class.getResourceAsStream(iconLocation)));
         this.view = new ImageView(icon);
         setGraphic(view);
     }

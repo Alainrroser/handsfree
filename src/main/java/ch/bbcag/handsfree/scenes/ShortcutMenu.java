@@ -16,7 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 public class ShortcutMenu extends HandsFreeScene {
-    public ShortcutMenu(Navigator navigator, HandsFreeApplication application) {
+    public ShortcutMenu(HandsFreeApplication application) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
 
 		VBox vBox = new VBox();
@@ -31,7 +31,7 @@ public class ShortcutMenu extends HandsFreeScene {
         HandsFreeIconButton back = new HandsFreeIconButton("/images/back.png");
         back.setPalette(new HandsFreeButtonPalette(Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT));
         back.setPrefSize(64, 48);
-        back.setOnAction(event -> navigator.navigateTo(SceneType.MAIN_MENU));
+        back.setOnAction(event -> application.getNavigator().navigateTo(SceneType.MAIN_MENU));
         hBoxBack.getChildren().add(back);
         
         Label title = new Label("Shortcuts");
@@ -49,7 +49,7 @@ public class ShortcutMenu extends HandsFreeScene {
             dialog.show();
         });
         
-		vBox.getChildren().addAll(hBoxBack, hBoxTitle, recordShortcut, deleteShortcut);
+		vBox.getChildren().addAll(vBoxTop, recordShortcut, deleteShortcut);
 
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);

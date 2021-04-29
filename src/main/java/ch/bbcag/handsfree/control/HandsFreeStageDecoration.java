@@ -2,6 +2,8 @@ package ch.bbcag.handsfree.control;
 
 import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.control.button.HandsFreeIconButton;
+import ch.bbcag.handsfree.scenes.Navigator;
+import ch.bbcag.handsfree.scenes.SceneType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -15,6 +17,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.awt.*;
+import java.util.Objects;
 
 public class HandsFreeStageDecoration extends BorderPane {
 
@@ -28,7 +31,7 @@ public class HandsFreeStageDecoration extends BorderPane {
 
     public HandsFreeStageDecoration(Stage stage, HandsFreeSceneConfiguration configuration) {
         this.stage = stage;
-
+        
         setPrefHeight(HEIGHT);
         setBackground(new Background(new BackgroundFill(Colors.BUTTON, null, null)));
 
@@ -40,7 +43,7 @@ public class HandsFreeStageDecoration extends BorderPane {
         HBox rightBox = new HBox();
         rightBox.setAlignment(Pos.CENTER_RIGHT);
         setRight(rightBox);
-
+        
         if(configuration.isHasMinimizeButton()) {
             HandsFreeIconButton buttonMinimize = new HandsFreeIconButton("/images/minimize.png");
             buttonMinimize.setOnAction(event -> stage.setIconified(true));
@@ -56,7 +59,7 @@ public class HandsFreeStageDecoration extends BorderPane {
         buttonClose.setPalette(HandsFreeButtonPalette.CLOSE_PALETTE);
         rightBox.getChildren().add(buttonClose);
 
-        ImageView iconView = new ImageView(new Image(HandsFreeScene.class.getResourceAsStream("/images/icon64.png")));
+        ImageView iconView = new ImageView(new Image(Objects.requireNonNull(HandsFreeScene.class.getResourceAsStream("/images/icon64.png"))));
         iconView.setFitWidth(ICON_SIZE);
         iconView.setFitHeight(ICON_SIZE);
         leftBox.getChildren().add(iconView);
