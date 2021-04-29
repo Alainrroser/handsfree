@@ -21,46 +21,44 @@ public class ShortcutMenu extends HandsFreeScene {
     public ShortcutMenu(Navigator navigator, HandsFreeApplication application) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
 
-        VBox vBox = (VBox) getContentRootPane();
+		VBox vBox = (VBox) getContentRootPane();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
         vBox.setMinSize(Const.WIDTH, Const.HEIGHT);
         vBox.setMaxSize(Const.WIDTH, Const.HEIGHT);
         
+        VBox vBoxTop = new VBox();
         HBox hBoxBack = new HBox();
+        HBox hBoxTitle = new HBox();
     
         HandsFreeIconButton back = new HandsFreeIconButton("/images/back.png");
         back.setPalette(new HandsFreeButtonPalette(Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT));
         back.setPrefSize(64, 48);
-    
-        back.setOnAction(event -> {
-            navigator.navigateTo(SceneType.MAIN_MENU);
-        });
-        
+        back.setOnAction(event -> navigator.navigateTo(SceneType.MAIN_MENU));
         hBoxBack.getChildren().add(back);
-        
-        HBox hBoxTitle = new HBox();
         
         Label title = new Label("Shortcuts");
         title.setFont(HandsFreeFont.getFont(30));
         title.setTextFill(Colors.FONT);
-    
         hBoxTitle.getChildren().add(title);
         hBoxTitle.setAlignment(Pos.CENTER);
         
+        vBoxTop.getChildren().addAll(hBoxBack, hBoxTitle);
+        
         HandsFreeDefaultButton recordShortcut = new HandsFreeDefaultButton("Record Shortcut");
         HandsFreeDefaultButton deleteShortcut = new HandsFreeDefaultButton("Delete Shortcut");
-        
         deleteShortcut.setOnAction(event -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut will be lost forever! (A long time!)");
             dialog.show();
         });
         
-        vBox.getChildren().addAll(hBoxBack, hBoxTitle, recordShortcut, deleteShortcut);
+		vBox.getChildren().addAll(hBoxBack, hBoxTitle, recordShortcut, deleteShortcut);
 
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);
         list.getItems().addAll("Open Documents Folder", "Restart Computer", "Open Emails");
         vBox.getChildren().addAll(list);
+
+        vBoxRoot.getChildren().addAll(vBoxTop, recordShortcut, deleteShortcut);
     }
 }

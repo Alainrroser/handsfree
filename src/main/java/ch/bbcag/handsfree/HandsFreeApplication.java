@@ -1,7 +1,6 @@
 package ch.bbcag.handsfree;
 
 import ch.bbcag.handsfree.control.HandsFreeSceneConfiguration;
-import ch.bbcag.handsfree.control.HandsFreeStageDecoration;
 import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
 import ch.bbcag.handsfree.scenes.MainMenu;
 import ch.bbcag.handsfree.scenes.Navigator;
@@ -10,7 +9,6 @@ import ch.bbcag.handsfree.scenes.SceneType;
 import ch.bbcag.handsfree.scenes.ShortcutMenu;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HandsFreeApplication extends Application {
