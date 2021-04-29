@@ -20,7 +20,7 @@ public class HandsFreeDialog extends Stage {
         rootNode.setPadding(new Insets(0, 30, 30, 30));
 
         Label textLabel = new Label(text);
-        textLabel.setFont(HandsFreeFont.getFont(25));
+        textLabel.setFont(HandsFreeFont.getFont(22));
         textLabel.setTextFill(Colors.FONT);
         textLabel.setWrapText(true);
         textLabel.setPrefWidth(rootNode.getMinWidth() - 60);

@@ -10,7 +10,6 @@ import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -53,8 +52,8 @@ public class ShortcutMenu extends HandsFreeScene {
 
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);
-        list.getItems().addAll("Open Documents Folder", "Restart Computer", "Open Emails");
-        list.setMinHeight(500);
+        list.getItems().addAll("Open Documents Folder", "Restart Computer", "Open Emails", "Something", "Else", "To", "Fill", "The", "Void");
+        list.setMinHeight(600);
         vBox.getChildren().addAll(list);
 
         HandsFreeScrollPane scrollPane = (HandsFreeScrollPane) getContentRoot();
