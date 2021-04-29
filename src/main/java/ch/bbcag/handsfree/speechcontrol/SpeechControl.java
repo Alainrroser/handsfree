@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.speechcontrol;
 
+import ch.bbcag.handsfree.scenes.MainMenu;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
@@ -12,7 +13,7 @@ import java.util.logging.Logger;
 
 public class SpeechControl {
 
-    public void start() {
+    public void start(MainMenu mainMenu) {
         try {
             // Disable Logging
             Logger rootLogger = Logger.getLogger("default.config");
@@ -21,18 +22,18 @@ public class SpeechControl {
             if(configurationFile == null) {
                 System.setProperty("java.util.logging.config.file", "ignoreAllSphinx4LoggingOutput");
             }
-
+    
             Configuration configuration = new Configuration();
             configuration.setAcousticModelPath("resource:/edu/cmu/sphinx/models/en-us/en-us");
             configuration.setDictionaryPath("resource:/edu/cmu/sphinx/models/en-us/cmudict-en-us.dict");
             configuration.setGrammarPath("resource:/grammars");
             configuration.setGrammarName("dialog");
             configuration.setUseGrammar(true);
-
+    
             LiveSpeechRecognizer recognizer = new LiveSpeechRecognizer(configuration);
             recognizer.startRecognition(true);
-
-            startListening(recognizer);
+    
+            startListening(recognizer, mainMenu);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -56,15 +57,15 @@ public class SpeechControl {
         robot.keyRelease(KeyEvent.VK_CONTROL);
     }
 
-    private static void startListening(LiveSpeechRecognizer recognizer) throws Exception {
+    private static void startListening(LiveSpeechRecognizer recognizer, MainMenu mainMenu) throws Exception {
         Robot robot = new Robot();
 
         new Thread(() -> {
             boolean running = true;
 
-            System.out.println("i'm listening");
+            System.out.println("I'm listening");
 
-            while(running) {
+            while(running && mainMenu.isSpeechControlEnabled()) {
                 SpeechResult result = recognizer.getResult();
                 if(result != null) {
                     String text = result.getHypothesis();
@@ -108,7 +109,7 @@ public class SpeechControl {
                 }
             }
 
-            System.out.println("exiting...");
+            System.out.println("Exiting...");
             recognizer.stopRecognition();
             System.exit(0);
         }).start();

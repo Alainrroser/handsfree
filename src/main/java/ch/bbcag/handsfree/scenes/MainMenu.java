@@ -7,6 +7,8 @@ import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.control.dialog.HandsFreeMessageDialog;
+import ch.bbcag.handsfree.eyetracking.EyeTracking;
+import ch.bbcag.handsfree.speechcontrol.SpeechControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -20,9 +22,17 @@ public class MainMenu extends HandsFreeScene {
     private String onScreenKeyboardState = "OFF";
     private String autorunState = "ON";
     
+    private boolean isEyeTrackingEnabled = true;
+    private boolean isSpeechControlEnabled = true;
+    private boolean isOnScreenKeyboardEnabled = false;
+    private boolean isAutoRunEnabled = true;
+    
+    private EyeTracking eyeTracking = new EyeTracking();
+    private SpeechControl speechControl = new SpeechControl();
+    
     public MainMenu(HandsFreeApplication application) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
-    
+        
 		VBox vBox = (VBox) getContentRoot();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
@@ -36,7 +46,7 @@ public class MainMenu extends HandsFreeScene {
         
         hBoxTitle.getChildren().add(title);
         hBoxTitle.setAlignment(Pos.CENTER);
-    
+        
         String toggleEyeTrackingText = "Eye Tracking: ";
         String toggleSpeechControlText = "Speech Control: ";
         String toggleOnScreenKeyboardText = "On-Screen Keyboard: ";
@@ -48,21 +58,31 @@ public class MainMenu extends HandsFreeScene {
         HandsFreeDefaultButton toggleAutorun = new HandsFreeDefaultButton(toggleAutoRunText + autorunState);
         HandsFreeDefaultButton openShortCutMenu = new HandsFreeDefaultButton(openShortCutMenuText);
         toggleEyeTracking.setOnAction(event -> {
-            eyeTrackingState = toggleState(eyeTrackingState);
+            eyeTrackingState = changeText(isEyeTrackingEnabled, eyeTrackingState);
+            isEyeTrackingEnabled = toggleState(isEyeTrackingEnabled);
+            if(isEyeTrackingEnabled) {
+                eyeTracking.start(this);
+            }
             toggleEyeTracking.setText(toggleEyeTrackingText + eyeTrackingState);
         });
         toggleSpeechControl.setOnAction(event -> {
-            speechControlState =  toggleState(speechControlState);
+            speechControlState =  changeText(isSpeechControlEnabled, speechControlState);
+            isSpeechControlEnabled = toggleState(isSpeechControlEnabled);
+            if(isSpeechControlEnabled) {
+                speechControl.start(this);
+            }
             toggleSpeechControl.setText(toggleSpeechControlText + speechControlState);
         });
         toggleOnScreenKeyboard.setOnAction(event -> {
-            onScreenKeyboardState = toggleState(onScreenKeyboardState);
+            onScreenKeyboardState = changeText(isOnScreenKeyboardEnabled, onScreenKeyboardState);
+            isOnScreenKeyboardEnabled = toggleState(isOnScreenKeyboardEnabled);
             toggleOnScreenKeyboard.setText(toggleOnScreenKeyboardText + onScreenKeyboardState);
         });
         toggleAutorun.setOnAction(event -> {
             HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
             dialog.show();
-            autorunState = toggleState(autorunState);
+            autorunState = changeText(isAutoRunEnabled, autorunState);
+            isAutoRunEnabled = toggleState(isAutoRunEnabled);
             toggleAutorun.setText(toggleAutoRunText + autorunState);
             dialog.closeDialog();
         });
@@ -71,17 +91,49 @@ public class MainMenu extends HandsFreeScene {
         vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
     }
     
-    private String toggleState(String state) {
-        switch(state) {
-            case "ON":
-                state = "OFF";
-                break;
-            case "OFF":
-                state = "ON";
-                break;
-            default:
-                break;
+    private String changeText(boolean isEnabled, String state) {
+        if(isEnabled) {
+            state = "OFF";
+        } else {
+            state = "ON";
         }
         return state;
+    }
+    
+    private boolean toggleState(boolean isEnabled) {
+        isEnabled = !isEnabled;
+        return isEnabled;
+    }
+    
+    public boolean isEyeTrackingEnabled() {
+        return isEyeTrackingEnabled;
+    }
+    
+    public void setIsEyeTrackingEnabled(boolean eyeTrackingEnabled) {
+        isEyeTrackingEnabled = eyeTrackingEnabled;
+    }
+    
+    public boolean isSpeechControlEnabled() {
+        return isSpeechControlEnabled;
+    }
+    
+    public void setIsSpeechControlEnabled(boolean speechControlEnabled) {
+        isSpeechControlEnabled = speechControlEnabled;
+    }
+    
+    public boolean isOnScreenKeyboardEnabled() {
+        return isOnScreenKeyboardEnabled;
+    }
+    
+    public void setIsOnScreenKeyboardEnabled(boolean onScreenKeyboardEnabled) {
+        isOnScreenKeyboardEnabled = onScreenKeyboardEnabled;
+    }
+    
+    public boolean isAutoRunEnabled() {
+        return isAutoRunEnabled;
+    }
+    
+    public void setIsAutoRunEnabled(boolean autoRunEnabled) {
+        isAutoRunEnabled = autoRunEnabled;
     }
 }
