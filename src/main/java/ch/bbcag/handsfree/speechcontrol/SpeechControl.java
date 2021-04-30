@@ -13,7 +13,11 @@ import java.util.logging.Logger;
 
 public class SpeechControl {
 
-    public void start(MainMenu mainMenu) {
+    private boolean running = true;
+
+    public void start() {
+        running = true;
+
         try {
             // Disable Logging
             Logger rootLogger = Logger.getLogger("default.config");
@@ -33,10 +37,14 @@ public class SpeechControl {
             LiveSpeechRecognizer recognizer = new LiveSpeechRecognizer(configuration);
             recognizer.startRecognition(true);
     
-            startListening(recognizer, mainMenu);
+            startListening(recognizer);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void stop() {
+        running = false;
     }
 
     private void scroll(Robot robot, int ticks) {
@@ -57,14 +65,14 @@ public class SpeechControl {
         robot.keyRelease(KeyEvent.VK_CONTROL);
     }
 
-    private void startListening(LiveSpeechRecognizer recognizer, MainMenu mainMenu) throws Exception {
+    private void startListening(LiveSpeechRecognizer recognizer) throws Exception {
         Robot robot = new Robot();
 
         new Thread(() -> {
             
             System.out.println("I'm listening");
 
-            while(mainMenu.isSpeechControlEnabled()) {
+            while(running) {
                 SpeechResult result = recognizer.getResult();
                 if(result != null) {
                     String text = result.getHypothesis();

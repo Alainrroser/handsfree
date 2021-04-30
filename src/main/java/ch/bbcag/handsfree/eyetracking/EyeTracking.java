@@ -19,16 +19,21 @@ public class EyeTracking {
     
     private Robot robot;
     
-    private MainMenu mainMenu;
+    private boolean running;
     
-    public void start(MainMenu mainMenu) {
-        this.mainMenu = mainMenu;
-        
+    public void start() {
+        System.out.println("Starting eye tracking...");
+        this.running = true;
+
         try {
             startTracking();
         } catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void stop() {
+        this.running = false;
     }
     
     private void startTracking() throws Exception {
@@ -41,7 +46,7 @@ public class EyeTracking {
     }
     
     private void doTracking() {
-        while(mainMenu.isEyeTrackingEnabled()) {
+        while(running) {
             float[] position = Tobii.getGazePosition();
             float xRelative = position[0];
             float yRelative = position[1];

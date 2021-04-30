@@ -23,24 +23,21 @@ public class HandsFreeApplication extends Application {
     private Stage primaryStage;
     private HandsFreeSceneConfiguration configuration;
     private Navigator navigator = new Navigator();
-    
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        
+
         configuration = new HandsFreeSceneConfiguration();
         String pageTitle = "HandsFree";
         configuration.setTitle(pageTitle);
-    
+
         MainMenu mainMenu = new MainMenu(this);
         ShortcutMenu shortcutMenu = new ShortcutMenu(this);
 
         EyeTracking eyeTracking = new EyeTracking();
         SpeechControl speechControl = new SpeechControl();
-    
-//        eyeTracking.start(mainMenu);
-//        speechControl.start(mainMenu);
-        
+
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
         navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
         navigator.navigateTo(SceneType.MAIN_MENU);
@@ -48,24 +45,23 @@ public class HandsFreeApplication extends Application {
         primaryStage.setOnCloseRequest(event -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
             dialog.setOnConfirmed(() -> {
-                mainMenu.setIsEyeTrackingEnabled(false);
-                mainMenu.setIsSpeechControlEnabled(false);
+                eyeTracking.stop();
                 Platform.exit();
             });
             dialog.show();
-            
+
             event.consume(); // Prevent stage closing
         });
-        
+
         primaryStage.show();
-        
+
         primaryStage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue) {
                 primaryStage.hide();
-                
+
                 Stage floatingStage = new Stage();
                 Group groupRoot = new Group();
-                
+
                 HandsFreeIconButton floatingWidget = new HandsFreeIconButton("/images/icon32.png");
                 floatingWidget.setPrefSize(64, 64);
                 floatingWidget.setOnAction(event -> {
@@ -75,11 +71,11 @@ public class HandsFreeApplication extends Application {
                 });
                 groupRoot.getChildren().add(floatingWidget);
                 Scene scene = new Scene(groupRoot);
-                
+
                 double taskbarHeight = Toolkit.getDefaultToolkit().getScreenSize().height - GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
                 int marginRight = 32;
                 int marginBottom = 24;
-                
+
                 floatingStage.setScene(scene);
                 floatingStage.setTitle("HandsFree");
                 floatingStage.initStyle(StageStyle.UNDECORATED);
@@ -88,17 +84,17 @@ public class HandsFreeApplication extends Application {
                 floatingStage.show();
             }
         });
-        
+
     }
-    
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }
-    
+
     public HandsFreeSceneConfiguration getConfiguration() {
         return configuration;
     }
-    
+
     public Navigator getNavigator() {
         return navigator;
     }

@@ -17,10 +17,8 @@ public class HandsFreeMessageDialog extends HandsFreeDialog {
         buttonOk.setOnAction(event -> close());
         buttonOk.setPadding(new Insets(10, 0, 10, 0));
         buttonOk.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
+        buttonOk.setOnAction(event -> close());
         getButtonBox().setCenter(buttonOk);
     }
-    
-    public void closeDialog() {
-        buttonOk.setOnAction(event -> close());
-    }
+
 }
