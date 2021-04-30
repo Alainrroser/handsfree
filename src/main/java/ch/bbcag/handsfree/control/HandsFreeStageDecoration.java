@@ -14,7 +14,6 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-import java.awt.*;
 import java.util.Objects;
 
 public class HandsFreeStageDecoration extends BorderPane {
@@ -23,13 +22,7 @@ public class HandsFreeStageDecoration extends BorderPane {
     private static final double ICON_SIZE = 30;
     private static final double BUTTON_WIDTH = 70;
 
-    private Stage stage;
-    private double dragClickXRelativeToStage;
-    private double dragClickYRelativeToStage;
-
     public HandsFreeStageDecoration(Stage stage, HandsFreeSceneConfiguration configuration) {
-        this.stage = stage;
-        
         setPrefHeight(HEIGHT);
         setBackground(new Background(new BackgroundFill(Colors.BUTTON, null, null)));
 
@@ -67,41 +60,8 @@ public class HandsFreeStageDecoration extends BorderPane {
         title.setTextFill(Colors.FONT);
         leftBox.getChildren().add(title);
 
-        initDragFunctionality();
-    }
-
-    private void initDragFunctionality() {
-        setOnMousePressed(event -> {
-            dragClickXRelativeToStage = event.getSceneX();
-            dragClickYRelativeToStage = event.getSceneY();
-        });
-
-        setOnMouseDragged(event -> {
-            double stageX = event.getScreenX() - dragClickXRelativeToStage;
-            double stageY = event.getScreenY() - dragClickYRelativeToStage;
-
-            dragStageTo(stageX, stageY);
-        });
-    }
-
-    private void dragStageTo(double x, double y) {
-        // Clamp position to top left border
-        x = Math.max(0, x);
-        y = Math.max(0, y);
-
-        double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-
-        // Clamp position to bottom right border
-        if(x + stage.getWidth() > screenWidth) {
-            x = screenWidth - stage.getWidth();
-        }
-        if(y + stage.getHeight() > screenHeight) {
-            y = screenHeight - stage.getHeight();
-        }
-
-        stage.setX(x);
-        stage.setY(y);
+        WindowDragController dragController = new WindowDragController(stage, this);
+        dragController.enable();
     }
 
 }

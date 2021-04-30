@@ -1,6 +1,7 @@
 package ch.bbcag.handsfree.control.onscreenkeyboard;
 
 import ch.bbcag.handsfree.control.Colors;
+import ch.bbcag.handsfree.control.WindowDragController;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -9,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 // We need this to be a popup so it doesn't steal focus from other windows
@@ -57,6 +59,9 @@ public class HandsFreeOnScreenKeyboard extends Popup {
             }
             nextRow();
         }
+
+        WindowDragController controller = new WindowDragController(this, rootPane);
+        controller.enable();
 
         getContent().add(rootPane);
         setX(screenWidth / 2 - width / 2);
