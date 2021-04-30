@@ -1,13 +1,20 @@
 # Testprotokoll
+Tester: Levi Schnyder  
+Testdatum: 30.04.2021  
+Testzeit: 13:20
+
 ID | Erfolgreich | Bemerkungen
 --- | --- | ---
-ST-01 | ? | ?
-ST-02 | ? | ?
-ST-03 | ? | ?
-ST-04 | ? | ?
-ST-05 | ? | ?
-ST-06 | ? | ?
-ST-07 | ? | ?
-ST-08 | ? | ?
-ST-09 | ? | ?
-ST-10 | ? | ?
+ST-01 | Ja | \-
+ST-02 | Ja | \-
+ST-03 | Ja | \-
+ST-04 | Ja | \-
+ST-05 | Ja | \-
+ST-06 | Ja | \-
+ST-07 | Ja | \-
+ST-08 | Ja | \-
+ST-09 | Ja | \-
+ST-10 | Ja | \-
+ST-11 | ? | ?
+ST-12 | ? | ?
+ST-13 | ? | ?

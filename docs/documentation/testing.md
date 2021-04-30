@@ -11,7 +11,7 @@ Abschnitt | Inhalt
 --- | ---
 ID | ST-02
 Getestete User Story | #2
-Vorbedingungen | \-
+Vorbedingungen | ST-01
 Ablauf | Auf Shortcut klicken, mit der Maus scrollen, mit den Knöpfen scrollen, auf das Zurück-Icon klicken
 Erwartetes Resultat | Es wird alles richtig angezeigt und es kann auf beide Wege gescrollt werden, man kommt zurück zum Haupt-Menu
 
@@ -21,7 +21,7 @@ ID | ST-03
 Getestete User Story | #2
 Vorbedingungen | ST-01
 Ablauf | Auf Autorun klicken, auf Got it! klicken
-Erwartetes Resultat | Autorun wird getoggelt, ein Informations-Fenster erscheint, beim Klick auf Got it! verschwindet diese
+Erwartetes Resultat | Autorun wird getoggelt, ein Informations-Fenster erscheint, beim Klick auf Got it! verschwindet dieses
 
 Abschnitt | Inhalt
 --- | ---
@@ -52,30 +52,54 @@ Abschnitt | Inhalt
 ID | ST-07
 Getestete User Story | #3
 Vorbedingungen | ST-01
-Ablauf | Das Eye Tracking toggeln, Das Eye Tracking erneut toggeln
+Ablauf | Das Eye Tracking toggeln, das Eye Tracking erneut toggeln
 Erwartetes Resultat | Man kann das Eye Tracking an- und wieder ausschalten
 
 Abschnitt | Inhalt
 --- | ---
 ID | ST-08
 Getestete User Story | #1
-Vorbedingungen | ST-01
-Ablauf | Das Eye Tracking toggeln, mit den Augen an Orte schauen
+Vorbedingungen | ST-07
+Ablauf | Das Eye Tracking toggeln, mit den Augen an Orte schauen, das Eye Tracking erneut toggeln
 Erwartetes Resultat | Man kann den Cursor bewegen, indem man an verschiedene Ore schaut
 
 Abschnitt | Inhalt
 --- | ---
 ID | ST-09
 Getestete User Story | #4
-Vorbedingungen | ST-05
-Ablauf | Auf einen mit einem Linksklick anklickbaren Ort schauen, mit beiden Augen blinzeln
+Vorbedingungen | ST-08
+Ablauf | Das Eye Tracking toggeln, auf einen mit einem Linksklick anklickbaren Ort schauen, mit beiden Augen blinzeln, das Eye Tracking erneut toggeln
 Erwartetes Resultat | Es wird ein Linksklick ausgelöst
 
 Abschnitt | Inhalt
 --- | ---
 ID | ST-10
 Getestete User Story | #4
-Vorbedingungen | ST-05
-Ablauf | Auf einen mit einem Rechtsklick anklickbaren Ort schauen, mit dem rechten Auge blinzeln, Eye Tracking toggeln
+Vorbedingungen | ST-08
+Ablauf | Das Eye Tracking toggeln, auf einen mit einem Rechtsklick anklickbaren Ort schauen, mit dem rechten Auge blinzeln, Eye Tracking toggeln
 Erwartetes Resultat | Es wird ein Rechtsklick ausgelöst und das Eye Tracking wird deaktiviert
+
+Abschnitt | Inhalt
+--- | ---
+ID | ST-11
+Getestete User Story | #8
+Vorbedingungen | ST-01
+Ablauf | On-Screen Keyboard toggeln, On-Screen Keyboard erneut toggeln
+Erwartetes Resultat | Das On-Screen Keyboard kann an- und wieder ausgeschaltet werden und wird richtig angezeigt
+
+Abschnitt | Inhalt
+--- | ---
+ID | ST-12
+Getestete User Story | #8
+Vorbedingungen | ST-011
+Ablauf | Auf den Bildschirm klicken, einige Buchstaben und Zahlen anklicken
+Erwartetes Resultat | Die geklickten Tasten werden geschrieben
+
+Abschnitt | Inhalt
+--- | ---
+ID | ST-13
+Getestete User Story | #8
+Vorbedingungen | ST-011
+Ablauf | Shift klicken, auf Buchstaben oder Zahlen klicken, Shift doppelklicken, auf die Zahlenreihe klicken, dasselbe mit den restlichen Spezialtasten
+Erwartetes Resultat | Man kann die Spezialtasten benutzen und somit auch Tastenkombinationen ausführen
 

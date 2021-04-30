@@ -15,20 +15,18 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class MainMenu extends HandsFreeScene {
     
-    private String eyeTrackingState = "ON";
+    private String eyeTrackingState = "OFF";
     private String speechControlState = "OFF";
     private String onScreenKeyboardState = "OFF";
-    private String autorunState = "ON";
+    private String autorunState = "OFF";
     
-    private boolean isEyeTrackingEnabled = true;
+    private boolean isEyeTrackingEnabled = false;
     private boolean isSpeechControlEnabled = false;
     private boolean isOnScreenKeyboardEnabled = false;
-    private boolean isAutoRunEnabled = true;
+    private boolean isAutoRunEnabled = false;
     
     private EyeTracking eyeTracking = new EyeTracking();
     private SpeechControl speechControl = new SpeechControl();

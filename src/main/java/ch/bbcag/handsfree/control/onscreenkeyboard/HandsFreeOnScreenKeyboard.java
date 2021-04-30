@@ -32,7 +32,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
         double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        double width = HandsFreeOnScreenKey.SCALE * 13.5 + 40;
+        double width = HandsFreeOnScreenKey.SCALE * 18 + 40;
         double height = HandsFreeOnScreenKey.SCALE * 6 + 40;
 
         StackPane rootPane = new StackPane();
