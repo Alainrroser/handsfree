@@ -33,15 +33,16 @@ public class HandsFreeApplication extends Application {
         configuration.setTitle(pageTitle);
     
         MainMenu mainMenu = new MainMenu(this);
+        ShortcutMenu shortcutMenu = new ShortcutMenu(this);
     
         EyeTracking eyeTracking = new EyeTracking();
         SpeechControl speechControl = new SpeechControl();
     
         eyeTracking.start(mainMenu);
-        speechControl.start(mainMenu);
+        //speechControl.start(mainMenu);
         
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
-        navigator.registerScene(SceneType.SHORTCUT_MENU, new ShortcutMenu(this));
+        navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
         navigator.navigateTo(SceneType.MAIN_MENU);
 
         primaryStage.setOnCloseRequest(event -> {
@@ -70,7 +71,6 @@ public class HandsFreeApplication extends Application {
                 floatingWidget.setOnAction(event -> {
                     primaryStage.show();
                     primaryStage.setIconified(false);
-                    navigator.navigateTo(SceneType.MAIN_MENU);
                     floatingStage.close();
                 });
                 groupRoot.getChildren().add(floatingWidget);
