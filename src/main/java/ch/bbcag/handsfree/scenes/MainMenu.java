@@ -7,6 +7,7 @@ import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.control.dialog.HandsFreeMessageDialog;
+import ch.bbcag.handsfree.control.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import ch.bbcag.handsfree.eyetracking.EyeTracking;
 import ch.bbcag.handsfree.speechcontrol.SpeechControl;
 import javafx.geometry.Insets;
@@ -14,21 +15,24 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainMenu extends HandsFreeScene {
     
     private String eyeTrackingState = "ON";
-    private String speechControlState = "ON";
+    private String speechControlState = "OFF";
     private String onScreenKeyboardState = "OFF";
     private String autorunState = "ON";
     
     private boolean isEyeTrackingEnabled = true;
-    private boolean isSpeechControlEnabled = true;
+    private boolean isSpeechControlEnabled = false;
     private boolean isOnScreenKeyboardEnabled = false;
     private boolean isAutoRunEnabled = true;
     
     private EyeTracking eyeTracking = new EyeTracking();
     private SpeechControl speechControl = new SpeechControl();
+    private HandsFreeOnScreenKeyboard keyboard = new HandsFreeOnScreenKeyboard();
     
     public MainMenu(HandsFreeApplication application) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
@@ -77,6 +81,12 @@ public class MainMenu extends HandsFreeScene {
             onScreenKeyboardState = changeText(isOnScreenKeyboardEnabled, onScreenKeyboardState);
             isOnScreenKeyboardEnabled = toggleState(isOnScreenKeyboardEnabled);
             toggleOnScreenKeyboard.setText(toggleOnScreenKeyboardText + onScreenKeyboardState);
+
+            if(isOnScreenKeyboardEnabled) {
+                keyboard.display();
+            } else {
+                keyboard.hide();
+            }
         });
         toggleAutorun.setOnAction(event -> {
             HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");

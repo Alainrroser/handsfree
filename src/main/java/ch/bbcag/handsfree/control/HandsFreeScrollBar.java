@@ -46,10 +46,7 @@ public class HandsFreeScrollBar extends VBox {
 
         getChildren().addAll(decrementButton, track, incrementButton);
 
-        thumb.setOnMousePressed(event -> {
-            thumb.processMousePress(event);
-            dragLastMouseY = event.getScreenY();
-        });
+        thumb.setMousePressedHandler(event -> dragLastMouseY = event.getScreenY());
 
         thumb.setOnMouseDragged(event -> {
             double offset = event.getScreenY() - dragLastMouseY;

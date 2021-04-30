@@ -1,6 +1,9 @@
 package ch.bbcag.handsfree.control.button;
 
 import ch.bbcag.handsfree.control.Colors;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -14,6 +17,8 @@ public class HandsFreeButton extends Button {
 
     private boolean pressed = false;
     private boolean hovered = false;
+
+    private EventHandler<MouseEvent> mousePressedHandler;
 
     private static final int BORDER_RADIUS = 5;
     private static final int BORDER_WIDTH = 2;
@@ -51,7 +56,13 @@ public class HandsFreeButton extends Button {
             updateBackground();
         });
 
-        setOnMousePressed(this::processMousePress);
+        setOnMousePressed(event -> {
+            pressed = true;
+            updateBackground();
+            if(mousePressedHandler != null) {
+                mousePressedHandler.handle(event);
+            }
+        });
 
         setOnMouseReleased(event -> {
             pressed = false;
@@ -62,9 +73,8 @@ public class HandsFreeButton extends Button {
         updateBackground(palette.getDefaultColor());
     }
 
-    public void processMousePress(MouseEvent event) {
-        pressed = true;
-        updateBackground();
+    public void setMousePressedHandler(EventHandler<MouseEvent> eventHandler) {
+        this.mousePressedHandler = eventHandler;
     }
 
     private void updateBorder() {

@@ -34,12 +34,12 @@ public class HandsFreeApplication extends Application {
     
         MainMenu mainMenu = new MainMenu(this);
         ShortcutMenu shortcutMenu = new ShortcutMenu(this);
-    
+
         EyeTracking eyeTracking = new EyeTracking();
         SpeechControl speechControl = new SpeechControl();
     
         eyeTracking.start(mainMenu);
-        speechControl.start(mainMenu);
+//        speechControl.start(mainMenu);
         
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
         navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
