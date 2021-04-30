@@ -109,31 +109,31 @@ public class MainMenu extends HandsFreeScene {
         return isEyeTrackingEnabled;
     }
     
-    public void setIsEyeTrackingEnabled(boolean eyeTrackingEnabled) {
-        isEyeTrackingEnabled = eyeTrackingEnabled;
+    public void setIsEyeTrackingEnabled(boolean isEyeTrackingEnabled) {
+        this.isEyeTrackingEnabled = isEyeTrackingEnabled;
     }
     
     public boolean isSpeechControlEnabled() {
         return isSpeechControlEnabled;
     }
     
-    public void setIsSpeechControlEnabled(boolean speechControlEnabled) {
-        isSpeechControlEnabled = speechControlEnabled;
+    public void setIsSpeechControlEnabled(boolean isSpeechControlEnabled) {
+        this.isSpeechControlEnabled = isSpeechControlEnabled;
     }
     
     public boolean isOnScreenKeyboardEnabled() {
         return isOnScreenKeyboardEnabled;
     }
     
-    public void setIsOnScreenKeyboardEnabled(boolean onScreenKeyboardEnabled) {
-        isOnScreenKeyboardEnabled = onScreenKeyboardEnabled;
+    public void setIsOnScreenKeyboardEnabled(boolean isOnScreenKeyboardEnabled) {
+        this.isOnScreenKeyboardEnabled = isOnScreenKeyboardEnabled;
     }
     
     public boolean isAutoRunEnabled() {
         return isAutoRunEnabled;
     }
     
-    public void setIsAutoRunEnabled(boolean autoRunEnabled) {
-        isAutoRunEnabled = autoRunEnabled;
+    public void setIsAutoRunEnabled(boolean isAutoRunEnabled) {
+        this.isAutoRunEnabled = isAutoRunEnabled;
     }
 }

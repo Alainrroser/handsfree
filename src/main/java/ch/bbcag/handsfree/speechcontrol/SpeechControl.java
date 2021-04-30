@@ -39,7 +39,7 @@ public class SpeechControl {
         }
     }
 
-    private static void scroll(Robot robot, int ticks) {
+    private void scroll(Robot robot, int ticks) {
         try {
             for(int i = 0; i < Math.abs(ticks); i++) {
                 robot.mouseWheel((int) Math.signum(ticks));
@@ -50,22 +50,21 @@ public class SpeechControl {
         }
     }
 
-    private static void hotkeyCtrl(Robot robot, int hotkey) {
+    private void hotkeyCtrl(Robot robot, int hotkey) {
         robot.keyPress(KeyEvent.VK_CONTROL);
         robot.keyPress(hotkey);
         robot.keyRelease(hotkey);
         robot.keyRelease(KeyEvent.VK_CONTROL);
     }
 
-    private static void startListening(LiveSpeechRecognizer recognizer, MainMenu mainMenu) throws Exception {
+    private void startListening(LiveSpeechRecognizer recognizer, MainMenu mainMenu) throws Exception {
         Robot robot = new Robot();
 
         new Thread(() -> {
-            boolean running = true;
-
+            
             System.out.println("I'm listening");
 
-            while(running && mainMenu.isSpeechControlEnabled()) {
+            while(mainMenu.isSpeechControlEnabled()) {
                 SpeechResult result = recognizer.getResult();
                 if(result != null) {
                     String text = result.getHypothesis();
@@ -101,8 +100,6 @@ public class SpeechControl {
                         hotkeyCtrl(robot, KeyEvent.VK_T);
                     } else if(text.equals("close tab")) {
                         hotkeyCtrl(robot, KeyEvent.VK_W);
-                    } else if(text.equals("exit")) {
-                        running = false;
                     }
                 } else {
                     System.out.println("I can't understand you");

@@ -39,7 +39,7 @@ public class HandsFreeApplication extends Application {
         SpeechControl speechControl = new SpeechControl();
     
         eyeTracking.start(mainMenu);
-        //speechControl.start(mainMenu);
+        speechControl.start(mainMenu);
         
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
         navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
