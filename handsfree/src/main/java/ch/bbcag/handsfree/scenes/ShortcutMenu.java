@@ -56,8 +56,9 @@ public class ShortcutMenu extends HandsFreeScene {
         for(Shortcut shortcut : shortcutManager.getShortcuts()) {
             list.getItems().add(shortcut.getName());
         }
+        list.setDoubleClickHandler(item -> shortcutManager.runShortcut(item));
         list.setMinHeight(600);
-    
+        
         HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
         recordShortcut.setOnEnabled(() -> shortcutManager.start());
         recordShortcut.setOnDisabled(() -> {

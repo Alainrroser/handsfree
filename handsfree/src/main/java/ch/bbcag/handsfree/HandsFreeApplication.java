@@ -1,5 +1,7 @@
 package ch.bbcag.handsfree;
 
+import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
@@ -21,12 +23,21 @@ public class HandsFreeApplication extends Application {
 
     private Stage primaryStage;
     private HandsFreeSceneConfiguration configuration;
-    private ShortcutManager shortcutManager = new ShortcutManager();
+    private HandsFreeRobot robot;
+    private ShortcutManager shortcutManager;
     private Navigator navigator = new Navigator();
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
+        
+        try {
+            robot = new HandsFreeRobot();
+        } catch(AWTException e) {
+            Error.reportAndExit("Input Control", "The application is not allowed to generate mouse and keyboard input. Please check that your system supports input generation.", e);
+        }
+    
+        shortcutManager = new ShortcutManager(robot);
         
         configuration = new HandsFreeSceneConfiguration();
         configuration.setTitle("HandsFree");
@@ -94,5 +105,9 @@ public class HandsFreeApplication extends Application {
     
     public ShortcutManager getShortcutManager() {
         return shortcutManager;
+    }
+    
+    public HandsFreeRobot getRobot() {
+        return robot;
     }
 }

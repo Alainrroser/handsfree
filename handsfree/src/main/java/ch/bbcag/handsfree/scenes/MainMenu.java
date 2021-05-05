@@ -3,6 +3,8 @@ package ch.bbcag.handsfree.scenes;
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
+import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.HandsFreeScene;
@@ -10,16 +12,11 @@ import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
-import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
-import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import java.awt.*;
 
 public class MainMenu extends HandsFreeScene {
 
@@ -32,22 +29,13 @@ public class MainMenu extends HandsFreeScene {
 
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
-
-        try {
-            init(application);
-            initGUI(application);
-        } catch(AWTException e) {
-            Error.reportAndExit(
-                "Input Control",
-                "The application is not allowed to generate mouse and keyboard input.\n" +
-                "Please check that your system supports input generation.",
-                e
-            );
-        }
+    
+        init(application);
+        initGUI(application);
     }
 
-    private void init(HandsFreeApplication application) throws AWTException {
-        HandsFreeRobot robot = new HandsFreeRobot();
+    private void init(HandsFreeApplication application) {
+        HandsFreeRobot robot = application.getRobot();
         eyeTracker = new EyeTracker(robot, application.getShortcutManager());
         speechControl = new SpeechControl(robot);
         keyboard = new HandsFreeOnScreenKeyboard(robot);

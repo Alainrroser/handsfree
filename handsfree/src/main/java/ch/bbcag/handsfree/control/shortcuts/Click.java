@@ -4,17 +4,17 @@ import java.awt.*;
 
 public class Click {
     
-    private int key;
+    private int button;
     
     private Point position;
     
     public Click(int key, Point position) {
-        this.key = key;
+        this.button = key;
         this.position = position;
     }
     
-    public int getKey() {
-        return key;
+    public int getButton() {
+        return button;
     }
     
     public Point getPosition() {

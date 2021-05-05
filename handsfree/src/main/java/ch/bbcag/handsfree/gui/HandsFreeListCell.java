@@ -7,13 +7,25 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.awt.event.MouseEvent;
+
 public class HandsFreeListCell extends ListCell<String> {
 
-    public HandsFreeListCell() {
+    private HandsFreeListView view;
+    
+    public HandsFreeListCell(HandsFreeListView view) {
+        this.view = view;
+        
         setFont(HandsFreeFont.getFont(25));
         setTextFill(Colors.FONT);
 
         updateBackground();
+        
+        setOnMouseClicked(event -> {
+            if(isSelected() && view.getDoubleClickHandler() != null) {
+                view.getDoubleClickHandler().run(getItem());
+            }
+        });
     }
 
     private void updateBackground() {
@@ -28,5 +40,5 @@ public class HandsFreeListCell extends ListCell<String> {
 
         updateBackground();
     }
-
+    
 }

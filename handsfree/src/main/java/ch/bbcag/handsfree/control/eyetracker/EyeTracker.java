@@ -89,7 +89,7 @@ public class EyeTracker {
         if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
             robot.mouseClick(InputEvent.BUTTON3_DOWN_MASK);
             
-            shortcutManager.addClick(new Click(3, new Point(x, y)));
+            shortcutManager.addClick(new Click(InputEvent.BUTTON3_DOWN_MASK, new Point(x, y)));
         }
     }
     
@@ -97,7 +97,7 @@ public class EyeTracker {
         if(!isLeftButtonPressed) {
             robot.mouseClick(InputEvent.BUTTON1_DOWN_MASK);
             
-            shortcutManager.addClick(new Click(1, new Point(x, y)));
+            shortcutManager.addClick(new Click(InputEvent.BUTTON1_DOWN_MASK, new Point(x, y)));
             
             isLeftButtonPressed = true;
             isRightClickTimerRunning = false;
