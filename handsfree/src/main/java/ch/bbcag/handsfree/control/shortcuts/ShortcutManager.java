@@ -17,7 +17,6 @@ public class ShortcutManager {
     private boolean running;
     private boolean startedBefore = false;
     
-    private List<Click> clicks = new ArrayList<>();
     private List<Shortcut> shortcuts = new ArrayList<>();
     
     public ShortcutManager(HandsFreeRobot robot) {
@@ -29,8 +28,6 @@ public class ShortcutManager {
         startedBefore = true;
         shortcut = new Shortcut();
         shortcuts.add(shortcut);
-        
-        startRecording();
     }
     
     public void stop() {
@@ -48,7 +45,7 @@ public class ShortcutManager {
     
     public void addClick(Click click) {
         if(running) {
-            clicks.add(click);
+            shortcut.getClicks().add(click);
         }
     }
     
@@ -71,8 +68,5 @@ public class ShortcutManager {
             }
         }
     }
-    
-    private void startRecording() {
-        shortcut.setClicks(clicks);
-    }
+
 }
