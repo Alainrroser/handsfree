@@ -21,12 +21,12 @@ public class HandsFreeDialog extends Stage {
     private Label textLabel;
     private BorderPane buttonBox;
 
-    public HandsFreeDialog(String title, String text, int fontSize) {
+    public HandsFreeDialog(String title, String text) {
         rootNode = new BorderPane();
         rootNode.setPadding(new Insets(0, 30, 30, 30));
 
         textLabel = new Label(text);
-        textLabel.setFont(HandsFreeFont.getFont(fontSize));
+        textLabel.setFont(HandsFreeFont.getFont(22));
         textLabel.setTextFill(Colors.FONT);
         textLabel.setWrapText(true);
         textLabel.setTextAlignment(TextAlignment.CENTER);
@@ -48,10 +48,6 @@ public class HandsFreeDialog extends Stage {
         setSize(500, 200);
     }
 
-    public HandsFreeDialog(String title, String text) {
-        this(title, text, 22);
-    }
-
     public void setSize(double width, double height) {
         rootNode.setMinWidth(width);
         rootNode.setMaxWidth(width);
@@ -59,7 +55,7 @@ public class HandsFreeDialog extends Stage {
         rootNode.setMaxHeight(height);
     }
 
-    public BorderPane getButtonBox() {
+    public BorderPane getContentBox() {
         return buttonBox;
     }
 

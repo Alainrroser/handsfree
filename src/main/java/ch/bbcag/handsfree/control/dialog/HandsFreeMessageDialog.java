@@ -9,11 +9,6 @@ public class HandsFreeMessageDialog extends HandsFreeDialog {
 
     private HandsFreeButton buttonOk;
 
-    public HandsFreeMessageDialog(String title, String text, int fontSize) {
-        super(title, text, fontSize);
-        init();
-    }
-
     public HandsFreeMessageDialog(String title, String text) {
         super(title, text);
         init();
@@ -26,7 +21,7 @@ public class HandsFreeMessageDialog extends HandsFreeDialog {
         buttonOk.setPadding(new Insets(10, 0, 10, 0));
         buttonOk.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
         buttonOk.setOnAction(event -> close());
-        getButtonBox().setCenter(buttonOk);
+        getContentBox().setCenter(buttonOk);
     }
 
 }

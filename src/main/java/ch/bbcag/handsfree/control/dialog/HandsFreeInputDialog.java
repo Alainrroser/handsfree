@@ -1,38 +1,48 @@
 package ch.bbcag.handsfree.control.dialog;
 
+import ch.bbcag.handsfree.control.HandsFreeTextField;
 import ch.bbcag.handsfree.control.button.HandsFreeButton;
 import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 import javafx.geometry.Insets;
+import javafx.scene.layout.BorderPane;
 
-public class HandsFreeConfirmDialog extends HandsFreeDialog {
+import java.util.concurrent.Callable;
 
+public class HandsFreeInputDialog extends HandsFreeDialog {
+
+    private HandsFreeTextField inputField;
     private HandsFreeButton buttonOk;
     private HandsFreeButton buttonCancel;
 
-    public HandsFreeConfirmDialog(String title, String text) {
+    public HandsFreeInputDialog(String title, String text) {
         super(title, text);
         init();
     }
 
     private void init() {
-        buttonOk = new HandsFreeDefaultButton("You bet!");
+        inputField = new HandsFreeTextField();
+        inputField.setPadding(new Insets(5));
+        getContentBox().setTop(inputField);
+        BorderPane.setMargin(inputField, new Insets(0, 0, 20, 0));
+
+        buttonOk = new HandsFreeDefaultButton("Ship it!");
         buttonOk.setPrefWidth(200);
         buttonOk.setOnAction(event -> close());
         buttonOk.setPadding(new Insets(10, 0, 10, 0));
         buttonOk.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
         getContentBox().setLeft(buttonOk);
 
-        buttonCancel = new HandsFreeDefaultButton("No way!");
+        buttonCancel = new HandsFreeDefaultButton("Nevermind");
         buttonCancel.setPrefWidth(200);
         buttonCancel.setOnAction(event -> close());
         buttonCancel.setPadding(new Insets(10, 0, 10, 0));
         getContentBox().setRight(buttonCancel);
     }
 
-    public void setOnConfirmed(Runnable runnable) {
+    public void setOnOk(ConfirmedCallback callback) {
         buttonOk.setOnAction(event -> {
-            runnable.run();
+            callback.run(inputField.getText());
             close();
         });
     }
@@ -42,6 +52,10 @@ public class HandsFreeConfirmDialog extends HandsFreeDialog {
             runnable.run();
             close();
         });
+    }
+
+    public interface ConfirmedCallback {
+        void run(String value);
     }
 
 }

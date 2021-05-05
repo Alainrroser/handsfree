@@ -31,4 +31,18 @@ public class Colors {
     public static final Color LIST_CELL = Color.TRANSPARENT;
     public static final Color LIST_CELL_SELECTED = Color.web("7A7A7A");
 
+    public static String colorToCssColor(Color color) {
+        StringBuilder result = new StringBuilder();
+        result.append("rgba(");
+        result.append(color.getRed() * 255);
+        result.append(", ");
+        result.append(color.getGreen() * 255);
+        result.append(", ");
+        result.append(color.getBlue() * 255);
+        result.append(", ");
+        result.append(color.getOpacity());
+        result.append(");");
+        return result.toString();
+    }
+
 }

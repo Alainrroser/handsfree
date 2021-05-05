@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.robot.Robot;
 
 public class HandsFreeOnScreenKey extends StackPane {
 
@@ -41,33 +40,65 @@ public class HandsFreeOnScreenKey extends StackPane {
         button.setMaxHeight(Double.MAX_VALUE);
         getChildren().add(button);
 
+        if(!isOnlyOneLabel()) {
+            createMultipleLabels();
+        } else {
+            createSingleLabel();
+        }
+
+        initEventHandlers();
+    }
+
+    private boolean isOnlyOneLabel() {
         int textCounter = 0;
         for(String displayText : key.getDisplayTexts()) {
             if(!displayText.equals("")) {
                 textCounter++;
             }
         }
-        boolean onlyOneText = textCounter == 1;
 
-        if(!onlyOneText) {
-            GridPane gridPane = new GridPane();
-            gridPane.setMouseTransparent(true);
-            getChildren().add(gridPane);
+        return textCounter == 1;
+    }
 
-            int row = 0;
-            int column = 0;
-            for(String displayText : key.getDisplayTexts()) {
-                gridPane.add(createLabel(displayText, true), column, row);
-                column++;
-                if(column > 1) {
-                    column = 0;
-                    row++;
-                }
+    private void createMultipleLabels() {
+        GridPane gridPane = new GridPane();
+        gridPane.setMouseTransparent(true);
+        getChildren().add(gridPane);
+
+        int row = 0;
+        int column = 0;
+
+        for(String displayText : key.getDisplayTexts()) {
+            Label label = new Label(displayText);
+            label.setFont(HandsFreeFont.getFont(22));
+            label.setTextFill(Colors.FONT);
+            label.setMouseTransparent(true);
+            label.setAlignment(Pos.CENTER);
+            label.setMinWidth(SCALE * key.getWidth() * 0.5);
+            label.setMinHeight(SCALE * key.getHeight() * 0.5);
+            gridPane.add(label, column, row);
+
+            column++;
+            if(column > 1) {
+                column = 0;
+                row++;
             }
-        } else {
-            getChildren().add(createLabel(key.getDisplayTexts()[0], false));
         }
+    }
 
+    private void createSingleLabel() {
+        Label label = new Label(key.getDisplayTexts()[0]);
+        label.setFont(HandsFreeFont.getFont(22));
+        label.setTextFill(Colors.FONT);
+        label.setMouseTransparent(true);
+        label.setPadding(new Insets(5, 0, 0, 10));
+        label.setAlignment(Pos.TOP_LEFT);
+        label.setMinWidth(SCALE * key.getWidth());
+        label.setMinHeight(SCALE * key.getHeight());
+        getChildren().add(label);
+    }
+
+    private void initEventHandlers() {
         button.setMousePressedHandler(event -> {
             if(event.getButton() == MouseButton.SECONDARY) {
                 press(true);
@@ -79,26 +110,6 @@ public class HandsFreeOnScreenKey extends StackPane {
                 }
             }
         });
-    }
-
-    private Label createLabel(String text, boolean center) {
-        Label label = new Label(text);
-        label.setFont(HandsFreeFont.getFont(22));
-        label.setTextFill(Colors.FONT);
-        label.setMouseTransparent(true);
-
-        if(center) {
-            label.setAlignment(Pos.CENTER);
-            label.setMinWidth(SCALE * key.getWidth() * 0.5);
-            label.setMinHeight(SCALE * key.getHeight() * 0.5);
-        } else {
-            label.setPadding(new Insets(5, 0, 0, 10));
-            label.setAlignment(Pos.TOP_LEFT);
-            label.setMinWidth(SCALE * key.getWidth());
-            label.setMinHeight(SCALE * key.getHeight());
-        }
-
-        return label;
     }
 
     public void press(boolean hold) {
@@ -120,7 +131,6 @@ public class HandsFreeOnScreenKey extends StackPane {
     }
 
     public void release() {
-        System.out.println(key.getKeyCode());
         robot.keyReleaseSpecial(key.getKeyCode());
         button.setPalette(HandsFreeButtonPalette.DEFAULT_PALETTE);
         keyPressed = false;
