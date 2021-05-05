@@ -62,7 +62,6 @@ public class ShortcutMenu extends HandsFreeScene {
         HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
         recordShortcut.setOnEnabled(() -> shortcutManager.start());
         recordShortcut.setOnDisabled(() -> {
-            shortcutManager.stop();
             if(shortcutManager.hasBeenStartedBefore()) {
                 HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
                 input.setOnOk(value -> {
@@ -73,6 +72,7 @@ public class ShortcutMenu extends HandsFreeScene {
                 });
                 input.show();
             }
+            shortcutManager.stop();
         });
         recordShortcut.setEnabled(false);
     

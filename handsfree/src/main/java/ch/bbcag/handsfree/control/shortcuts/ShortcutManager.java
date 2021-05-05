@@ -35,6 +35,7 @@ public class ShortcutManager {
         
         if(startedBefore) {
             try {
+                shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
                 ShortcutWriter writer = new ShortcutWriter();
                 writer.write(shortcut, new File("shortcuts/"));
             } catch(IOException e) {
