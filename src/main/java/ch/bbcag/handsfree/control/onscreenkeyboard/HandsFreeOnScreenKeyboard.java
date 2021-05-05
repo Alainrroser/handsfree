@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control.onscreenkeyboard;
 
+import ch.bbcag.handsfree.HandsFreeRobot;
 import ch.bbcag.handsfree.control.Colors;
 import ch.bbcag.handsfree.control.WindowDragController;
 import javafx.geometry.Insets;
@@ -23,7 +24,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
     private Stage stage;
 
-    public HandsFreeOnScreenKeyboard() {
+    public HandsFreeOnScreenKeyboard(HandsFreeRobot robot) {
         stage = new Stage();
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initStyle(StageStyle.UNDECORATED);
@@ -55,7 +56,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
         for(VirtualKeyRow row : layout.getKeyRows()) {
             for(VirtualKey key : row.getKeys()) {
-                addKey(new HandsFreeOnScreenKey(key));
+                addKey(new HandsFreeOnScreenKey(key, robot));
             }
             nextRow();
         }

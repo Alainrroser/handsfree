@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.eyetracking;
 
+import ch.bbcag.handsfree.HandsFreeRobot;
 import ch.bbcag.handsfree.scenes.MainMenu;
 import tobii.Tobii;
 
@@ -17,28 +18,26 @@ public class EyeTracking {
     private boolean isLeftButtonPressed = false;
     private boolean isRightButtonPressed = false;
     
-    private Robot robot;
+    private HandsFreeRobot robot;
     
     private boolean running;
-    
+
+    public EyeTracking(HandsFreeRobot robot) {
+        this.robot = robot;
+    }
+
     public void start() {
         System.out.println("Starting eye tracking...");
         this.running = true;
 
-        try {
-            startTracking();
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
+        startTracking();
     }
 
     public void stop() {
         this.running = false;
     }
     
-    private void startTracking() throws Exception {
-        robot = new Robot();
-        
+    private void startTracking() {
         new Thread(() -> {
             startTime = System.currentTimeMillis();
             doTracking();
@@ -86,16 +85,14 @@ public class EyeTracking {
     
     private void doRightClick() {
         if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
-            robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
-            robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+            robot.mouseClick(InputEvent.BUTTON3_DOWN_MASK);
         }
     }
     
     private void doLeftClick() {
         if(!isLeftButtonPressed) {
-            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-        
+            robot.mouseClick(InputEvent.BUTTON1_DOWN_MASK);
+
             isLeftButtonPressed = true;
             isRightClickTimerRunning = false;
         }

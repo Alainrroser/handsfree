@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control.onscreenkeyboard;
 
+import ch.bbcag.handsfree.HandsFreeRobot;
 import ch.bbcag.handsfree.control.Colors;
 import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.button.HandsFreeButton;
@@ -21,14 +22,8 @@ public class HandsFreeOnScreenKey extends StackPane {
 
     private Robot robot = null;
 
-    public HandsFreeOnScreenKey(VirtualKey key) {
+    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeRobot robot) {
         this.key = key;
-
-        try {
-            robot = new Robot();
-        } catch(Exception e){
-            e.printStackTrace();
-        }
 
         setMinWidth(key.getWidth() * SCALE);
         setMaxWidth(key.getWidth() * SCALE);

@@ -10,9 +10,17 @@ public class HandsFreeConfirmDialog extends HandsFreeDialog {
     private HandsFreeButton buttonOk;
     private HandsFreeButton buttonCancel;
 
+    public HandsFreeConfirmDialog(String title, String text, int fontSize) {
+        super(title, text, fontSize);
+        init();
+    }
+
     public HandsFreeConfirmDialog(String title, String text) {
         super(title, text);
+        init();
+    }
 
+    private void init() {
         buttonOk = new HandsFreeDefaultButton("You bet!");
         buttonOk.setPrefWidth(200);
         buttonOk.setOnAction(event -> close());
@@ -29,6 +37,13 @@ public class HandsFreeConfirmDialog extends HandsFreeDialog {
 
     public void setOnConfirmed(Runnable runnable) {
         buttonOk.setOnAction(event -> {
+            runnable.run();
+            close();
+        });
+    }
+
+    public void setOnCanceled(Runnable runnable) {
+        buttonCancel.setOnAction(event -> {
             runnable.run();
             close();
         });

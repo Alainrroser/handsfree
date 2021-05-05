@@ -35,19 +35,13 @@ public class HandsFreeApplication extends Application {
         MainMenu mainMenu = new MainMenu(this);
         ShortcutMenu shortcutMenu = new ShortcutMenu(this);
 
-        EyeTracking eyeTracking = new EyeTracking();
-        SpeechControl speechControl = new SpeechControl();
-
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
         navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
         navigator.navigateTo(SceneType.MAIN_MENU);
 
         primaryStage.setOnCloseRequest(event -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
-            dialog.setOnConfirmed(() -> {
-                eyeTracking.stop();
-                Platform.exit();
-            });
+            dialog.setOnConfirmed(Platform::exit);
             dialog.show();
 
             event.consume(); // Prevent stage closing

@@ -14,13 +14,13 @@ public class HandsFreeDialog extends Stage {
 
     private BorderPane buttonBox;
 
-    public HandsFreeDialog(String title, String text) {
+    public HandsFreeDialog(String title, String text, int fontSize) {
         BorderPane rootNode = new BorderPane();
         rootNode.setMinSize(500, 200);
         rootNode.setPadding(new Insets(0, 30, 30, 30));
 
         Label textLabel = new Label(text);
-        textLabel.setFont(HandsFreeFont.getFont(22));
+        textLabel.setFont(HandsFreeFont.getFont(fontSize));
         textLabel.setTextFill(Colors.FONT);
         textLabel.setWrapText(true);
         textLabel.setPrefWidth(rootNode.getMinWidth() - 60);
@@ -37,6 +37,11 @@ public class HandsFreeDialog extends Stage {
         HandsFreeScene scene = new HandsFreeScene(this, rootNode, configuration);
         scene.apply();
         scene.centerStageOnScreen();
+        scene.setAlwaysOnTop(true);
+    }
+
+    public HandsFreeDialog(String title, String text) {
+        this(title, text, 22);
     }
 
     public BorderPane getButtonBox() {

@@ -64,4 +64,12 @@ public class HandsFreeScene {
         stage.centerOnScreen();
     }
 
+    public void setAlwaysOnTop(boolean alwaysOnTop) {
+        stage.setAlwaysOnTop(alwaysOnTop);
+    }
+
+    public boolean isAlwaysOnTop() {
+        return stage.isAlwaysOnTop();
+    }
+
 }

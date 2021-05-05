@@ -9,9 +9,17 @@ public class HandsFreeMessageDialog extends HandsFreeDialog {
 
     private HandsFreeButton buttonOk;
 
+    public HandsFreeMessageDialog(String title, String text, int fontSize) {
+        super(title, text, fontSize);
+        init();
+    }
+
     public HandsFreeMessageDialog(String title, String text) {
         super(title, text);
+        init();
+    }
 
+    private void init() {
         buttonOk = new HandsFreeDefaultButton("Got it!");
         buttonOk.setMaxWidth(200);
         buttonOk.setOnAction(event -> close());

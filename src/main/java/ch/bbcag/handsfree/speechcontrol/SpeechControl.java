@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.speechcontrol;
 
+import ch.bbcag.handsfree.HandsFreeRobot;
 import ch.bbcag.handsfree.scenes.MainMenu;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
@@ -14,6 +15,12 @@ import java.util.logging.Logger;
 public class SpeechControl {
 
     private boolean running = true;
+
+    private HandsFreeRobot robot;
+
+    public SpeechControl(HandsFreeRobot robot) {
+        this.robot = robot;
+    }
 
     public void start() {
         running = true;
@@ -47,7 +54,7 @@ public class SpeechControl {
         running = false;
     }
 
-    private void scroll(Robot robot, int ticks) {
+    private void scroll(int ticks) {
         try {
             for(int i = 0; i < Math.abs(ticks); i++) {
                 robot.mouseWheel((int) Math.signum(ticks));
@@ -95,9 +102,9 @@ public class SpeechControl {
                         robot.keyPress(KeyEvent.VK_DOWN);
                         robot.keyRelease(KeyEvent.VK_DOWN);
                     } else if(text.contains("scroll down")) {
-                        scroll(robot, 5);
+                        scroll(5);
                     } else if(text.contains("scroll up")) {
-                        scroll(robot, -5);
+                        scroll(-5);
                     } else if(text.contains("switch open")) {
                         robot.keyPress(KeyEvent.VK_ALT);
                         robot.keyPress(KeyEvent.VK_TAB);
