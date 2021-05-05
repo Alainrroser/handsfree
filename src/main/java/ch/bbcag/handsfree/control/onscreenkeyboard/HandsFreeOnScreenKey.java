@@ -11,16 +11,12 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-import java.awt.*;
-
 public class HandsFreeOnScreenKey extends StackPane {
 
     public static final double SCALE = 90;
 
     private VirtualKey key;
     private boolean keyPressed = false;
-
-    private Robot robot = null;
 
     public HandsFreeOnScreenKey(VirtualKey key, HandsFreeRobot robot) {
         this.key = key;
@@ -62,18 +58,17 @@ public class HandsFreeOnScreenKey extends StackPane {
         } else {
             getChildren().add(createLabel(key.getDisplayTexts()[0], false));
         }
-
         button.setMousePressedHandler(event -> {
             if(!keyPressed) {
-                robot.keyPress(key.getKeyCode());
+                robot.keyPressSpecial(key.getKeyCode());
                 if(!key.isHold()) {
-                    robot.keyRelease(key.getKeyCode());
+                    robot.keyReleaseSpecial(key.getKeyCode());
                 } else {
                     button.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
                     keyPressed = true;
                 }
             } else {
-                robot.keyRelease(key.getKeyCode());
+                robot.keyReleaseSpecial(key.getKeyCode());
                 button.setPalette(HandsFreeButtonPalette.DEFAULT_PALETTE);
                 keyPressed = false;
             }

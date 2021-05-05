@@ -117,12 +117,16 @@ public class VirtualKeyboardLayoutLoader {
 
     private void processValue(String value) {
         if(index == 0) {
-            try {
-                Field field = KeyEvent.class.getDeclaredField(value);
-                currentKey.setKeyCode(field.getInt(KeyEvent.class));
-            } catch(NoSuchFieldException | IllegalAccessException e) {
-                System.out.println("no such field " + value);
-                e.printStackTrace();
+            if(value.startsWith("VK_")) {
+                try {
+                    Field field = KeyEvent.class.getDeclaredField(value);
+                    currentKey.setKeyCode(field.getInt(KeyEvent.class));
+                } catch(NoSuchFieldException | IllegalAccessException e) {
+                    System.out.println("no such field " + value);
+                    e.printStackTrace();
+                }
+            } else {
+                currentKey.setKeyCode(Integer.parseInt(value));
             }
         }  else if(index == 1) {
             currentKey.setHold(Boolean.parseBoolean(value));
