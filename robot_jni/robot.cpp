@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_HandsFreeRobot_jniKeyPress(JNIEnv *, jobject, jshort keyCode) {
+JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_control_HandsFreeRobot_jniKeyPress(JNIEnv *, jobject, jshort keyCode) {
     INPUT inputs[1] = {};
     ZeroMemory(inputs, sizeof(inputs));
     inputs[0].type = INPUT_KEYBOARD;
@@ -12,7 +12,7 @@ JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_HandsFreeRobot_jniKeyPress(JNIEnv
     SendInput(ARRAYSIZE(inputs), inputs, sizeof(INPUT));
 }
 
-JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_HandsFreeRobot_jniKeyRelease(JNIEnv *, jobject, jshort keyCode) {
+JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_control_HandsFreeRobot_jniKeyRelease(JNIEnv *, jobject, jshort keyCode) {
     INPUT inputs[1] = {};
     ZeroMemory(inputs, sizeof(inputs));
     inputs[0].type = INPUT_KEYBOARD;

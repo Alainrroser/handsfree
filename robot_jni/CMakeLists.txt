@@ -11,7 +11,8 @@ include_directories(
 
 add_library(robot_jni SHARED robot.cpp robot.h)
 
-set_target_properties(robot_jni
+set_target_properties(
+    robot_jni
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../src/main/resources/lib/robot
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../handsfree/src/main/resources/lib/robot
 )

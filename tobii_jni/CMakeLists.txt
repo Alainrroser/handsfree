@@ -14,7 +14,8 @@ link_directories(${CMAKE_SOURCE_DIR}/lib/)
 add_library(tobii_jni_stream_engine SHARED tobii_api.cpp tobii_device.cpp tobii_jni.cpp)
 target_link_libraries(tobii_jni_stream_engine tobii_stream_engine)
 
-set_target_properties(tobii_jni_stream_engine
+set_target_properties(
+	tobii_jni_stream_engine
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../src/main/resources/lib/tobii/x64
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../handsfree/src/main/resources/lib/tobii/x64
 )

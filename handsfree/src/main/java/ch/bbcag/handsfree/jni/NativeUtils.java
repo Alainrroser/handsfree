@@ -13,7 +13,11 @@ public class NativeUtils {
         in.read(buffer);
         in.close();
 
-        File temporaryFile = File.createTempFile("robot_jni", ".dll");
+        String resourceName = resource.substring(resource.lastIndexOf("/") + 1);
+        String prefix = resourceName.split("\\.")[0];
+        String suffix = "." + resourceName.split("\\.")[1];
+
+        File temporaryFile = File.createTempFile(prefix, suffix);
         temporaryFile.deleteOnExit();
         if(!temporaryFile.exists()) {
             temporaryFile.getParentFile().mkdirs();
