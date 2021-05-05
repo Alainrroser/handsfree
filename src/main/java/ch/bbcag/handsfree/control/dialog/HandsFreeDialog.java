@@ -7,25 +7,31 @@ import ch.bbcag.handsfree.control.HandsFreeSceneConfiguration;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class HandsFreeDialog extends Stage {
 
+    private BorderPane rootNode;
+    private Label textLabel;
     private BorderPane buttonBox;
 
     public HandsFreeDialog(String title, String text, int fontSize) {
-        BorderPane rootNode = new BorderPane();
-        rootNode.setMinSize(500, 200);
+        rootNode = new BorderPane();
         rootNode.setPadding(new Insets(0, 30, 30, 30));
 
-        Label textLabel = new Label(text);
+        textLabel = new Label(text);
         textLabel.setFont(HandsFreeFont.getFont(fontSize));
         textLabel.setTextFill(Colors.FONT);
         textLabel.setWrapText(true);
-        textLabel.setPrefWidth(rootNode.getMinWidth() - 60);
-        textLabel.setAlignment(Pos.CENTER);
+        textLabel.setTextAlignment(TextAlignment.CENTER);
         rootNode.setCenter(textLabel);
+        BorderPane.setAlignment(textLabel, Pos.CENTER);
 
         buttonBox = new BorderPane();
         rootNode.setBottom(buttonBox);
@@ -38,10 +44,19 @@ public class HandsFreeDialog extends Stage {
         scene.apply();
         scene.centerStageOnScreen();
         scene.setAlwaysOnTop(true);
+
+        setSize(500, 200);
     }
 
     public HandsFreeDialog(String title, String text) {
         this(title, text, 22);
+    }
+
+    public void setSize(double width, double height) {
+        rootNode.setMinWidth(width);
+        rootNode.setMaxWidth(width);
+        rootNode.setMinHeight(height);
+        rootNode.setMaxHeight(height);
     }
 
     public BorderPane getButtonBox() {

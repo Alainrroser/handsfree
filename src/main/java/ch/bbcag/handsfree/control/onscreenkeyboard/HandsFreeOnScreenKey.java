@@ -8,8 +8,10 @@ import ch.bbcag.handsfree.control.button.HandsFreeButtonPalette;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.robot.Robot;
 
 public class HandsFreeOnScreenKey extends StackPane {
 
@@ -17,9 +19,16 @@ public class HandsFreeOnScreenKey extends StackPane {
 
     private VirtualKey key;
     private boolean keyPressed = false;
+    private boolean keyHeld = false;
 
-    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeRobot robot) {
+    private HandsFreeRobot robot;
+    private HandsFreeButton button;
+    private HandsFreeOnScreenKeyboard keyboard;
+
+    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeRobot robot, HandsFreeOnScreenKeyboard keyboard) {
         this.key = key;
+        this.robot = robot;
+        this.keyboard = keyboard;
 
         setMinWidth(key.getWidth() * SCALE);
         setMaxWidth(key.getWidth() * SCALE);
@@ -27,7 +36,7 @@ public class HandsFreeOnScreenKey extends StackPane {
         setMaxHeight(key.getHeight() * SCALE);
         setPadding(new Insets(2));
 
-        HandsFreeButton button = new HandsFreeButton();
+        button = new HandsFreeButton();
         button.setMaxWidth(Double.MAX_VALUE);
         button.setMaxHeight(Double.MAX_VALUE);
         getChildren().add(button);
@@ -58,19 +67,16 @@ public class HandsFreeOnScreenKey extends StackPane {
         } else {
             getChildren().add(createLabel(key.getDisplayTexts()[0], false));
         }
+
         button.setMousePressedHandler(event -> {
-            if(!keyPressed) {
-                robot.keyPressSpecial(key.getKeyCode());
-                if(!key.isHold()) {
-                    robot.keyReleaseSpecial(key.getKeyCode());
-                } else {
-                    button.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
-                    keyPressed = true;
-                }
+            if(event.getButton() == MouseButton.SECONDARY) {
+                press(true);
             } else {
-                robot.keyReleaseSpecial(key.getKeyCode());
-                button.setPalette(HandsFreeButtonPalette.DEFAULT_PALETTE);
-                keyPressed = false;
+                if(!keyPressed) {
+                    press(false);
+                } else {
+                    release();
+                }
             }
         });
     }
@@ -93,6 +99,44 @@ public class HandsFreeOnScreenKey extends StackPane {
         }
 
         return label;
+    }
+
+    public void press(boolean hold) {
+        robot.keyPressSpecial(key.getKeyCode());
+
+        if(!key.isHold()) {
+            robot.keyReleaseSpecial(key.getKeyCode());
+            keyboard.releaseHeldKeys();
+        } else {
+            keyPressed = true;
+            keyHeld = hold;
+
+            if(!hold) {
+                button.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
+            } else {
+                button.setPalette(HandsFreeButtonPalette.ULTRA_PRIMARY_PALETTE);
+            }
+        }
+    }
+
+    public void release() {
+        System.out.println(key.getKeyCode());
+        robot.keyReleaseSpecial(key.getKeyCode());
+        button.setPalette(HandsFreeButtonPalette.DEFAULT_PALETTE);
+        keyPressed = false;
+        keyHeld = false;
+    }
+
+    public VirtualKey getKey() {
+        return key;
+    }
+
+    public boolean isKeyPressed() {
+        return keyPressed;
+    }
+
+    public boolean isKeyHeld() {
+        return keyHeld;
     }
 
 }

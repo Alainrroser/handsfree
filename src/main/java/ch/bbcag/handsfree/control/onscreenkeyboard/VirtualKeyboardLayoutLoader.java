@@ -19,6 +19,10 @@ public class VirtualKeyboardLayoutLoader {
 
     public static VirtualKeyboardLayout loadFromResource(String resource) throws IOException {
         InputStream inputStream = VirtualKeyboardLayoutLoader.class.getResourceAsStream(resource);
+        if(inputStream == null) {
+            throw new IOException("Couldn't load resource: " + resource);
+        }
+
         VirtualKeyboardLayoutLoader loader = new VirtualKeyboardLayoutLoader();
         return loader.load(inputStream);
     }

@@ -8,13 +8,11 @@ import ch.bbcag.handsfree.control.HandsFreeFont;
 import ch.bbcag.handsfree.control.HandsFreeScene;
 import ch.bbcag.handsfree.control.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.control.button.HandsFreeToggleButton;
-import ch.bbcag.handsfree.control.dialog.HandsFreeDialog;
 import ch.bbcag.handsfree.control.dialog.HandsFreeMessageDialog;
 import ch.bbcag.handsfree.control.onscreenkeyboard.HandsFreeOnScreenKeyboard;
+import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.eyetracking.EyeTracking;
 import ch.bbcag.handsfree.speechcontrol.SpeechControl;
-import edu.cmu.sphinx.fst.semiring.ProbabilitySemiring;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -39,16 +37,12 @@ public class MainMenu extends HandsFreeScene {
             init();
             initGUI(application);
         } catch(AWTException e) {
-            e.printStackTrace();
-
-            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog(
-                    "Input control",
-                    "The application is not allowed to generate mouse and keyboard input.\n" +
-                    "Please check that your system supports input generation.",
-                    20
+            Error.reportAndExit(
+                "Input Control",
+                "The application is not allowed to generate mouse and keyboard input.\n" +
+                "Please check that your system supports input generation.",
+                e
             );
-            dialog.show();
-            dialog.setOnHiding(event -> Platform.exit());
         }
     }
 

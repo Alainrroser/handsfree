@@ -3,16 +3,17 @@ package ch.bbcag.handsfree.control.onscreenkeyboard;
 import ch.bbcag.handsfree.HandsFreeRobot;
 import ch.bbcag.handsfree.control.Colors;
 import ch.bbcag.handsfree.control.WindowDragController;
+import ch.bbcag.handsfree.error.Error;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 // We need this to be a popup so it doesn't steal focus from other windows
 // when pressing a button
@@ -23,6 +24,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private Pane pane;
 
     private Stage stage;
+
+    private List<HandsFreeOnScreenKey> keys = new ArrayList<>();
 
     public HandsFreeOnScreenKeyboard(HandsFreeRobot robot) {
         stage = new Stage();
@@ -47,18 +50,21 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         pane.setPadding(new Insets(5));
         rootPane.getChildren().add(pane);
 
-        VirtualKeyboardLayout layout = null;
         try {
-            layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+            VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
 
-        for(VirtualKeyRow row : layout.getKeyRows()) {
-            for(VirtualKey key : row.getKeys()) {
-                addKey(new HandsFreeOnScreenKey(key, robot));
+            for(VirtualKeyRow row : layout.getKeyRows()) {
+                for(VirtualKey key : row.getKeys()) {
+                    addKey(new HandsFreeOnScreenKey(key, robot, this));
+                }
+                nextRow();
             }
-            nextRow();
+        } catch(IOException e) {
+            Error.reportAndExit(
+                "Keyboard Loading Error",
+                "Failed to load keyboard layout.\nTry reinstalling the application.",
+                e
+            );
         }
 
         WindowDragController controller = new WindowDragController(this, rootPane);
@@ -79,12 +85,21 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         key.setLayoutX(nextKeyX);
         key.setLayoutY(nextKeyY);
         pane.getChildren().add(key);
+        keys.add(key);
         nextKeyX += key.getMinWidth();
     }
 
     private void nextRow() {
         nextKeyY += HandsFreeOnScreenKey.SCALE;
         nextKeyX = 0;
+    }
+
+    public void releaseHeldKeys() {
+        for(HandsFreeOnScreenKey key : keys) {
+            if(key.isKeyPressed() && key.getKey().isHold() && !key.isKeyHeld()) {
+                key.release();
+            }
+        }
     }
 
 }

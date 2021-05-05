@@ -18,6 +18,11 @@ public class Colors {
     public static final Color PRIMARY_BUTTON_HOVERED = Color.web("E58054");
     public static final Color PRIMARY_BUTTON_PRESSED = Color.web("FFBFA5");
 
+    public static final Color ULTRA_PRIMARY_BUTTON = Color.web("DB3939");
+    public static final Color ULTRA_PRIMARY_BUTTON_BORDER = Color.web("FFBABA");
+    public static final Color ULTRA_PRIMARY_BUTTON_HOVERED = Color.web("E25A5A");
+    public static final Color ULTRA_PRIMARY_BUTTON_PRESSED = Color.web("EF8686");
+
     public static final Color CLOSE_BUTTON_HOVERED = Color.web("CC2626");
     public static final Color CLOSE_BUTTON_PRESSED = Color.web("E06767");
 

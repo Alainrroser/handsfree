@@ -19,6 +19,13 @@ public class HandsFreeButtonPalette {
             Colors.PRIMARY_BUTTON_BORDER
     );
 
+    public static final HandsFreeButtonPalette ULTRA_PRIMARY_PALETTE = new HandsFreeButtonPalette(
+            Colors.ULTRA_PRIMARY_BUTTON,
+            Colors.ULTRA_PRIMARY_BUTTON_HOVERED,
+            Colors.ULTRA_PRIMARY_BUTTON_PRESSED,
+            Colors.ULTRA_PRIMARY_BUTTON_BORDER
+    );
+
     public static final HandsFreeButtonPalette CLOSE_PALETTE = new HandsFreeButtonPalette(
             Colors.BUTTON,
             Colors.CLOSE_BUTTON_HOVERED,
