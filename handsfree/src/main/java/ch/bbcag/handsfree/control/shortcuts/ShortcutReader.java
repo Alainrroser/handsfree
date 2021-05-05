@@ -36,8 +36,8 @@ public class ShortcutReader {
 
     private void processLine(String line) {
         String[] components = line.split(";");
-        int x = (int) Double.parseDouble(components[0]);
-        int y = (int) Double.parseDouble(components[1]);
+        int x = Integer.parseInt(components[0]);
+        int y = Integer.parseInt(components[1]);
         int button = Integer.parseInt(components[2]);
 
         Click click = new Click(button, new Point(x, y));

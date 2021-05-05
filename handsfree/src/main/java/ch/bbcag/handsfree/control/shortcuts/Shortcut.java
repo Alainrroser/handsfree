@@ -10,13 +10,7 @@ public class Shortcut {
     private List<Click> clicks = new ArrayList<>();
     
     private String name;
-    
-    private HandsFreeRobot robot;
-    
-    public Shortcut(HandsFreeRobot robot) {
-        this.robot = robot;
-    }
-    
+
     public List<Click> getClicks() {
         return clicks;
     }
@@ -33,7 +27,7 @@ public class Shortcut {
         this.name = name;
     }
     
-    public void run() {
+    public void run(HandsFreeRobot robot) {
         for(Click click : clicks) {
             robot.mouseMove((int) click.getPosition().getX(), (int) click.getPosition().getY());
             robot.mouseClick(click.getButton());

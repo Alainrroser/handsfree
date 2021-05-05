@@ -27,7 +27,7 @@ public class ShortcutManager {
     public void start() {
         running = true;
         startedBefore = true;
-        shortcut = new Shortcut(robot);
+        shortcut = new Shortcut();
         shortcuts.add(shortcut);
         
         startRecording();
@@ -37,19 +37,9 @@ public class ShortcutManager {
         this.running = false;
         
         if(startedBefore) {
-            String fileName = shortcut.getName() + ".txt";
-            String path = "shortcuts/" + fileName;
             try {
-                File file = new File(path);
-                file.getParentFile().mkdirs();
-                if(!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter writer = new FileWriter(file);
-                for(Click click : clicks) {
-                    writer.write(click.getPosition().getX() + ";" + click.getPosition().getY() + ";" + click.getButton() + "\n");
-                }
-                writer.close();
+                ShortcutWriter writer = new ShortcutWriter();
+                writer.write(shortcut, new File("shortcuts/"));
             } catch(IOException e) {
                 Error.reportAndExit("Shortcuts", "The file or a directory couldn't have been created", e);
             }
@@ -77,7 +67,7 @@ public class ShortcutManager {
     public void runShortcut(String name) {
         for(Shortcut shortcut : shortcuts) {
             if(shortcut.getName().equals(name)) {
-                shortcut.run();
+                shortcut.run(robot);
             }
         }
     }
