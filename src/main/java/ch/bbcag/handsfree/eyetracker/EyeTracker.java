@@ -1,13 +1,14 @@
-package ch.bbcag.handsfree.eyetracking;
+package ch.bbcag.handsfree.eyetracker;
 
 import ch.bbcag.handsfree.HandsFreeRobot;
-import ch.bbcag.handsfree.scenes.MainMenu;
+import ch.bbcag.handsfree.shortcuts.Click;
+import ch.bbcag.handsfree.shortcuts.ShortcutManager;
 import tobii.Tobii;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
 
-public class EyeTracking {
+public class EyeTracker {
     
     private final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
@@ -19,15 +20,16 @@ public class EyeTracking {
     private boolean isRightButtonPressed = false;
     
     private HandsFreeRobot robot;
+    private ShortcutManager shortcutManager;
     
     private boolean running;
-
-    public EyeTracking(HandsFreeRobot robot) {
+    
+    public EyeTracker(HandsFreeRobot robot, ShortcutManager shortcutManager) {
         this.robot = robot;
+        this.shortcutManager = shortcutManager;
     }
 
     public void start() {
-        System.out.println("Starting eye tracking...");
         this.running = true;
 
         startTracking();
@@ -55,15 +57,15 @@ public class EyeTracking {
         
             if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
                 robot.mouseMove(x, y);
-            
+                
                 isLeftButtonPressed = false;
                 isRightButtonPressed = false;
             } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
-                doLeftClick();
+                doLeftClick(x, y);
             } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
                 startRightClick();
             }
-            stopRightClick();
+            stopRightClick(x, y);
             sleepThread();
         }
     }
@@ -76,23 +78,27 @@ public class EyeTracking {
         }
     }
     
-    private void stopRightClick() {
+    private void stopRightClick(int x, int y) {
         if(isRightClickTimerRunning && ((System.currentTimeMillis() - startTime) >= 150)) {
-            doRightClick();
+            doRightClick(x, y);
             isRightClickTimerRunning = false;
         }
     }
     
-    private void doRightClick() {
+    private void doRightClick(int x, int y) {
         if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
             robot.mouseClick(InputEvent.BUTTON3_DOWN_MASK);
+            
+            shortcutManager.addClick(new Click(3, new Point(x, y)));
         }
     }
     
-    private void doLeftClick() {
+    private void doLeftClick(int x, int y) {
         if(!isLeftButtonPressed) {
             robot.mouseClick(InputEvent.BUTTON1_DOWN_MASK);
-
+            
+            shortcutManager.addClick(new Click(1, new Point(x, y)));
+            
             isLeftButtonPressed = true;
             isRightClickTimerRunning = false;
         }

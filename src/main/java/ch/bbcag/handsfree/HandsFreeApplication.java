@@ -3,12 +3,11 @@ package ch.bbcag.handsfree;
 import ch.bbcag.handsfree.control.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.control.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.control.dialog.HandsFreeConfirmDialog;
-import ch.bbcag.handsfree.eyetracking.EyeTracking;
 import ch.bbcag.handsfree.scenes.MainMenu;
 import ch.bbcag.handsfree.scenes.Navigator;
 import ch.bbcag.handsfree.scenes.SceneType;
 import ch.bbcag.handsfree.scenes.ShortcutMenu;
-import ch.bbcag.handsfree.speechcontrol.SpeechControl;
+import ch.bbcag.handsfree.shortcuts.ShortcutManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -22,15 +21,15 @@ public class HandsFreeApplication extends Application {
 
     private Stage primaryStage;
     private HandsFreeSceneConfiguration configuration;
+    private ShortcutManager shortcutManager = new ShortcutManager();
     private Navigator navigator = new Navigator();
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-
+        
         configuration = new HandsFreeSceneConfiguration();
-        String pageTitle = "HandsFree";
-        configuration.setTitle(pageTitle);
+        configuration.setTitle("HandsFree");
 
         MainMenu mainMenu = new MainMenu(this);
         ShortcutMenu shortcutMenu = new ShortcutMenu(this);
@@ -91,5 +90,9 @@ public class HandsFreeApplication extends Application {
 
     public Navigator getNavigator() {
         return navigator;
+    }
+    
+    public ShortcutManager getShortcutManager() {
+        return shortcutManager;
     }
 }

@@ -4,6 +4,7 @@ gradlew
 gradlew.bat
 settings.gradle
 /.idea/
+/shortcuts/
 
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 .gradle

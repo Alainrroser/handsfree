@@ -11,7 +11,7 @@ import ch.bbcag.handsfree.control.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.control.dialog.HandsFreeMessageDialog;
 import ch.bbcag.handsfree.control.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.eyetracking.EyeTracking;
+import ch.bbcag.handsfree.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.speechcontrol.SpeechControl;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -23,7 +23,7 @@ import java.awt.*;
 
 public class MainMenu extends HandsFreeScene {
 
-    private EyeTracking eyeTracking;
+    private EyeTracker eyeTracker;
     private SpeechControl speechControl;
     private HandsFreeOnScreenKeyboard keyboard;
 
@@ -34,7 +34,7 @@ public class MainMenu extends HandsFreeScene {
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
 
         try {
-            init();
+            init(application);
             initGUI(application);
         } catch(AWTException e) {
             Error.reportAndExit(
@@ -46,9 +46,9 @@ public class MainMenu extends HandsFreeScene {
         }
     }
 
-    private void init() throws AWTException {
+    private void init(HandsFreeApplication application) throws AWTException {
         HandsFreeRobot robot = new HandsFreeRobot();
-        eyeTracking = new EyeTracking(robot);
+        eyeTracker = new EyeTracker(robot, application.getShortcutManager());
         speechControl = new SpeechControl(robot);
         keyboard = new HandsFreeOnScreenKeyboard(robot);
     }
@@ -67,9 +67,9 @@ public class MainMenu extends HandsFreeScene {
         hBoxTitle.setAlignment(Pos.CENTER);
 
         HandsFreeToggleButton toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
-        toggleEyeTracking.setOnEnabled(() -> eyeTracking.start());
-        toggleEyeTracking.setOnDisabled(() -> eyeTracking.stop());
-        toggleEyeTracking.setEnabled(true);
+        toggleEyeTracking.setOnEnabled(() -> eyeTracker.start());
+        toggleEyeTracking.setOnDisabled(() -> eyeTracker.stop());
+        toggleEyeTracking.setEnabled(false);
 
         HandsFreeToggleButton toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
         toggleSpeechControl.setOnEnabled(() -> speechControl.start());

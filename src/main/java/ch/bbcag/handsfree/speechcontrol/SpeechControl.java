@@ -1,7 +1,6 @@
 package ch.bbcag.handsfree.speechcontrol;
 
 import ch.bbcag.handsfree.HandsFreeRobot;
-import ch.bbcag.handsfree.scenes.MainMenu;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
