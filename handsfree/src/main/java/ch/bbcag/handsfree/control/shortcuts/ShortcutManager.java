@@ -3,6 +3,8 @@ package ch.bbcag.handsfree.control.shortcuts;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
 
+import java.awt.*;
+import java.awt.event.InputEvent;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,6 +23,12 @@ public class ShortcutManager {
     
     public ShortcutManager(HandsFreeRobot robot) {
         this.robot = robot;
+
+        start();
+        getShortcut().getClicks().add(new Click(InputEvent.BUTTON1_DOWN_MASK, new Point(100, 100)));
+        getShortcut().getClicks().add(new Click(InputEvent.BUTTON2_DOWN_MASK, new Point(200, 100)));
+        getShortcut().getClicks().add(new Click(InputEvent.BUTTON2_DOWN_MASK, new Point(200, 100)));
+        stop();
     }
     
     public void start() {
@@ -31,9 +39,9 @@ public class ShortcutManager {
     }
     
     public void stop() {
-        this.running = false;
-        
-        if(startedBefore) {
+        if(running) {
+            this.running = false;
+
             try {
                 shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
                 ShortcutWriter writer = new ShortcutWriter();
@@ -59,7 +67,7 @@ public class ShortcutManager {
     }
     
     public boolean hasBeenStartedBefore() {
-        return startedBefore;
+        return running;
     }
     
     public void runShortcut(String name) {

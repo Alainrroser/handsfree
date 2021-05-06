@@ -1,33 +1,17 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
-import ch.bbcag.handsfree.control.HandsFreeRobot;
-import ch.bbcag.handsfree.control.shortcuts.Click;
-import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import tobii.Tobii;
 
 import java.awt.*;
-import java.awt.event.InputEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EyeTracker {
-    
-    private final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
-    
-    private long startTime;
-    
-    private boolean isRightClickTimerRunning = false;
-    private boolean isLeftButtonPressed = false;
-    private boolean isRightButtonPressed = false;
-    
-    private HandsFreeRobot robot;
-    private ShortcutManager shortcutManager;
-    
+
+    private List<GazeHandler> gazeHandlers = new ArrayList<>();
+    private List<RegionGazeHandler> regionGazeHandlers = new ArrayList<>();
+
     private boolean running;
-    
-    public EyeTracker(HandsFreeRobot robot, ShortcutManager shortcutManager) {
-        this.robot = robot;
-        this.shortcutManager = shortcutManager;
-    }
 
     public void start() {
         this.running = true;
@@ -38,72 +22,59 @@ public class EyeTracker {
     public void stop() {
         this.running = false;
     }
-    
-    private void startTracking() {
-        new Thread(() -> {
-            startTime = System.currentTimeMillis();
-            doTracking();
-        }).start();
+
+    public void addGazeHandler(GazeHandler handler) {
+        gazeHandlers.add(handler);
     }
-    
+
+    public void removeGazeHandler(GazeHandler handler) {
+        gazeHandlers.remove(handler);
+    }
+
+    public void addRegionGazeHandler(RegionGazeHandler handler) {
+        regionGazeHandlers.add(handler);
+    }
+
+    public void removeRegionGazeHandler(RegionGazeHandler handler) {
+        regionGazeHandlers.remove(handler);
+    }
+
+    private void startTracking() {
+        new Thread(this::doTracking).start();
+    }
+
     private void doTracking() {
         while(running) {
             float[] position = Tobii.getGazePosition();
             float xRelative = position[0];
             float yRelative = position[1];
-        
+
+            int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+            int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
             int x = (int) (xRelative * screenWidth);
             int y = (int) (yRelative * screenHeight);
-        
-            if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
-                robot.mouseMove(x, y);
-                
-                isLeftButtonPressed = false;
-                isRightButtonPressed = false;
-            } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
-                doLeftClick(x, y);
-            } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
-                startRightClick();
-            }
-            stopRightClick(x, y);
+
+            runGazeHandlers(x, y);
+            runActivatedRegionGazeHandlers(x, y);
             sleepThread();
         }
     }
-    
-    private void startRightClick() {
-        if(!isRightClickTimerRunning && !isRightButtonPressed) {
-            startTime = System.currentTimeMillis();
-            isRightClickTimerRunning = true;
-            isRightButtonPressed = true;
+
+    private void runGazeHandlers(int x, int y) {
+        for(GazeHandler gazeHandler : gazeHandlers) {
+            gazeHandler.gaze(x, y);
         }
     }
-    
-    private void stopRightClick(int x, int y) {
-        if(isRightClickTimerRunning && ((System.currentTimeMillis() - startTime) >= 150)) {
-            doRightClick(x, y);
-            isRightClickTimerRunning = false;
+
+    private void runActivatedRegionGazeHandlers(int x, int y) {
+        for(RegionGazeHandler regionGazeHandler : regionGazeHandlers) {
+            if(x >= regionGazeHandler.getTopLeft().x && y >= regionGazeHandler.getTopLeft().y &&
+                    x < regionGazeHandler.getBottomRight().x && y < regionGazeHandler.getBottomRight().y) {
+                regionGazeHandler.gaze();
+            }
         }
     }
-    
-    private void doRightClick(int x, int y) {
-        if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
-            robot.mouseClick(InputEvent.BUTTON3_DOWN_MASK);
-            
-            shortcutManager.addClick(new Click(InputEvent.BUTTON3_DOWN_MASK, new Point(x, y)));
-        }
-    }
-    
-    private void doLeftClick(int x, int y) {
-        if(!isLeftButtonPressed) {
-            robot.mouseClick(InputEvent.BUTTON1_DOWN_MASK);
-            
-            shortcutManager.addClick(new Click(InputEvent.BUTTON1_DOWN_MASK, new Point(x, y)));
-            
-            isLeftButtonPressed = true;
-            isRightClickTimerRunning = false;
-        }
-    }
-    
+
     private void sleepThread() {
         try {
             Thread.sleep(20);
@@ -111,4 +82,5 @@ public class EyeTracker {
             e.printStackTrace();
         }
     }
+
 }

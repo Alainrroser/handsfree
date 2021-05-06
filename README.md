@@ -49,10 +49,10 @@
 * [Testprotokoll](docs/testprotocol.md)
 * [Design](docs/design.xd)
 ## Daily Scrum
-Das Daily Scrum wird jeweils um 08:20 Uhr durchgeführt
+Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 ## Definition of Done
 * Angemessen dokumentiert
 * Testprotokolle vorhanden und ausgefüllt
-* VOn anderen Benutzern getestet
+* Von anderen Benutzern getestet
 ## Fazit
 Coming soon

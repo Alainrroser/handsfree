@@ -69,10 +69,11 @@ public class ShortcutMenu extends HandsFreeScene {
                     list.getItems().add(value);
                     HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
                     dialog.show();
+                    shortcutManager.stop();
                 });
+                input.setOnCanceled(shortcutManager::stop);
                 input.show();
             }
-            shortcutManager.stop();
         });
         recordShortcut.setEnabled(false);
     

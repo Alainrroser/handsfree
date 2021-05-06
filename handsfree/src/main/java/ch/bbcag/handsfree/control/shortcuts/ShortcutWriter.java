@@ -1,8 +1,6 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class ShortcutWriter {
 
@@ -26,7 +24,10 @@ public class ShortcutWriter {
     }
 
     private void createFileAndParentsIfNotCreated(File file) throws IOException {
-        file.getParentFile().mkdirs();
+        if(file.getParentFile() != null) {
+            file.getParentFile().mkdirs();
+        }
+
         if(!file.exists()) {
             file.createNewFile();
         }
@@ -45,11 +46,11 @@ public class ShortcutWriter {
     }
 
     private void writeClick(Click click, FileWriter writer) throws IOException {
-        writer.write(click.getPosition().x);
+        writer.write(Integer.toString(click.getPosition().x));
         writer.write(";");
-        writer.write(click.getPosition().y);
+        writer.write(Integer.toString(click.getPosition().y));
         writer.write(";");
-        writer.write(click.getButton());
+        writer.write(Integer.toString(click.getButton()));
         writer.write("\n");
     }
 

@@ -3,6 +3,7 @@ package ch.bbcag.handsfree.scenes;
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
 import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.gui.Colors;
@@ -20,7 +21,7 @@ import javafx.scene.layout.VBox;
 
 public class MainMenu extends HandsFreeScene {
 
-    private EyeTracker eyeTracker;
+    private EyeMouseController eyeMouseController;
     private SpeechControl speechControl;
     private HandsFreeOnScreenKeyboard keyboard;
 
@@ -36,7 +37,7 @@ public class MainMenu extends HandsFreeScene {
 
     private void init(HandsFreeApplication application) {
         HandsFreeRobot robot = application.getRobot();
-        eyeTracker = new EyeTracker(robot, application.getShortcutManager());
+        eyeMouseController = new EyeMouseController(robot, application.getShortcutManager());
         speechControl = new SpeechControl(robot);
         keyboard = new HandsFreeOnScreenKeyboard(robot);
     }
@@ -55,8 +56,8 @@ public class MainMenu extends HandsFreeScene {
         hBoxTitle.setAlignment(Pos.CENTER);
 
         HandsFreeToggleButton toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
-        toggleEyeTracking.setOnEnabled(() -> eyeTracker.start());
-        toggleEyeTracking.setOnDisabled(() -> eyeTracker.stop());
+        toggleEyeTracking.setOnEnabled(() -> eyeMouseController.start());
+        toggleEyeTracking.setOnDisabled(() -> eyeMouseController.stop());
         toggleEyeTracking.setEnabled(false);
 
         HandsFreeToggleButton toggleSpeechControl = new HandsFreeToggleButton("Speech Control");

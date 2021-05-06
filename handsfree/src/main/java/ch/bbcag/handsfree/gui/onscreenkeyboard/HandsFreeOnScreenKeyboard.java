@@ -50,22 +50,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         pane.setPadding(new Insets(5));
         rootPane.getChildren().add(pane);
 
-        try {
-            VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
-
-            for(VirtualKeyRow row : layout.getKeyRows()) {
-                for(VirtualKey key : row.getKeys()) {
-                    addKey(new HandsFreeOnScreenKey(key, robot, this));
-                }
-                nextRow();
-            }
-        } catch(IOException e) {
-            Error.reportAndExit(
-                "Keyboard Loading Error",
-                "Failed to load keyboard layout.\nTry reinstalling the application.",
-                e
-            );
-        }
+        tryLoadKeyboardLayout(robot);
 
         WindowDragController controller = new WindowDragController(this, rootPane);
         controller.enable();
@@ -81,17 +66,37 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         show(stage);
     }
 
+    private void tryLoadKeyboardLayout(HandsFreeRobot robot) {
+        try {
+            loadKeyboardLayout(robot);
+        } catch(IOException e) {
+            Error.reportAndExit(
+                    "Keyboard Loading Error",
+                    "Failed to load keyboard layout.\nTry reinstalling the application.",
+                    e
+            );
+        }
+    }
+
+    private void loadKeyboardLayout(HandsFreeRobot robot) throws IOException {
+        VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
+
+        for(VirtualKeyRow row : layout.getKeyRows()) {
+            for(VirtualKey key : row.getKeys()) {
+                addKey(new HandsFreeOnScreenKey(key, robot, this));
+            }
+
+            nextKeyY += HandsFreeOnScreenKey.SCALE;
+            nextKeyX = 0;
+        }
+    }
+
     private void addKey(HandsFreeOnScreenKey key) {
         key.setLayoutX(nextKeyX);
         key.setLayoutY(nextKeyY);
         pane.getChildren().add(key);
         keys.add(key);
         nextKeyX += key.getMinWidth();
-    }
-
-    private void nextRow() {
-        nextKeyY += HandsFreeOnScreenKey.SCALE;
-        nextKeyX = 0;
     }
 
     public void releaseHeldKeys() {
