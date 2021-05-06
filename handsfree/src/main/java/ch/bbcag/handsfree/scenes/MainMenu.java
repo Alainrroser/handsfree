@@ -33,7 +33,7 @@ public class MainMenu extends HandsFreeScene {
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
     
         init(context);
-        initGUI(application);
+        initGUI(application, context);
     }
 
     private void init(HandsFreeContext context) {
@@ -43,7 +43,7 @@ public class MainMenu extends HandsFreeScene {
         keyboard = new HandsFreeOnScreenKeyboard(context);
     }
 
-    private void initGUI(HandsFreeApplication application) {
+    private void initGUI(HandsFreeApplication application, HandsFreeContext context) {
         VBox vBox = (VBox) getContentRoot();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
@@ -62,7 +62,19 @@ public class MainMenu extends HandsFreeScene {
         toggleEyeTracking.setEnabled(false);
 
         HandsFreeToggleButton toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
-        toggleSpeechControl.setOnEnabled(() -> speechControl.start());
+        toggleSpeechControl.setOnEnabled(() -> {
+            if(context.getSpeechRecognizer().isSupported()) {
+                speechControl.start();
+            } else {
+                HandsFreeMessageDialog dialog = new HandsFreeMessageDialog(
+                    "Audio Error",
+                    "Error: No microphone that supports speech recognition could be detected!"
+                );
+                dialog.show();
+
+                toggleSpeechControl.setEnabled(false);
+            }
+        });
         toggleSpeechControl.setOnDisabled(() -> speechControl.stop());
         toggleSpeechControl.setEnabled(false);
 
