@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control;
 
+import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.jni.NativeUtils;
 
 import java.awt.*;
@@ -9,8 +10,12 @@ public class HandsFreeRobot {
 
     private Robot robot;
 
-    public HandsFreeRobot() throws AWTException {
-        robot = new Robot();
+    public HandsFreeRobot() {
+        try {
+            robot = new Robot();
+        } catch(AWTException e) {
+            throw new HandsFreeRobotException(e);
+        }
 
         try {
             NativeUtils.loadLibraryFromResource("/lib/robot/robot_jni.dll");

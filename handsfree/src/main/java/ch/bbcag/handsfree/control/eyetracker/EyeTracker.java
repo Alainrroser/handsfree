@@ -1,5 +1,8 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
+import javafx.scene.layout.Region;
 import tobii.Tobii;
 
 import java.awt.*;
@@ -10,6 +13,10 @@ public class EyeTracker {
 
     private List<GazeHandler> gazeHandlers = new ArrayList<>();
     private List<RegionGazeHandler> regionGazeHandlers = new ArrayList<>();
+
+    private RegionGazeHandler currentRegionGazeHandler = null;
+    private double currentGazeRegionActivationTime = 0;
+    private boolean regionGazeHandlerActivated = false;
 
     private boolean running;
 
@@ -68,9 +75,29 @@ public class EyeTracker {
 
     private void runActivatedRegionGazeHandlers(int x, int y) {
         for(RegionGazeHandler regionGazeHandler : regionGazeHandlers) {
-            if(x >= regionGazeHandler.getTopLeft().x && y >= regionGazeHandler.getTopLeft().y &&
-                    x < regionGazeHandler.getBottomRight().x && y < regionGazeHandler.getBottomRight().y) {
-                regionGazeHandler.gaze();
+            Region region = regionGazeHandler.getRegion();
+            Bounds boundsOnScreen = region.localToScreen(region.getBoundsInLocal());
+
+            if(boundsOnScreen.contains(new Point2D(x, y))) {
+                updateGazeRegion(regionGazeHandler, x, y);
+                return;
+            }
+        }
+
+        currentRegionGazeHandler = null;
+    }
+
+    private void updateGazeRegion(RegionGazeHandler handler, int x, int y) {
+        if(handler != currentRegionGazeHandler) {
+            currentRegionGazeHandler = handler;
+            currentGazeRegionActivationTime = System.currentTimeMillis() + handler.getMinTime();
+            regionGazeHandlerActivated = false;
+        } else {
+            if(!regionGazeHandlerActivated) {
+                if(System.currentTimeMillis() >= currentGazeRegionActivationTime) {
+                    currentRegionGazeHandler.getGazeHandler().gaze(x, y);
+                    regionGazeHandlerActivated = true;
+                }
             }
         }
     }

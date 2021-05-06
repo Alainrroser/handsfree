@@ -2,6 +2,7 @@ package ch.bbcag.handsfree;
 
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
@@ -23,27 +24,24 @@ public class HandsFreeApplication extends Application {
 
     private Stage primaryStage;
     private HandsFreeSceneConfiguration configuration;
-    private HandsFreeRobot robot;
-    private ShortcutManager shortcutManager;
     private Navigator navigator = new Navigator();
+    private HandsFreeContext context;
 
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         
         try {
-            robot = new HandsFreeRobot();
-        } catch(AWTException e) {
+            context = new HandsFreeContext();
+        } catch(HandsFreeRobotException e) {
             Error.reportAndExit("Input Control", "The application is not allowed to generate mouse and keyboard input. Please check that your system supports input generation.", e);
         }
-    
-        shortcutManager = new ShortcutManager(robot);
-        
+
         configuration = new HandsFreeSceneConfiguration();
         configuration.setTitle("HandsFree");
 
-        MainMenu mainMenu = new MainMenu(this);
-        ShortcutMenu shortcutMenu = new ShortcutMenu(this);
+        MainMenu mainMenu = new MainMenu(this, context);
+        ShortcutMenu shortcutMenu = new ShortcutMenu(this, context);
 
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
         navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
@@ -51,7 +49,10 @@ public class HandsFreeApplication extends Application {
 
         primaryStage.setOnCloseRequest(event -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
-            dialog.setOnConfirmed(Platform::exit);
+            dialog.setOnConfirmed(() -> {
+                context.getEyeTracker().stop();
+                Platform.exit();
+            });
             dialog.show();
 
             event.consume(); // Prevent stage closing
@@ -102,12 +103,5 @@ public class HandsFreeApplication extends Application {
     public Navigator getNavigator() {
         return navigator;
     }
-    
-    public ShortcutManager getShortcutManager() {
-        return shortcutManager;
-    }
-    
-    public HandsFreeRobot getRobot() {
-        return robot;
-    }
+
 }

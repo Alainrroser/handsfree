@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.WindowDragController;
@@ -27,7 +28,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
     private List<HandsFreeOnScreenKey> keys = new ArrayList<>();
 
-    public HandsFreeOnScreenKeyboard(HandsFreeRobot robot) {
+    public HandsFreeOnScreenKeyboard(HandsFreeContext context) {
         stage = new Stage();
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.initStyle(StageStyle.UNDECORATED);
@@ -50,7 +51,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         pane.setPadding(new Insets(5));
         rootPane.getChildren().add(pane);
 
-        tryLoadKeyboardLayout(robot);
+        tryLoadKeyboardLayout(context);
 
         WindowDragController controller = new WindowDragController(this, rootPane);
         controller.enable();
@@ -66,9 +67,9 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         show(stage);
     }
 
-    private void tryLoadKeyboardLayout(HandsFreeRobot robot) {
+    private void tryLoadKeyboardLayout(HandsFreeContext context) {
         try {
-            loadKeyboardLayout(robot);
+            loadKeyboardLayout(context);
         } catch(IOException e) {
             Error.reportAndExit(
                     "Keyboard Loading Error",
@@ -78,12 +79,12 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         }
     }
 
-    private void loadKeyboardLayout(HandsFreeRobot robot) throws IOException {
+    private void loadKeyboardLayout(HandsFreeContext context) throws IOException {
         VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
 
         for(VirtualKeyRow row : layout.getKeyRows()) {
             for(VirtualKey key : row.getKeys()) {
-                addKey(new HandsFreeOnScreenKey(key, robot, this));
+                addKey(new HandsFreeOnScreenKey(key, context, this));
             }
 
             nextKeyY += HandsFreeOnScreenKey.SCALE;

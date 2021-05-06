@@ -1,16 +1,21 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.control.eyetracker.RegionGazeHandler;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.button.HandsFreeButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
+import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+
+import java.awt.*;
 
 public class HandsFreeOnScreenKey extends StackPane {
 
@@ -20,13 +25,15 @@ public class HandsFreeOnScreenKey extends StackPane {
     private boolean keyPressed = false;
     private boolean keyHeld = false;
 
-    private HandsFreeRobot robot;
+    private HandsFreeContext context;
     private HandsFreeButton button;
     private HandsFreeOnScreenKeyboard keyboard;
 
-    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeRobot robot, HandsFreeOnScreenKeyboard keyboard) {
+    private RegionGazeHandler gazeHandler;
+
+    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeContext context, HandsFreeOnScreenKeyboard keyboard) {
         this.key = key;
-        this.robot = robot;
+        this.context = context;
         this.keyboard = keyboard;
 
         setMinWidth(key.getWidth() * SCALE);
@@ -110,13 +117,18 @@ public class HandsFreeOnScreenKey extends StackPane {
                 }
             }
         });
+
+        gazeHandler = new RegionGazeHandler(this, 200, (x, y) -> {
+            press(false);
+        });
+        context.getEyeTracker().addRegionGazeHandler(gazeHandler);
     }
 
     public void press(boolean hold) {
-        robot.keyPressSpecial(key.getKeyCode());
+        context.getRobot().keyPressSpecial(key.getKeyCode());
 
         if(!key.isHold()) {
-            robot.keyReleaseSpecial(key.getKeyCode());
+            context.getRobot().keyReleaseSpecial(key.getKeyCode());
             keyboard.releaseHeldKeys();
         } else {
             keyPressed = true;
@@ -131,7 +143,7 @@ public class HandsFreeOnScreenKey extends StackPane {
     }
 
     public void release() {
-        robot.keyReleaseSpecial(key.getKeyCode());
+        context.getRobot().keyReleaseSpecial(key.getKeyCode());
         button.setPalette(HandsFreeButtonPalette.DEFAULT_PALETTE);
         keyPressed = false;
         keyHeld = false;

@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.shortcuts.Click;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
@@ -16,30 +17,24 @@ public class EyeMouseController {
     private boolean isLeftButtonPressed = false;
     private boolean isRightButtonPressed = false;
 
-    private HandsFreeRobot robot;
-    private ShortcutManager shortcutManager;
+    private HandsFreeContext context;
 
-    private EyeTracker eyeTracker;
-
-    public EyeMouseController(HandsFreeRobot robot, ShortcutManager shortcutManager) {
-        this.robot = robot;
-        this.shortcutManager = shortcutManager;
-
-        eyeTracker = new EyeTracker();
-        eyeTracker.addGazeHandler(this::controlCursor);
+    public EyeMouseController(HandsFreeContext context) {
+        this.context = context;
+        context.getEyeTracker().addGazeHandler(this::controlCursor);
     }
 
     public void start() {
-        eyeTracker.start();
+        context.getEyeTracker().start();
     }
 
     public void stop() {
-        eyeTracker.stop();
+        context.getEyeTracker().stop();
     }
 
     private void controlCursor(int x, int y) {
         if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
-            robot.mouseMove(x, y);
+            context.getRobot().mouseMove(x, y);
 
             isLeftButtonPressed = false;
             isRightButtonPressed = false;
@@ -69,17 +64,17 @@ public class EyeMouseController {
 
     private void doRightClick(int x, int y) {
         if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
-            robot.mouseClick(InputEvent.BUTTON3_DOWN_MASK);
+            context.getRobot().mouseClick(InputEvent.BUTTON3_DOWN_MASK);
 
-            shortcutManager.addClick(new Click(InputEvent.BUTTON3_DOWN_MASK, new Point(x, y)));
+            context.getShortcutManager().addClick(new Click(InputEvent.BUTTON3_DOWN_MASK, new Point(x, y)));
         }
     }
 
     private void doLeftClick(int x, int y) {
         if(!isLeftButtonPressed) {
-            robot.mouseClick(InputEvent.BUTTON1_DOWN_MASK);
+            context.getRobot().mouseClick(InputEvent.BUTTON1_DOWN_MASK);
 
-            shortcutManager.addClick(new Click(InputEvent.BUTTON1_DOWN_MASK, new Point(x, y)));
+            context.getShortcutManager().addClick(new Click(InputEvent.BUTTON1_DOWN_MASK, new Point(x, y)));
 
             isLeftButtonPressed = true;
             isRightClickTimerRunning = false;

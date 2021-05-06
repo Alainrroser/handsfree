@@ -1,31 +1,30 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
-import java.awt.*;
+import javafx.geometry.Bounds;
+import javafx.scene.layout.Region;
 
-public abstract class RegionGazeHandler {
+public class RegionGazeHandler {
 
-    private Point topLeft;
-    private Point bottomRight;
+    private Region region;
     private double minTime;
+    private GazeHandler gazeHandler;
 
-    public RegionGazeHandler(Point topLeft, Point bottomRight, double minTime) {
-        this.topLeft = topLeft;
-        this.bottomRight = bottomRight;
+    public RegionGazeHandler(Region region, double minTime, GazeHandler gazeHandler) {
+        this.region = region;
         this.minTime = minTime;
+        this.gazeHandler = gazeHandler;
     }
 
-    public Point getTopLeft() {
-        return topLeft;
-    }
-
-    public Point getBottomRight() {
-        return bottomRight;
+    public Region getRegion() {
+        return region;
     }
 
     public double getMinTime() {
         return minTime;
     }
 
-    public abstract void gaze();
+    public GazeHandler getGazeHandler() {
+        return gazeHandler;
+    }
 
 }

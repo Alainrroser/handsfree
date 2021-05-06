@@ -23,12 +23,6 @@ public class ShortcutManager {
     
     public ShortcutManager(HandsFreeRobot robot) {
         this.robot = robot;
-
-        start();
-        getShortcut().getClicks().add(new Click(InputEvent.BUTTON1_DOWN_MASK, new Point(100, 100)));
-        getShortcut().getClicks().add(new Click(InputEvent.BUTTON2_DOWN_MASK, new Point(200, 100)));
-        getShortcut().getClicks().add(new Click(InputEvent.BUTTON2_DOWN_MASK, new Point(200, 100)));
-        stop();
     }
     
     public void start() {

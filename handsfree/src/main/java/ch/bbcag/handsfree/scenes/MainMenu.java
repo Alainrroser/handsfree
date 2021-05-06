@@ -2,6 +2,7 @@ package ch.bbcag.handsfree.scenes;
 
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
 import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
@@ -25,21 +26,21 @@ public class MainMenu extends HandsFreeScene {
     private SpeechControl speechControl;
     private HandsFreeOnScreenKeyboard keyboard;
 
-    public MainMenu(HandsFreeApplication application) {
+    public MainMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
 
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
     
-        init(application);
+        init(context);
         initGUI(application);
     }
 
-    private void init(HandsFreeApplication application) {
-        HandsFreeRobot robot = application.getRobot();
-        eyeMouseController = new EyeMouseController(robot, application.getShortcutManager());
+    private void init(HandsFreeContext context) {
+        HandsFreeRobot robot = context.getRobot();
+        eyeMouseController = new EyeMouseController(context);
         speechControl = new SpeechControl(robot);
-        keyboard = new HandsFreeOnScreenKeyboard(robot);
+        keyboard = new HandsFreeOnScreenKeyboard(context);
     }
 
     private void initGUI(HandsFreeApplication application) {

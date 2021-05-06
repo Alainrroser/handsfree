@@ -2,6 +2,7 @@ package ch.bbcag.handsfree.scenes;
 
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.gui.*;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
@@ -23,11 +24,10 @@ public class ShortcutMenu extends HandsFreeScene {
     
     private ShortcutManager shortcutManager;
     
-    public ShortcutMenu(HandsFreeApplication application) {
+    public ShortcutMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
-    
-        shortcutManager = application.getShortcutManager();
-        
+        shortcutManager = context.getShortcutManager();
+
         VBox vBox = new VBox();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
