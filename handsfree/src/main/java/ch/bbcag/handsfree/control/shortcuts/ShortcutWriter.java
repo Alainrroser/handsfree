@@ -3,6 +3,7 @@ package ch.bbcag.handsfree.control.shortcuts;
 import ch.bbcag.handsfree.Const;
 
 import java.io.*;
+import java.util.UUID;
 
 public class ShortcutWriter {
 
@@ -22,7 +23,7 @@ public class ShortcutWriter {
     }
 
     private String getFilename() {
-        return shortcut.getName() + Const.SHORTCUT_FILE_EXTENSION;
+        return UUID.randomUUID() + Const.SHORTCUT_FILE_EXTENSION;
     }
 
     private void createFileAndParentsIfNotCreated(File file) throws IOException {
@@ -37,6 +38,8 @@ public class ShortcutWriter {
 
     private void writeFile(File file) throws IOException {
         FileWriter writer = new FileWriter(file);
+        writer.write(shortcut.getName());
+        writer.write("\n");
         writeClicks(writer);
         writer.close();
     }

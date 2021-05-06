@@ -29,20 +29,26 @@ public class ShortcutReader {
 
     private void processLines(BufferedReader reader) throws IOException {
         String line;
+        boolean firstLine = true;
         while((line = reader.readLine()) != null) {
-            processLine(line);
+            processLine(line, firstLine);
+            firstLine = false;
         }
     }
 
-    private void processLine(String line) {
-        String[] components = line.split(";");
-        int x = Integer.parseInt(components[0]);
-        int y = Integer.parseInt(components[1]);
-        int button = Integer.parseInt(components[2]);
-        int time = Integer.parseInt(components[3]);
-
-        Click click = new Click(button, time, new Point(x, y));
-        shortcut.getClicks().add(click);
+    private void processLine(String line, boolean firstLine) {
+        if(firstLine) {
+            shortcut.setName(line);
+        } else {
+            String[] components = line.split(";");
+            int x = Integer.parseInt(components[0]);
+            int y = Integer.parseInt(components[1]);
+            int button = Integer.parseInt(components[2]);
+            int time = Integer.parseInt(components[3]);
+    
+            Click click = new Click(button, time, new Point(x, y));
+            shortcut.getClicks().add(click);
+        }
     }
 
 }
