@@ -2,11 +2,13 @@ package ch.bbcag.handsfree.gui;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.ListCell;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
+import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 
 public class HandsFreeListCell extends ListCell<String> {
@@ -22,7 +24,7 @@ public class HandsFreeListCell extends ListCell<String> {
         updateBackground();
         
         setOnMouseClicked(event -> {
-            if(isSelected() && view.getDoubleClickHandler() != null) {
+            if(isSelected() && view.getDoubleClickHandler() != null && event.getButton() == MouseButton.SECONDARY) {
                 view.getDoubleClickHandler().run(getItem());
             }
         });

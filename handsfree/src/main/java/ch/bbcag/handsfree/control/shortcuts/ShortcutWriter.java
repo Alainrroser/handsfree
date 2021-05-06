@@ -53,6 +53,8 @@ public class ShortcutWriter {
         writer.write(Integer.toString(click.getPosition().y));
         writer.write(";");
         writer.write(Integer.toString(click.getButton()));
+        writer.write(";");
+        writer.write(Integer.toString(click.getTime()));
         writer.write("\n");
     }
 

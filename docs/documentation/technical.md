@@ -3,11 +3,21 @@
     * Setup
     * Code Style
         * Keine Lücken zwischen Schlüsselwort und Klammer
-            * if()
+            * if() statt 
+            * if ()
         * Öffnende geschweifte Klammern auf selbe Zeile
             * while(true) {  
+              } statt
+            * while (true) 
+              {
               }
-        * Einrückung mit Leerzeichen
+        * Einrückung mit Leerzeichen statt mit Tabs
+        * Für die Benennung verwenden wir überall camelCase ausser bei Klassen, wo wir PascalCase verwenden
+            * aVariable
+            * AClass
+        * Alle GUI-Komponente werden mit „HandsFree“ und dem Namen der Komponenten benannt
+            * HandsFreeDialog statt nur
+            * Dialog
 * Architektur
     * Genereller Aufbau der Applikation
         * Man hat ein Haupt-Menu wo man folgende Einstellungen treffen kann

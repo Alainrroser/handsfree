@@ -67,17 +67,52 @@ public class ShortcutMenu extends HandsFreeScene {
         list.setMinHeight(600);
         addShortcuts(list);
     
+        String[] allowedCharacters = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "-"};
+        String[] reservedFileNames = {"CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "COM4", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"};
         HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
         recordShortcut.setOnEnabled(() ->  shortcutManager.start());
         recordShortcut.setOnDisabled(() -> {
             if(shortcutManager.isRunning()) {
                 HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
                 input.setOnOk(value -> {
-                    shortcutManager.getShortcut().setName(value);
-                    list.getItems().add(value);
-                    HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
-                    dialog.show();
-                    shortcutManager.stopAndSave();
+                    boolean containsOnlyAllowedCharacters = true;
+                    boolean isNoReservedFileName = true;
+                    boolean doesNotExistAlready = true;
+                    boolean isValid = false;
+                    
+                    for(String allowedCharacter : allowedCharacters) {
+                        if(!value.toLowerCase().contains(allowedCharacter)) {
+                            containsOnlyAllowedCharacters = false;
+                            break;
+                        }
+                    }
+                    for(String reservedFileName : reservedFileNames) {
+                        if(value.equals(reservedFileName)) {
+                            isNoReservedFileName = false;
+                            break;
+                        }
+                    }
+                    for(Shortcut shortcut : shortcutManager.getShortcuts()) {
+                        if(value.equals(shortcut.getName())) {
+                            doesNotExistAlready = false;
+                            break;
+                        }
+                    }
+                    
+                    if(value.length() <= 20 && !value.startsWith("-") && doesNotExistAlready && containsOnlyAllowedCharacters && isNoReservedFileName) {
+                        isValid = true;
+                    }
+                    
+                    if(isValid) {
+                        shortcutManager.getShortcut().setName(value);
+                        list.getItems().add(value);
+                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
+                        dialog.show();
+                        shortcutManager.stopAndSave();
+                    } else {
+                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Shortcut Name", "The shortcut name can only contain letters, numbers and hyphens, has to be smaller than 20 characters and isn't allowed to start with a hyphen!");
+                        dialog.show();
+                    }
                 });
                 input.setOnCanceled(shortcutManager::stopAndDiscard);
                 input.show();

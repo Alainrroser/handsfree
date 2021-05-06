@@ -24,6 +24,8 @@ public class ShortcutManager {
     
     private boolean running;
     
+    private long startTime;
+    
     private List<Shortcut> shortcuts = new ArrayList<>();
     
     public ShortcutManager(HandsFreeRobot robot) {
@@ -33,6 +35,7 @@ public class ShortcutManager {
     public void start() {
         if(!running) {
             running = true;
+            startTime = System.currentTimeMillis();
             shortcut = new Shortcut();
             shortcuts.add(shortcut);
             addNativeMouseListener();
@@ -90,7 +93,7 @@ public class ShortcutManager {
                             button = 0;
                             break;
                     }
-                    addClick(new Click(button, new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
+                    addClick(new Click(button, calcTime(System.currentTimeMillis()), new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
                 }
                 
                 @Override
@@ -130,5 +133,9 @@ public class ShortcutManager {
     
     public void setRunning(boolean running) {
         this.running = running;
+    }
+    
+    public int calcTime(long time) {
+        return (int) (time - startTime);
     }
 }

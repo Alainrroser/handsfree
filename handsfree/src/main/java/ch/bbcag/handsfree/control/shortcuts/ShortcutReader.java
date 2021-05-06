@@ -39,8 +39,9 @@ public class ShortcutReader {
         int x = Integer.parseInt(components[0]);
         int y = Integer.parseInt(components[1]);
         int button = Integer.parseInt(components[2]);
+        int time = Integer.parseInt(components[3]);
 
-        Click click = new Click(button, new Point(x, y));
+        Click click = new Click(button, time, new Point(x, y));
         shortcut.getClicks().add(click);
     }
 

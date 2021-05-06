@@ -72,7 +72,7 @@ public class HandsFreeRobot {
 
     public void mouseRelease(int button) {
         robot.mouseRelease(button);
-        pressedMouseButtons.remove(button);
+        pressedMouseButtons.remove((Integer) button);
     }
 
     public void mouseClick(int buttons) {
@@ -92,6 +92,10 @@ public class HandsFreeRobot {
         for(int pressedButton : pressedMouseButtons) {
             mouseRelease(pressedButton);
         }
+    }
+    
+    public void delay(int millis) {
+        robot.delay(millis);
     }
 
     private native void jniKeyPress(short keyCode);
