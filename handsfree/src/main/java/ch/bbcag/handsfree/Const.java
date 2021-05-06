@@ -7,4 +7,7 @@ public class Const {
     public static final int V_BOX_SPACING = 20;
     public static final int V_BOX_PADDING_TOP_BOTTOM = 50;
     public static final int V_BOX_PADDING_RIGHT_LEFT = 100;
+    
+    public static final String SHORTCUT_PATH = "shortcuts/";
+    public static final String SHORTCUT_FILE_EXTENSION = ".txt";
 }

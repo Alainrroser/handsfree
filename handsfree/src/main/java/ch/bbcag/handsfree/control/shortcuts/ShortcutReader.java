@@ -16,7 +16,7 @@ public class ShortcutReader {
 
     private void setShortcutNameFromFileName(File file) {
         int dotIndex = file.getName().lastIndexOf(".");
-        String shortcutName = file.getName().substring(dotIndex + 1);
+        String shortcutName = file.getName().substring(0, dotIndex);
         shortcut.setName(shortcutName);
     }
 

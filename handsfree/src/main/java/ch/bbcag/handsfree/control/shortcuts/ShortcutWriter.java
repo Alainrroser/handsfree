@@ -1,5 +1,7 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
+import ch.bbcag.handsfree.Const;
+
 import java.io.*;
 
 public class ShortcutWriter {
@@ -20,7 +22,7 @@ public class ShortcutWriter {
     }
 
     private String getFilename() {
-        return shortcut.getName() + ".txt";
+        return shortcut.getName() + Const.SHORTCUT_FILE_EXTENSION;
     }
 
     private void createFileAndParentsIfNotCreated(File file) throws IOException {

@@ -1,15 +1,20 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
+import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
+import org.jnativehook.GlobalScreen;
+import org.jnativehook.NativeHookException;
+import org.jnativehook.mouse.NativeMouseEvent;
+import org.jnativehook.mouse.NativeMouseListener;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.LogManager;
 
 public class ShortcutManager {
     
@@ -17,7 +22,6 @@ public class ShortcutManager {
     private HandsFreeRobot robot;
     
     private boolean running;
-    private boolean startedBefore = false;
     
     private List<Shortcut> shortcuts = new ArrayList<>();
     
@@ -26,20 +30,29 @@ public class ShortcutManager {
     }
     
     public void start() {
-        running = true;
-        startedBefore = true;
-        shortcut = new Shortcut();
-        shortcuts.add(shortcut);
+        if(!running) {
+            running = true;
+            shortcut = new Shortcut();
+            shortcuts.add(shortcut);
+            addNativeMouseListener();
+        }
     }
     
-    public void stop() {
+    public void stopAndDiscard() {
         if(running) {
-            this.running = false;
-
+            setRunning(false);
+        }
+    }
+    
+    public void stopAndSave() {
+        if(running) {
+            setRunning(false);
+            
             try {
                 shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
+                shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
                 ShortcutWriter writer = new ShortcutWriter();
-                writer.write(shortcut, new File("shortcuts/"));
+                writer.write(shortcut, new File(Const.SHORTCUT_PATH));
             } catch(IOException e) {
                 Error.reportAndExit("Shortcuts", "The file or a directory couldn't have been created", e);
             }
@@ -52,16 +65,54 @@ public class ShortcutManager {
         }
     }
     
+    public void addNativeMouseListener() {
+        LogManager.getLogManager().reset();
+        try{
+            if(!GlobalScreen.isNativeHookRegistered()) {
+                GlobalScreen.registerNativeHook();
+            }
+            GlobalScreen.addNativeMouseListener(new NativeMouseListener() {
+                @Override
+                public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+                    int button;
+                    switch(nativeMouseEvent.getButton()) {
+                        case NativeMouseEvent.BUTTON1:
+                            button = InputEvent.BUTTON1_DOWN_MASK;
+                            break;
+                        case NativeMouseEvent.BUTTON2:
+                            button = InputEvent.BUTTON2_DOWN_MASK;
+                            break;
+                        case NativeMouseEvent.BUTTON3:
+                            button = InputEvent.BUTTON3_DOWN_MASK;
+                            break;
+                        default:
+                            button = 0;
+                            break;
+                    }
+                    addClick(new Click(button, new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
+                }
+                
+                @Override
+                public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
+                
+                }
+                
+                @Override
+                public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
+                
+                }
+            });
+        } catch(NativeHookException e) {
+            e.printStackTrace();
+        }
+    }
+    
     public List<Shortcut> getShortcuts() {
         return shortcuts;
     }
     
     public Shortcut getShortcut() {
         return shortcut;
-    }
-    
-    public boolean hasBeenStartedBefore() {
-        return running;
     }
     
     public void runShortcut(String name) {
@@ -71,5 +122,12 @@ public class ShortcutManager {
             }
         }
     }
-
+    
+    public boolean isRunning() {
+        return running;
+    }
+    
+    public void setRunning(boolean running) {
+        this.running = running;
+    }
 }
