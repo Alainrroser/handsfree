@@ -1,5 +1,7 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
+import ch.bbcag.handsfree.error.KeyboardLoadingException;
+
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.lang.reflect.Field;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 //          ~ Todd Howard
 public class VirtualKeyboardLayoutLoader {
 
+    private String name;
     private ArrayList<VirtualKeyRow> rows = new ArrayList<>();
     private ArrayList<VirtualKey> row = new ArrayList<>();
     private VirtualKey currentKey;
@@ -19,24 +22,33 @@ public class VirtualKeyboardLayoutLoader {
 
     private int backslashCounter = 0;
 
-    public static VirtualKeyboardLayout loadFromResource(String resource) throws IOException {
+    public static VirtualKeyboardLayout loadFromResource(String resource) throws KeyboardLoadingException {
         InputStream inputStream = VirtualKeyboardLayoutLoader.class.getResourceAsStream(resource);
         if(inputStream == null) {
-            throw new IOException("Couldn't load resource: " + resource);
+            throw new KeyboardLoadingException("Couldn't load resource: " + resource);
         }
 
         VirtualKeyboardLayoutLoader loader = new VirtualKeyboardLayoutLoader();
         return loader.load(inputStream);
     }
 
-    public VirtualKeyboardLayout load(InputStream stream) throws IOException {
-        rows.clear();
+    public VirtualKeyboardLayout load(InputStream stream) {
+        reset();
 
-        for(String line : readLinesFromStream(stream)) {
-            processLine(line);
+        try {
+            for(String line : readLinesFromStream(stream)) {
+                processLine(line);
+            }
+
+            return new VirtualKeyboardLayout(name, rows.toArray(new VirtualKeyRow[0]));
+        } catch(Exception e) {
+            throw new KeyboardLoadingException(e.getMessage());
         }
+    }
 
-        return new VirtualKeyboardLayout("swiss", rows.toArray(new VirtualKeyRow[0]));
+    private void reset() {
+        name = "";
+        rows.clear();
     }
 
     private ArrayList<String> readLinesFromStream(InputStream stream) throws IOException {
@@ -53,8 +65,12 @@ public class VirtualKeyboardLayoutLoader {
     }
 
     private void processLine(String line) {
-        if(line.strip().equals("finish row")) {
+        line = line.strip();
+
+        if(line.equals("finish row")) {
             finishRow();
+        } else if(line.startsWith("name")) {
+            processName(line);
         } else {
             processKey(line);
         }
@@ -63,6 +79,10 @@ public class VirtualKeyboardLayoutLoader {
     private void finishRow() {
         rows.add(new VirtualKeyRow(row.toArray(new VirtualKey[0])));
         row = new ArrayList<>();
+    }
+
+    private void processName(String line) {
+        name = line.split(" ")[1];
     }
 
     private void processKey(String line) {

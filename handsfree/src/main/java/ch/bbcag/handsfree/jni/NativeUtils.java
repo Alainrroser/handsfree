@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class NativeUtils {
 
@@ -21,16 +23,14 @@ public class NativeUtils {
             in.close();
 
             String resourceName = resource.substring(resource.lastIndexOf("/") + 1);
-            String prefix = resourceName.split("\\.")[0];
-            String suffix = "." + resourceName.split("\\.")[1];
+            String tempDirectoryPath = System.getProperty("java.io.tmpdir");
+            Path dllPath = Paths.get(tempDirectoryPath, resourceName);
 
-            File temporaryFile = File.createTempFile(prefix, suffix);
-            temporaryFile.deleteOnExit();
+            File temporaryFile = dllPath.toAbsolutePath().toFile();
             if(!temporaryFile.exists()) {
-                temporaryFile.getParentFile().mkdirs();
                 temporaryFile.createNewFile();
             }
-            temporaryFile.deleteOnExit();
+
             FileOutputStream out = new FileOutputStream(temporaryFile);
             out.write(buffer);
             out.close();

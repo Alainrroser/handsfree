@@ -1,5 +1,7 @@
 package tobii;
 
+import ch.bbcag.handsfree.jni.NativeUtils;
+
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -57,41 +59,16 @@ public class Tobii {
     }
 
     private static void loadNeededLibraries() throws Exception {
-        String dataDirectoryPath = getDataDirectoryPath();
-        printIfVerbose("Loading needed libraries using directory " + dataDirectoryPath);
-        loadTobiiLibraries(dataDirectoryPath);
+        loadTobiiLibraries();
     }
 
-    private static String getDataDirectoryPath() {
-        String appDataDirectoryPath = "";
-
+    private static void loadTobiiLibraries() throws Exception {
         if(isWindows()) {
-            appDataDirectoryPath = System.getenv("LocalAppData");
+            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/tobii_stream_engine.dll");
+            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/tobii_jni_stream_engine.dll");
         } else if(isUnix()) {
-            appDataDirectoryPath = System.getProperty("user.home");
-        } else if(isMac()) {
-            //TODO test following commented lines on Mac
-            /*appDataDirectoryPath = System.getProperty("user.home");
-            appDataDirectoryPath += "/Library/Application Support";*/
-        }
-
-        appDataDirectoryPath += "/.tobiiStreamEngineForJava";
-        return appDataDirectoryPath;
-    }
-
-    private static void loadTobiiLibraries(String dataDirectoryPath) throws Exception {
-        if(isWindows()) {
-            copyResourceIntoDir("/lib/tobii/x64/tobii_stream_engine.dll", dataDirectoryPath);
-            copyResourceIntoDir("/lib/tobii/x64/tobii_jni_stream_engine.dll", dataDirectoryPath);
-
-            loadLibrary(dataDirectoryPath, "/lib/tobii/x64/tobii_stream_engine.dll");
-            loadLibrary(dataDirectoryPath, "/lib/tobii/x64/tobii_jni_stream_engine.dll");
-        } else if(isUnix()) {
-            copyResourceIntoDir("/lib/tobii/x64/libtobii_stream_engine.so", dataDirectoryPath);
-            copyResourceIntoDir("/lib/tobii/x64/libtobii_jni_stream_engine.so", dataDirectoryPath);
-
-            loadLibrary(dataDirectoryPath, "/lib/tobii/x64/libtobii_stream_engine.so");
-            loadLibrary(dataDirectoryPath, "/lib/tobii/x64/libtobii_jni_stream_engine.so");
+            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/libtobii_stream_engine.so");
+            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/libtobii_jni_stream_engine.so");
         } else if(isMac()) {
             //TODO Compile and add MacOS libraries here
         }
@@ -107,21 +84,6 @@ public class Tobii {
 
     private static boolean isMac() {
         return (OS.contains("mac"));
-    }
-
-    private static void copyResourceIntoDir(String resourceFilePath, String dirPath) throws Exception {
-        printIfVerbose("Copying " + resourceFilePath + " into " + dirPath);
-        InputStream in = Tobii.class.getResourceAsStream(resourceFilePath);
-        File tmpFile = new File(dirPath, resourceFilePath);
-        tmpFile.getParentFile().mkdirs();
-        Files.copy(in, tmpFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        in.close();
-    }
-
-    private static void loadLibrary(String dirPath, String filePath) {
-        File tmpFile = new File(dirPath, filePath);
-        printIfVerbose("Loading library " + tmpFile.getAbsolutePath());
-        System.load(tmpFile.getAbsolutePath());
     }
 
     private static void printIfVerbose(String what) {

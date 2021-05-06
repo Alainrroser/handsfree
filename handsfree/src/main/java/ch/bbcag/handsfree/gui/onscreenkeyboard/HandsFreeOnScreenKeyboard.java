@@ -2,6 +2,7 @@ package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.KeyboardLoadingException;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.WindowDragController;
 import ch.bbcag.handsfree.error.Error;
@@ -70,12 +71,12 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private void tryLoadKeyboardLayout(HandsFreeContext context) {
         try {
             loadKeyboardLayout(context);
-        } catch(IOException e) {
+        } catch(KeyboardLoadingException e) {
             Error.reportCritical(ErrorMessages.KEYBOARD_LAYOUT, e);
-    }
+        }
     }
 
-    private void loadKeyboardLayout(HandsFreeContext context) throws IOException {
+    private void loadKeyboardLayout(HandsFreeContext context) throws KeyboardLoadingException {
         VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
 
         for(VirtualKeyRow row : layout.getKeyRows()) {

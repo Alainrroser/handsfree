@@ -1,7 +1,7 @@
-# Testprotokoll
-Tester: Levi Schnyder  
-Testdatum: 30.04.2021  
-Testzeit: 13:20
+# Testprotokoll Sprint 1
+Tester: ?
+Testdatum: ?  
+Testzeit: ?
 
 ID | Erfolgreich | Bemerkungen
 --- | --- | ---
@@ -15,6 +15,3 @@ ST-07 | Ja | \-
 ST-08 | Ja | \-
 ST-09 | Ja | \-
 ST-10 | Ja | \-
-ST-11 | ? | ?
-ST-12 | ? | ?
-ST-13 | ? | ?

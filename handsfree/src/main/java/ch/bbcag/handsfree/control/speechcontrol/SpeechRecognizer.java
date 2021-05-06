@@ -1,6 +1,11 @@
 package ch.bbcag.handsfree.control.speechcontrol;
 
+import ch.bbcag.handsfree.HandsFreeContext;
+
 import javax.sound.sampled.*;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class SpeechRecognizer {
 
@@ -13,6 +18,31 @@ public class SpeechRecognizer {
             true,       // signed
             false       // little endian
     );
+
+    public SpeechRecognizer() {
+        disableLogging();
+
+        if(isSupported()) {
+
+        }
+    }
+
+    public void start() {
+
+    }
+
+    public void stop() {
+
+    }
+
+    private void disableLogging() {
+        Logger rootLogger = Logger.getLogger("default.config");
+        rootLogger.setLevel(Level.OFF);
+        String configurationFile = System.getProperty("java.util.logging.config.file");
+        if(configurationFile == null) {
+            System.setProperty("java.util.logging.config.file", "ignoreAllSphinx4LoggingOutput");
+        }
+    }
 
     public boolean isSupported() {
         Line.Info info = new DataLine.Info(TargetDataLine.class, SPHINX_AUDIO_FORMAT);

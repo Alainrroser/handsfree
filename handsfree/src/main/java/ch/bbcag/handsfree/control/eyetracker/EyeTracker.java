@@ -20,6 +20,8 @@ public class EyeTracker {
 
     private boolean running;
 
+    private static final int STARTUP_DELAY = 1000;
+
     public void start() {
         this.running = true;
 
@@ -51,6 +53,12 @@ public class EyeTracker {
     }
 
     private void doTracking() {
+        try {
+            Thread.sleep(STARTUP_DELAY);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+
         while(running) {
             float[] position = Tobii.getGazePosition();
             float xRelative = position[0];

@@ -1,3 +1,4 @@
+name swiss
 VK_ESCAPE, false, 'Esc', '', '', '', 1.0, 0.5
 VK_F1, false, 'F1', '', '', '', 1.0, 0.5
 VK_F2, false, 'F2', '', '', '', 1.0, 0.5

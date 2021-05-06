@@ -1,4 +1,4 @@
-# Testkonzept
+# Testkonzept Sprint 1
 Abschnitt | Inhalt
 --- | ---
 ID | ST-01
@@ -78,28 +78,3 @@ Getestete User Story | #4
 Vorbedingungen | ST-08
 Ablauf | Das Eye Tracking toggeln, auf einen mit einem Rechtsklick anklickbaren Ort schauen, mit dem rechten Auge blinzeln, Eye Tracking toggeln
 Erwartetes Resultat | Es wird ein Rechtsklick ausgelöst und das Eye Tracking wird deaktiviert
-
-Abschnitt | Inhalt
---- | ---
-ID | ST-11
-Getestete User Story | #8
-Vorbedingungen | ST-01
-Ablauf | On-Screen Keyboard toggeln, On-Screen Keyboard erneut toggeln
-Erwartetes Resultat | Das On-Screen Keyboard kann an- und wieder ausgeschaltet werden und wird richtig angezeigt
-
-Abschnitt | Inhalt
---- | ---
-ID | ST-12
-Getestete User Story | #8
-Vorbedingungen | ST-011
-Ablauf | Auf den Bildschirm klicken, einige Buchstaben und Zahlen anklicken
-Erwartetes Resultat | Die geklickten Tasten werden geschrieben
-
-Abschnitt | Inhalt
---- | ---
-ID | ST-13
-Getestete User Story | #8
-Vorbedingungen | ST-011
-Ablauf | Shift klicken, auf Buchstaben oder Zahlen klicken, Shift doppelklicken, auf die Zahlenreihe klicken, dasselbe mit den restlichen Spezialtasten
-Erwartetes Resultat | Man kann die Spezialtasten benutzen und somit auch Tastenkombinationen ausführen
-

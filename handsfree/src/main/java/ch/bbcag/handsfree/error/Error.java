@@ -13,6 +13,7 @@ public class Error {
     public static void initGlobalExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
             reportCritical(ErrorMessages.UNKNOWN, throwable);
+            throwable.printStackTrace();
         });
     }
 
