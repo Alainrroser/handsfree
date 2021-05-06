@@ -118,7 +118,7 @@ public class HandsFreeOnScreenKey extends StackPane {
             }
         });
 
-        gazeHandler = new RegionGazeHandler(this, 200, (x, y) -> {
+        gazeHandler = new RegionGazeHandler(this, 500, (x, y) -> {
             press(false);
         });
         context.getEyeTracker().addRegionGazeHandler(gazeHandler);

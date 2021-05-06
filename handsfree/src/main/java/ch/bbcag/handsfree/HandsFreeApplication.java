@@ -1,8 +1,9 @@
 package ch.bbcag.handsfree;
 
-import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
+import ch.bbcag.handsfree.error.NativeException;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
@@ -10,7 +11,6 @@ import ch.bbcag.handsfree.scenes.MainMenu;
 import ch.bbcag.handsfree.scenes.Navigator;
 import ch.bbcag.handsfree.scenes.SceneType;
 import ch.bbcag.handsfree.scenes.ShortcutMenu;
-import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -30,13 +30,20 @@ public class HandsFreeApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        
+
+        Error.initGlobalExceptionHandler();
+
         try {
             context = new HandsFreeContext();
+            initGUI();
         } catch(HandsFreeRobotException e) {
-            Error.reportAndExit("Input Control", "The application is not allowed to generate mouse and keyboard input. Please check that your system supports input generation.", e);
+            Error.reportCritical(ErrorMessages.ROBOT, e);
+        } catch(NativeException e) {
+            Error.reportCritical(ErrorMessages.LIBRARY, e);
         }
+    }
 
+    private void initGUI() {
         configuration = new HandsFreeSceneConfiguration();
         configuration.setTitle("HandsFree");
 
@@ -51,6 +58,7 @@ public class HandsFreeApplication extends Application {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
             dialog.setOnConfirmed(() -> {
                 context.getEyeTracker().stop();
+                context.getRobot().exit();
                 Platform.exit();
             });
             dialog.show();
@@ -89,7 +97,6 @@ public class HandsFreeApplication extends Application {
                 floatingStage.show();
             }
         });
-
     }
 
     public Stage getPrimaryStage() {

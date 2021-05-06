@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
-import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.WindowDragController;
 import ch.bbcag.handsfree.error.Error;
@@ -71,12 +71,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         try {
             loadKeyboardLayout(context);
         } catch(IOException e) {
-            Error.reportAndExit(
-                    "Keyboard Loading Error",
-                    "Failed to load keyboard layout.\nTry reinstalling the application.",
-                    e
-            );
-        }
+            Error.reportCritical(ErrorMessages.KEYBOARD_LAYOUT, e);
+    }
     }
 
     private void loadKeyboardLayout(HandsFreeContext context) throws IOException {

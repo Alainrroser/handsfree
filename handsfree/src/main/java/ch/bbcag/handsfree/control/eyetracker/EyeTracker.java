@@ -75,12 +75,18 @@ public class EyeTracker {
 
     private void runActivatedRegionGazeHandlers(int x, int y) {
         for(RegionGazeHandler regionGazeHandler : regionGazeHandlers) {
-            Region region = regionGazeHandler.getRegion();
-            Bounds boundsOnScreen = region.localToScreen(region.getBoundsInLocal());
+            try {
+                Region region = regionGazeHandler.getRegion();
+                Bounds boundsLocal = region.getBoundsInLocal();
+                Bounds boundsOnScreen = region.localToScreen(boundsLocal);
 
-            if(boundsOnScreen.contains(new Point2D(x, y))) {
-                updateGazeRegion(regionGazeHandler, x, y);
-                return;
+                if(boundsOnScreen.contains(new Point2D(x, y))) {
+                    updateGazeRegion(regionGazeHandler, x, y);
+                    return;
+                }
+            } catch(IndexOutOfBoundsException e) {
+                // Some JavaFX exception that doesn't crash the application
+                // but prints annoying error messages
             }
         }
 

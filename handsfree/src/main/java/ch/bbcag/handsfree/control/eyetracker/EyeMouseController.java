@@ -24,14 +24,6 @@ public class EyeMouseController {
         context.getEyeTracker().addGazeHandler(this::controlCursor);
     }
 
-    public void start() {
-        context.getEyeTracker().start();
-    }
-
-    public void stop() {
-        context.getEyeTracker().stop();
-    }
-
     private void controlCursor(int x, int y) {
         if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
             context.getRobot().mouseMove(x, y);

@@ -5,6 +5,7 @@ import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechRecognizer;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
+import ch.bbcag.handsfree.error.NativeException;
 
 public class HandsFreeContext {
 
@@ -14,7 +15,7 @@ public class HandsFreeContext {
     private HandsFreeRobot robot;
     private ShortcutManager shortcutManager;
 
-    public HandsFreeContext() throws HandsFreeRobotException {
+    public HandsFreeContext() throws HandsFreeRobotException, NativeException {
         eyeTracker = new EyeTracker();
         speechRecognizer = new SpeechRecognizer();
 

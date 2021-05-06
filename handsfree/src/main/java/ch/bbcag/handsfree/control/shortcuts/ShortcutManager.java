@@ -3,6 +3,7 @@ package ch.bbcag.handsfree.control.shortcuts;
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.error.ErrorMessages;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.mouse.NativeMouseEvent;
@@ -54,7 +55,7 @@ public class ShortcutManager {
                 ShortcutWriter writer = new ShortcutWriter();
                 writer.write(shortcut, new File(Const.SHORTCUT_PATH));
             } catch(IOException e) {
-                Error.reportAndExit("Shortcuts", "The file or a directory couldn't have been created", e);
+                Error.reportCritical(ErrorMessages.WRITE_SHORTCUT, e);
             }
         }
     }

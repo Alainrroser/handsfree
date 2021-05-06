@@ -5,6 +5,7 @@ import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutReader;
 import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.*;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
@@ -112,7 +113,7 @@ public class ShortcutMenu extends HandsFreeScene {
             try {
                 shortcutManager.getShortcuts().add(reader.read(file));
             } catch(IOException e) {
-                Error.reportAndExit("List Shortcuts", "The shortcuts couldn't have been loaded.", e);
+                Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
             }
         }
     }

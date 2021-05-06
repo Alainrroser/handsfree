@@ -7,6 +7,8 @@ import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
 import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
+import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.HandsFreeScene;
@@ -57,8 +59,8 @@ public class MainMenu extends HandsFreeScene {
         hBoxTitle.setAlignment(Pos.CENTER);
 
         HandsFreeToggleButton toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
-        toggleEyeTracking.setOnEnabled(() -> eyeMouseController.start());
-        toggleEyeTracking.setOnDisabled(() -> eyeMouseController.stop());
+        toggleEyeTracking.setOnEnabled(() -> context.getEyeTracker().start());
+        toggleEyeTracking.setOnDisabled(() -> context.getEyeTracker().stop());
         toggleEyeTracking.setEnabled(false);
 
         HandsFreeToggleButton toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
@@ -66,12 +68,7 @@ public class MainMenu extends HandsFreeScene {
             if(context.getSpeechRecognizer().isSupported()) {
                 speechControl.start();
             } else {
-                HandsFreeMessageDialog dialog = new HandsFreeMessageDialog(
-                    "Audio Error",
-                    "Error: No microphone that supports speech recognition could be detected!"
-                );
-                dialog.show();
-
+                Error.reportMinor(ErrorMessages.NO_MICROPHONE);
                 toggleSpeechControl.setEnabled(false);
             }
         });
