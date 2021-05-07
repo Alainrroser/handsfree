@@ -33,8 +33,6 @@ public class ShortcutMenu extends HandsFreeScene {
     
     private ShortcutManager shortcutManager;
     
-    private File directory = new File(Const.SHORTCUT_PATH);
-    
     public ShortcutMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
         shortcutManager = context.getShortcutManager();
@@ -65,7 +63,6 @@ public class ShortcutMenu extends HandsFreeScene {
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);
         list.setDoubleClickHandler(item -> shortcutManager.runShortcut(item));
-        readShortcuts();
         list.setMinHeight(600);
         addShortcuts(list);
         
@@ -75,11 +72,17 @@ public class ShortcutMenu extends HandsFreeScene {
             if(shortcutManager.isRunning()) {
                 HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
                 input.setOnOk(value -> {
-                    shortcutManager.getShortcut().setName(value);
-                    list.getItems().add(value);
-                    HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
-                    dialog.show();
-                    shortcutManager.stopAndSave();
+                    if(shortcutManager.isNotExistingAlready(value) && !value.equals("")) {
+                        shortcutManager.getShortcut().setName(value);
+                        list.getItems().add(value);
+                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
+                        dialog.show();
+                        context.getSpeechRecognizer().addListener(value, () -> shortcutManager.runShortcut(value));
+                        shortcutManager.stopAndSave();
+                    } else {
+                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Shortcut exists", "A Shortcut with this name exists already or you entered no name!");
+                        dialog.show();
+                    }
                 });
                 input.setOnCanceled(shortcutManager::stopAndDiscard);
                 input.show();
@@ -94,6 +97,8 @@ public class ShortcutMenu extends HandsFreeScene {
                 dialog.setOnConfirmed(() -> {
                     try {
                         shortcutManager.deleteShortcut(list.getSelectionModel().getSelectedItem());
+                        shortcutManager.removeFromShortcuts(list.getFocusModel().getFocusedItem());
+                        context.getSpeechRecognizer().removeListener(list.getSelectionModel().getSelectedItem());
                         list.getItems().remove(list.getSelectionModel().getSelectedIndex());
                     } catch(IOException e) {
                         Error.reportMinor(ErrorMessages.DELETE_SHORTCUT);
@@ -114,33 +119,9 @@ public class ShortcutMenu extends HandsFreeScene {
         scrollPane.setContent(vBox);
     }
     
-    private void readShortcuts() {
-        ShortcutReader reader = new ShortcutReader();
-        
-        if(directory.listFiles() != null) {
-            for(File file : Objects.requireNonNull(directory.listFiles())) {
-                try {
-                    shortcutManager.getShortcuts().add(reader.read(file));
-                } catch(IOException e) {
-                    Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
-                }
-            }
-        }
-    }
-    
     private void addShortcuts(HandsFreeListView list) {
         for(Shortcut shortcut : shortcutManager.getShortcuts()) {
             list.getItems().add(shortcut.getName());
-        }
-    }
-    
-    private void deleteShortcutFile(HandsFreeListView list) {
-        String fileName = list.getFocusModel().getFocusedItem() + Const.SHORTCUT_FILE_EXTENSION;
-        
-        for(File file : Objects.requireNonNull(directory.listFiles())) {
-            if(fileName.equals(file.getName())) {
-                file.delete();
-            }
         }
     }
 }

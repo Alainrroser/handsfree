@@ -4,6 +4,7 @@ import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.mouse.NativeMouseEvent;
@@ -14,6 +15,7 @@ import java.awt.event.InputEvent;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.LogManager;
 
 public class ShortcutManager {
@@ -22,6 +24,7 @@ public class ShortcutManager {
     private HandsFreeRobot robot;
     
     private boolean running;
+    private boolean notExistingAlready = true;
     
     private long startTime;
     
@@ -114,12 +117,25 @@ public class ShortcutManager {
         return shortcuts;
     }
     
+    public void removeFromShortcuts(String name) {
+        if(shortcuts.size() > 0) {
+            for(Shortcut shortcut : shortcuts) {
+                if(shortcut.getName() != null) {
+                    if(shortcut.getName().equalsIgnoreCase(name)) {
+                        shortcuts.remove(shortcut);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    
     public Shortcut getShortcut() {
         return shortcut;
     }
 
     public void deleteShortcut(String name) throws IOException {
-        for(File file : new File(Const.SHORTCUT_PATH).listFiles()) {
+        for(File file : Objects.requireNonNull(new File(Const.SHORTCUT_PATH).listFiles())) {
             FileInputStream in = new FileInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String firstLine = reader.readLine();
@@ -150,5 +166,41 @@ public class ShortcutManager {
     
     public int calcTime(long time) {
         return (int) (time - startTime);
+    }
+    
+    public void readShortcuts(File directory) {
+        ShortcutReader reader = new ShortcutReader();
+        
+        if(directory.listFiles() != null) {
+            for(File file : Objects.requireNonNull(directory.listFiles())) {
+                try {
+                    getShortcuts().add(reader.read(file));
+                } catch(IOException e) {
+                    Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
+                }
+            }
+        }
+    }
+    
+    public boolean isNotExistingAlready(String name) {
+        checkIfExisting(name);
+        return notExistingAlready;
+    }
+    
+    public void setNotExistingAlready(boolean notExistingAlready) {
+        this.notExistingAlready = notExistingAlready;
+    }
+    
+    public void checkIfExisting(String name) {
+        setNotExistingAlready(true);
+        if(shortcuts.size() > 1) {
+            for(Shortcut shortcut : shortcuts) {
+                if(shortcut.getName() != null) {
+                    if(shortcut.getName().equalsIgnoreCase(name)) {
+                        setNotExistingAlready(false);
+                    }
+                }
+            }
+        }
     }
 }

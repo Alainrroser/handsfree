@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 public class HandsFreeApplication extends Application {
@@ -38,6 +39,7 @@ public class HandsFreeApplication extends Application {
         
         try {
             context = new HandsFreeContext();
+            context.getShortcutManager().readShortcuts(new File(Const.SHORTCUT_PATH));
             initGUI();
         } catch(HandsFreeRobotException e) {
             Error.reportCritical(ErrorMessages.ROBOT, e);
@@ -61,6 +63,7 @@ public class HandsFreeApplication extends Application {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
             dialog.setOnConfirmed(() -> {
                 context.getEyeTracker().stop();
+                context.getSpeechRecognizer().stop();
                 context.getRobot().exit();
                 Configuration.writeConfiguration(mainMenu.getToggleEyeTracking().isEnabled(),
                                                  mainMenu.getToggleSpeechControl().isEnabled(),

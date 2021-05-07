@@ -5,7 +5,6 @@ import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.config.Autorun;
 import ch.bbcag.handsfree.config.Configuration;
-import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.error.Error;
@@ -47,7 +46,6 @@ public class MainMenu extends HandsFreeScene {
     }
 
     private void init(HandsFreeContext context) {
-        HandsFreeRobot robot = context.getRobot();
         eyeMouseController = new EyeMouseController(context);
         speechControl = new SpeechControl(context);
         keyboard = new HandsFreeOnScreenKeyboard(context);
