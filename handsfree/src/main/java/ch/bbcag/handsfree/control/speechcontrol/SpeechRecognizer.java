@@ -31,6 +31,8 @@ public class SpeechRecognizer {
     private Map<String, SpeechListener> listeners = new HashMap<>();
     private File grammarFile;
 
+    private List<String> commands = new ArrayList<>();
+    
     private boolean running = false;
     private boolean created = false;
 
@@ -126,6 +128,14 @@ public class SpeechRecognizer {
     public boolean isSupported() {
         Line.Info info = new DataLine.Info(TargetDataLine.class, SPHINX_AUDIO_FORMAT);
         return AudioSystem.isLineSupported(info);
+    }
+    
+    public void addCommand(String command) {
+        commands.add(command);
+    }
+    
+    public List<String> getCommands() {
+        return commands;
     }
 
 }

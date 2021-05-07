@@ -72,7 +72,14 @@ public class ShortcutMenu extends HandsFreeScene {
             if(shortcutManager.isRunning()) {
                 HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
                 input.setOnOk(value -> {
-                    if(shortcutManager.isNotExistingAlready(value) && !value.equals("")) {
+                    boolean doesNotEqualCommand = true;
+                    for(String command : context.getSpeechRecognizer().getCommands()) {
+                        if(command.equals(value)) {
+                            doesNotEqualCommand = false;
+                            break;
+                        }
+                    }
+                    if(shortcutManager.isNotExistingAlready(value) && !value.equals("") && doesNotEqualCommand) {
                         shortcutManager.getShortcut().setName(value);
                         list.getItems().add(value);
                         HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
@@ -80,7 +87,7 @@ public class ShortcutMenu extends HandsFreeScene {
                         context.getSpeechRecognizer().addListener(value, () -> shortcutManager.runShortcut(value));
                         shortcutManager.stopAndSave();
                     } else {
-                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Shortcut exists", "A Shortcut with this name exists already or you entered no name!");
+                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Shortcut exists", "A Shortcut or a command with this name exists already or you entered no name!");
                         dialog.show();
                     }
                 });
