@@ -11,10 +11,7 @@ import edu.cmu.sphinx.api.SpeechResult;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -59,7 +56,7 @@ public class SpeechRecognizer {
     }
 
     public void addListener(String command, SpeechListener listener) {
-        listeners.put(command, listener);
+        listeners.put(command.toLowerCase(), listener);
     }
 
     public void removeListener(String command) {
