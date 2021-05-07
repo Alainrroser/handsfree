@@ -86,6 +86,11 @@ public class HandsFreeApplication extends Application {
         });
     }
 
+    @Override
+    public void stop() {
+        System.exit(0); // Kill all blocking threads (looking at you, speech recognizer!)
+    }
+
     public Stage getPrimaryStage() {
         return primaryStage;
     }

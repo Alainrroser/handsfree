@@ -3,6 +3,7 @@ package ch.bbcag.handsfree.gui;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.eyetracker.RegionGazeHandler;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -44,7 +45,9 @@ public class HandsFreeIconifiedWidget {
 
         updateBounds();
 
-        RegionGazeHandler regionGazeHandler = new RegionGazeHandler(button, 500, (x, y) -> button.fire());
+        RegionGazeHandler regionGazeHandler = new RegionGazeHandler(button, 250, (x, y) -> {
+            Platform.runLater(() -> button.fire()); // Click button on the JavaFX thread
+        });
         context.getEyeTracker().addRegionGazeHandler(regionGazeHandler);
     }
 

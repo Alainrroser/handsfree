@@ -72,6 +72,10 @@ public class HandsFreeRobot {
     }
 
     public void mouseMove(int x, int y) {
+        robot.mouseMove(x, y);
+    }
+
+    public void mouseMoveSmooth(int x, int y) {
         int sx = MouseInfo.getPointerInfo().getLocation().x;
         int sy = MouseInfo.getPointerInfo().getLocation().y;
 
@@ -81,7 +85,7 @@ public class HandsFreeRobot {
             double progress = (double) i / (double) steps;
             double cx = sx + (x - sx) * progress;
             double cy = sy + (y - sy) * progress;
-            robot.mouseMove((int) cx, (int) cy);
+            mouseMove((int) cx, (int) cy);
             robot.delay(5);
         }
     }

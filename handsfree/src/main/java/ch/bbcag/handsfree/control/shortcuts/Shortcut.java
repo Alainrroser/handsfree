@@ -33,7 +33,7 @@ public class Shortcut {
 
             for(Click click : clicks) {
                 robot.delay(click.getTime() - lastClickTime);
-                robot.mouseMove((int) click.getPosition().getX(), (int) click.getPosition().getY());
+                robot.mouseMoveSmooth((int) click.getPosition().getX(), (int) click.getPosition().getY());
                 robot.mouseClick(click.getButton());
 
                 lastClickTime = click.getTime();

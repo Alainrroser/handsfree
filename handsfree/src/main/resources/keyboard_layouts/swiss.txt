@@ -47,7 +47,7 @@ VK_O, false, 'O', '', '', '', 1.0, 1.0
 VK_P, false, 'P', '', '', '', 1.0, 1.0
 186, false, 'è', '', 'ü', '[', 1.0, 1.0
 192, false, '!', '', '¨', ']', 1.0, 1.0
-VK_ENTER, false, 'Enter', '', '', '', 1.35, 1.0
+13, false, 'Enter', '', '', '', 1.35, 1.0
 VK_DELETE, false, 'Delete', '', '', '', 1.0, 1.0
 VK_END, false, 'End', '', '', '', 1.0, 1.0
 VK_PAGE_DOWN, false, 'Pg Dn', '', '', '', 1.0, 1.0
@@ -65,7 +65,7 @@ VK_L, false, 'L', '', '', '', 1.0, 1.0
 222, false, 'é', '', 'ö', '', 1.0, 1.0
 220, false, 'ä', '', 'à', '{', 1.0, 1.0
 223, false, '£', '', '$', '}', 1.0, 1.0
-VK_ENTER, false, 'Enter', '', '', '', 1.0, 1.0
+13, false, 'Enter', '', '', '', 1.0, 1.0
 finish row
 VK_SHIFT, true, 'Shift', '', '', '', 1.35, 1.0
 VK_LESS, false, '>', '', '<', '\\', 1.0, 1.0

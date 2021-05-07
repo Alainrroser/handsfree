@@ -17,6 +17,7 @@ import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;

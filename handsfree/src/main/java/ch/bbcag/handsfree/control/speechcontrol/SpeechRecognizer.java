@@ -31,8 +31,6 @@ public class SpeechRecognizer {
     private Map<String, SpeechListener> listeners = new HashMap<>();
     private File grammarFile;
 
-    private List<String> commands = new ArrayList<>();
-    
     private boolean running = false;
     private boolean created = false;
 
@@ -77,7 +75,6 @@ public class SpeechRecognizer {
             configuration.setGrammarName(GRAMMAR_NAME);
             configuration.setUseGrammar(true);
 
-            disableLogging();
             recognizer = new LiveSpeechRecognizer(configuration);
         } catch(IOException e) {
             throw new SpeechRecognizerException(e.getMessage());
@@ -108,6 +105,7 @@ public class SpeechRecognizer {
         // This is why we have decided to just let it running.
 
         recognizer.startRecognition(true);
+        disableLogging();
 
         while(true) {
             SpeechResult result = recognizer.getResult();
