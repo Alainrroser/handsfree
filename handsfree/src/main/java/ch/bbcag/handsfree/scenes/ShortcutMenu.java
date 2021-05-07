@@ -111,11 +111,13 @@ public class ShortcutMenu extends HandsFreeScene {
     private void readShortcuts() {
         ShortcutReader reader = new ShortcutReader();
         
-        for(File file : Objects.requireNonNull(directory.listFiles())) {
-            try {
-                shortcutManager.getShortcuts().add(reader.read(file));
-            } catch(IOException e) {
-                Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
+        if(directory.listFiles() != null) {
+            for(File file : Objects.requireNonNull(directory.listFiles())) {
+                try {
+                    shortcutManager.getShortcuts().add(reader.read(file));
+                } catch(IOException e) {
+                    Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
+                }
             }
         }
     }

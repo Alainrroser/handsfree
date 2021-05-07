@@ -16,7 +16,7 @@ public class ShortcutWriter {
     }
 
     private File getFile(File directory) throws IOException {
-        String path = directory.getAbsolutePath() + "/" + getFilename();
+        String path = directory.getAbsolutePath() + "\\" + getFilename();
         File file = new File(path);
         createFileAndParentsIfNotCreated(file);
         return file;

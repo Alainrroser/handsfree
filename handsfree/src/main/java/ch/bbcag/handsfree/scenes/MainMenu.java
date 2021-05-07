@@ -3,9 +3,10 @@ package ch.bbcag.handsfree.scenes;
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
+import ch.bbcag.handsfree.config.Autorun;
+import ch.bbcag.handsfree.config.Configuration;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
-import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
@@ -23,13 +24,17 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.io.IOException;
-
 public class MainMenu extends HandsFreeScene {
 
     private EyeMouseController eyeMouseController;
     private SpeechControl speechControl;
     private HandsFreeOnScreenKeyboard keyboard;
+    
+    private HandsFreeToggleButton toggleEyeTracking;
+    private HandsFreeToggleButton toggleSpeechControl;
+    private HandsFreeToggleButton toggleAutorun;
+    
+    private boolean isFirstTime = true;
 
     public MainMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
@@ -61,12 +66,12 @@ public class MainMenu extends HandsFreeScene {
         hBoxTitle.getChildren().add(title);
         hBoxTitle.setAlignment(Pos.CENTER);
 
-        HandsFreeToggleButton toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
+        toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
         toggleEyeTracking.setOnEnabled(() -> context.getEyeTracker().start());
         toggleEyeTracking.setOnDisabled(() -> context.getEyeTracker().stop());
-        toggleEyeTracking.setEnabled(false);
+        toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
 
-        HandsFreeToggleButton toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
+        toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
         toggleSpeechControl.setOnEnabled(() -> {
             if(context.getSpeechRecognizer().isSupported()) {
                 try {
@@ -81,25 +86,41 @@ public class MainMenu extends HandsFreeScene {
             }
         });
         toggleSpeechControl.setOnDisabled(() -> context.getSpeechRecognizer().stop());
-        toggleSpeechControl.setEnabled(false);
+        toggleSpeechControl.setEnabled(Configuration.readConfiguration(Const.SPEECH_CONTROL_STATE));
 
         HandsFreeToggleButton toggleOnScreenKeyboard = new HandsFreeToggleButton("On-Screen Keyboard");
         toggleOnScreenKeyboard.setOnEnabled(() -> keyboard.display());
         toggleOnScreenKeyboard.setOnDisabled(() -> keyboard.hide());
         toggleOnScreenKeyboard.setEnabled(false);
-
-        HandsFreeToggleButton toggleAutorun = new HandsFreeToggleButton("Autorun");
+        
+        toggleAutorun = new HandsFreeToggleButton("Autorun");
         toggleAutorun.setOnEnabled(() -> {
-            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
-            dialog.show();
+            if(!isFirstTime) {
+                HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
+                dialog.show();
+            }
+            if(isFirstTime) {
+                isFirstTime = false;
+            }
         });
-        toggleAutorun.setOnDisabled(() -> {});
-        toggleAutorun.setEnabled(false);
+        toggleAutorun.setOnDisabled(Autorun::deleteFromAutorunFolder);
+        toggleAutorun.setEnabled(Configuration.readConfiguration(Const.AUTORUN_STATE));
 
         HandsFreeDefaultButton openShortCutMenu = new HandsFreeDefaultButton("Shortcuts");
         openShortCutMenu.setOnAction(event -> application.getNavigator().navigateTo(SceneType.SHORTCUT_MENU));
 
         vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
     }
-
+    
+    public HandsFreeToggleButton getToggleEyeTracking() {
+        return toggleEyeTracking;
+    }
+    
+    public HandsFreeToggleButton getToggleSpeechControl() {
+        return toggleSpeechControl;
+    }
+    
+    public HandsFreeToggleButton getToggleAutorun() {
+        return toggleAutorun;
+    }
 }

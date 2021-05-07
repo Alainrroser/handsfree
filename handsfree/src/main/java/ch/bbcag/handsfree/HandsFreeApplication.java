@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree;
 
+import ch.bbcag.handsfree.config.Configuration;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
@@ -33,7 +34,7 @@ public class HandsFreeApplication extends Application {
         this.primaryStage = primaryStage;
 
         Error.initGlobalExceptionHandler();
-
+        
         try {
             context = new HandsFreeContext();
             initGUI();
@@ -62,6 +63,9 @@ public class HandsFreeApplication extends Application {
             dialog.setOnConfirmed(() -> {
                 context.getEyeTracker().stop();
                 context.getRobot().exit();
+                Configuration.writeConfiguration(mainMenu.getToggleEyeTracking().isEnabled(),
+                                                 mainMenu.getToggleSpeechControl().isEnabled(),
+                                                 mainMenu.getToggleAutorun().isEnabled());
                 Platform.exit();
             });
             dialog.show();

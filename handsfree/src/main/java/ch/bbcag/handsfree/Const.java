@@ -10,4 +10,8 @@ public class Const {
     
     public static final String SHORTCUT_PATH = "shortcuts/";
     public static final String SHORTCUT_FILE_EXTENSION = ".txt";
+    
+    public static final String EYE_TRACKING_STATE = "Eye_Tracking_State";
+    public static final String SPEECH_CONTROL_STATE = "Speech_Control_State";
+    public static final String AUTORUN_STATE = "Autorun_State";
 }
