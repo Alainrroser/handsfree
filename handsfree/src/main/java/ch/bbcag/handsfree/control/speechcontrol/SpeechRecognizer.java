@@ -130,12 +130,8 @@ public class SpeechRecognizer {
         return AudioSystem.isLineSupported(info);
     }
     
-    public void addCommand(String command) {
-        commands.add(command);
-    }
-    
-    public List<String> getCommands() {
-        return commands;
+    public Set<String> getCommands() {
+        return listeners.keySet();
     }
 
 }
