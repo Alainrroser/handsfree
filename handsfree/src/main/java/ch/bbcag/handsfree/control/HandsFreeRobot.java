@@ -6,6 +6,7 @@ import ch.bbcag.handsfree.jni.NativeUtils;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -51,6 +52,15 @@ public class HandsFreeRobot {
         keyReleaseSpecial(keyCode);
     }
 
+    public void pressHotkey(int... keys) {
+        for(int key : keys) {
+            keyPressSpecial(key);
+        }
+        for(int key : keys) {
+            keyReleaseSpecial(key);
+        }
+    }
+
     private void keyPressInternal(int keyCode) {
         jniKeyPress((short) keyCode);
         pressedKeys.add(keyCode);
@@ -62,7 +72,18 @@ public class HandsFreeRobot {
     }
 
     public void mouseMove(int x, int y) {
-        robot.mouseMove(x, y);
+        int sx = MouseInfo.getPointerInfo().getLocation().x;
+        int sy = MouseInfo.getPointerInfo().getLocation().y;
+
+        int steps = 100;
+
+        for(int i = 0; i < steps; i++) {
+            double progress = (double) i / (double) steps;
+            double cx = sx + (x - sx) * progress;
+            double cy = sy + (y - sy) * progress;
+            robot.mouseMove((int) cx, (int) cy);
+            robot.delay(5);
+        }
     }
 
     public void mousePress(int button) {
@@ -84,6 +105,17 @@ public class HandsFreeRobot {
         robot.mouseWheel(wheelAmount);
     }
 
+    public void scrollContinuously(int wheelAmount) {
+        for(int i = 0; i < Math.abs(wheelAmount); i++) {
+            mouseWheel((int) Math.signum(wheelAmount));
+            delay(40);
+        }
+    }
+
+    public void delay(int millis) {
+        robot.delay(millis);
+    }
+
     public void exit() {
         for(int pressedKey : pressedKeys) {
             keyReleaseInternal(pressedKey);
@@ -92,10 +124,6 @@ public class HandsFreeRobot {
         for(int pressedButton : pressedMouseButtons) {
             mouseRelease(pressedButton);
         }
-    }
-    
-    public void delay(int millis) {
-        robot.delay(millis);
     }
 
     private native void jniKeyPress(short keyCode);

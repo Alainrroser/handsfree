@@ -102,6 +102,12 @@ public class SpeechRecognizer {
     }
 
     private void doListening() {
+        // Yes, the recognizer backend is always running, even when the recognizer is stopped.
+        // This is because the method getResult().
+        // getResult() is a blocking method that waits for the user to say something.
+        // We can't stop the recognizer while getResult() is blocking, it will just throw an exception.
+        // This is why we have decided to just let it running.
+
         recognizer.startRecognition(true);
 
         while(true) {

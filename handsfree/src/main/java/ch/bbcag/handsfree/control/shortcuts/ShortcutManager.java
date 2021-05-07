@@ -11,8 +11,7 @@ import org.jnativehook.mouse.NativeMouseListener;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.LogManager;
@@ -117,6 +116,20 @@ public class ShortcutManager {
     
     public Shortcut getShortcut() {
         return shortcut;
+    }
+
+    public void deleteShortcut(String name) throws IOException {
+        for(File file : new File(Const.SHORTCUT_PATH).listFiles()) {
+            FileInputStream in = new FileInputStream(file);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            String firstLine = reader.readLine();
+            reader.close();
+
+            if(firstLine.equals(name)) {
+                file.delete();
+                break;
+            }
+        }
     }
     
     public void runShortcut(String name) {

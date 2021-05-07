@@ -28,10 +28,16 @@ public class Shortcut {
     }
     
     public void run(HandsFreeRobot robot) {
-        for(Click click : clicks) {
-            robot.mouseMove((int) click.getPosition().getX(), (int) click.getPosition().getY());
-            robot.delay(click.getTime());
-            robot.mouseClick(click.getButton());
-        }
+        new Thread(() -> {
+            int lastClickTime = 0;
+
+            for(Click click : clicks) {
+                robot.delay(click.getTime() - lastClickTime);
+                robot.mouseMove((int) click.getPosition().getX(), (int) click.getPosition().getY());
+                robot.mouseClick(click.getButton());
+
+                lastClickTime = click.getTime();
+            }
+        }).start();
     }
 }

@@ -5,6 +5,7 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
+import ch.bbcag.handsfree.gui.HandsFreeIconifiedWidget;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
@@ -42,8 +43,6 @@ public class HandsFreeApplication extends Application {
             Error.reportCritical(ErrorMessages.ROBOT, e);
         } catch(NativeException e) {
             Error.reportCritical(ErrorMessages.LIBRARY, e);
-        } catch(IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -78,30 +77,8 @@ public class HandsFreeApplication extends Application {
         primaryStage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue) {
                 primaryStage.hide();
-
-                Stage floatingStage = new Stage();
-                Group groupRoot = new Group();
-
-                HandsFreeIconButton floatingWidget = new HandsFreeIconButton("/images/icon32.png");
-                floatingWidget.setPrefSize(64, 64);
-                floatingWidget.setOnAction(event -> {
-                    primaryStage.show();
-                    primaryStage.setIconified(false);
-                    floatingStage.close();
-                });
-                groupRoot.getChildren().add(floatingWidget);
-                Scene scene = new Scene(groupRoot);
-
-                double taskbarHeight = Toolkit.getDefaultToolkit().getScreenSize().height - GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
-                int marginRight = 32;
-                int marginBottom = 24;
-
-                floatingStage.setScene(scene);
-                floatingStage.setTitle("HandsFree");
-                floatingStage.initStyle(StageStyle.UNDECORATED);
-                floatingStage.setX(Toolkit.getDefaultToolkit().getScreenSize().width - floatingWidget.getPrefWidth() - marginRight);
-                floatingStage.setY(Toolkit.getDefaultToolkit().getScreenSize().height - floatingWidget.getPrefHeight() - taskbarHeight - marginBottom);
-                floatingStage.show();
+                HandsFreeIconifiedWidget widget = new HandsFreeIconifiedWidget(primaryStage, context);
+                widget.show();
             }
         });
     }

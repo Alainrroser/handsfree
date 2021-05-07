@@ -17,7 +17,7 @@ public class HandsFreeContext {
     private HandsFreeRobot robot;
     private ShortcutManager shortcutManager;
 
-    public HandsFreeContext() throws HandsFreeRobotException, NativeException, IOException {
+    public HandsFreeContext() throws HandsFreeRobotException, NativeException {
         eyeTracker = new EyeTracker();
         speechRecognizer = new SpeechRecognizer();
 

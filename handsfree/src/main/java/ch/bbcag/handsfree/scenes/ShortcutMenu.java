@@ -91,8 +91,14 @@ public class ShortcutMenu extends HandsFreeScene {
         deleteShortcut.setOnAction(event -> {
             if(list.getItems().size() != 0) {
                 HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut will be lost forever! (A long time!)");
-                dialog.setOnConfirmed(() -> list.getItems().remove(list.getFocusModel().getFocusedIndex()));
-                deleteShortcutFile(list);
+                dialog.setOnConfirmed(() -> {
+                    try {
+                        shortcutManager.deleteShortcut(list.getSelectionModel().getSelectedItem());
+                        list.getItems().remove(list.getSelectionModel().getSelectedIndex());
+                    } catch(IOException e) {
+                        Error.reportMinor(ErrorMessages.DELETE_SHORTCUT);
+                    }
+                });
                 dialog.show();
             } else {
                 HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("No Shortcuts", "You have to record a Shortcut before you can delete it again!");

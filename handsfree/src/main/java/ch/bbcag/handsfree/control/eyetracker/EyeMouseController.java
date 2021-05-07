@@ -58,7 +58,7 @@ public class EyeMouseController {
         if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
             context.getRobot().mouseClick(InputEvent.BUTTON3_DOWN_MASK);
 
-            context.getShortcutManager().addClick(new Click(InputEvent.BUTTON3_DOWN_MASK, context.getShortcutManager().calcTime(System.currentTimeMillis()) , new Point(x, y)));
+//            context.getShortcutManager().addClick(new Click(InputEvent.BUTTON3_DOWN_MASK, context.getShortcutManager().calcTime(System.currentTimeMillis()) , new Point(x, y)));
         }
     }
 
@@ -66,7 +66,7 @@ public class EyeMouseController {
         if(!isLeftButtonPressed) {
             context.getRobot().mouseClick(InputEvent.BUTTON1_DOWN_MASK);
 
-            context.getShortcutManager().addClick(new Click(InputEvent.BUTTON1_DOWN_MASK, context.getShortcutManager().calcTime(System.currentTimeMillis()), new Point(x, y)));
+//            context.getShortcutManager().addClick(new Click(InputEvent.BUTTON1_DOWN_MASK, context.getShortcutManager().calcTime(System.currentTimeMillis()), new Point(x, y)));
 
             isLeftButtonPressed = true;
             isRightClickTimerRunning = false;

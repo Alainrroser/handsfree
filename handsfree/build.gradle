@@ -23,7 +23,7 @@ dependencies {
 }
 
 javafx {
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.graphics']
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.graphics', 'javafx.swing']
     mainClassName = 'ch.bbcag.handsfree.Launcher'
 }
 
