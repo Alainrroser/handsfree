@@ -25,7 +25,7 @@ public class EyeTracker {
     public void start() {
         this.running = true;
 
-        startTracking();
+        new Thread(this::doTracking).start();
     }
 
     public void stop() {
@@ -46,10 +46,6 @@ public class EyeTracker {
 
     public void removeRegionGazeHandler(RegionGazeHandler handler) {
         regionGazeHandlers.remove(handler);
-    }
-
-    private void startTracking() {
-        new Thread(this::doTracking).start();
     }
 
     private void doTracking() {

@@ -57,7 +57,7 @@ public class VirtualKeyboardLayoutLoader {
         ArrayList<String> lines = new ArrayList<>();
         String line;
         while((line = reader.readLine()) != null) {
-            lines.add(line + "\n");
+            lines.add(line);
         }
         reader.close();
 
@@ -95,7 +95,7 @@ public class VirtualKeyboardLayoutLoader {
             char c = line.charAt(i);
             boolean isValueSeparator = c == ',' && !readingString;
 
-            if(isValueSeparator || c == '\n') {
+            if(isValueSeparator) {
                 finishValue();
             } else {
                 if(readingString) {
@@ -108,6 +108,10 @@ public class VirtualKeyboardLayoutLoader {
                     }
                 }
             }
+        }
+
+        if(value.length() > 0) {
+            finishValue();
         }
 
         row.add(currentKey);

@@ -9,6 +9,7 @@ import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.SpeechRecognizerException;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.HandsFreeScene;
@@ -21,6 +22,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 public class MainMenu extends HandsFreeScene {
 
@@ -41,7 +44,7 @@ public class MainMenu extends HandsFreeScene {
     private void init(HandsFreeContext context) {
         HandsFreeRobot robot = context.getRobot();
         eyeMouseController = new EyeMouseController(context);
-        speechControl = new SpeechControl(robot);
+        speechControl = new SpeechControl(context);
         keyboard = new HandsFreeOnScreenKeyboard(context);
     }
 
@@ -66,13 +69,18 @@ public class MainMenu extends HandsFreeScene {
         HandsFreeToggleButton toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
         toggleSpeechControl.setOnEnabled(() -> {
             if(context.getSpeechRecognizer().isSupported()) {
-                speechControl.start();
+                try {
+                    context.getSpeechRecognizer().start();
+                } catch(SpeechRecognizerException e) {
+                    Error.reportMinor(e.getMessage());
+                    toggleSpeechControl.setEnabledWithoutTriggering(false);
+                }
             } else {
                 Error.reportMinor(ErrorMessages.NO_MICROPHONE);
-                toggleSpeechControl.setEnabled(false);
+                toggleSpeechControl.setEnabledWithoutTriggering(false);
             }
         });
-        toggleSpeechControl.setOnDisabled(() -> speechControl.stop());
+        toggleSpeechControl.setOnDisabled(() -> context.getSpeechRecognizer().stop());
         toggleSpeechControl.setEnabled(false);
 
         HandsFreeToggleButton toggleOnScreenKeyboard = new HandsFreeToggleButton("On-Screen Keyboard");
@@ -85,7 +93,7 @@ public class MainMenu extends HandsFreeScene {
             HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
             dialog.show();
         });
-        toggleAutorun.setOnDisabled(() -> speechControl.stop());
+        toggleAutorun.setOnDisabled(() -> {});
         toggleAutorun.setEnabled(false);
 
         HandsFreeDefaultButton openShortCutMenu = new HandsFreeDefaultButton("Shortcuts");

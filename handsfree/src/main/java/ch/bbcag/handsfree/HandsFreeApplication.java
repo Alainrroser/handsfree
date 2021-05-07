@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class HandsFreeApplication extends Application {
 
@@ -40,6 +41,8 @@ public class HandsFreeApplication extends Application {
             Error.reportCritical(ErrorMessages.ROBOT, e);
         } catch(NativeException e) {
             Error.reportCritical(ErrorMessages.LIBRARY, e);
+        } catch(IOException e) {
+            e.printStackTrace();
         }
     }
 

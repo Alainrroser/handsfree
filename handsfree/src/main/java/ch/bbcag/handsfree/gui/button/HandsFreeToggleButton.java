@@ -22,8 +22,7 @@ public class HandsFreeToggleButton extends HandsFreeDefaultButton {
     }
 
     public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-        updateText();
+        setEnabledWithoutTriggering(enabled);
 
         if(enabled && onEnabled != null) {
             onEnabled.run();
@@ -32,6 +31,11 @@ public class HandsFreeToggleButton extends HandsFreeDefaultButton {
         if(!enabled && onDisabled != null) {
             onDisabled.run();
         }
+    }
+
+    public void setEnabledWithoutTriggering(boolean enabled) {
+        this.enabled = enabled;
+        updateText();
     }
 
     public boolean isEnabled() {
