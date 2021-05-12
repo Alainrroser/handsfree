@@ -61,7 +61,7 @@ public class HandsFreeApplication extends Application {
         navigator.navigateTo(SceneType.MAIN_MENU);
 
         primaryStage.setOnCloseRequest(event -> {
-            showCloseDialog(mainMenu);
+            showCloseDialog();
             event.consume(); // Prevent stage closing
         });
 
@@ -70,15 +70,12 @@ public class HandsFreeApplication extends Application {
         initIconifiedWidget();
     }
 
-    private void showCloseDialog(MainMenu mainMenu) {
+    private void showCloseDialog() {
         HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
         dialog.setOnConfirmed(() -> {
             context.getEyeTracker().stop();
             context.getSpeechRecognizer().stop();
             context.getRobot().exit();
-            Configuration.writeConfiguration(mainMenu.getToggleEyeTracking().isEnabled(),
-                    mainMenu.getToggleSpeechControl().isEnabled(),
-                    mainMenu.getToggleAutorun().isEnabled());
             Platform.exit();
         });
         dialog.show();

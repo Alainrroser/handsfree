@@ -72,22 +72,33 @@ public class MainMenu extends HandsFreeScene {
         initToggleSpeechControl(context);
         initToggleOnScreenKeyboard();
         initToggleAutorun();
+        toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
+        toggleSpeechControl.setEnabled(Configuration.readConfiguration(Const.SPEECH_CONTROL_STATE));
+        toggleAutorun.setEnabled(Configuration.readConfiguration(Const.AUTORUN_STATE));
     }
     
     private void initToggleEyeTracking(HandsFreeContext context) {
         toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
-        toggleEyeTracking.setOnEnabled(() -> context.getEyeTracker().start());
-        toggleEyeTracking.setOnDisabled(() -> context.getEyeTracker().stop());
-        toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
+        toggleEyeTracking.setOnEnabled(() -> {
+            context.getEyeTracker().start();
+            saveConfiguration();
+        });
+        toggleEyeTracking.setOnDisabled(() -> {
+            context.getEyeTracker().stop();
+            saveConfiguration();
+        });
     }
     
     private void initToggleSpeechControl(HandsFreeContext context) {
         toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
         toggleSpeechControl.setOnEnabled(() -> {
             startSpeechRecognizerIfSupported(context);
+            saveConfiguration();
         });
-        toggleSpeechControl.setOnDisabled(() -> context.getSpeechRecognizer().stop());
-        toggleSpeechControl.setEnabled(Configuration.readConfiguration(Const.SPEECH_CONTROL_STATE));
+        toggleSpeechControl.setOnDisabled(() -> {
+            context.getSpeechRecognizer().stop();
+            saveConfiguration();
+        });
     }
     
     private void startSpeechRecognizerIfSupported(HandsFreeContext context) {
@@ -117,9 +128,14 @@ public class MainMenu extends HandsFreeScene {
     
     private void initToggleAutorun() {
         toggleAutorun = new HandsFreeToggleButton("Autorun");
-        toggleAutorun.setOnEnabled(this::checkIfFirstTimeTogglingAutorun);
-        toggleAutorun.setOnDisabled(Autorun::deleteFromAutorunFolder);
-        toggleAutorun.setEnabled(Configuration.readConfiguration(Const.AUTORUN_STATE));
+        toggleAutorun.setOnEnabled(() -> {
+            checkIfFirstTimeTogglingAutorun();
+            saveConfiguration();
+        });
+        toggleAutorun.setOnDisabled(() -> {
+            Autorun.deleteFromAutorunFolder();
+            saveConfiguration();
+        });
     }
     
     private void checkIfFirstTimeTogglingAutorun() {
@@ -136,16 +152,8 @@ public class MainMenu extends HandsFreeScene {
         dialog.show();
     }
     
-    public HandsFreeToggleButton getToggleEyeTracking() {
-        return toggleEyeTracking;
-    }
-    
-    public HandsFreeToggleButton getToggleSpeechControl() {
-        return toggleSpeechControl;
-    }
-    
-    public HandsFreeToggleButton getToggleAutorun() {
-        return toggleAutorun;
+    private void saveConfiguration() {
+        Configuration.writeConfiguration(toggleEyeTracking.isEnabled(), toggleSpeechControl.isEnabled(), toggleAutorun.isEnabled());
     }
 }
 
