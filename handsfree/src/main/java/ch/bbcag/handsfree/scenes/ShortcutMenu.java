@@ -3,7 +3,7 @@ package ch.bbcag.handsfree.scenes;
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
-import ch.bbcag.handsfree.control.shortcuts.ShortcutReader;
+import ch.bbcag.handsfree.control.shortcuts.ShortcutRecorder;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.*;
@@ -23,19 +23,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class ShortcutMenu extends HandsFreeScene {
     
     private ShortcutManager shortcutManager;
+    private ShortcutRecorder recorder;
     
     public ShortcutMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
         shortcutManager = context.getShortcutManager();
+        recorder = new ShortcutRecorder(shortcutManager);
     
         VBox vBox = new VBox();
         vBox.setSpacing(Const.V_BOX_SPACING);
@@ -67,9 +65,9 @@ public class ShortcutMenu extends HandsFreeScene {
         addShortcuts(list);
         
         HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
-        recordShortcut.setOnEnabled(() ->  shortcutManager.start());
+        recordShortcut.setOnEnabled(() -> recorder.start());
         recordShortcut.setOnDisabled(() -> {
-            if(shortcutManager.isRunning()) {
+            if(recorder.isRunning()) {
                 HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
                 input.setOnOk(value -> {
                     boolean doesNotEqualCommand = true;
@@ -80,31 +78,28 @@ public class ShortcutMenu extends HandsFreeScene {
                         }
                     }
                     if(shortcutManager.isNotExistingAlready(value) && !value.equals("") && doesNotEqualCommand) {
-                        shortcutManager.getShortcut().setName(value);
                         list.getItems().add(value);
                         HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
                         dialog.show();
                         context.getSpeechRecognizer().addListener(value, () -> shortcutManager.runShortcut(value));
-                        shortcutManager.stopAndSave();
+                        recorder.stopAndSave(value);
                     } else {
-                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Shortcut exists", "A Shortcut or a command with this name exists already or you entered no name!");
-                        dialog.show();
+                        Error.reportMinor("A Shortcut or a command with this name exists already or you entered no name!");
                     }
                 });
-                input.setOnCanceled(shortcutManager::stopAndDiscard);
+                input.setOnCanceled(recorder::stopAndDiscard);
                 input.show();
             }
         });
         recordShortcut.setEnabled(false);
-    
+
         HandsFreeDefaultButton deleteShortcut = new HandsFreeDefaultButton("Delete Shortcut");
         deleteShortcut.setOnAction(event -> {
-            if(list.getItems().size() != 0) {
+            if(list.getSelectionModel().getSelectedItem() != null) {
                 HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut will be lost forever! (A long time!)");
                 dialog.setOnConfirmed(() -> {
                     try {
-                        shortcutManager.deleteShortcut(list.getSelectionModel().getSelectedItem());
-                        shortcutManager.removeFromShortcuts(list.getFocusModel().getFocusedItem());
+                        shortcutManager.removeShortcut(list.getSelectionModel().getSelectedItem());
                         context.getSpeechRecognizer().removeListener(list.getSelectionModel().getSelectedItem());
                         list.getItems().remove(list.getSelectionModel().getSelectedIndex());
                     } catch(IOException e) {
@@ -113,8 +108,7 @@ public class ShortcutMenu extends HandsFreeScene {
                 });
                 dialog.show();
             } else {
-                HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("No Shortcuts", "You have to record a Shortcut before you can delete it again!");
-                dialog.show();
+                Error.reportMinor("No shortcut selected!");
             }
         });
     
