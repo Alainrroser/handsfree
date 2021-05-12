@@ -22,7 +22,7 @@ public class HandsFreeContext {
         speechRecognizer = new SpeechRecognizer();
         robot = new HandsFreeRobot();
 
-        shortcutManager = new ShortcutManager(robot);
+        shortcutManager = new ShortcutManager(this);
         speechControl = new SpeechControl(this);
     }
 

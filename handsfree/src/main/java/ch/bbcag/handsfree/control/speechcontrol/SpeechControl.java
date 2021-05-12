@@ -103,10 +103,10 @@ public class SpeechControl {
         context.getSpeechRecognizer().addListener("update view", () -> robot.keyTypeSpecial(KeyEvent.VK_F5));
         context.getSpeechRecognizer().addListener("full", () -> robot.keyTypeSpecial(KeyEvent.VK_F11));
         context.getSpeechRecognizer().addListener("escape", () -> robot.keyTypeSpecial(KeyEvent.VK_ESCAPE));
-        
-        for(Shortcut shortcut : context.getShortcutManager().getShortcuts()) {
-            context.getSpeechRecognizer().addListener(shortcut.getName(), () -> context.getShortcutManager().runShortcut(shortcut.getName()));
-        }
+    }
+
+    public void addListenerForShortcut(String name) {
+        context.getSpeechRecognizer().addListener(name, () -> context.getShortcutManager().runShortcut(name));
     }
 
 }

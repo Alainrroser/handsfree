@@ -110,6 +110,7 @@ public class HandsFreeKeyCodes {
     public static final int LALT = 0xa4;
     public static final int RALT = 0xa5;
 
+    // Special case, alt graph is equivalent to ctrl + alt so it has no key code
     public static final int ALT_GRAPH = -0x1;
 
 }

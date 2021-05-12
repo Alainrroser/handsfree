@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
 import ch.bbcag.handsfree.Const;
-import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 
@@ -12,12 +12,12 @@ import java.util.Objects;
 
 public class ShortcutManager {
     
-    private HandsFreeRobot robot;
+    private HandsFreeContext context;
     private boolean notExistingAlready = true;
     private List<Shortcut> shortcuts = new ArrayList<>();
     
-    public ShortcutManager(HandsFreeRobot robot) {
-        this.robot = robot;
+    public ShortcutManager(HandsFreeContext context) {
+        this.context = context;
     }
 
     public List<Shortcut> getShortcuts() {
@@ -29,6 +29,7 @@ public class ShortcutManager {
             shortcuts.add(shortcut);
             ShortcutWriter writer = new ShortcutWriter();
             writer.write(shortcut, new File(Const.SHORTCUT_PATH));
+            context.getSpeechRecognizer().addListener(shortcut.getName(), () -> runShortcut(shortcut.getName()));
         } catch(IOException e) {
             Error.reportCritical(ErrorMessages.WRITE_SHORTCUT, e);
         }
@@ -62,7 +63,7 @@ public class ShortcutManager {
     public void runShortcut(String name) {
         for(Shortcut shortcut : shortcuts) {
             if(shortcut.getName().equals(name)) {
-                shortcut.run(robot);
+                shortcut.run(context.getRobot());
             }
         }
     }
@@ -78,7 +79,9 @@ public class ShortcutManager {
     private void addShortcutFromFile(File file) {
         ShortcutReader reader = new ShortcutReader();
         try {
-            getShortcuts().add(reader.read(file));
+            Shortcut shortcut = reader.read(file);
+            getShortcuts().add(shortcut);
+            context.getSpeechControl().addListenerForShortcut(shortcut.getName());
         } catch(IOException e) {
             Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
         }

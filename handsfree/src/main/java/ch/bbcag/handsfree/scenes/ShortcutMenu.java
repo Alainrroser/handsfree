@@ -79,7 +79,6 @@ public class ShortcutMenu extends HandsFreeScene {
                         list.getItems().add(value);
                         HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
                         dialog.show();
-                        context.getSpeechRecognizer().addListener(value, () -> shortcutManager.runShortcut(value));
                         recorder.stopAndSave(value);
                     } else {
                         Error.reportMinor("A Shortcut or a command with this name exists already or you entered no name!");
