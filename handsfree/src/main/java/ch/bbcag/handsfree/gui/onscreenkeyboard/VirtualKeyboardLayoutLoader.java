@@ -112,16 +112,12 @@ public class VirtualKeyboardLayoutLoader {
 
         if(isValueSeparator) {
             finishValue();
+        } else if(readingString) {
+            processStringCharacter(c);
+        } else if(c == '\'') {
+            readingString = true;
         } else {
-            if(readingString) {
-                processStringCharacter(c);
-            } else {
-                if(c == '\'') {
-                    readingString = true;
-                } else {
-                    value.append(c);
-                }
-            }
+            value.append(c);
         }
     }
 

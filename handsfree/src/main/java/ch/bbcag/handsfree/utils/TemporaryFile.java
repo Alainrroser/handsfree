@@ -13,6 +13,7 @@ public class TemporaryFile {
         String tempDirectoryPath = System.getProperty("java.io.tmpdir");
         Path filePath = Paths.get(tempDirectoryPath, TEMP_SUBDIRECTORY, name);
         File file = filePath.toFile();
+        createIfNotCreated(file);
         return file;
     }
 
