@@ -167,13 +167,9 @@ public class ShortcutManager {
     
     public void runShortcut(String name) {
         for(Shortcut shortcut : shortcuts) {
-            run(name);
-        }
-    }
-    
-    private void run(String name) {
-        if(shortcut.getName().equals(name)) {
-            shortcut.run(robot);
+            if(shortcut.getName().equals(name)) {
+                shortcut.run(robot);
+            }
         }
     }
     
@@ -191,13 +187,9 @@ public class ShortcutManager {
     
     public void readShortcuts(File directory) {
         if(directory.listFiles() != null) {
-            addShortcutsFromFile(directory);
-        }
-    }
-    
-    private void addShortcutsFromFile(File directory) {
-        for(File file : Objects.requireNonNull(directory.listFiles())) {
-            addShortcutFromFile(file);
+            for(File file : Objects.requireNonNull(directory.listFiles())) {
+                addShortcutFromFile(file);
+            }
         }
     }
     
@@ -222,13 +214,9 @@ public class ShortcutManager {
     public void checkIfExisting(String name) {
         setNotExistingAlready(true);
         if(shortcuts.size() > 1) {
-            checkIfShortcutExists(name);
-        }
-    }
-    
-    private void checkIfShortcutExists(String name) {
-        for(Shortcut shortcut : shortcuts) {
-            checkIfNamesAreEqual(shortcut, name);
+            for(Shortcut shortcut : shortcuts) {
+                checkIfNamesAreEqual(shortcut, name);
+            }
         }
     }
     
