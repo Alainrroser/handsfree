@@ -4,7 +4,6 @@ import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
-import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.mouse.NativeMouseEvent;
@@ -53,15 +52,18 @@ public class ShortcutManager {
     public void stopAndSave() {
         if(running) {
             setRunning(false);
-            
-            try {
-                shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
-                shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
-                ShortcutWriter writer = new ShortcutWriter();
-                writer.write(shortcut, new File(Const.SHORTCUT_PATH));
-            } catch(IOException e) {
-                Error.reportCritical(ErrorMessages.WRITE_SHORTCUT, e);
-            }
+            writeShortcut();
+        }
+    }
+    
+    private void writeShortcut() {
+        try {
+            shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
+            shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
+            ShortcutWriter writer = new ShortcutWriter();
+            writer.write(shortcut, new File(Const.SHORTCUT_PATH));
+        } catch(IOException e) {
+            Error.reportCritical(ErrorMessages.WRITE_SHORTCUT, e);
         }
     }
     
@@ -74,43 +76,56 @@ public class ShortcutManager {
     public void addNativeMouseListener() {
         LogManager.getLogManager().reset();
         try{
-            if(!GlobalScreen.isNativeHookRegistered()) {
-                GlobalScreen.registerNativeHook();
-            }
-            GlobalScreen.addNativeMouseListener(new NativeMouseListener() {
-                @Override
-                public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
-                    int button;
-                    switch(nativeMouseEvent.getButton()) {
-                        case NativeMouseEvent.BUTTON1:
-                            button = InputEvent.BUTTON1_DOWN_MASK;
-                            break;
-                        case NativeMouseEvent.BUTTON2:
-                            button = InputEvent.BUTTON2_DOWN_MASK;
-                            break;
-                        case NativeMouseEvent.BUTTON3:
-                            button = InputEvent.BUTTON3_DOWN_MASK;
-                            break;
-                        default:
-                            button = 0;
-                            break;
-                    }
-                    addClick(new Click(button, calcTime(System.currentTimeMillis()), new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
-                }
-                
-                @Override
-                public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
-                
-                }
-                
-                @Override
-                public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
-                
-                }
-            });
+            registerNativeHook();
+            addListener();
         } catch(NativeHookException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void registerNativeHook() throws NativeHookException {
+        if(!GlobalScreen.isNativeHookRegistered()) {
+            GlobalScreen.registerNativeHook();
+        }
+    }
+    
+    private void addListener() {
+        GlobalScreen.addNativeMouseListener(new NativeMouseListener() {
+            @Override
+            public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+                int button = setButton(nativeMouseEvent);
+                addClick(new Click(button, calcTime(System.currentTimeMillis()), new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
+            }
+        
+            @Override
+            public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
+            
+            }
+        
+            @Override
+            public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
+            
+            }
+        });
+    }
+    
+    private int setButton(NativeMouseEvent nativeMouseEvent) {
+        int button;
+        switch(nativeMouseEvent.getButton()) {
+            case NativeMouseEvent.BUTTON1:
+                button = InputEvent.BUTTON1_DOWN_MASK;
+                break;
+            case NativeMouseEvent.BUTTON2:
+                button = InputEvent.BUTTON2_DOWN_MASK;
+                break;
+            case NativeMouseEvent.BUTTON3:
+                button = InputEvent.BUTTON3_DOWN_MASK;
+                break;
+            default:
+                button = 0;
+                break;
+        }
+        return button;
     }
     
     public List<Shortcut> getShortcuts() {
@@ -119,13 +134,15 @@ public class ShortcutManager {
     
     public void removeFromShortcuts(String name) {
         if(shortcuts.size() > 0) {
-            for(Shortcut shortcut : shortcuts) {
-                if(shortcut.getName() != null) {
-                    if(shortcut.getName().equalsIgnoreCase(name)) {
-                        shortcuts.remove(shortcut);
-                        break;
-                    }
-                }
+            removeShortcut(name);
+        }
+    }
+    
+    private void removeShortcut(String name) {
+        for(Shortcut shortcut : shortcuts) {
+            if(shortcut.getName() != null && shortcut.getName().equalsIgnoreCase(name)) {
+                shortcuts.remove(shortcut);
+                break;
             }
         }
     }
@@ -150,9 +167,13 @@ public class ShortcutManager {
     
     public void runShortcut(String name) {
         for(Shortcut shortcut : shortcuts) {
-            if(shortcut.getName().equals(name)) {
-                shortcut.run(robot);
-            }
+            run(name);
+        }
+    }
+    
+    private void run(String name) {
+        if(shortcut.getName().equals(name)) {
+            shortcut.run(robot);
         }
     }
     
@@ -169,16 +190,23 @@ public class ShortcutManager {
     }
     
     public void readShortcuts(File directory) {
-        ShortcutReader reader = new ShortcutReader();
-        
         if(directory.listFiles() != null) {
-            for(File file : Objects.requireNonNull(directory.listFiles())) {
-                try {
-                    getShortcuts().add(reader.read(file));
-                } catch(IOException e) {
-                    Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
-                }
-            }
+            addShortcutsFromFile(directory);
+        }
+    }
+    
+    private void addShortcutsFromFile(File directory) {
+        for(File file : Objects.requireNonNull(directory.listFiles())) {
+            addShortcutFromFile(file);
+        }
+    }
+    
+    private void addShortcutFromFile(File file) {
+        ShortcutReader reader = new ShortcutReader();
+        try {
+            getShortcuts().add(reader.read(file));
+        } catch(IOException e) {
+            Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
         }
     }
     
@@ -194,13 +222,19 @@ public class ShortcutManager {
     public void checkIfExisting(String name) {
         setNotExistingAlready(true);
         if(shortcuts.size() > 1) {
-            for(Shortcut shortcut : shortcuts) {
-                if(shortcut.getName() != null) {
-                    if(shortcut.getName().equalsIgnoreCase(name)) {
-                        setNotExistingAlready(false);
-                    }
-                }
-            }
+            checkIfShortcutExists(name);
+        }
+    }
+    
+    private void checkIfShortcutExists(String name) {
+        for(Shortcut shortcut : shortcuts) {
+            checkIfNamesAreEqual(shortcut, name);
+        }
+    }
+    
+    private void checkIfNamesAreEqual(Shortcut shortcut, String name) {
+        if(shortcut.getName() != null && shortcut.getName().equalsIgnoreCase(name)) {
+            setNotExistingAlready(false);
         }
     }
 }
