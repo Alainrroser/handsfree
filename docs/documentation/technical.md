@@ -48,3 +48,14 @@
         * Das Zweite das Shortcut-Menu
         * Das Dritte ein Warnungs-Fenster
         * Das Vierte ein Informations-Fenster
+* Verwendete APIs
+    * Tobii Stream Engine SDK
+        * Link: <https://developer.tobii.com/product-integration/stream-engine/>
+        * Die Tobii Stream Engine SDK ermöglicht es, Daten vom Eye Tracker zu bekommen
+    * Tobii Stream Engine for Java
+        * Link: <https://github.com/GazePlay/TobiiStreamEngineForJava>
+        * Die Tobii Stream Engine for Java ermöglicht es, den Blickpunkt im Java zu erhalten
+        * Wir haben viele Modifikationen am Source Code vorgenommen, um beispielsweise auch geschlossene Augen erkennen zu können.
+    * JNativeHook
+        * Link: <https://github.com/kwhat/jnativehook>
+        * Mit JNativeHook werden Mausklicks registriert, damit Shortcuts aufgenommen werden können

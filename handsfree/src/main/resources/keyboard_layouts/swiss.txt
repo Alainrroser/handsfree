@@ -1,95 +1,95 @@
 name swiss
-VK_ESCAPE, false, 'Esc', '', '', '', 1.0, 0.5
-VK_F1, false, 'F1', '', '', '', 1.0, 0.5
-VK_F2, false, 'F2', '', '', '', 1.0, 0.5
-VK_F3, false, 'F3', '', '', '', 1.0, 0.5
-VK_F4, false, 'F4', '', '', '', 1.0, 0.5
-VK_F5, false, 'F5', '', '', '', 1.0, 0.5
-VK_F6, false, 'F6', '', '', '', 1.0, 0.5
-VK_F7, false, 'F7', '', '', '', 1.0, 0.5
-VK_F8, false, 'F8', '', '', '', 1.0, 0.5
-VK_F9, false, 'F9', '', '', '', 1.0, 0.5
-VK_F10, false, 'F10', '', '', '', 1.0, 0.5
-VK_F11, false, 'F11', '', '', '', 1.0, 0.5
-VK_F12, false, 'F12', '', '', '', 1.0, 0.5
-VK_PRINTSCREEN, false, 'Print Screen', '', '', '', 2.0, 0.5
-VK_SCROLL_LOCK, false, 'Scroll Lock', '', '', '', 2.0, 0.5
-VK_PAUSE, false, 'Pause', '', '', '', 1.0, 0.5
+ESCAPE, false, 'Esc', '', '', '', 1.0, 0.5
+F1, false, 'F1', '', '', '', 1.0, 0.5
+F2, false, 'F2', '', '', '', 1.0, 0.5
+F3, false, 'F3', '', '', '', 1.0, 0.5
+F4, false, 'F4', '', '', '', 1.0, 0.5
+F5, false, 'F5', '', '', '', 1.0, 0.5
+F6, false, 'F6', '', '', '', 1.0, 0.5
+F7, false, 'F7', '', '', '', 1.0, 0.5
+F8, false, 'F8', '', '', '', 1.0, 0.5
+F9, false, 'F9', '', '', '', 1.0, 0.5
+F10, false, 'F10', '', '', '', 1.0, 0.5
+F11, false, 'F11', '', '', '', 1.0, 0.5
+F12, false, 'F12', '', '', '', 1.0, 0.5
+PRINT_SCREEN, false, 'Print Screen', '', '', '', 2.0, 0.5
+SCROLL_LOCK, false, 'Scroll Lock', '', '', '', 2.0, 0.5
+PAUSE, false, 'Pause', '', '', '', 1.0, 0.5
 finish row
 191, false, '°', '', '§', '', 1.0, 1.0
-VK_1, false, '+', '', '1', '¦', 1.0, 1.0
-VK_2, false, '"', '', '2', '', 1.0, 1.0
-VK_3, false, '*', '', '3', '', 1.0, 1.0
-VK_4, false, 'ç', '', '4', '', 1.0, 1.0
-VK_5, false, '%', '', '5', '', 1.0, 1.0
-VK_6, false, '&', '', '6', '¬', 1.0, 1.0
-VK_7, false, '/', '', '7', '|', 1.0, 1.0
-VK_8, false, '(', '', '8', '¢', 1.0, 1.0
-VK_9, false, ')', '', '9', '', 1.0, 1.0
-VK_0, false, '=', '', '0', '', 1.0, 1.0
+DIGIT1, false, '+', '', '1', '¦', 1.0, 1.0
+DIGIT2, false, '"', '', '2', '', 1.0, 1.0
+DIGIT3, false, '*', '', '3', '', 1.0, 1.0
+DIGIT4, false, 'ç', '', '4', '', 1.0, 1.0
+DIGIT5, false, '%', '', '5', '', 1.0, 1.0
+DIGIT6, false, '&', '', '6', '¬', 1.0, 1.0
+DIGIT7, false, '/', '', '7', '|', 1.0, 1.0
+DIGIT8, false, '(', '', '8', '¢', 1.0, 1.0
+DIGIT9, false, ')', '', '9', '', 1.0, 1.0
+DIGIT0, false, '=', '', '0', '', 1.0, 1.0
 219, false, '?', '', '\'', '´', 1.0, 1.0
 221, false, '`', '', '^', '~', 1.0, 1.0
-VK_BACK_SPACE, false, 'Backspace', '', '', '', 2.0, 1.0
-VK_INSERT, false, 'Insert', '', '', '', 1.0, 1.0
-VK_HOME, false, 'Home', '', '', '', 1.0, 1.0
-VK_PAGE_UP, false, 'Pg Up', '', '', '', 1.0, 1.0
+BACKSPACE, false, 'Backspace', '', '', '', 2.0, 1.0
+INSERT, false, 'Insert', '', '', '', 1.0, 1.0
+HOME, false, 'Home', '', '', '', 1.0, 1.0
+PAGE_UP, false, 'Pg Up', '', '', '', 1.0, 1.0
 finish row
-VK_TAB, false, 'Tab', '', '', '', 1.65, 1.0
-VK_Q, false, 'Q', '', '', '', 1.0, 1.0
-VK_W, false, 'W', '', '', '', 1.0, 1.0
-VK_E, false, 'E', '', '', '', 1.0, 1.0
-VK_R, false, 'R', '', '', '', 1.0, 1.0
-VK_T, false, 'T', '', '', '', 1.0, 1.0
-VK_Z, false, 'Z', '', '', '', 1.0, 1.0
-VK_U, false, 'U', '', '', '', 1.0, 1.0
-VK_I, false, 'I', '', '', '', 1.0, 1.0
-VK_O, false, 'O', '', '', '', 1.0, 1.0
-VK_P, false, 'P', '', '', '', 1.0, 1.0
+TAB, false, 'Tab', '', '', '', 1.65, 1.0
+Q, false, 'Q', '', '', '', 1.0, 1.0
+W, false, 'W', '', '', '', 1.0, 1.0
+E, false, 'E', '', '', '', 1.0, 1.0
+R, false, 'R', '', '', '', 1.0, 1.0
+T, false, 'T', '', '', '', 1.0, 1.0
+Z, false, 'Z', '', '', '', 1.0, 1.0
+U, false, 'U', '', '', '', 1.0, 1.0
+I, false, 'I', '', '', '', 1.0, 1.0
+O, false, 'O', '', '', '', 1.0, 1.0
+P, false, 'P', '', '', '', 1.0, 1.0
 186, false, 'è', '', 'ü', '[', 1.0, 1.0
 192, false, '!', '', '¨', ']', 1.0, 1.0
 13, false, 'Enter', '', '', '', 1.35, 1.0
-VK_DELETE, false, 'Delete', '', '', '', 1.0, 1.0
-VK_END, false, 'End', '', '', '', 1.0, 1.0
-VK_PAGE_DOWN, false, 'Pg Dn', '', '', '', 1.0, 1.0
+DELETE, false, 'Delete', '', '', '', 1.0, 1.0
+END, false, 'End', '', '', '', 1.0, 1.0
+PAGE_DOWN, false, 'Pg Dn', '', '', '', 1.0, 1.0
 finish row
-VK_CAPS_LOCK, false, 'Caps Lock', '', '', '', 2.0, 1.0
-VK_A, false, 'A', '', '', '', 1.0, 1.0
-VK_S, false, 'S', '', '', '', 1.0, 1.0
-VK_D, false, 'D', '', '', '', 1.0, 1.0
-VK_F, false, 'F', '', '', '', 1.0, 1.0
-VK_G, false, 'G', '', '', '', 1.0, 1.0
-VK_H, false, 'H', '', '', '', 1.0, 1.0
-VK_J, false, 'J', '', '', '', 1.0, 1.0
-VK_K, false, 'K', '', '', '', 1.0, 1.0
-VK_L, false, 'L', '', '', '', 1.0, 1.0
+CAPS_LOCK, false, 'Caps Lock', '', '', '', 2.0, 1.0
+A, false, 'A', '', '', '', 1.0, 1.0
+S, false, 'S', '', '', '', 1.0, 1.0
+D, false, 'D', '', '', '', 1.0, 1.0
+F, false, 'F', '', '', '', 1.0, 1.0
+G, false, 'G', '', '', '', 1.0, 1.0
+H, false, 'H', '', '', '', 1.0, 1.0
+J, false, 'J', '', '', '', 1.0, 1.0
+K, false, 'K', '', '', '', 1.0, 1.0
+L, false, 'L', '', '', '', 1.0, 1.0
 222, false, 'é', '', 'ö', '', 1.0, 1.0
 220, false, 'ä', '', 'à', '{', 1.0, 1.0
 223, false, '£', '', '$', '}', 1.0, 1.0
 13, false, 'Enter', '', '', '', 1.0, 1.0
 finish row
-VK_SHIFT, true, 'Shift', '', '', '', 1.35, 1.0
+LSHIFT, true, 'Shift', '', '', '', 1.35, 1.0
 226, false, '>', '', '<', '\\', 1.0, 1.0
-VK_Y, false, 'Y', '', '', '', 1.0, 1.0
-VK_X, false, 'X', '', '', '', 1.0, 1.0
-VK_C, false, 'C', '', '', '', 1.0, 1.0
-VK_V, false, 'V', '', '', '', 1.0, 1.0
-VK_B, false, 'B', '', '', '', 1.0, 1.0
-VK_N, false, 'N', '', '', '', 1.0, 1.0
-VK_M, false, 'M', '', '', '', 1.0, 1.0
+Y, false, 'Y', '', '', '', 1.0, 1.0
+X, false, 'X', '', '', '', 1.0, 1.0
+C, false, 'C', '', '', '', 1.0, 1.0
+V, false, 'V', '', '', '', 1.0, 1.0
+B, false, 'B', '', '', '', 1.0, 1.0
+N, false, 'N', '', '', '', 1.0, 1.0
+M, false, 'M', '', '', '', 1.0, 1.0
 188, false, ';', '', ',', '', 1.0, 1.0
 190, false, ':', '', '.', '', 1.0, 1.0
 189, false, '-', '', '_', '', 1.0, 1.0
-VK_SHIFT, true, 'Shift', '', '', '', 2.65, 1.0
-VK_UP, false, 'Up', '', '', '', 3.0, 1.0
+RSHIFT, true, 'Shift', '', '', '', 2.65, 1.0
+UP, false, 'Up', '', '', '', 3.0, 1.0
 finish row
-VK_CONTROL, true, 'Ctrl', '', '', '', 1.6, 1.0
-VK_WINDOWS, true, 'Win', '', '', '', 1.0, 1.0
-VK_ALT, true, 'Alt', '', '', '', 1.6, 1.0
-VK_SPACE, false, 'Space', '', '', '', 6.6, 1.0
-VK_ALT_GRAPH, true, 'Alt Gr', '', '', '', 1.6, 1.0
-VK_WINDOWS, true, 'Win', '', '', '', 1.0, 1.0
-VK_CONTROL, true, 'Ctrl', '', '', '', 1.6, 1.0
-VK_LEFT, true, 'Left', '', '', '', 1.0, 1.0
-VK_DOWN, true, 'Down', '', '', '', 1.0, 1.0
-VK_RIGHT, true, 'Right', '', '', '', 1.0, 1.0
+LCONTROL, true, 'Ctrl', '', '', '', 1.6, 1.0
+91, true, 'Win', '', '', '', 1.0, 1.0
+LALT, true, 'Alt', '', '', '', 1.6, 1.0
+SPACE, false, 'Space', '', '', '', 6.6, 1.0
+ALT_GRAPH, true, 'Alt Gr', '', '', '', 1.6, 1.0
+92, true, 'Win', '', '', '', 1.0, 1.0
+RCONTROL, true, 'Ctrl', '', '', '', 1.6, 1.0
+LEFT, false, 'Left', '', '', '', 1.0, 1.0
+DOWN, false, 'Down', '', '', '', 1.0, 1.0
+RIGHT, false, 'Right', '', '', '', 1.0, 1.0
 finish row

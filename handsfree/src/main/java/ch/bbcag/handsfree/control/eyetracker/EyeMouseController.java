@@ -1,12 +1,8 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
 import ch.bbcag.handsfree.HandsFreeContext;
-import ch.bbcag.handsfree.control.HandsFreeRobot;
-import ch.bbcag.handsfree.control.shortcuts.Click;
-import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import tobii.Tobii;
 
-import java.awt.*;
 import java.awt.event.InputEvent;
 
 public class EyeMouseController {
@@ -21,7 +17,7 @@ public class EyeMouseController {
 
     public EyeMouseController(HandsFreeContext context) {
         this.context = context;
-        context.getEyeTracker().addGazeHandler(this::controlCursor);
+        context.getEyeTracker().addGazeListener(this::controlCursor);
     }
 
     private void controlCursor(int x, int y) {

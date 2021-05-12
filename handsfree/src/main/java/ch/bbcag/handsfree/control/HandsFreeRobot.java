@@ -29,18 +29,18 @@ public class HandsFreeRobot {
     public void keyPressSpecial(int keyCode) {
         // The gods have decided that alt graph cannot be simulated
         // using VK_ALT_GRAPH, you have to use VK_CONTROL + VK_ALT instead
-        if(keyCode == KeyEvent.VK_ALT_GRAPH) {
-            keyPressInternal(KeyEvent.VK_CONTROL);
-            keyPressInternal(KeyEvent.VK_ALT);
+        if(keyCode == HandsFreeKeyCodes.ALT_GRAPH) {
+            keyPressInternal(HandsFreeKeyCodes.CONTROL);
+            keyPressInternal(HandsFreeKeyCodes.ALT);
         } else {
             keyPressInternal(keyCode);
         }
     }
 
     public void keyReleaseSpecial(int keyCode) {
-        if(keyCode == KeyEvent.VK_ALT_GRAPH) {
-            keyReleaseInternal(KeyEvent.VK_CONTROL);
-            keyReleaseInternal(KeyEvent.VK_ALT);
+        if(keyCode == HandsFreeKeyCodes.ALT_GRAPH) {
+            keyReleaseInternal(HandsFreeKeyCodes.CONTROL);
+            keyReleaseInternal(HandsFreeKeyCodes.ALT);
         } else {
             keyReleaseInternal(keyCode);
         }

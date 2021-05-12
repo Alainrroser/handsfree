@@ -4,6 +4,8 @@ import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
 import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
+import ch.bbcag.handsfree.gui.HandsFreeStageDecoration;
 import ch.bbcag.handsfree.gui.WindowDragController;
 import ch.bbcag.handsfree.error.Error;
 import javafx.geometry.Insets;

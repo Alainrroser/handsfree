@@ -11,10 +11,10 @@ import java.util.List;
 
 public class EyeTracker {
 
-    private List<GazeHandler> gazeHandlers = new ArrayList<>();
-    private List<RegionGazeHandler> regionGazeHandlers = new ArrayList<>();
+    private List<GazeListener> gazeListeners = new ArrayList<>();
+    private List<RegionGazeListener> regionGazeListeners = new ArrayList<>();
 
-    private RegionGazeHandler currentRegionGazeHandler = null;
+    private RegionGazeListener currentRegionGazeListener = null;
     private double currentGazeRegionActivationTime = 0;
     private boolean regionGazeHandlerActivated = false;
 
@@ -32,20 +32,20 @@ public class EyeTracker {
         this.running = false;
     }
 
-    public void addGazeHandler(GazeHandler handler) {
-        gazeHandlers.add(handler);
+    public void addGazeListener(GazeListener handler) {
+        gazeListeners.add(handler);
     }
 
-    public void removeGazeHandler(GazeHandler handler) {
-        gazeHandlers.remove(handler);
+    public void removeGazeListener(GazeListener handler) {
+        gazeListeners.remove(handler);
     }
 
-    public void addRegionGazeHandler(RegionGazeHandler handler) {
-        regionGazeHandlers.add(handler);
+    public void addRegionGazeListener(RegionGazeListener handler) {
+        regionGazeListeners.add(handler);
     }
 
-    public void removeRegionGazeHandler(RegionGazeHandler handler) {
-        regionGazeHandlers.remove(handler);
+    public void removeRegionGazeListener(RegionGazeListener handler) {
+        regionGazeListeners.remove(handler);
     }
 
     private void doTracking() {
@@ -72,20 +72,20 @@ public class EyeTracker {
     }
 
     private void runGazeHandlers(int x, int y) {
-        for(GazeHandler gazeHandler : gazeHandlers) {
-            gazeHandler.gaze(x, y);
+        for(GazeListener gazeListener : gazeListeners) {
+            gazeListener.gaze(x, y);
         }
     }
 
     private void runActivatedRegionGazeHandlers(int x, int y) {
-        for(RegionGazeHandler regionGazeHandler : regionGazeHandlers) {
+        for(RegionGazeListener regionGazeListener : regionGazeListeners) {
             try {
-                Region region = regionGazeHandler.getRegion();
+                Region region = regionGazeListener.getRegion();
                 Bounds boundsLocal = region.getBoundsInLocal();
                 Bounds boundsOnScreen = region.localToScreen(boundsLocal);
 
                 if(boundsOnScreen.contains(new Point2D(x, y))) {
-                    updateGazeRegion(regionGazeHandler, x, y);
+                    updateGazeRegion(regionGazeListener, x, y);
                     return;
                 }
             } catch(IndexOutOfBoundsException e) {
@@ -94,22 +94,22 @@ public class EyeTracker {
             }
         }
 
-        currentRegionGazeHandler = null;
+        currentRegionGazeListener = null;
     }
 
-    private void updateGazeRegion(RegionGazeHandler handler, int x, int y) {
-        if(handler != currentRegionGazeHandler) {
+    private void updateGazeRegion(RegionGazeListener handler, int x, int y) {
+        if(handler != currentRegionGazeListener) {
             startRegionGazeTimer(handler);
         } else {
             if(!regionGazeHandlerActivated && System.currentTimeMillis() >= currentGazeRegionActivationTime) {
-                currentRegionGazeHandler.getGazeHandler().gaze(x, y);
+                currentRegionGazeListener.getGazeListener().gaze(x, y);
                 regionGazeHandlerActivated = true;
             }
         }
     }
 
-    private void startRegionGazeTimer(RegionGazeHandler handler) {
-        currentRegionGazeHandler = handler;
+    private void startRegionGazeTimer(RegionGazeListener handler) {
+        currentRegionGazeListener = handler;
         currentGazeRegionActivationTime = System.currentTimeMillis() + handler.getMinTime();
         regionGazeHandlerActivated = false;
     }

@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
-public interface GazeHandler {
+public interface GazeListener {
 
     void gaze(int x, int y);
 

@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
+import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
 
 import java.awt.event.KeyEvent;
@@ -164,9 +165,9 @@ public class VirtualKeyboardLayoutLoader {
     }
 
     private void processKeyCode(String value) {
-        if(value.startsWith("VK_")) {
+        if(Character.isAlphabetic(value.charAt(0))) {
             try {
-                Field field = KeyEvent.class.getDeclaredField(value);
+                Field field = HandsFreeKeyCodes.class.getDeclaredField(value);
                 currentKey.setKeyCode(field.getInt(KeyEvent.class));
             } catch(NoSuchFieldException | IllegalAccessException e) {
                 System.out.println("no such field " + value);
