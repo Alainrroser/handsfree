@@ -76,43 +76,56 @@ public class ShortcutManager {
     public void addNativeMouseListener() {
         LogManager.getLogManager().reset();
         try{
-            if(!GlobalScreen.isNativeHookRegistered()) {
-                GlobalScreen.registerNativeHook();
-            }
-            GlobalScreen.addNativeMouseListener(new NativeMouseListener() {
-                @Override
-                public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
-                    int button;
-                    switch(nativeMouseEvent.getButton()) {
-                        case NativeMouseEvent.BUTTON1:
-                            button = InputEvent.BUTTON1_DOWN_MASK;
-                            break;
-                        case NativeMouseEvent.BUTTON2:
-                            button = InputEvent.BUTTON2_DOWN_MASK;
-                            break;
-                        case NativeMouseEvent.BUTTON3:
-                            button = InputEvent.BUTTON3_DOWN_MASK;
-                            break;
-                        default:
-                            button = 0;
-                            break;
-                    }
-                    addClick(new Click(button, calcTime(System.currentTimeMillis()), new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
-                }
-                
-                @Override
-                public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
-                
-                }
-                
-                @Override
-                public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
-                
-                }
-            });
+            registerNativeHook();
+            addListener();
         } catch(NativeHookException e) {
             e.printStackTrace();
         }
+    }
+    
+    private void registerNativeHook() throws NativeHookException {
+        if(!GlobalScreen.isNativeHookRegistered()) {
+            GlobalScreen.registerNativeHook();
+        }
+    }
+    
+    private void addListener() {
+        GlobalScreen.addNativeMouseListener(new NativeMouseListener() {
+            @Override
+            public void nativeMouseClicked(NativeMouseEvent nativeMouseEvent) {
+                int button = setButton(nativeMouseEvent);
+                addClick(new Click(button, calcTime(System.currentTimeMillis()), new Point(nativeMouseEvent.getX(), nativeMouseEvent.getY())));
+            }
+        
+            @Override
+            public void nativeMousePressed(NativeMouseEvent nativeMouseEvent) {
+            
+            }
+        
+            @Override
+            public void nativeMouseReleased(NativeMouseEvent nativeMouseEvent) {
+            
+            }
+        });
+    }
+    
+    private int setButton(NativeMouseEvent nativeMouseEvent) {
+        int button;
+        switch(nativeMouseEvent.getButton()) {
+            case NativeMouseEvent.BUTTON1:
+                button = InputEvent.BUTTON1_DOWN_MASK;
+                break;
+            case NativeMouseEvent.BUTTON2:
+                button = InputEvent.BUTTON2_DOWN_MASK;
+                break;
+            case NativeMouseEvent.BUTTON3:
+                button = InputEvent.BUTTON3_DOWN_MASK;
+                break;
+            default:
+                button = 0;
+                break;
+        }
+        return button;
     }
     
     public List<Shortcut> getShortcuts() {
