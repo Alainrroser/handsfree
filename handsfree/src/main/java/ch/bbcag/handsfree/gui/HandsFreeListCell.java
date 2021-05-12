@@ -8,9 +8,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
-import java.awt.event.InputEvent;
-import java.awt.event.MouseEvent;
-
 public class HandsFreeListCell extends ListCell<String> {
 
     private HandsFreeListView view;
@@ -24,8 +21,8 @@ public class HandsFreeListCell extends ListCell<String> {
         updateBackground();
         
         setOnMouseClicked(event -> {
-            if(isSelected() && view.getDoubleClickHandler() != null && event.getButton() == MouseButton.SECONDARY) {
-                view.getDoubleClickHandler().run(getItem());
+            if(isSelected() && view.getRightClickHandler() != null && event.getButton() == MouseButton.SECONDARY) {
+                view.getRightClickHandler().run(getItem());
             }
         });
     }

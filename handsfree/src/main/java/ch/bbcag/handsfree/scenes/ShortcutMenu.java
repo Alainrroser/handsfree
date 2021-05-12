@@ -7,7 +7,6 @@ import ch.bbcag.handsfree.control.shortcuts.ShortcutRecorder;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.*;
-import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
@@ -21,7 +20,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 
@@ -60,7 +58,7 @@ public class ShortcutMenu extends HandsFreeScene {
     
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);
-        list.setDoubleClickHandler(item -> shortcutManager.runShortcut(item));
+        list.setRightClickHandler(item -> shortcutManager.runShortcut(item));
         list.setMinHeight(600);
         addShortcuts(list);
         

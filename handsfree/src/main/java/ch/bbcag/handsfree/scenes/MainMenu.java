@@ -31,6 +31,7 @@ public class MainMenu extends HandsFreeScene {
     private HandsFreeToggleButton toggleAutorun;
     
     private boolean isFirstTime = true;
+    private boolean hasBeenRead = false;
 
     public MainMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
@@ -75,17 +76,22 @@ public class MainMenu extends HandsFreeScene {
         toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
         toggleSpeechControl.setEnabled(Configuration.readConfiguration(Const.SPEECH_CONTROL_STATE));
         toggleAutorun.setEnabled(Configuration.readConfiguration(Const.AUTORUN_STATE));
+        hasBeenRead = true;
     }
     
     private void initToggleEyeTracking(HandsFreeContext context) {
         toggleEyeTracking = new HandsFreeToggleButton("Eye Tracking");
         toggleEyeTracking.setOnEnabled(() -> {
             context.getEyeTracker().start();
-            saveConfiguration();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
         });
         toggleEyeTracking.setOnDisabled(() -> {
             context.getEyeTracker().stop();
-            saveConfiguration();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
         });
     }
     
@@ -93,11 +99,15 @@ public class MainMenu extends HandsFreeScene {
         toggleSpeechControl = new HandsFreeToggleButton("Speech Control");
         toggleSpeechControl.setOnEnabled(() -> {
             startSpeechRecognizerIfSupported(context);
-            saveConfiguration();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
         });
         toggleSpeechControl.setOnDisabled(() -> {
             context.getSpeechRecognizer().stop();
-            saveConfiguration();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
         });
     }
     
@@ -133,26 +143,26 @@ public class MainMenu extends HandsFreeScene {
         toggleAutorun = new HandsFreeToggleButton("Autorun");
         toggleAutorun.setOnEnabled(() -> {
             checkIfFirstTimeTogglingAutorun();
-            saveConfiguration();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
         });
         toggleAutorun.setOnDisabled(() -> {
             Autorun.deleteFromAutorunFolder();
-            saveConfiguration();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
         });
     }
     
     private void checkIfFirstTimeTogglingAutorun() {
         if(!isFirstTime) {
-            showAutorunDialog();
+            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
+            dialog.show();
         }
         if(isFirstTime) {
             isFirstTime = false;
         }
-    }
-    
-    private void showAutorunDialog() {
-        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
-        dialog.show();
     }
     
     private void saveConfiguration() {
