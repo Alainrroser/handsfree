@@ -1,11 +1,8 @@
 package tobii;
 
-import ch.bbcag.handsfree.jni.NativeUtils;
+import ch.bbcag.handsfree.error.NativeException;
+import ch.bbcag.handsfree.utils.NativeLibraryLoader;
 
-import java.io.File;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.concurrent.Callable;
 
 public class Tobii {
@@ -64,13 +61,13 @@ public class Tobii {
 
     private static void loadTobiiLibraries() throws Exception {
         if(isWindows()) {
-            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/tobii_stream_engine.dll");
-            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/tobii_jni_stream_engine.dll");
+            NativeLibraryLoader.loadLibraryFromResource("/lib/tobii/x64/tobii_stream_engine.dll");
+            NativeLibraryLoader.loadLibraryFromResource("/lib/tobii/x64/tobii_jni_stream_engine.dll");
         } else if(isUnix()) {
-            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/libtobii_stream_engine.so");
-            NativeUtils.loadLibraryFromResource("/lib/tobii/x64/libtobii_jni_stream_engine.so");
+            NativeLibraryLoader.loadLibraryFromResource("/lib/tobii/x64/libtobii_stream_engine.so");
+            NativeLibraryLoader.loadLibraryFromResource("/lib/tobii/x64/libtobii_jni_stream_engine.so");
         } else if(isMac()) {
-            //TODO Compile and add MacOS libraries here
+            throw new NativeException("Tobii Stream Engine", "Eye Tracking is not supported on Mac");
         }
     }
 

@@ -1,9 +1,7 @@
 package ch.bbcag.handsfree.control.speechcontrol;
 
-import ch.bbcag.handsfree.Utils;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.utils.TemporaryFile;
 import ch.bbcag.handsfree.error.SpeechRecognizerException;
-import edu.cmu.sphinx.api.AbstractSpeechRecognizer;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
@@ -65,7 +63,7 @@ public class SpeechRecognizer {
 
     private void createRecognizer() throws SpeechRecognizerException {
         try {
-            grammarFile = Utils.createTempFile(GRAMMAR_NAME + "." + GRAMMAR_FILE_EXTENSION);
+            grammarFile = TemporaryFile.create(GRAMMAR_NAME + "." + GRAMMAR_FILE_EXTENSION);
             writeGrammarFile();
 
             Configuration configuration = new Configuration();
@@ -108,19 +106,27 @@ public class SpeechRecognizer {
         disableLogging();
 
         while(true) {
-            SpeechResult result = recognizer.getResult();
-
-            if(result != null && running) {
-                String text = result.getHypothesis();
-                SpeechListener listener = listeners.get(text);
-
-                if(listener != null) {
-                    listener.run();
-                }
-            }
+            initListeningLoop();
         }
 
 //        recognizer.stopRecognition();
+    }
+
+    private void initListeningLoop() {
+        SpeechResult result = recognizer.getResult();
+
+        if(result != null && running) {
+            processResult(result);
+        }
+    }
+
+    private void processResult(SpeechResult result) {
+        String text = result.getHypothesis();
+        SpeechListener listener = listeners.get(text);
+
+        if(listener != null) {
+            listener.run();
+        }
     }
 
     public boolean isSupported() {

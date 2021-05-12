@@ -99,17 +99,19 @@ public class EyeTracker {
 
     private void updateGazeRegion(RegionGazeHandler handler, int x, int y) {
         if(handler != currentRegionGazeHandler) {
-            currentRegionGazeHandler = handler;
-            currentGazeRegionActivationTime = System.currentTimeMillis() + handler.getMinTime();
-            regionGazeHandlerActivated = false;
+            startRegionGazeTimer(handler);
         } else {
-            if(!regionGazeHandlerActivated) {
-                if(System.currentTimeMillis() >= currentGazeRegionActivationTime) {
-                    currentRegionGazeHandler.getGazeHandler().gaze(x, y);
-                    regionGazeHandlerActivated = true;
-                }
+            if(!regionGazeHandlerActivated && System.currentTimeMillis() >= currentGazeRegionActivationTime) {
+                currentRegionGazeHandler.getGazeHandler().gaze(x, y);
+                regionGazeHandlerActivated = true;
             }
         }
+    }
+
+    private void startRegionGazeTimer(RegionGazeHandler handler) {
+        currentRegionGazeHandler = handler;
+        currentGazeRegionActivationTime = System.currentTimeMillis() + handler.getMinTime();
+        regionGazeHandlerActivated = false;
     }
 
     private void sleepThread() {

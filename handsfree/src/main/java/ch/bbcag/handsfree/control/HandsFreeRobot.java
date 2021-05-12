@@ -2,11 +2,10 @@ package ch.bbcag.handsfree.control;
 
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
-import ch.bbcag.handsfree.jni.NativeUtils;
+import ch.bbcag.handsfree.utils.NativeLibraryLoader;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -24,7 +23,7 @@ public class HandsFreeRobot {
             throw new HandsFreeRobotException(e);
         }
 
-        NativeUtils.loadLibraryFromResource("/lib/robot/robot_jni.dll");
+        NativeLibraryLoader.loadLibraryFromResource("/lib/robot/robot_jni.dll");
     }
 
     public void keyPressSpecial(int keyCode) {

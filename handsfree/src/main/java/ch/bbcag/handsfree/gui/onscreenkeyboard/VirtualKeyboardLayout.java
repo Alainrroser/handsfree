@@ -17,4 +17,5 @@ public class VirtualKeyboardLayout {
     public VirtualKeyRow[] getKeyRows() {
         return keyRows;
     }
+
 }

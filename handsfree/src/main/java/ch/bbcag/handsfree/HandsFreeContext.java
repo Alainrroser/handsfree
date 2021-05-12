@@ -7,8 +7,6 @@ import ch.bbcag.handsfree.control.speechcontrol.SpeechRecognizer;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
 
-import java.io.IOException;
-
 public class HandsFreeContext {
 
     private EyeTracker eyeTracker;

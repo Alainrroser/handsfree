@@ -92,12 +92,10 @@ public class HandsFreeButton extends Button {
     private void updateBackground() {
         if(pressed) {
             updateBackground(palette.getPressColor());
+        } else if(hovered) {
+            updateBackground(palette.getHoverColor());
         } else {
-            if(hovered) {
-                updateBackground(palette.getHoverColor());
-            } else {
-                updateBackground(palette.getDefaultColor());
-            }
+            updateBackground(palette.getDefaultColor());
         }
     }
 

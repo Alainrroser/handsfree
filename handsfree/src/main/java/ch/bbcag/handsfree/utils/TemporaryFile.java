@@ -1,19 +1,22 @@
-package ch.bbcag.handsfree;
+package ch.bbcag.handsfree.utils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class Utils {
+public class TemporaryFile {
 
     private static final String TEMP_SUBDIRECTORY = "handsfree";
 
-    public static File createTempFile(String name) throws IOException {
+    public static File create(String name) throws IOException {
         String tempDirectoryPath = System.getProperty("java.io.tmpdir");
-        Path grammarFilePath = Paths.get(tempDirectoryPath, TEMP_SUBDIRECTORY, name);
-        File file = grammarFilePath.toFile();
+        Path filePath = Paths.get(tempDirectoryPath, TEMP_SUBDIRECTORY, name);
+        File file = filePath.toFile();
+        return file;
+    }
 
+    private static void createIfNotCreated(File file) throws IOException {
         if(file.getParentFile() != null) {
             file.getParentFile().mkdirs();
         }
@@ -21,8 +24,6 @@ public class Utils {
         if(!file.exists()) {
             file.createNewFile();
         }
-
-        return file;
     }
 
 }

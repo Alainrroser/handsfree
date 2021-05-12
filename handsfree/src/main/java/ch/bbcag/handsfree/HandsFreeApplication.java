@@ -40,6 +40,7 @@ public class HandsFreeApplication extends Application {
         try {
             context = new HandsFreeContext();
             context.getShortcutManager().readShortcuts(new File(Const.SHORTCUT_PATH));
+
             initGUI();
         } catch(HandsFreeRobotException e) {
             Error.reportCritical(ErrorMessages.ROBOT, e);
@@ -60,23 +61,30 @@ public class HandsFreeApplication extends Application {
         navigator.navigateTo(SceneType.MAIN_MENU);
 
         primaryStage.setOnCloseRequest(event -> {
-            HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
-            dialog.setOnConfirmed(() -> {
-                context.getEyeTracker().stop();
-                context.getSpeechRecognizer().stop();
-                context.getRobot().exit();
-                Configuration.writeConfiguration(mainMenu.getToggleEyeTracking().isEnabled(),
-                                                 mainMenu.getToggleSpeechControl().isEnabled(),
-                                                 mainMenu.getToggleAutorun().isEnabled());
-                Platform.exit();
-            });
-            dialog.show();
-
+            showCloseDialog(mainMenu);
             event.consume(); // Prevent stage closing
         });
 
         primaryStage.show();
 
+        initIconifiedWidget();
+    }
+
+    private void showCloseDialog(MainMenu mainMenu) {
+        HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Exit", "Do you really want to exit?");
+        dialog.setOnConfirmed(() -> {
+            context.getEyeTracker().stop();
+            context.getSpeechRecognizer().stop();
+            context.getRobot().exit();
+            Configuration.writeConfiguration(mainMenu.getToggleEyeTracking().isEnabled(),
+                    mainMenu.getToggleSpeechControl().isEnabled(),
+                    mainMenu.getToggleAutorun().isEnabled());
+            Platform.exit();
+        });
+        dialog.show();
+    }
+
+    private void initIconifiedWidget() {
         primaryStage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
             if(newValue) {
                 primaryStage.hide();

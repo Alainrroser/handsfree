@@ -26,8 +26,6 @@ import javafx.scene.layout.VBox;
 
 public class MainMenu extends HandsFreeScene {
 
-    private EyeMouseController eyeMouseController;
-    private SpeechControl speechControl;
     private HandsFreeOnScreenKeyboard keyboard;
     
     private HandsFreeToggleButton toggleEyeTracking;
@@ -47,8 +45,6 @@ public class MainMenu extends HandsFreeScene {
     }
 
     private void init(HandsFreeContext context) {
-        eyeMouseController = new EyeMouseController(context);
-        speechControl = new SpeechControl(context);
         keyboard = new HandsFreeOnScreenKeyboard(context);
     }
 

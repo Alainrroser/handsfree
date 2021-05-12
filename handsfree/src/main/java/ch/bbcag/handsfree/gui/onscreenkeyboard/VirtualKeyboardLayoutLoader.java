@@ -19,8 +19,7 @@ public class VirtualKeyboardLayoutLoader {
     private StringBuilder value = new StringBuilder();
     private int index = 0;
     private boolean readingString = false;
-
-    private int backslashCounter = 0;
+    private boolean escaped = false;
 
     public static VirtualKeyboardLayout loadFromResource(String resource) throws KeyboardLoadingException {
         InputStream inputStream = VirtualKeyboardLayoutLoader.class.getResourceAsStream(resource);
@@ -86,28 +85,11 @@ public class VirtualKeyboardLayoutLoader {
     }
 
     private void processKey(String line) {
-        currentKey = new VirtualKey();
-        value = new StringBuilder();
-        index = 0;
-        readingString = false;
+        resetKeyValues();
 
         for(int i = 0; i < line.length(); i++) {
             char c = line.charAt(i);
-            boolean isValueSeparator = c == ',' && !readingString;
-
-            if(isValueSeparator) {
-                finishValue();
-            } else {
-                if(readingString) {
-                    processStringCharacter(c);
-                } else {
-                    if(c == '\'') {
-                        readingString = true;
-                    } else {
-                        value.append(c);
-                    }
-                }
-            }
+            processCharacter(c);
         }
 
         if(value.length() > 0) {
@@ -117,26 +99,52 @@ public class VirtualKeyboardLayoutLoader {
         row.add(currentKey);
     }
 
+    private void resetKeyValues() {
+        currentKey = new VirtualKey();
+        value = new StringBuilder();
+        index = 0;
+        readingString = false;
+        escaped = false;
+    }
+
+    private void processCharacter(char c) {
+        boolean isValueSeparator = c == ',' && !readingString;
+
+        if(isValueSeparator) {
+            finishValue();
+        } else {
+            if(readingString) {
+                processStringCharacter(c);
+            } else {
+                if(c == '\'') {
+                    readingString = true;
+                } else {
+                    value.append(c);
+                }
+            }
+        }
+    }
+
     private void processStringCharacter(char c) {
         if(c == '\\') {
-            backslashCounter++;
-            if(isEscaped()) {
+            escaped = !escaped;
+            if(escaped) {
                 return;
             }
         }
 
-        if(c == '\'' && !isEscaped()) {
+        processNonEscapingStringCharacter(c);
+    }
+
+    private void processNonEscapingStringCharacter(char c) {
+        boolean isEndOfString = c == '\'' && !escaped;
+        if(isEndOfString) {
             readingString = false;
-            backslashCounter = 0;
         } else {
             value.append(c);
         }
 
-        backslashCounter = 0;
-    }
-
-    private boolean isEscaped() {
-        return backslashCounter % 2 == 1;
+        escaped = false;
     }
 
     private void finishValue() {
@@ -147,30 +155,50 @@ public class VirtualKeyboardLayoutLoader {
 
     private void processValue(String value) {
         if(index == 0) {
-            if(value.startsWith("VK_")) {
-                try {
-                    Field field = KeyEvent.class.getDeclaredField(value);
-                    currentKey.setKeyCode(field.getInt(KeyEvent.class));
-                } catch(NoSuchFieldException | IllegalAccessException e) {
-                    System.out.println("no such field " + value);
-                    e.printStackTrace();
-                }
-            } else {
-                currentKey.setKeyCode(Integer.parseInt(value));
-            }
+            processKeyCode(value);
         }  else if(index == 1) {
-            currentKey.setHold(Boolean.parseBoolean(value));
+            processHold(value);
         } else if(index >= 2 && index <= 5) {
-            if(currentKey.getDisplayTexts() == null) {
-                currentKey.setDisplayTexts(new String[4]);
-            }
-
-            currentKey.getDisplayTexts()[index - 2] = value;
+            processDisplayText(value);
         } else if(index == 6) {
-            currentKey.setWidth(Double.parseDouble(value));
+            processWidth(value);
         } else if(index == 7) {
-            currentKey.setHeight(Double.parseDouble(value));
+            processHeight(value);
         }
+    }
+
+    private void processKeyCode(String value) {
+        if(value.startsWith("VK_")) {
+            try {
+                Field field = KeyEvent.class.getDeclaredField(value);
+                currentKey.setKeyCode(field.getInt(KeyEvent.class));
+            } catch(NoSuchFieldException | IllegalAccessException e) {
+                System.out.println("no such field " + value);
+                e.printStackTrace();
+            }
+        } else {
+            currentKey.setKeyCode(Integer.parseInt(value));
+        }
+    }
+
+    private void processHold(String value) {
+        currentKey.setHold(Boolean.parseBoolean(value));
+    }
+
+    private void processDisplayText(String value) {
+        if(currentKey.getDisplayTexts() == null) {
+            currentKey.setDisplayTexts(new String[4]);
+        }
+
+        currentKey.getDisplayTexts()[index - 2] = value;
+    }
+
+    private void processWidth(String value) {
+        currentKey.setWidth(Double.parseDouble(value));
+    }
+
+    private void processHeight(String value) {
+        currentKey.setHeight(Double.parseDouble(value));
     }
 
 }
