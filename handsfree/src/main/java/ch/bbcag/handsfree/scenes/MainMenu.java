@@ -121,7 +121,10 @@ public class MainMenu extends HandsFreeScene {
     
     private void initToggleOnScreenKeyboard() {
         toggleOnScreenKeyboard = new HandsFreeToggleButton("On-Screen Keyboard");
-        toggleOnScreenKeyboard.setOnEnabled(() -> keyboard.display());
+        toggleOnScreenKeyboard.setOnEnabled(() -> {
+            keyboard.display();
+            stage.setIconified(true);
+        });
         toggleOnScreenKeyboard.setOnDisabled(() -> keyboard.hide());
         toggleOnScreenKeyboard.setEnabled(false);
     }

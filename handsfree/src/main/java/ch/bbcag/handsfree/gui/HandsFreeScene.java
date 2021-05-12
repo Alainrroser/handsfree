@@ -13,7 +13,7 @@ public class HandsFreeScene {
     private Group group;
     private Region contentRoot;
 
-    private Stage stage;
+    protected Stage stage;
 
     public HandsFreeScene(Stage stage, Region contentRoot, HandsFreeSceneConfiguration configuration) {
         this.stage = stage;

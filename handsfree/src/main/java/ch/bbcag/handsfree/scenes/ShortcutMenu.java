@@ -45,7 +45,7 @@ public class ShortcutMenu extends HandsFreeScene {
         HBox hBoxTitle = new HBox();
     
         HandsFreeIconButton back = new HandsFreeIconButton("/images/back.png");
-        back.setPalette(new HandsFreeButtonPalette(Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT));
+//        back.setPalette(new HandsFreeButtonPalette(Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT, Color.TRANSPARENT));
         back.setPrefSize(64, 48);
         back.setOnAction(event -> application.getNavigator().navigateTo(SceneType.MAIN_MENU));
         hBoxBack.getChildren().add(back);
