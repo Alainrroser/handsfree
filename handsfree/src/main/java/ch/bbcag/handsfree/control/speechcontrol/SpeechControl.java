@@ -64,21 +64,28 @@ public class SpeechControl {
         context.getSpeechRecognizer().addListener("explorer", () -> robot.pressHotkey(91, KeyEvent.VK_E));
         context.getSpeechRecognizer().addListener("settings", () -> robot.pressHotkey(91, KeyEvent.VK_I));
         context.getSpeechRecognizer().addListener("lock", () -> robot.pressHotkey(91, KeyEvent.VK_L));
+        context.getSpeechRecognizer().addListener("minimize all", () -> robot.pressHotkey(91, KeyEvent.VK_M));
         context.getSpeechRecognizer().addListener("run", () -> robot.pressHotkey(91, KeyEvent.VK_R));
         context.getSpeechRecognizer().addListener("search", () -> robot.pressHotkey(91, KeyEvent.VK_S));
         context.getSpeechRecognizer().addListener("clipboard", () -> robot.pressHotkey(91, KeyEvent.VK_V));
+        context.getSpeechRecognizer().addListener("admin menu", () -> robot.pressHotkey(91, KeyEvent.VK_X));
+        context.getSpeechRecognizer().addListener("maximize", () -> robot.pressHotkey(91, KeyEvent.VK_UP));
+        context.getSpeechRecognizer().addListener("minimize", () -> robot.pressHotkey(91, KeyEvent.VK_DOWN));
         context.getSpeechRecognizer().addListener("screenshot", () -> robot.pressHotkey(91, 0x2C));
         
-        context.getSpeechRecognizer().addListener("task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ESCAPE));
         context.getSpeechRecognizer().addListener("select all", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_A));
         context.getSpeechRecognizer().addListener("copy", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_C));
         context.getSpeechRecognizer().addListener("delete", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_D));
-        context.getSpeechRecognizer().addListener("new folder", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_N));
+        context.getSpeechRecognizer().addListener("search", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_F));
         context.getSpeechRecognizer().addListener("refresh", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_R));
         context.getSpeechRecognizer().addListener("paste", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_V));
+        context.getSpeechRecognizer().addListener("close explorer", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W));
         context.getSpeechRecognizer().addListener("cut", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_X));
         context.getSpeechRecognizer().addListener("redo", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Y));
         context.getSpeechRecognizer().addListener("undo", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Z));
+        context.getSpeechRecognizer().addListener("new folder", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_N));
+        context.getSpeechRecognizer().addListener("task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ESCAPE));
+        context.getSpeechRecognizer().addListener("menu", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_DELETE));
         
         context.getSpeechRecognizer().addListener("close", () -> robot.pressHotkey(KeyEvent.VK_ALT, KeyEvent.VK_F4));
         context.getSpeechRecognizer().addListener("switch open", () -> {
@@ -91,6 +98,10 @@ public class SpeechControl {
         });
     
         context.getSpeechRecognizer().addListener("rename", () -> robot.keyTypeSpecial(KeyEvent.VK_F2));
+        context.getSpeechRecognizer().addListener("explorer search", () -> robot.keyTypeSpecial(KeyEvent.VK_F3));
+        context.getSpeechRecognizer().addListener("explorer path", () -> robot.keyTypeSpecial(KeyEvent.VK_F4));
+        context.getSpeechRecognizer().addListener("update view", () -> robot.keyTypeSpecial(KeyEvent.VK_F5));
+        context.getSpeechRecognizer().addListener("full", () -> robot.keyTypeSpecial(KeyEvent.VK_F11));
         context.getSpeechRecognizer().addListener("escape", () -> robot.keyTypeSpecial(KeyEvent.VK_ESCAPE));
         
         for(Shortcut shortcut : context.getShortcutManager().getShortcuts()) {
