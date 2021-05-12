@@ -50,7 +50,7 @@ public class SpeechControl {
                 Error.reportMinor("The system could not be shut down!");
             }
         });
-        context.getSpeechRecognizer().addListener("Restart", () -> {
+        context.getSpeechRecognizer().addListener("restart", () -> {
             try {
                 Runtime.getRuntime().exec("shutdown -r");
             } catch(IOException e) {
