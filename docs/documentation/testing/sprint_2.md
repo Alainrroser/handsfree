@@ -80,9 +80,8 @@ Erwartetes Resultat | Es sollte von "OFF" auf "ON" switchen
 
 Abschnitt | Inhalt
 --- | ---
-ID | ST-10
+ID | ST-12
 Getestete User Stories | #12
 Vorbedingungen | ST-11
-Ablauf | Test sagen
+Ablauf | "Test" sagen
 Erwartetes Resultat | Das Shortcut Test sollte ausgeführt werden
-

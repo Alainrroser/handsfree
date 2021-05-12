@@ -3,9 +3,13 @@ package ch.bbcag.handsfree.control.speechcontrol;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.shortcuts.Shortcut;
+import ch.bbcag.handsfree.error.Error;
 
+import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URI;
 
 public class SpeechControl {
     
@@ -17,15 +21,65 @@ public class SpeechControl {
         
         context.getSpeechRecognizer().addListener("press", () -> robot.mousePress(InputEvent.BUTTON1_DOWN_MASK));
         context.getSpeechRecognizer().addListener("release", () -> robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK));
+        
         context.getSpeechRecognizer().addListener("left", () -> robot.keyTypeSpecial(KeyEvent.VK_LEFT));
         context.getSpeechRecognizer().addListener("up", () -> robot.keyTypeSpecial(KeyEvent.VK_UP));
         context.getSpeechRecognizer().addListener("right", () -> robot.keyTypeSpecial(KeyEvent.VK_RIGHT));
         context.getSpeechRecognizer().addListener("down", () -> robot.keyTypeSpecial(KeyEvent.VK_DOWN));
+        
         context.getSpeechRecognizer().addListener("scroll down", () -> robot.scrollContinuously(10));
         context.getSpeechRecognizer().addListener("scroll up", () -> robot.scrollContinuously(-10));
+        
+        context.getSpeechRecognizer().addListener("browser", () -> {
+            if(Desktop.isDesktopSupported()) {
+                Desktop desktop = Desktop.getDesktop();
+                try {
+                    desktop.browse(new URI("https://www.google.com"));
+                } catch(Exception e) {
+                    Error.reportMinor("Your standard browser could not be opened!");
+                }
+            }
+        });
         context.getSpeechRecognizer().addListener("new tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_T));
         context.getSpeechRecognizer().addListener("close tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W));
+    
+        context.getSpeechRecognizer().addListener("shutdown", () -> {
+            try {
+                Runtime.getRuntime().exec("shutdown -s");
+            } catch(IOException e) {
+                Error.reportMinor("The system could not be shut down!");
+            }
+        });
+        context.getSpeechRecognizer().addListener("Restart", () -> {
+            try {
+                Runtime.getRuntime().exec("shutdown -r");
+            } catch(IOException e) {
+                Error.reportMinor("The system could not be restarted!");
+            }
+        });
+        
+        context.getSpeechRecognizer().addListener("windows", () -> robot.keyTypeSpecial(91));
+        context.getSpeechRecognizer().addListener("notifications", () -> robot.pressHotkey(91, KeyEvent.VK_A));
+        context.getSpeechRecognizer().addListener("desktop", () -> robot.pressHotkey(91, KeyEvent.VK_D));
+        context.getSpeechRecognizer().addListener("explorer", () -> robot.pressHotkey(91, KeyEvent.VK_E));
+        context.getSpeechRecognizer().addListener("settings", () -> robot.pressHotkey(91, KeyEvent.VK_I));
+        context.getSpeechRecognizer().addListener("lock", () -> robot.pressHotkey(91, KeyEvent.VK_L));
+        context.getSpeechRecognizer().addListener("run", () -> robot.pressHotkey(91, KeyEvent.VK_R));
+        context.getSpeechRecognizer().addListener("search", () -> robot.pressHotkey(91, KeyEvent.VK_S));
+        context.getSpeechRecognizer().addListener("clipboard", () -> robot.pressHotkey(91, KeyEvent.VK_V));
+        context.getSpeechRecognizer().addListener("screenshot", () -> robot.pressHotkey(91, 0x2C));
+        
         context.getSpeechRecognizer().addListener("task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ESCAPE));
+        context.getSpeechRecognizer().addListener("select all", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_A));
+        context.getSpeechRecognizer().addListener("copy", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_C));
+        context.getSpeechRecognizer().addListener("delete", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_D));
+        context.getSpeechRecognizer().addListener("new folder", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_N));
+        context.getSpeechRecognizer().addListener("refresh", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_R));
+        context.getSpeechRecognizer().addListener("paste", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_V));
+        context.getSpeechRecognizer().addListener("cut", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_X));
+        context.getSpeechRecognizer().addListener("redo", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Y));
+        context.getSpeechRecognizer().addListener("undo", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Z));
+        
         context.getSpeechRecognizer().addListener("close", () -> robot.pressHotkey(KeyEvent.VK_ALT, KeyEvent.VK_F4));
         context.getSpeechRecognizer().addListener("switch open", () -> {
             robot.keyPressSpecial(KeyEvent.VK_ALT);
@@ -35,6 +89,9 @@ public class SpeechControl {
             robot.keyReleaseSpecial(KeyEvent.VK_ALT);
             robot.keyReleaseSpecial(KeyEvent.VK_TAB);
         });
+    
+        context.getSpeechRecognizer().addListener("rename", () -> robot.keyTypeSpecial(KeyEvent.VK_F2));
+        context.getSpeechRecognizer().addListener("escape", () -> robot.keyTypeSpecial(KeyEvent.VK_ESCAPE));
         
         for(Shortcut shortcut : context.getShortcutManager().getShortcuts()) {
             context.getSpeechRecognizer().addListener(shortcut.getName(), () -> context.getShortcutManager().runShortcut(shortcut.getName()));

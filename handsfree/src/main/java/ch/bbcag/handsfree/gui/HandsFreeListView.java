@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 
 public class HandsFreeListView extends ListView<String> {
 
-    private DoubleClickCallback doubleClickHandler;
+    private RightClickCallBack rightClickHandler;
     
     public HandsFreeListView() {
         CornerRadii radii = new CornerRadii(5);
@@ -20,15 +20,15 @@ public class HandsFreeListView extends ListView<String> {
         setCellFactory(param -> new HandsFreeListCell(this));
     }
     
-    public void setDoubleClickHandler(DoubleClickCallback doubleClickHandler) {
-        this.doubleClickHandler = doubleClickHandler;
+    public void setRightClickHandler(RightClickCallBack rightClickHandler) {
+        this.rightClickHandler = rightClickHandler;
     }
     
-    protected DoubleClickCallback getDoubleClickHandler() {
-        return doubleClickHandler;
+    protected RightClickCallBack getRightClickHandler() {
+        return rightClickHandler;
     }
     
-    public interface DoubleClickCallback {
+    public interface RightClickCallBack {
         void run(String item);
     }
 }
