@@ -29,6 +29,8 @@ public class ShortcutMenu extends HandsFreeScene {
     
     private ShortcutManager shortcutManager;
     private ShortcutRecorder recorder;
+
+    private static final String SHORTCUT_NAMING_REGEX = "[a-zA-Z]*";
     
     public ShortcutMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
@@ -77,14 +79,20 @@ public class ShortcutMenu extends HandsFreeScene {
                             break;
                         }
                     }
-                    String pattern = "[a-zA-Z]*";
-                    if(shortcutManager.isNotExistingAlready(value) && !value.equals("") && doesNotEqualCommand && Pattern.matches(pattern, value)) {
+
+                    if(!shortcutManager.isNotExistingAlready(value)) {
+                        Error.reportMinor("A shortcut with this name already exists!");
+                    } else if(value.equals("")) {
+                        Error.reportMinor("No name specified!");
+                    } else if(!doesNotEqualCommand) {
+                        Error.reportMinor("The name of the shortcut is identical to a speech command!");
+                    } else if(!Pattern.matches(SHORTCUT_NAMING_REGEX, value)) {
+                        Error.reportMinor("Your shortcut contains invalid characters (only letters are allowed)!");
+                    } else {
                         list.getItems().add(value);
                         HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
                         dialog.show();
                         recorder.stopAndSave(value);
-                    } else {
-                        Error.reportMinor("A Shortcut or a command with this name exists already or you entered no name!");
                     }
                 });
                 input.setOnCanceled(recorder::stopAndDiscard);

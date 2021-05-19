@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 public class NativeLibraryLoader {
 
@@ -18,22 +20,17 @@ public class NativeLibraryLoader {
     }
 
     private static void tryLoadLibrary(String resource) throws NativeException, IOException {
-        byte[] buffer = readBytesFromResource(resource);
+        System.out.println("loading " + resource + "...");
+
+        InputStream inputStream = getInputStreamFromResourceName(resource);
 
         String filename = resource.substring(resource.lastIndexOf("/") + 1);
         File temporaryFile = TemporaryFile.create(filename);
-        writeBytesToFile(temporaryFile, buffer);
+        Files.copy(inputStream, temporaryFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
-        System.load(temporaryFile.getAbsolutePath());
-    }
-
-    private static byte[] readBytesFromResource(String resource) throws NativeException, IOException {
-        InputStream inputStream = getInputStreamFromResourceName(resource);
-        byte[] bytes = new byte[inputStream.available()];
-        inputStream.read(bytes);
         inputStream.close();
 
-        return bytes;
+        System.load(temporaryFile.getAbsolutePath());
     }
 
     private static InputStream getInputStreamFromResourceName(String resource) throws NativeException {
@@ -43,12 +40,6 @@ public class NativeLibraryLoader {
         }
 
         return inputStream;
-    }
-
-    private static void writeBytesToFile(File file, byte[] bytes) throws IOException {
-        FileOutputStream out = new FileOutputStream(file);
-        out.write(bytes);
-        out.close();
     }
 
 }
