@@ -3,7 +3,6 @@ package ch.bbcag.handsfree.utils;
 import ch.bbcag.handsfree.error.NativeException;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;

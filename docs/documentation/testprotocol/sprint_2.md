@@ -1,7 +1,7 @@
 # Testprotokoll Sprint 2
-Tester: 
+Tester: Piriyan Vijayanantha
 Testdatum: 19.05.2021
-Testzeit: 
+Testzeit: 14.30
 
 ID | Erfolgreich | Bemerkungen
 --- | --- | ---

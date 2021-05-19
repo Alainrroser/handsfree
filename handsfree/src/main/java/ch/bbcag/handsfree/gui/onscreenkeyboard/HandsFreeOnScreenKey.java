@@ -15,7 +15,7 @@ import javafx.scene.layout.StackPane;
 
 public class HandsFreeOnScreenKey extends StackPane {
 
-    public static final double SCALE = 80;
+    public static final double SCALE = 75;
 
     private VirtualKey key;
     private boolean keyPressed = false;
@@ -54,7 +54,7 @@ public class HandsFreeOnScreenKey extends StackPane {
 
     private boolean isOnlyOneLabel() {
         int textCounter = 0;
-        for(String displayText : key.getDisplayTexts()) {
+        for(String displayText: key.getDisplayTexts()) {
             if(!displayText.equals("")) {
                 textCounter++;
             }
@@ -71,7 +71,7 @@ public class HandsFreeOnScreenKey extends StackPane {
         int row = 0;
         int column = 0;
 
-        for(String displayText : key.getDisplayTexts()) {
+        for(String displayText: key.getDisplayTexts()) {
             Label label = new Label(displayText);
             label.setFont(HandsFreeFont.getFont(22));
             label.setTextFill(Colors.FONT);

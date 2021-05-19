@@ -10,7 +10,6 @@ import javafx.stage.StageStyle;
 public class HandsFreeScene {
 
     private Scene scene;
-    private Group group;
     private Region contentRoot;
 
     protected Stage stage;
@@ -19,7 +18,7 @@ public class HandsFreeScene {
         this.stage = stage;
         this.contentRoot = contentRoot;
 
-        group = new Group();
+        Group group = new Group();
         scene = new Scene(group);
 
         VBox rootNode = new VBox();

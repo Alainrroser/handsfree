@@ -72,13 +72,13 @@ public class EyeTracker {
     }
 
     private void runGazeHandlers(int x, int y) {
-        for(GazeListener gazeListener : gazeListeners) {
+        for(GazeListener gazeListener: gazeListeners) {
             gazeListener.gaze(x, y);
         }
     }
 
     private void runActivatedRegionGazeHandlers(int x, int y) {
-        for(RegionGazeListener regionGazeListener : regionGazeListeners) {
+        for(RegionGazeListener regionGazeListener: regionGazeListeners) {
             try {
                 Region region = regionGazeListener.getRegion();
                 Bounds boundsLocal = region.getBoundsInLocal();

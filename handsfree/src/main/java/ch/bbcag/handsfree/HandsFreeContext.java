@@ -23,7 +23,7 @@ public class HandsFreeContext {
         eyeTracker = new EyeTracker();
         speechRecognizer = new SpeechRecognizer();
         robot = new HandsFreeRobot();
-    
+
         eyeMouseController = new EyeMouseController(this);
         shortcutManager = new ShortcutManager(this);
         speechControl = new SpeechControl(this);
@@ -49,4 +49,5 @@ public class HandsFreeContext {
         return shortcutManager;
     }
 
+    public EyeMouseController getEyeMouseController() {return eyeMouseController;}
 }

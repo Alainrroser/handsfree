@@ -41,7 +41,7 @@ public class ShortcutRecorder {
 
     public void addNativeMouseListener() {
         LogManager.getLogManager().reset();
-        try{
+        try {
             registerNativeHook();
             addListener();
         } catch(NativeHookException e) {

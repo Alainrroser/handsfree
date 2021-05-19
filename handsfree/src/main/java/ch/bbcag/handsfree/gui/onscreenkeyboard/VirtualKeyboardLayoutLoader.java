@@ -4,7 +4,10 @@ import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
 
 import java.awt.event.KeyEvent;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -37,7 +40,7 @@ public class VirtualKeyboardLayoutLoader {
         reset();
 
         try {
-            for(String line : readLinesFromStream(stream)) {
+            for(String line: readLinesFromStream(stream)) {
                 processLine(line);
             }
 
@@ -154,7 +157,7 @@ public class VirtualKeyboardLayoutLoader {
     private void processValue(String value) {
         if(index == 0) {
             processKeyCode(value);
-        }  else if(index == 1) {
+        } else if(index == 1) {
             processHold(value);
         } else if(index >= 2 && index <= 5) {
             processDisplayText(value);

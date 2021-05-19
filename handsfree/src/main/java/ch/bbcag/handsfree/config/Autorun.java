@@ -2,10 +2,10 @@ package ch.bbcag.handsfree.config;
 
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.utils.JarFile;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.net.URI;
 
 public class Autorun {
     
@@ -38,12 +38,9 @@ public class Autorun {
     }
     
     private static void writeScript() throws Exception {
-        URI jarURI = Autorun.class.getProtectionDomain().getCodeSource().getLocation().toURI();
-        File jarFile = new File(jarURI);
-        File parentFile = jarFile.getParentFile();
-
+        File jarFile = JarFile.getJarFile();
         FileWriter writer = new FileWriter(file);
-        writer.write("cd " + parentFile.getAbsolutePath() + "\n");
+        writer.write("cd " + jarFile.getParentFile().getAbsolutePath() + "\n");
         writer.write("java -jar " + jarFile.getName());
         writer.close();
     }

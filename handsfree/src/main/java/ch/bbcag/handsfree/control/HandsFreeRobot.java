@@ -5,7 +5,6 @@ import ch.bbcag.handsfree.error.NativeException;
 import ch.bbcag.handsfree.utils.NativeLibraryLoader;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -52,10 +51,10 @@ public class HandsFreeRobot {
     }
 
     public void pressHotkey(int... keys) {
-        for(int key : keys) {
+        for(int key: keys) {
             keyPressSpecial(key);
         }
-        for(int key : keys) {
+        for(int key: keys) {
             keyReleaseSpecial(key);
         }
     }
@@ -120,16 +119,17 @@ public class HandsFreeRobot {
     }
 
     public void exit() {
-        for(int pressedKey : pressedKeys) {
+        for(int pressedKey: pressedKeys) {
             keyReleaseInternal(pressedKey);
         }
 
-        for(int pressedButton : pressedMouseButtons) {
+        for(int pressedButton: pressedMouseButtons) {
             mouseRelease(pressedButton);
         }
     }
 
     private native void jniKeyPress(short keyCode);
+
     private native void jniKeyRelease(short keyCode);
 
 }

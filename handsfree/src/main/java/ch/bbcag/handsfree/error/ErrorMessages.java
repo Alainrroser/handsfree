@@ -14,7 +14,9 @@ public class ErrorMessages {
 
     public static final String AUTORUN = "Autorun couldn't be enabled.";
     public static final String NO_MICROPHONE = "No microphone that supports speech recognition could be detected!";
-    
+
+    public static final String SAVE_FILE = "A file couldn't be saved.";
+
     public static final String SAVE_CONFIGURATION = "Your configurations couldn't be saved.";
     public static final String LOAD_CONFIGURATION = "Your configuration couldn't be loaded";
 

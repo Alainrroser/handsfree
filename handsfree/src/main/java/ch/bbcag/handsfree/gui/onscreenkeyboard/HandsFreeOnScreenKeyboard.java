@@ -1,22 +1,18 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
+import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
 import ch.bbcag.handsfree.gui.Colors;
-import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
-import ch.bbcag.handsfree.gui.HandsFreeStageDecoration;
 import ch.bbcag.handsfree.gui.WindowDragController;
-import ch.bbcag.handsfree.error.Error;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,8 +78,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private void loadKeyboardLayout(HandsFreeContext context) throws KeyboardLoadingException {
         VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
 
-        for(VirtualKeyRow row : layout.getKeyRows()) {
-            for(VirtualKey key : row.getKeys()) {
+        for(VirtualKeyRow row: layout.getKeyRows()) {
+            for(VirtualKey key: row.getKeys()) {
                 addKey(new HandsFreeOnScreenKey(key, context, this));
             }
 
@@ -101,7 +97,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     }
 
     public void releaseHeldKeys() {
-        for(HandsFreeOnScreenKey key : keys) {
+        for(HandsFreeOnScreenKey key: keys) {
             if(key.isKeyPressed() && key.getKey().isHold() && !key.isKeyHeld()) {
                 key.release();
             }

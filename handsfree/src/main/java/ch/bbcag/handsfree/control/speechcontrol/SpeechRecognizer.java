@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree.control.speechcontrol;
 
-import ch.bbcag.handsfree.utils.TemporaryFile;
 import ch.bbcag.handsfree.error.SpeechRecognizerException;
+import ch.bbcag.handsfree.utils.TemporaryFile;
 import edu.cmu.sphinx.api.Configuration;
 import edu.cmu.sphinx.api.LiveSpeechRecognizer;
 import edu.cmu.sphinx.api.SpeechResult;
@@ -108,8 +108,6 @@ public class SpeechRecognizer {
         while(true) {
             initListeningLoop();
         }
-
-//        recognizer.stopRecognition();
     }
 
     private void initListeningLoop() {
@@ -133,7 +131,7 @@ public class SpeechRecognizer {
         Line.Info info = new DataLine.Info(TargetDataLine.class, SPHINX_AUDIO_FORMAT);
         return AudioSystem.isLineSupported(info);
     }
-    
+
     public Set<String> getCommands() {
         return listeners.keySet();
     }

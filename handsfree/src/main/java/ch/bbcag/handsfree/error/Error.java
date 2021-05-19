@@ -1,14 +1,18 @@
 package ch.bbcag.handsfree.error;
 
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
+import ch.bbcag.handsfree.utils.JarFile;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Error {
 
-    private static final File LOG_FILE = new File("error.log");
+    private static final File LOG_FILE = new File(JarFile.getJarFile().getParentFile().getAbsolutePath() + "error.log");
 
     public static void initGlobalExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {

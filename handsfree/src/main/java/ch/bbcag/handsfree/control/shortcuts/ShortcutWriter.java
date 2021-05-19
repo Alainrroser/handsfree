@@ -2,7 +2,9 @@ package ch.bbcag.handsfree.control.shortcuts;
 
 import ch.bbcag.handsfree.Const;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
@@ -46,7 +48,7 @@ public class ShortcutWriter {
     }
 
     private void writeClicks(FileWriter writer) throws IOException {
-        for(Click click : shortcut.getClicks()) {
+        for(Click click: shortcut.getClicks()) {
             writeClick(click, writer);
         }
     }

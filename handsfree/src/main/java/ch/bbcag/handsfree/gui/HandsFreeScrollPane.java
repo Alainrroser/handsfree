@@ -1,7 +1,8 @@
 package ch.bbcag.handsfree.gui;
 
 import javafx.geometry.Pos;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 public class HandsFreeScrollPane extends StackPane {
