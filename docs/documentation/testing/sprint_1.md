@@ -4,8 +4,8 @@ Abschnitt | Inhalt
 ID | ST-01
 Getestete User Story | #2
 Vorbedingungen | \-
-Ablauf | Die Applikation starten<br>Alle Schalter ausser autorun einmal toggeln
-Erwartetes Resultat | Die Applikation wird gestartet, alles wird richtig angezeigt, bei Klicks wird von ON auf OFF geschaltet und umgekehrt
+Ablauf | Die Applikation starten<br>Eye Tracking toggeln
+Erwartetes Resultat | Die Applikation wird gestartet, alles wird richtig angezeigt, Eye Tracking wird von ON auf OFF geschaltet
 
 Abschnitt | Inhalt
 --- | ---

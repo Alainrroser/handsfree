@@ -26,9 +26,10 @@ Erwartetes Resultat | Die Spezialtasten haben denselben Effekt wie auf einer ech
 Abschnitt | Inhalt
 --- | ---
 ID | ST-04
+Getestete User Story | #8
 Vorbedingungen | ST-03
 Ablauf | Rechtsklick auf Control<br>Rechtsklick auf Shift<br>Klick auf "Esc"<br>Klick auf Control<br>Klick auf Shift<br>Taskmanager schliessen<br>Klick auf das Floating Widget
-Erwartetes Resultat | Der Task-Manager öffnet sich und Control und Shift sind rot und zudem wird das Fenster wieder angezeigt
+Erwartetes Resultat | Der Task-Manager öffnet sich und Control und Shift werden rot nachdem sie mit einem Rechtsklick angeklickt wurden und zudem wird das Fenster wieder angezeigt
 
 Abschnitt | Inhalt
 --- | ---
@@ -67,7 +68,7 @@ Abschnitt | Inhalt
 ID | ST-09
 Getestete User Stories | #10
 Vorbedingungen | \-
-Ablauf | Bildschirmtastatur verschieben<br>Klick auf den Pfeil<br>Bildschirmtastatur verschieben<br>Klick auf "Autorun"<br>Klick auf "Got it!"<br>PC neu starten
+Ablauf | Bildschirmtastatur verschieben<br>Klick auf den Pfeil<br>Bildschirmtastatur verschieben<br>Klick auf "Autorun"<br>Klick auf "Got it!"<br>Klick auf Windows Taste<br>Klick auf On-/Off-Symbol<br>Klick auf "Neu Starten"<br>Klick auf "Trotzdem herunterfahren"
 Erwartetes Resultat | Die Applikation sollte geöffnet werden
 
 Abschnitt | Inhalt
