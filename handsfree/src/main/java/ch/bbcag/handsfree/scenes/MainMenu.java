@@ -157,12 +157,11 @@ public class MainMenu extends HandsFreeScene {
     }
     
     private void checkIfFirstTimeTogglingAutorun() {
-        if(!isFirstTime) {
+        if(isFirstTime && Configuration.readConfiguration(Const.AUTORUN_STATE)) {
+            isFirstTime = false;
+        } else {
             HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the application file.");
             dialog.show();
-        }
-        if(isFirstTime) {
-            isFirstTime = false;
         }
     }
     

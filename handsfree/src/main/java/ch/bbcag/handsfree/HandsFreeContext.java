@@ -1,6 +1,7 @@
 package ch.bbcag.handsfree;
 
 import ch.bbcag.handsfree.control.HandsFreeRobot;
+import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
 import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
@@ -11,6 +12,7 @@ import ch.bbcag.handsfree.error.NativeException;
 public class HandsFreeContext {
 
     private EyeTracker eyeTracker;
+    private EyeMouseController eyeMouseController;
     private SpeechRecognizer speechRecognizer;
     private HandsFreeRobot robot;
 
@@ -21,7 +23,8 @@ public class HandsFreeContext {
         eyeTracker = new EyeTracker();
         speechRecognizer = new SpeechRecognizer();
         robot = new HandsFreeRobot();
-
+    
+        eyeMouseController = new EyeMouseController(this);
         shortcutManager = new ShortcutManager(this);
         speechControl = new SpeechControl(this);
     }

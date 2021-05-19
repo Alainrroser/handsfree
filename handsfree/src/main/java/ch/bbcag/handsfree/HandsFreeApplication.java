@@ -23,6 +23,7 @@ import javafx.stage.StageStyle;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 public class HandsFreeApplication extends Application {
 
@@ -34,7 +35,7 @@ public class HandsFreeApplication extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-
+    
         Error.initGlobalExceptionHandler();
         
         try {

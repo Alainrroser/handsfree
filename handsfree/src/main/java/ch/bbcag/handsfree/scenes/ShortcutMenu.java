@@ -22,6 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ShortcutMenu extends HandsFreeScene {
     
@@ -75,7 +77,8 @@ public class ShortcutMenu extends HandsFreeScene {
                             break;
                         }
                     }
-                    if(shortcutManager.isNotExistingAlready(value) && !value.equals("") && doesNotEqualCommand) {
+                    String pattern = "[a-zA-Z]*";
+                    if(shortcutManager.isNotExistingAlready(value) && !value.equals("") && doesNotEqualCommand && Pattern.matches(pattern, value)) {
                         list.getItems().add(value);
                         HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts if you either move the jar file or the shortcut files");
                         dialog.show();
