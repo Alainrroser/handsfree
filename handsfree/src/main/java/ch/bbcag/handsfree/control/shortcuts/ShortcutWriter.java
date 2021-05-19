@@ -3,6 +3,7 @@ package ch.bbcag.handsfree.control.shortcuts;
 import ch.bbcag.handsfree.Const;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class ShortcutWriter {
@@ -37,7 +38,7 @@ public class ShortcutWriter {
     }
 
     private void writeFile(File file) throws IOException {
-        FileWriter writer = new FileWriter(file);
+        FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8);
         writer.write(shortcut.getName());
         writer.write("\n");
         writeClicks(writer);

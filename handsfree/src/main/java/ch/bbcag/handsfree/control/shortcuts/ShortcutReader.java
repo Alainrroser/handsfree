@@ -2,6 +2,7 @@ package ch.bbcag.handsfree.control.shortcuts;
 
 import java.awt.*;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 public class ShortcutReader {
 
@@ -22,7 +23,7 @@ public class ShortcutReader {
 
     private void processFile(File file) throws IOException {
         FileInputStream in = new FileInputStream(file);
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8));
         processLines(reader);
         reader.close();
     }

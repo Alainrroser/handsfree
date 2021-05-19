@@ -6,6 +6,7 @@ import ch.bbcag.handsfree.error.KeyboardLoadingException;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.lang.reflect.Field;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 // It just works!
@@ -52,7 +53,7 @@ public class VirtualKeyboardLayoutLoader {
     }
 
     private ArrayList<String> readLinesFromStream(InputStream stream) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8));
 
         ArrayList<String> lines = new ArrayList<>();
         String line;

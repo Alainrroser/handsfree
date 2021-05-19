@@ -142,6 +142,7 @@ public class MainMenu extends HandsFreeScene {
     private void initToggleAutorun() {
         toggleAutorun = new HandsFreeToggleButton("Autorun");
         toggleAutorun.setOnEnabled(() -> {
+            Autorun.saveToAutorunFolder();
             checkIfFirstTimeTogglingAutorun();
             if(hasBeenRead) {
                 saveConfiguration();

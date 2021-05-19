@@ -5,6 +5,7 @@ import ch.bbcag.handsfree.error.ErrorMessages;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.net.URI;
 
 public class Autorun {
     
@@ -37,9 +38,13 @@ public class Autorun {
     }
     
     private static void writeScript() throws Exception {
-        String jarPath = Autorun.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+        URI jarURI = Autorun.class.getProtectionDomain().getCodeSource().getLocation().toURI();
+        File jarFile = new File(jarURI);
+        File parentFile = jarFile.getParentFile();
+
         FileWriter writer = new FileWriter(file);
-        writer.write("java -jar " + jarPath);
+        writer.write("cd " + parentFile.getAbsolutePath() + "\n");
+        writer.write("java -jar " + jarFile.getName());
         writer.close();
     }
     
