@@ -9,6 +9,6 @@ public class ErrorMessages {
 
     public static final String MISSING_PRIVILEGES =
             "The installer does not have the required privileges for installing " +
-            "in this directory. Please select another installation path or restart the installer as administrator";
+            "in this directory. Please select another installation path.";
 
 }
