@@ -20,7 +20,6 @@ public class HeadTracker {
     private static final float SHAKE_RESET_THRESHOLD_ANGLE = 5;
     private static final long SHAKE_EXPIRE_TIME = 2000;
 
-
     private List<HeadGestureListener> headGestureListeners = new ArrayList<>();
 
     private boolean nodDown = false;
@@ -54,62 +53,82 @@ public class HeadTracker {
 
         if(!waitingForShakeReset) {
             if(shakeStage == HeadShakeStage.NOT_SHAKING && sideActivationThresholdPassed) {
-                shakeStage = HeadShakeStage.ONE_SIDE_ACTIVATED;
-                shakeSign = Math.signum(yaw);
-                shakeExpireTimestamp = System.currentTimeMillis() + SHAKE_EXPIRE_TIME;
+                finishFirstShakeSide(yaw);
             } else if(shakeStage == HeadShakeStage.ONE_SIDE_ACTIVATED && sideActivationThresholdPassed) {
-                boolean isOnOtherSide = Math.signum(yaw) != shakeSign;
-
-                if(isOnOtherSide) {
-                    shakeStage = HeadShakeStage.TWO_SIDES_ACTIVATED;
-                }
+                finishSecondShakeSide(yaw);
             } else if(shakeStage == HeadShakeStage.TWO_SIDES_ACTIVATED && resetThresholdPassed) {
-                shakeStage = HeadShakeStage.NOT_SHAKING;
-
-                for(HeadGestureListener listener : headGestureListeners) {
-                    listener.shake();
-                }
+                finishShake();
             }
-        } else {
-            if(resetThresholdPassed) {
-                waitingForShakeReset = false;
-            }
+        } else if(resetThresholdPassed) {
+            waitingForShakeReset = false;
         }
 
         if(shakeStage != HeadShakeStage.NOT_SHAKING && System.currentTimeMillis() > shakeExpireTimestamp) {
-            shakeStage = HeadShakeStage.NOT_SHAKING;
-            waitingForShakeReset = true;
+            abortCurrentShake();
         }
+    }
+
+    private void finishFirstShakeSide(float yaw) {
+        shakeStage = HeadShakeStage.ONE_SIDE_ACTIVATED;
+        shakeSign = Math.signum(yaw);
+        shakeExpireTimestamp = System.currentTimeMillis() + SHAKE_EXPIRE_TIME;
+    }
+
+    private void finishSecondShakeSide(float yaw) {
+        boolean isOnOtherSide = Math.signum(yaw) != shakeSign;
+
+        if(isOnOtherSide) {
+            shakeStage = HeadShakeStage.TWO_SIDES_ACTIVATED;
+        }
+    }
+
+    private void finishShake() {
+        shakeStage = HeadShakeStage.NOT_SHAKING;
+
+        for(HeadGestureListener listener : headGestureListeners) {
+            listener.shake();
+        }
+    }
+
+    private void abortCurrentShake() {
+        shakeStage = HeadShakeStage.NOT_SHAKING;
+        waitingForShakeReset = true;
     }
 
     private void trackNodding(float pitch) {
         boolean resetThresholdPassed = Math.abs(pitch) <= NOD_RESET_THRESHOLD_ANGLE;
 
         if(!waitingForNodReset) {
-            if(!nodDown) {
-                if(pitch < NOD_DOWN_THRESHOLD_ANGLE) {
-                    nodDown = true;
-                    nodExpireTimestamp = System.currentTimeMillis() + NOD_EXPIRE_TIME;
-                }
-            } else {
-                if(pitch > NOD_UP_THRESHOLD_ANGLE) {
-                    for(HeadGestureListener listener : headGestureListeners) {
-                        listener.nod();
-                    }
-
-                    nodDown = false;
-                }
+            if(!nodDown && pitch < NOD_DOWN_THRESHOLD_ANGLE) {
+                finishNodDown();
+            } else if(nodDown && pitch > NOD_UP_THRESHOLD_ANGLE) {
+                finishNod();
             }
-        } else {
-            if(resetThresholdPassed) {
-                waitingForNodReset = false;
-            }
+        } else if(resetThresholdPassed) {
+            waitingForNodReset = false;
         }
 
         if(nodDown && System.currentTimeMillis() > nodExpireTimestamp) {
-            nodDown = false;
-            waitingForNodReset = true;
+            abortCurrentNod();
         }
+    }
+
+    private void finishNodDown() {
+        nodDown = true;
+        nodExpireTimestamp = System.currentTimeMillis() + NOD_EXPIRE_TIME;
+    }
+
+    private void finishNod() {
+        for(HeadGestureListener listener : headGestureListeners) {
+            listener.nod();
+        }
+
+        nodDown = false;
+    }
+
+    private void abortCurrentNod() {
+        nodDown = false;
+        waitingForNodReset = true;
     }
 
 }
