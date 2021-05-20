@@ -45,6 +45,7 @@ public class InstallerApplication extends Application {
             event.consume(); // Prevent stage closing
         });
 
+        primaryStage.setTitle("HandsFree Installer");
         primaryStage.show();
     }
 

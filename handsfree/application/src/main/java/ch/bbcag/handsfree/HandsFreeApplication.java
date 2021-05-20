@@ -60,6 +60,7 @@ public class HandsFreeApplication extends Application {
             event.consume(); // Prevent stage closing
         });
 
+        primaryStage.setTitle("HandsFree");
         primaryStage.show();
 
         initIconifiedWidget();

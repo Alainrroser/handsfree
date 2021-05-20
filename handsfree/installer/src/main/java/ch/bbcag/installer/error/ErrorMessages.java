@@ -7,10 +7,8 @@ public class ErrorMessages {
     public static final String DESKTOP_SHORTCUT = "The desktop shortcut couldn't be created";
     public static final String START_MENU_SHORTCUT = "The start menu shortcut couldn't be created";
 
-    public static final String COPY_FILE = "The file couldn't be saved.";
-
     public static final String MISSING_PRIVILEGES =
             "The installer does not have the required privileges for installing " +
-            "in this directory. Please select another installation path.";
+            "in this directory. Please select another installation path or restart the installer as administrator";
 
 }
