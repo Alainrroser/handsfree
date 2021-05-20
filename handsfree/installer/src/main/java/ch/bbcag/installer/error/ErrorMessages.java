@@ -9,4 +9,8 @@ public class ErrorMessages {
 
     public static final String COPY_FILE = "The file couldn't be saved.";
 
+    public static final String MISSING_PRIVILEGES =
+            "The installer does not have the required privileges for installing " +
+            "in this directory. Please select another installation path.";
+
 }

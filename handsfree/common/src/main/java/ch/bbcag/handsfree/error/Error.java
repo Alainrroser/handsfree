@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class Error {
 
-    private static final File LOG_FILE = new File(System.getProperty("user.home") + "/AppData/HandsFree/error.log");
+    private static final File LOG_FILE = new File(System.getProperty("user.home") + "/AppData/Local/HandsFree/error.log");
     public static final String UNKNOWN_ERROR = "An unknown error has occurred.";
 
     public static void initGlobalExceptionHandler() {
@@ -29,12 +29,16 @@ public class Error {
     public static void reportCritical(String message, Throwable throwable) {
         String text;
 
-        try {
-            writeLog(throwable);
-            text = message + "\n\nThe error message has been written to \"" + LOG_FILE.getAbsolutePath() + "\"";
-        } catch(IOException e) {
-            e.printStackTrace();
-            text = message + "\n\nThe error message couldn't be written to the log file.";
+        if(throwable != null) {
+            try {
+                writeLog(throwable);
+                text = message + "\n\nThe error message has been written to \"" + LOG_FILE.getAbsolutePath() + "\"";
+            } catch(IOException e) {
+                e.printStackTrace();
+                text = message + "\n\nThe error message couldn't be written to the log file.";
+            }
+        } else {
+            text = message;
         }
 
         HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Error", text);
@@ -44,6 +48,10 @@ public class Error {
     }
 
     private static void writeLog(Throwable throwable) throws IOException {
+        if(!LOG_FILE.getParentFile().exists()) {
+            LOG_FILE.getParentFile().mkdirs();
+        }
+
         if(!LOG_FILE.exists()) {
             LOG_FILE.createNewFile();
         }

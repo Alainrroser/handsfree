@@ -1,16 +1,19 @@
 package ch.bbcag.installer.scenes;
 
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.gui.HandsFreeScene;
+import ch.bbcag.handsfree.gui.HandsFreeLabel;
+import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
 import ch.bbcag.installer.Const;
 import ch.bbcag.installer.InstallerApplication;
 import ch.bbcag.installer.error.ErrorMessages;
-import javafx.geometry.Insets;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,57 +21,63 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-public class DirectoryChooser extends HandsFreeScene {
+public class DirectoryChooser extends InstallerScene {
 
-    private Label directoryText;
+    private HandsFreeLabel directoryText;
 
     public DirectoryChooser(InstallerApplication application) {
-        super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
-
-        getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
-        getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
+        super(application.getPrimaryStage(), application.getConfiguration());
 
         initGUI(application);
     }
 
     private void initGUI(InstallerApplication application) {
-        VBox vBox = (VBox) getContentRoot();
-        vBox.setSpacing(Const.BOX_SPACING);
-        vBox.setPadding(new Insets(Const.BOX_PADDING_TOP_BOTTOM, Const.BOX_PADDING_RIGHT_LEFT, Const.BOX_PADDING_TOP_BOTTOM, Const.BOX_PADDING_RIGHT_LEFT));
+        HandsFreeLabel label = new HandsFreeLabel(
+                "Select a path where to install the program down below or leave it at the standard path and continue."
+        );
+        label.setWrapText(true);
+        BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
-        Label label = new Label("Okay, you have reached the next step. \n" +
-                                "Select a path where to install the program down below or leave it at the standard path and continue.");
-
-        application.setSelectedPath(new File("C:\\Program Files\\HandsFree"));
-        directoryText = new Label(application.getSelectedPath().getAbsolutePath());
+        application.setSelectedPath(new File("C:/HandsFree/"));
+        directoryText = new HandsFreeLabel(application.getSelectedPath().getAbsolutePath());
 
         HBox directory = initDirectorySelector(application);
 
-        HandsFreeDefaultButton backButton = new HandsFreeDefaultButton("Back");
-        backButton.setOnAction(e -> application.getNavigator().navigateTo(SceneType.START));
-
-        HandsFreeDefaultButton continueButton = new HandsFreeDefaultButton("Continue");
-        continueButton.setOnAction(event -> {
-            saveFilesToSelectedPath(application);
-
-            application.getNavigator().navigateTo(SceneType.SHORTCUT);
+        addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));
+        addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
+            try {
+                saveFilesToSelectedPath(application);
+                application.getNavigator().navigateTo(SceneType.SHORTCUT);
+            } catch(IOException e) {
+                Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
+            }
         });
+        addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
 
-        HBox buttonHBox = new HBox(Const.BOX_SPACING, backButton, continueButton);
-        buttonHBox.setAlignment(Pos.BOTTOM_RIGHT);
-        vBox.getChildren().addAll(label, directory, buttonHBox);
+        getBorderPane().setTop(label);
+        getBorderPane().setCenter(directory);
     }
 
     private HBox initDirectorySelector(InstallerApplication application) {
         javafx.stage.DirectoryChooser directoryChooser = new javafx.stage.DirectoryChooser();
-        directoryChooser.setInitialDirectory(application.getSelectedPath());
+        if(application.getSelectedPath().exists()) {
+            directoryChooser.setInitialDirectory(application.getSelectedPath());
+        }
 
-        HandsFreeDefaultButton directorySelector = new HandsFreeDefaultButton("Select a directory");
+        HandsFreeDefaultButton directorySelector = new HandsFreeDefaultButton("Select...");
+        directorySelector.setPrefWidth(Const.BUTTON_WIDTH);
+        directorySelector.setPadding(Const.BUTTON_PADDING);
         directorySelector.setOnAction(e -> {
             File chosenPath = directoryChooser.showDialog(application.getPrimaryStage());
             setSelectedPathAndText(application, chosenPath);
         });
-        return new HBox(Const.BOX_SPACING, directoryText, directorySelector);
+
+        HBox hBox = new HBox(Const.BOX_SPACING, directoryText, directorySelector);
+        hBox.maxHeightProperty().bind(directorySelector.heightProperty());
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        BorderPane.setAlignment(hBox, Pos.TOP_LEFT);
+
+        return hBox;
     }
 
     private void setSelectedPathAndText(InstallerApplication application, File chosenPath) {
@@ -84,28 +93,21 @@ public class DirectoryChooser extends HandsFreeScene {
         }
     }
 
-    private void createFileAndParentFileIfNotCreated(File targetFile) {
+    private void createFileAndParentFileIfNotCreated(File targetFile) throws IOException {
         if(targetFile.getParentFile() != null) {
             targetFile.getParentFile().mkdirs();
         }
-        try {
-            if(!targetFile.exists()) {
-                targetFile.createNewFile();
-            }
-        } catch(IOException e) {
-            Error.reportCritical(ErrorMessages.COPY_FILE, e);
+
+        if(!targetFile.exists()) {
+            targetFile.createNewFile();
         }
     }
 
-    private void copyFiles(InputStream inputStream, File targetFile) {
-        try {
-            Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch(IOException e) {
-            Error.reportCritical(ErrorMessages.COPY_FILE, e);
-        }
+    private void copyFiles(InputStream inputStream, File targetFile) throws IOException {
+        Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
-    private void saveFilesToSelectedPath(InstallerApplication application) {
+    private void saveFilesToSelectedPath(InstallerApplication application) throws IOException {
         createSelectedPathIfNotCreated(application);
 
         File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.FILE_NAME);

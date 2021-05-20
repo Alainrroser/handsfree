@@ -24,9 +24,10 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private int nextKeyX = 0;
     private Pane pane;
 
-    private Stage stage;
+    private Stage stage; // The fake stage the popup is attached to
 
     private List<HandsFreeOnScreenKey> keys = new ArrayList<>();
+    private HandsFreeWordSuggestionPanel wordSuggestionPanel;
 
     public HandsFreeOnScreenKeyboard(HandsFreeContext context) {
         stage = new Stage();
@@ -37,15 +38,14 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
         double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
         double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-        double width = HandsFreeOnScreenKey.SCALE * 18 + 40;
-        double height = HandsFreeOnScreenKey.SCALE * 6 + 40;
 
-        StackPane rootPane = new StackPane();
-        rootPane.setPrefWidth(width);
-        rootPane.setPrefHeight(height);
+        VBox rootPane = new VBox(50);
         rootPane.setBackground(new Background(new BackgroundFill(Colors.BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
         rootPane.setBorder(new Border(new BorderStroke(Colors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         rootPane.setPadding(new Insets(20));
+
+        wordSuggestionPanel = new HandsFreeWordSuggestionPanel();
+        rootPane.getChildren().add(wordSuggestionPanel);
 
         pane = new Pane();
         pane.setPadding(new Insets(5));
@@ -57,9 +57,10 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         controller.enable();
 
         getContent().add(rootPane);
-        setX(screenWidth / 2 - width / 2);
-        setY(screenHeight - height);
         setHideOnEscape(false);
+
+        widthProperty().addListener(observable -> setX(screenWidth / 2 - getWidth() / 2));
+        heightProperty().addListener(observable -> setY(screenHeight - getHeight()));
     }
 
     public void display() {

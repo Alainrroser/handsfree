@@ -48,7 +48,7 @@
         * Das Zweite das Shortcut-Menu
         * Das Dritte ein Warnungs-Fenster
         * Das Vierte ein Informations-Fenster
-* Verwendete APIs
+* Verwendete APIs / Quellenangaben
     * Tobii Stream Engine SDK
         * Link: <https://developer.tobii.com/product-integration/stream-engine/>
         * Die Tobii Stream Engine SDK ermöglicht es, Daten vom Eye Tracker zu bekommen
@@ -59,3 +59,6 @@
     * JNativeHook
         * Link: <https://github.com/kwhat/jnativehook>
         * Mit JNativeHook werden Mausklicks registriert, damit Shortcuts aufgenommen werden können
+    * Wörterliste
+        * Link: <https://gist.github.com/deekayen/4148741>
+        * words.txt enthält die 1000 am meisten benutzen englischen Wörter 
