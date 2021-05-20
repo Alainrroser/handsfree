@@ -13,6 +13,7 @@ public class EyeTracker {
 
     private List<GazeListener> gazeListeners = new ArrayList<>();
     private List<RegionGazeListener> regionGazeListeners = new ArrayList<>();
+    private HeadTracker headTracker;
 
     private RegionGazeListener currentRegionGazeListener = null;
     private double currentGazeRegionActivationTime = 0;
@@ -21,6 +22,11 @@ public class EyeTracker {
     private boolean running;
 
     private static final int STARTUP_DELAY = 1000;
+
+    public EyeTracker() {
+
+        headTracker = new HeadTracker();
+    }
 
     public void start() {
         this.running = true;
@@ -34,20 +40,28 @@ public class EyeTracker {
         this.running = false;
     }
 
-    public void addGazeListener(GazeListener handler) {
-        gazeListeners.add(handler);
+    public void addGazeListener(GazeListener listener) {
+        gazeListeners.add(listener);
     }
 
-    public void removeGazeListener(GazeListener handler) {
-        gazeListeners.remove(handler);
+    public void removeGazeListener(GazeListener listener) {
+        gazeListeners.remove(listener);
     }
 
-    public void addRegionGazeListener(RegionGazeListener handler) {
-        regionGazeListeners.add(handler);
+    public void addRegionGazeListener(RegionGazeListener listener) {
+        regionGazeListeners.add(listener);
     }
 
-    public void removeRegionGazeListener(RegionGazeListener handler) {
-        regionGazeListeners.remove(handler);
+    public void removeRegionGazeListener(RegionGazeListener listener) {
+        regionGazeListeners.remove(listener);
+    }
+
+    public void addHeadGestureListener(HeadGestureListener listener) {
+        headTracker.addHeadGestureListener(listener);
+    }
+
+    public void removeHeadGestureListener(HeadGestureListener listener) {
+        headTracker.removeHeadGestureListener(listener);
     }
 
     private void doTracking() {
@@ -69,6 +83,9 @@ public class EyeTracker {
 
             runGazeHandlers(x, y);
             runActivatedRegionGazeHandlers(x, y);
+
+            headTracker.update();
+
             sleepThread();
         }
     }

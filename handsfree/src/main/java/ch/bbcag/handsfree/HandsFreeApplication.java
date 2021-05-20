@@ -30,7 +30,7 @@ public class HandsFreeApplication extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
 
-        Error.initGlobalExceptionHandler();
+//        Error.initGlobalExceptionHandler();
 
         try {
             context = new HandsFreeContext();

@@ -17,7 +17,7 @@ public class EyeMouseController {
 
     public EyeMouseController(HandsFreeContext context) {
         this.context = context;
-        context.getEyeTracker().addGazeListener(this::controlCursor);
+//        context.getEyeTracker().addGazeListener(this::controlCursor);
     }
 
     private void controlCursor(int x, int y) {
