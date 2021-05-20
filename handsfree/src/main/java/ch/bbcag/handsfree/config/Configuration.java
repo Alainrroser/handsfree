@@ -3,7 +3,6 @@ package ch.bbcag.handsfree.config;
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
-import ch.bbcag.handsfree.utils.JarFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,7 +13,7 @@ import java.util.Properties;
 public class Configuration {
 
     private static Properties configurations = new Properties();
-    private static File file = new File(JarFile.getJarFile().getParentFile().getAbsolutePath() + "config.properties");
+    private static File file = new File(System.getProperty("user.home") + "/AppData/HandsFree/config.properties");
 
     public static void writeConfiguration(boolean eyeTrackingState, boolean speechControlState, boolean autorunState) {
         try {

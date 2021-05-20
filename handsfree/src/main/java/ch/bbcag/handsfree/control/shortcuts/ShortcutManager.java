@@ -4,7 +4,6 @@ import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
-import ch.bbcag.handsfree.utils.JarFile;
 
 import java.io.*;
 import java.util.ArrayList;

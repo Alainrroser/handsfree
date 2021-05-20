@@ -38,21 +38,18 @@ public class MainMenu extends HandsFreeScene {
 
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
-    
-        init(context);
-        initGUI(application, context);
-    }
 
-    private void init(HandsFreeContext context) {
         keyboard = new HandsFreeOnScreenKeyboard(context);
+        initGUI(application, context);
     }
     
     private void initGUI(HandsFreeApplication application, HandsFreeContext context) {
         VBox vBox = (VBox) getContentRoot();
         vBox.setSpacing(Const.V_BOX_SPACING);
         vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
+
         HBox hBoxTitle = new HBox();
-        
+
         Label title = new Label("HandsFree");
         title.setFont(HandsFreeFont.getFont(30));
         title.setTextFill(Colors.FONT);

@@ -1,7 +1,5 @@
 package ch.bbcag.handsfree;
 
-import ch.bbcag.handsfree.utils.JarFile;
-
 public class Const {
     public static final double WIDTH = 800;
     public static final double HEIGHT = 600;
@@ -10,7 +8,7 @@ public class Const {
     public static final int V_BOX_PADDING_TOP_BOTTOM = 50;
     public static final int V_BOX_PADDING_RIGHT_LEFT = 100;
 
-    public static final String SHORTCUT_PATH = JarFile.getJarFile().getParentFile().getAbsolutePath() + "shortcuts/";
+    public static final String SHORTCUT_PATH = System.getProperty("user.home") + "/AppData/HandsFree/shortcuts/";
     public static final String SHORTCUT_FILE_EXTENSION = ".txt";
 
     public static final String EYE_TRACKING_STATE = "Eye_Tracking_State";
