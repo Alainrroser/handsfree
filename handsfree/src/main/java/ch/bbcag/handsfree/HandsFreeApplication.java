@@ -11,9 +11,11 @@ import ch.bbcag.handsfree.scenes.MainMenu;
 import ch.bbcag.handsfree.scenes.Navigator;
 import ch.bbcag.handsfree.scenes.SceneType;
 import ch.bbcag.handsfree.scenes.ShortcutMenu;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.File;
 
@@ -61,6 +63,7 @@ public class HandsFreeApplication extends Application {
         primaryStage.show();
 
         initIconifiedWidget();
+        initNothingFocusedCheckLoop();
     }
 
     private void showCloseDialog() {
@@ -84,9 +87,16 @@ public class HandsFreeApplication extends Application {
         });
     }
 
-    @Override
-    public void stop() {
-        System.exit(0); // Kill all blocking threads (looking at you, speech recognizer!)
+    private void initNothingFocusedCheckLoop() {
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                Window w = Stage.getWindows().stream().filter(Window::isFocused).findFirst().orElse(null);
+                if(w == null) { // No window of this application is focused
+                    primaryStage.setIconified(true);
+                }
+            }
+        }.start();
     }
 
     public Stage getPrimaryStage() {

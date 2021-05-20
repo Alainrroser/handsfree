@@ -41,7 +41,11 @@ public class SpeechRecognizer {
 
             if(!created) {
                 createRecognizer();
-                new Thread(this::doListening).start();
+
+                Thread thread = new Thread(this::doListening);
+                thread.setDaemon(true);
+                thread.start();
+
                 created = true;
             }
         }

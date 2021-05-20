@@ -52,6 +52,14 @@ public class HandsFreeInputDialog extends HandsFreeDialog {
         });
     }
 
+    public HandsFreeButton getButtonOk() {
+        return buttonOk;
+    }
+
+    public HandsFreeButton getButtonCancel() {
+        return buttonCancel;
+    }
+
     public interface ConfirmedCallback {
         void run(String value);
     }

@@ -25,7 +25,9 @@ public class EyeTracker {
     public void start() {
         this.running = true;
 
-        new Thread(this::doTracking).start();
+        Thread thread = new Thread(this::doTracking);
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public void stop() {

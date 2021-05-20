@@ -22,8 +22,12 @@ public class HandsFreeStageDecoration extends BorderPane {
     private static final double ICON_SIZE = 30;
     private static final double BUTTON_WIDTH = 70;
 
+    private HandsFreeIconButton minimizeButton;
+    private HandsFreeIconButton closeButton;
+
     public HandsFreeStageDecoration(Stage stage, HandsFreeSceneConfiguration configuration) {
-        setPrefHeight(HEIGHT);
+        setMinHeight(HEIGHT);
+        setMaxHeight(HEIGHT);
         setBackground(new Background(new BackgroundFill(Colors.BUTTON, null, null)));
 
         HBox leftBox = new HBox(10);
@@ -36,19 +40,19 @@ public class HandsFreeStageDecoration extends BorderPane {
         setRight(rightBox);
         
         if(configuration.isHasMinimizeButton()) {
-            HandsFreeIconButton buttonMinimize = new HandsFreeIconButton("/images/minimize.png");
-            buttonMinimize.setOnAction(event -> stage.setIconified(true));
-            buttonMinimize.setPrefWidth(BUTTON_WIDTH);
-            buttonMinimize.setMaxHeight(Double.MAX_VALUE);
-            rightBox.getChildren().add(buttonMinimize);
+            minimizeButton = new HandsFreeIconButton("/images/minimize.png");
+            minimizeButton.setOnAction(event -> stage.setIconified(true));
+            minimizeButton.setPrefWidth(BUTTON_WIDTH);
+            minimizeButton.setMaxHeight(Double.MAX_VALUE);
+            rightBox.getChildren().add(minimizeButton);
         }
 
-        HandsFreeIconButton buttonClose = new HandsFreeIconButton("/images/close.png");
-        buttonClose.setOnAction(event -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
-        buttonClose.setPrefWidth(BUTTON_WIDTH);
-        buttonClose.setMaxHeight(Double.MAX_VALUE);
-        buttonClose.setPalette(HandsFreeButtonPalette.CLOSE_PALETTE);
-        rightBox.getChildren().add(buttonClose);
+        closeButton = new HandsFreeIconButton("/images/close.png");
+        closeButton.setOnAction(event -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
+        closeButton.setPrefWidth(BUTTON_WIDTH);
+        closeButton.setMaxHeight(Double.MAX_VALUE);
+        closeButton.setPalette(HandsFreeButtonPalette.CLOSE_PALETTE);
+        rightBox.getChildren().add(closeButton);
 
         ImageView iconView = new ImageView(new Image(Objects.requireNonNull(HandsFreeScene.class.getResourceAsStream("/images/icon64.png"))));
         iconView.setFitWidth(ICON_SIZE);
@@ -64,4 +68,11 @@ public class HandsFreeStageDecoration extends BorderPane {
         dragController.enable();
     }
 
+    public HandsFreeIconButton getMinimizeButton() {
+        return minimizeButton;
+    }
+
+    public HandsFreeIconButton getCloseButton() {
+        return closeButton;
+    }
 }
