@@ -9,7 +9,7 @@ import ch.bbcag.handsfree.control.shortcuts.ShortcutRecorder;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.*;
-import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
+import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
@@ -102,7 +102,7 @@ public class ShortcutMenu extends HandsFreeScene {
         });
         recordShortcut.setEnabled(false);
 
-        HandsFreeDefaultButton deleteShortcut = new HandsFreeDefaultButton("Delete Shortcut");
+        HandsFreeTextButton deleteShortcut = new HandsFreeTextButton("Delete Shortcut");
         deleteShortcut.setOnAction(event -> {
             if(list.getSelectionModel().getSelectedItem() != null) {
                 HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut" +

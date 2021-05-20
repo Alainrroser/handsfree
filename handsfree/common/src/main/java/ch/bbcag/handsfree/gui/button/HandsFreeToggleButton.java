@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.gui.button;
 
-public class HandsFreeToggleButton extends HandsFreeDefaultButton {
+public class HandsFreeToggleButton extends HandsFreeTextButton {
 
     private boolean enabled = false;
     private Runnable onEnabled = null;

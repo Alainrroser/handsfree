@@ -3,7 +3,7 @@ package ch.bbcag.installer.scenes;
 import ch.bbcag.handsfree.gui.HandsFreeScene;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
+import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.installer.Const;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -32,7 +32,7 @@ public class InstallerScene extends HandsFreeScene {
     }
 
     public void addButton(String text, HandsFreeButtonPalette palette, Runnable onClicked) {
-        HandsFreeDefaultButton button = new HandsFreeDefaultButton(text);
+        HandsFreeTextButton button = new HandsFreeTextButton(text);
         button.setPrefWidth(Const.BUTTON_WIDTH);
         button.setPadding(Const.BUTTON_PADDING);
         button.setPalette(palette);

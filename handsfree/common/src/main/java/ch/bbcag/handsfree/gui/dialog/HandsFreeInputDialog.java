@@ -3,7 +3,7 @@ package ch.bbcag.handsfree.gui.dialog;
 import ch.bbcag.handsfree.gui.HandsFreeTextField;
 import ch.bbcag.handsfree.gui.button.HandsFreeButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
+import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 
@@ -24,14 +24,14 @@ public class HandsFreeInputDialog extends HandsFreeDialog {
         getContentBox().setTop(inputField);
         BorderPane.setMargin(inputField, new Insets(0, 0, 20, 0));
 
-        buttonOk = new HandsFreeDefaultButton("Ship it!");
+        buttonOk = new HandsFreeTextButton("Ship it!");
         buttonOk.setPrefWidth(200);
         buttonOk.setOnAction(event -> close());
         buttonOk.setPadding(new Insets(10, 0, 10, 0));
         buttonOk.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
         getContentBox().setLeft(buttonOk);
 
-        buttonCancel = new HandsFreeDefaultButton("Nevermind");
+        buttonCancel = new HandsFreeTextButton("Nevermind");
         buttonCancel.setPrefWidth(200);
         buttonCancel.setOnAction(event -> close());
         buttonCancel.setPadding(new Insets(10, 0, 10, 0));

@@ -11,7 +11,7 @@ import ch.bbcag.handsfree.error.SpeechRecognizerException;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.HandsFreeScene;
-import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
+import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
@@ -59,7 +59,7 @@ public class MainMenu extends HandsFreeScene {
         
         initToggleButtons(context);
         
-        HandsFreeDefaultButton openShortCutMenu = new HandsFreeDefaultButton("Shortcuts");
+        HandsFreeTextButton openShortCutMenu = new HandsFreeTextButton("Shortcuts");
         openShortCutMenu.setOnAction(event -> application.getNavigator().navigateTo(SceneType.SHORTCUT_MENU));
         
         vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);

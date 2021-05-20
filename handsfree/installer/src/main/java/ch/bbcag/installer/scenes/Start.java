@@ -1,20 +1,10 @@
 package ch.bbcag.installer.scenes;
 
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
-import ch.bbcag.handsfree.gui.HandsFreeScene;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.handsfree.gui.button.HandsFreeDefaultButton;
 import ch.bbcag.handsfree.scenes.Navigator;
-import ch.bbcag.installer.Const;
 import ch.bbcag.installer.InstallerApplication;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
 
 public class Start extends InstallerScene {
 
