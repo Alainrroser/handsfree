@@ -2,7 +2,6 @@
 /gradle/
 gradlew
 gradlew.bat
-settings.gradle
 /.idea/
 
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
