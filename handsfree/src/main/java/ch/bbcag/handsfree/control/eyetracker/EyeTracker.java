@@ -24,7 +24,6 @@ public class EyeTracker {
     private static final int STARTUP_DELAY = 1000;
 
     public EyeTracker() {
-
         headTracker = new HeadTracker();
     }
 

@@ -7,14 +7,24 @@ import java.nio.file.Paths;
 
 public class TemporaryFile {
 
-    private static final String TEMP_SUBDIRECTORY = "handsfree";
+    public static final String TEMP_SUBDIRECTORY = "handsfree";
+
+    static {
+        Thread shutdownThread = new Thread(() -> deleteRecursively(getTempSubdirectory()));
+        Runtime.getRuntime().addShutdownHook(shutdownThread);
+    }
 
     public static File create(String name) throws IOException {
-        String tempDirectoryPath = System.getProperty("java.io.tmpdir");
-        Path filePath = Paths.get(tempDirectoryPath, TEMP_SUBDIRECTORY, name);
+        Path filePath = Path.of(getTempSubdirectory().getAbsolutePath(), name);
         File file = filePath.toFile();
         createIfNotCreated(file);
         return file;
+    }
+
+    private static File getTempSubdirectory() {
+        String tempDirectoryPath = System.getProperty("java.io.tmpdir");
+        Path filePath = Path.of(tempDirectoryPath, TEMP_SUBDIRECTORY);
+        return filePath.toFile();
     }
 
     private static void createIfNotCreated(File file) throws IOException {
@@ -25,6 +35,18 @@ public class TemporaryFile {
         if(!file.exists()) {
             file.createNewFile();
         }
+    }
+
+    private static void deleteRecursively(File file) {
+        for(File child : file.listFiles()) {
+            if(child.isDirectory()) {
+                deleteRecursively(child);
+            } else {
+                child.delete();
+            }
+        }
+
+        file.delete();
     }
 
 }
