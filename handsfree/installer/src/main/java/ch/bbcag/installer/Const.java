@@ -8,7 +8,7 @@ public class Const {
     public static final int BOX_PADDING_TOP_BOTTOM = 50;
     public static final int BOX_PADDING_RIGHT_LEFT = 100;
 
-    public static final String FILE_NAME = "handsfree-1.0-SNAPSHOT.jar";
+    public static final String FILE_NAME = "application-1.0-SNAPSHOT.jar";
     public static final String ICON_NAME = "icon64.ico";
 
 }

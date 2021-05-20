@@ -6,19 +6,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Navigator {
-    private Map<SceneType, HandsFreeScene> sceneMap = new HashMap<>();
-    private SceneType currentSceneType;
+    private Map<ISceneType, HandsFreeScene> sceneMap = new HashMap<>();
+    private ISceneType currentSceneType;
     
-    public void registerScene(SceneType sceneType, HandsFreeScene scene) {
+    public void registerScene(ISceneType sceneType, HandsFreeScene scene) {
         sceneMap.put(sceneType, scene);
     }
     
-    public void navigateTo(SceneType sceneType) {
+    public void navigateTo(ISceneType sceneType) {
         sceneMap.get(sceneType).apply();
         this.currentSceneType = sceneType;
     }
     
-    public SceneType getCurrentSceneType() {
+    public ISceneType getCurrentSceneType() {
         return currentSceneType;
     }
 }

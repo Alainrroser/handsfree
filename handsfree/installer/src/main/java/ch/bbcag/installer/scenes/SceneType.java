@@ -1,6 +1,8 @@
 package ch.bbcag.installer.scenes;
 
-public enum SceneType {
+import ch.bbcag.handsfree.scenes.ISceneType;
+
+public enum SceneType implements ISceneType {
     START,
     DIRECTORY_CHOOSER,
     SHORTCUT,

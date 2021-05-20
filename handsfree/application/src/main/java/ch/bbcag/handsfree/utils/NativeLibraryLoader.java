@@ -19,8 +19,6 @@ public class NativeLibraryLoader {
     }
 
     private static void tryLoadLibrary(String resource) throws NativeException, IOException {
-        System.out.println("loading " + resource + "...");
-
         InputStream inputStream = getInputStreamFromResourceName(resource);
 
         String filename = resource.substring(resource.lastIndexOf("/") + 1);
