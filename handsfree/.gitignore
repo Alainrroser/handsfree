@@ -4,9 +4,6 @@ gradlew
 gradlew.bat
 settings.gradle
 /.idea/
-/shortcuts/
-/configuration/
-error.log
 
 # From https://github.com/github/gitignore/blob/master/Gradle.gitignore
 .gradle
@@ -109,5 +106,3 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
-
-setup/
