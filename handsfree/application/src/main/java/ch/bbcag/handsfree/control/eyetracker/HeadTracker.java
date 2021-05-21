@@ -42,6 +42,7 @@ public class HeadTracker extends ThreadedSystem {
 
     @Override
     public void run() {
+        System.out.println("hi");
         while(isRunning()) {
             update();
         }

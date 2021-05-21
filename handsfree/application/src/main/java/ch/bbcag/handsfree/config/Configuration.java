@@ -15,11 +15,12 @@ public class Configuration {
     private static Properties configurations = new Properties();
     private static File file = new File(System.getProperty("user.home") + "/AppData/Local/HandsFree/config.properties");
 
-    public static void writeConfiguration(boolean eyeTrackingState, boolean speechControlState, boolean autorunState) {
+    public static void writeConfiguration(boolean eyeTrackingState, boolean headTrackingState, boolean speechControlState, boolean autorunState) {
         try {
             createFileAndParentsIfNotCreated();
 
             configurations.put(Const.EYE_TRACKING_STATE, String.valueOf(eyeTrackingState));
+            configurations.put(Const.HEAD_TRACKING_STATE, String.valueOf(headTrackingState));
             configurations.put(Const.SPEECH_CONTROL_STATE, String.valueOf(speechControlState));
             configurations.put(Const.AUTORUN_STATE, String.valueOf(autorunState));
 
@@ -39,7 +40,7 @@ public class Configuration {
 
             if(!file.exists()) {
                 file.createNewFile();
-                writeConfiguration(false, false, false);
+                writeConfiguration(false, false, false, false);
             }
         } catch(IOException e) {
             Error.reportCritical(ErrorMessages.LOAD_CONFIGURATION, e);

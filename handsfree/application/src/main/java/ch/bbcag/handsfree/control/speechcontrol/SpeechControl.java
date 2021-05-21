@@ -20,18 +20,18 @@ public class SpeechControl {
         this.context = context;
         HandsFreeRobot robot = context.getRobot();
         
-        context.getSpeechRecognizer().addListener("press", () -> robot.mousePress(InputEvent.BUTTON1_DOWN_MASK));
-        context.getSpeechRecognizer().addListener("release", () -> robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK));
+        addCommand(new Command("press", "Left Mouse Button Press", () -> robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)));
+        addCommand(new Command("release", "Left Mouse Button Release", () -> robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)));
         
-        context.getSpeechRecognizer().addListener("left", () -> robot.keyTypeSpecial(KeyEvent.VK_LEFT));
-        context.getSpeechRecognizer().addListener("up", () -> robot.keyTypeSpecial(KeyEvent.VK_UP));
-        context.getSpeechRecognizer().addListener("right", () -> robot.keyTypeSpecial(KeyEvent.VK_RIGHT));
-        context.getSpeechRecognizer().addListener("down", () -> robot.keyTypeSpecial(KeyEvent.VK_DOWN));
-        
-        context.getSpeechRecognizer().addListener("scroll down", () -> robot.scrollContinuously(10));
-        context.getSpeechRecognizer().addListener("scroll up", () -> robot.scrollContinuously(-10));
-        
-        context.getSpeechRecognizer().addListener("browser", () -> {
+        addCommand(new Command("left", "Left arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_LEFT)));
+        addCommand(new Command("up", "Up arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_UP)));
+        addCommand(new Command("right", "Right arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_RIGHT)));
+        addCommand(new Command("down", "Down arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_DOWN)));
+
+        addCommand(new Command("scroll down", "scrolls down", () -> robot.scrollContinuously(10)));
+        addCommand(new Command("scroll down", "scrolls up", () -> robot.scrollContinuously(-10)));
+
+        addCommand(new Command("browser", "starts standard browser", () -> {
             if(Desktop.isDesktopSupported()) {
                 Desktop desktop = Desktop.getDesktop();
                 try {
@@ -40,11 +40,11 @@ public class SpeechControl {
                     Error.reportMinor("Your standard browser could not be opened!");
                 }
             }
-        });
-        context.getSpeechRecognizer().addListener("new tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_T));
-        context.getSpeechRecognizer().addListener("close tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W));
-    
-        context.getSpeechRecognizer().addListener("shut down", () -> Platform.runLater(() -> {
+        }));
+        addCommand(new Command("new tab", "Makes new tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_T)));
+        addCommand(new Command("close tab", "closes tab", () ->  robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W)));
+
+        addCommand(new Command("shut down", "Shuts the computer down", () -> Platform.runLater(() -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Shutdown", "Do you really want to shutdown your computer?");
             dialog.setOnConfirmed(() -> {
                 try {
@@ -54,8 +54,8 @@ public class SpeechControl {
                 }
             });
             dialog.show();
-        }));
-        context.getSpeechRecognizer().addListener("restart", () -> Platform.runLater(() -> {
+        })));
+        addCommand(new Command("restart", "Restarts the computer", () -> Platform.runLater(() -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Restart", "Do you really want to restart your computer?");
             dialog.setOnConfirmed(() -> {
                 try {
@@ -65,53 +65,58 @@ public class SpeechControl {
                 }
             });
             dialog.show();
-        }));
-        
-        context.getSpeechRecognizer().addListener("windows", () -> robot.keyTypeSpecial(91));
-        context.getSpeechRecognizer().addListener("notifications", () -> robot.pressHotkey(91, KeyEvent.VK_A));
-        context.getSpeechRecognizer().addListener("desktop", () -> robot.pressHotkey(91, KeyEvent.VK_D));
-        context.getSpeechRecognizer().addListener("explorer", () -> robot.pressHotkey(91, KeyEvent.VK_E));
-        context.getSpeechRecognizer().addListener("settings", () -> robot.pressHotkey(91, KeyEvent.VK_I));
-        context.getSpeechRecognizer().addListener("lock", () -> robot.pressHotkey(91, KeyEvent.VK_L));
-        context.getSpeechRecognizer().addListener("minimize all", () -> robot.pressHotkey(91, KeyEvent.VK_M));
-        context.getSpeechRecognizer().addListener("run", () -> robot.pressHotkey(91, KeyEvent.VK_R));
-        context.getSpeechRecognizer().addListener("search", () -> robot.pressHotkey(91, KeyEvent.VK_S));
-        context.getSpeechRecognizer().addListener("clipboard", () -> robot.pressHotkey(91, KeyEvent.VK_V));
-        context.getSpeechRecognizer().addListener("admin menu", () -> robot.pressHotkey(91, KeyEvent.VK_X));
-        context.getSpeechRecognizer().addListener("maximize", () -> robot.pressHotkey(91, KeyEvent.VK_UP));
-        context.getSpeechRecognizer().addListener("minimize", () -> robot.pressHotkey(91, KeyEvent.VK_DOWN));
-        context.getSpeechRecognizer().addListener("screenshot", () -> robot.pressHotkey(91, 0x2C));
-        
-        context.getSpeechRecognizer().addListener("select all", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_A));
-        context.getSpeechRecognizer().addListener("copy", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_C));
-        context.getSpeechRecognizer().addListener("delete", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_D));
-        context.getSpeechRecognizer().addListener("search", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_F));
-        context.getSpeechRecognizer().addListener("refresh", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_R));
-        context.getSpeechRecognizer().addListener("paste", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_V));
-        context.getSpeechRecognizer().addListener("close explorer", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W));
-        context.getSpeechRecognizer().addListener("cut", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_X));
-        context.getSpeechRecognizer().addListener("redo", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Y));
-        context.getSpeechRecognizer().addListener("undo", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Z));
-        context.getSpeechRecognizer().addListener("new folder", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_N));
-        context.getSpeechRecognizer().addListener("task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ESCAPE));
-        context.getSpeechRecognizer().addListener("menu", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_DELETE));
-        
-        context.getSpeechRecognizer().addListener("close", () -> robot.pressHotkey(KeyEvent.VK_ALT, KeyEvent.VK_F4));
-        context.getSpeechRecognizer().addListener("switch open", () -> {
+        })));
+
+        addCommand(new Command("windows", "Presses windows key", () -> robot.keyTypeSpecial(91)));
+        addCommand(new Command("notifications", "Opens notifications panel", () -> robot.pressHotkey(91, KeyEvent.VK_A)));
+        addCommand(new Command("desktop", "Goes to desktop", () -> robot.pressHotkey(91, KeyEvent.VK_D)));
+        addCommand(new Command("explorer", "Opens explorer", () -> robot.pressHotkey(91, KeyEvent.VK_E)));
+        addCommand(new Command("Settings", "Opens settings", () -> robot.pressHotkey(91, KeyEvent.VK_I)));
+        addCommand(new Command("lock", "Presses windows key", () -> robot.pressHotkey(91, KeyEvent.VK_L)));
+        addCommand(new Command("minimize all", "Minimizes all apps", () -> robot.pressHotkey(91, KeyEvent.VK_M)));
+        addCommand(new Command("run", "Opens run", () -> robot.pressHotkey(91, KeyEvent.VK_R)));
+        addCommand(new Command("search", "Opens windows search", () -> robot.pressHotkey(91, KeyEvent.VK_S)));
+        addCommand(new Command("clipboard", "Opens clipboard", () -> robot.pressHotkey(91, KeyEvent.VK_V)));
+        addCommand(new Command("admin menu", "Opens admin menu", () -> robot.pressHotkey(91, KeyEvent.VK_X)));
+        addCommand(new Command("maximize", "Maximizes window", () -> robot.pressHotkey(91, KeyEvent.VK_UP)));
+        addCommand(new Command("minimize", "Minimizes window", () -> robot.pressHotkey(91, KeyEvent.VK_DOWN)));
+        addCommand(new Command("screenshot", "Makes screenshot", () -> robot.pressHotkey(91, 0x2C)));
+
+        addCommand(new Command("select all", "Selects everything", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_A)));
+        addCommand(new Command("copy", "Copies selected", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_C)));
+        addCommand(new Command("delete", "Deletes selected", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_D)));
+        addCommand(new Command("search", "Opens search", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_F)));
+        addCommand(new Command("refresh", "Refreshes page", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_R)));
+        addCommand(new Command("paste", "Pastes copied or cut", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_V)));
+        addCommand(new Command("close explorer", "Closes explorer", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W)));
+        addCommand(new Command("cut", "Cuts selected", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_X)));
+        addCommand(new Command("redo", "Redoes something", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Y)));
+        addCommand(new Command("undo", "Undoes something", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Z)));
+        addCommand(new Command("new folder", "Creates new folder", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_N)));
+        addCommand(new Command("task manager", "Opens task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ESCAPE)));
+        addCommand(new Command("menu", "Opens menu", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_DELETE)));
+
+        addCommand(new Command("close", "Closes window", () -> robot.pressHotkey(KeyEvent.VK_ALT, KeyEvent.VK_F4)));
+        addCommand(new Command("switch open", "Opens switch", () -> {
             robot.keyPressSpecial(KeyEvent.VK_ALT);
             robot.keyPressSpecial(KeyEvent.VK_TAB);
-        });
-        context.getSpeechRecognizer().addListener("switch close", () -> {
+        }));
+        addCommand(new Command("switch close", "Closes switch", () -> {
             robot.keyReleaseSpecial(KeyEvent.VK_ALT);
             robot.keyReleaseSpecial(KeyEvent.VK_TAB);
-        });
-    
-        context.getSpeechRecognizer().addListener("rename", () -> robot.keyTypeSpecial(KeyEvent.VK_F2));
-        context.getSpeechRecognizer().addListener("explorer search", () -> robot.keyTypeSpecial(KeyEvent.VK_F3));
-        context.getSpeechRecognizer().addListener("explorer path", () -> robot.keyTypeSpecial(KeyEvent.VK_F4));
-        context.getSpeechRecognizer().addListener("update view", () -> robot.keyTypeSpecial(KeyEvent.VK_F5));
-        context.getSpeechRecognizer().addListener("full", () -> robot.keyTypeSpecial(KeyEvent.VK_F11));
-        context.getSpeechRecognizer().addListener("escape", () -> robot.keyTypeSpecial(KeyEvent.VK_ESCAPE));
+        }));
+
+        addCommand(new Command("rename", "Renames selected", () -> robot.keyTypeSpecial(KeyEvent.VK_F2)));
+        addCommand(new Command("explorer search", "Goes to explorers search", () -> robot.keyTypeSpecial(KeyEvent.VK_F3)));
+        addCommand(new Command("explorer path", "Goes to explorers path", () -> robot.keyTypeSpecial(KeyEvent.VK_F4)));
+        addCommand(new Command("update view", "Updates view", () -> robot.keyTypeSpecial(KeyEvent.VK_F5)));
+        addCommand(new Command("full", "Makes fullscreen", () -> robot.keyTypeSpecial(KeyEvent.VK_F11)));
+        addCommand(new Command("escape", "Clicks escape", () -> robot.keyTypeSpecial(KeyEvent.VK_ESCAPE)));
+    }
+
+    private void addCommand(Command command) {
+        context.getSpeechRecognizer().addListener(command.getName(), command.getSpeechListener());
+        context.getSpeechRecognizer().addCommand(command);
     }
 
     public void addListenerForShortcut(String name) {

@@ -7,10 +7,7 @@ import ch.bbcag.handsfree.error.NativeException;
 import ch.bbcag.handsfree.gui.HandsFreeIconifiedWidget;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
-import ch.bbcag.handsfree.scenes.MainMenu;
-import ch.bbcag.handsfree.scenes.Navigator;
-import ch.bbcag.handsfree.scenes.SceneType;
-import ch.bbcag.handsfree.scenes.ShortcutMenu;
+import ch.bbcag.handsfree.scenes.*;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -50,9 +47,11 @@ public class HandsFreeApplication extends Application {
 
         MainMenu mainMenu = new MainMenu(this, context);
         ShortcutMenu shortcutMenu = new ShortcutMenu(this, context);
+        CommandsList commandsList = new CommandsList(this, context);
 
         navigator.registerScene(SceneType.MAIN_MENU, mainMenu);
         navigator.registerScene(SceneType.SHORTCUT_MENU, shortcutMenu);
+        navigator.registerScene(SceneType.COMMANDS_LIST, commandsList);
         navigator.navigateTo(SceneType.MAIN_MENU);
 
         primaryStage.setOnCloseRequest(event -> {

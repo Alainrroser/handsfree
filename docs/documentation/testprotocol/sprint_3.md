@@ -1,6 +1,6 @@
 # Testprotokoll Sprint 3
-Tester: 
-Testdatum: 
+Tester: Yassin Butt
+Testdatum: 21.05.2021
 Testzeit: 
 
 ID | Erfolgreich | Bemerkungen
@@ -11,9 +11,3 @@ ST-03 | Ja | \-
 ST-04 | Ja | \-
 ST-05 | Ja | \-
 ST-06 | Ja | \-
-ST-07 | Ja | \-
-ST-08 | Ja | \-
-ST-09 | Ja | \-
-ST-10 | Ja | \-
-ST-11 | Ja | \-
-ST-12 | Ja | \-

@@ -35,6 +35,8 @@ public class SpeechRecognizer {
     private static final String GRAMMAR_NAME = "commands";
     private static final String GRAMMAR_FILE_EXTENSION = "gram";
 
+    private List<Command> commands = new ArrayList<>();
+
     public void start() throws SpeechRecognizerException {
         if(isSupported() && !running) {
             running = true;
@@ -136,8 +138,15 @@ public class SpeechRecognizer {
         return AudioSystem.isLineSupported(info);
     }
 
-    public Set<String> getCommands() {
+    public Set<String> getCommandsAndShortcuts() {
         return listeners.keySet();
     }
 
+    public void addCommand(Command command) {
+        commands.add(command);
+    }
+
+    public List<Command> getCommands() {
+        return commands;
+    }
 }

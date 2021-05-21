@@ -10,21 +10,16 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.gui.*;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
-import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeInputDialog;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class ShortcutMenu extends HandsFreeScene {
+public class ShortcutMenu extends ScrollScene {
 
     private ShortcutManager shortcutManager;
     private ShortcutRecorder recorder;
@@ -32,102 +27,108 @@ public class ShortcutMenu extends HandsFreeScene {
     private static final String SHORTCUT_NAMING_REGEX = "[a-zA-Z]*";
 
     public ShortcutMenu(HandsFreeApplication application, HandsFreeContext context) {
-        super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration());
+        super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration(), "Shortcuts");
+
+        getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
+        getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
+
         shortcutManager = context.getShortcutManager();
         recorder = new ShortcutRecorder(shortcutManager);
 
-        VBox vBox = new VBox();
-        vBox.setSpacing(Const.V_BOX_SPACING);
-        vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM,
-                                   Const.V_BOX_PADDING_RIGHT_LEFT));
-        vBox.setMaxHeight(Double.MAX_VALUE);
+        initGUI(application, context);
+    }
 
-        VBox vBoxTop = new VBox();
-        HBox hBoxBack = new HBox();
-        HBox hBoxTitle = new HBox();
+    private void initGUI(HandsFreeApplication application, HandsFreeContext context) {
+        HandsFreeScrollPane scrollPane = (HandsFreeScrollPane) getContentRoot();
 
-        HandsFreeIconButton back = new HandsFreeIconButton("/images/back.png");
-        back.setPrefSize(64, 48);
-        back.setOnAction(event -> application.getNavigator().navigateTo(SceneType.MAIN_MENU));
-        hBoxBack.getChildren().add(back);
-
-        Label title = new Label("Shortcuts");
-        title.setFont(HandsFreeFont.getFont(30));
-        title.setTextFill(Colors.FONT);
-        hBoxTitle.getChildren().add(title);
-        hBoxTitle.setAlignment(Pos.CENTER);
-
-        vBoxTop.getChildren().addAll(hBoxBack, hBoxTitle);
-
-        HandsFreeListView list = new HandsFreeListView();
-        list.setMaxWidth(Double.MAX_VALUE);
+        VBox vBox = initVBox();
+        VBox vBoxTop = initTop(application);
+        HandsFreeListView list = initList();
         list.setRightClickHandler(item -> shortcutManager.runShortcut(item));
-        list.setMinHeight(600);
         addShortcuts(list);
 
-        HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
-        recordShortcut.setOnEnabled(() -> recorder.start());
-        recordShortcut.setOnDisabled(() -> {
-            if(recorder.isRunning()) {
-                HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
-                input.setOnOk(value -> {
-                    boolean doesNotEqualCommand = true;
-                    for(String command: context.getSpeechRecognizer().getCommands()) {
-                        if(command.equals(value)) {
-                            doesNotEqualCommand = false;
-                            break;
-                        }
-                    }
-
-                    if(!shortcutManager.isNotExistingAlready(value)) {
-                        Error.reportMinor("A shortcut with this name already exists!");
-                    } else if(value.equals("")) {
-                        Error.reportMinor("No name specified!");
-                    } else if(!doesNotEqualCommand) {
-                        Error.reportMinor("The name of the shortcut is identical to a speech command!");
-                    } else if(!Pattern.matches(SHORTCUT_NAMING_REGEX, value)) {
-                        Error.reportMinor("Your shortcut contains invalid characters (only letters are allowed)!");
-                    } else {
-                        list.getItems().add(value);
-                        HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts " +
-                                                                                                 "if you either move the jar file or the shortcut " +
-                                                                                                 "files");
-                        dialog.show();
-                        recorder.stopAndSave(value);
-                    }
-                });
-                input.setOnCanceled(recorder::stopAndDiscard);
-                input.show();
-            }
-        });
-        recordShortcut.setEnabled(false);
-
-        HandsFreeTextButton deleteShortcut = new HandsFreeTextButton("Delete Shortcut");
-        deleteShortcut.setOnAction(event -> {
-            if(list.getSelectionModel().getSelectedItem() != null) {
-                HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut" +
-                                                                                              " will be lost forever! (A long time!)");
-                dialog.setOnConfirmed(() -> {
-                    try {
-                        shortcutManager.removeShortcut(list.getSelectionModel().getSelectedItem());
-                        context.getSpeechRecognizer().removeListener(list.getSelectionModel().getSelectedItem());
-                        list.getItems().remove(list.getSelectionModel().getSelectedIndex());
-                    } catch(IOException e) {
-                        Error.reportMinor(ErrorMessages.DELETE_SHORTCUT);
-                    }
-                });
-                dialog.show();
-            } else {
-                Error.reportMinor("No shortcut selected!");
-            }
-        });
+        HandsFreeToggleButton recordShortcut = initRecordShortcutButton(context, list);
+        HandsFreeTextButton deleteShortcut = initDeleteShortcutButton(context, list);
 
         vBox.getChildren().addAll(vBoxTop, recordShortcut, deleteShortcut, list);
-
-        HandsFreeScrollPane scrollPane = (HandsFreeScrollPane) getContentRoot();
-        scrollPane.setMinSize(Const.WIDTH, Const.HEIGHT);
-        scrollPane.setMaxSize(Const.WIDTH, Const.HEIGHT);
         scrollPane.setContent(vBox);
+    }
+
+    private HandsFreeTextButton initDeleteShortcutButton(HandsFreeContext context, HandsFreeListView list) {
+        HandsFreeTextButton deleteShortcut = new HandsFreeTextButton("Delete Shortcut");
+        deleteShortcut.setOnAction(event -> manageDeleteShortcut(list, context));
+        return deleteShortcut;
+    }
+
+    private HandsFreeToggleButton initRecordShortcutButton(HandsFreeContext context, HandsFreeListView list) {
+        HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
+        recordShortcut.setOnEnabled(() -> recorder.start());
+        recordShortcut.setOnDisabled(() -> manageShortcutName(context, list));
+        recordShortcut.setEnabled(false);
+        return recordShortcut;
+    }
+
+    private void manageDeleteShortcut(HandsFreeListView list, HandsFreeContext context) {
+        if(list.getSelectionModel().getSelectedItem() != null) {
+            HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut" +
+                                                                                          " will be lost forever! (A long time!)");
+            dialog.setOnConfirmed(() -> tryToRemoveShortcut(list, context));
+            dialog.show();
+        } else {
+            Error.reportMinor("No shortcut selected!");
+        }
+    }
+
+    private void tryToRemoveShortcut(HandsFreeListView list, HandsFreeContext context) {
+        try {
+            shortcutManager.removeShortcut(list.getSelectionModel().getSelectedItem());
+            context.getSpeechRecognizer().removeListener(list.getSelectionModel().getSelectedItem());
+            list.getItems().remove(list.getSelectionModel().getSelectedIndex());
+        } catch(IOException e) {
+            Error.reportMinor(ErrorMessages.DELETE_SHORTCUT);
+        }
+    }
+
+    private void manageShortcutName(HandsFreeContext context, HandsFreeListView list) {
+        if(recorder.isRunning()) {
+            HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
+            input.setOnOk(value -> {
+                boolean doesNotEqualCommand = checkIfEqualsCommand(value, context);
+
+                checkShortcutName(value, doesNotEqualCommand, list);
+            });
+            input.setOnCanceled(recorder::stopAndDiscard);
+            input.show();
+        }
+    }
+
+    private void checkShortcutName(String value, boolean doesNotEqualCommand, HandsFreeListView list) {
+        if(!shortcutManager.isNotExistingAlready(value)) {
+            Error.reportMinor("A shortcut with this name already exists!");
+        } else if(value.equals("")) {
+            Error.reportMinor("No name specified!");
+        } else if(!doesNotEqualCommand) {
+            Error.reportMinor("The name of the shortcut is identical to a speech command!");
+        } else if(!Pattern.matches(SHORTCUT_NAMING_REGEX, value)) {
+            Error.reportMinor("Your shortcut contains invalid characters (only letters are allowed)!");
+        } else {
+            list.getItems().add(value);
+            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts " +
+                                                                                     "if you either move the jar file or the shortcut files");
+            dialog.show();
+            recorder.stopAndSave(value);
+        }
+    }
+
+    private boolean checkIfEqualsCommand(String value, HandsFreeContext context) {
+        boolean doesNotEqualCommand = true;
+        for(String command: context.getSpeechRecognizer().getCommandsAndShortcuts()) {
+            if(command.equals(value)) {
+                doesNotEqualCommand = false;
+                break;
+            }
+        }
+        return doesNotEqualCommand;
     }
 
     private void addShortcuts(HandsFreeListView list) {

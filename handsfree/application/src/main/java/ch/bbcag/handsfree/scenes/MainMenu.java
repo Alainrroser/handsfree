@@ -8,24 +8,20 @@ import ch.bbcag.handsfree.config.Configuration;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 import ch.bbcag.handsfree.error.SpeechRecognizerException;
-import ch.bbcag.handsfree.gui.Colors;
-import ch.bbcag.handsfree.gui.HandsFreeFont;
-import ch.bbcag.handsfree.gui.HandsFreeScene;
+import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MainMenu extends HandsFreeScene {
+public class MainMenu extends ScrollScene {
 
     private HandsFreeOnScreenKeyboard keyboard;
     
     private HandsFreeToggleButton toggleEyeTracking;
+    private HandsFreeToggleButton toggleHeadTracking;
     private HandsFreeToggleButton toggleSpeechControl;
     private HandsFreeToggleButton toggleOnScreenKeyboard;
     private HandsFreeToggleButton toggleAutorun;
@@ -34,7 +30,7 @@ public class MainMenu extends HandsFreeScene {
     private boolean hasBeenRead = false;
 
     public MainMenu(HandsFreeApplication application, HandsFreeContext context) {
-        super(application.getPrimaryStage(), new VBox(), application.getConfiguration());
+        super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration(), "HandsFree");
 
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
@@ -44,33 +40,39 @@ public class MainMenu extends HandsFreeScene {
     }
     
     private void initGUI(HandsFreeApplication application, HandsFreeContext context) {
-        VBox vBox = (VBox) getContentRoot();
-        vBox.setSpacing(Const.V_BOX_SPACING);
-        vBox.setPadding(new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT));
+        HandsFreeScrollPane scrollPane = (HandsFreeScrollPane) getContentRoot();
 
-        HBox hBoxTitle = new HBox();
+        VBox vBox = initVBox();
+        HBox hBoxTitle = initTitle();
 
-        Label title = new Label("HandsFree");
-        title.setFont(HandsFreeFont.getFont(30));
-        title.setTextFill(Colors.FONT);
-        
-        hBoxTitle.getChildren().add(title);
-        hBoxTitle.setAlignment(Pos.CENTER);
-        
         initToggleButtons(context);
+        HandsFreeTextButton commandsList = initCommandsListButton(application);
+        HandsFreeTextButton openShortCutMenu = initOpenShortCutMenu(application);
         
+        vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleHeadTracking, toggleSpeechControl, commandsList, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
+        scrollPane.setContent(vBox);
+    }
+
+    private HandsFreeTextButton initOpenShortCutMenu(HandsFreeApplication application) {
         HandsFreeTextButton openShortCutMenu = new HandsFreeTextButton("Shortcuts");
         openShortCutMenu.setOnAction(event -> application.getNavigator().navigateTo(SceneType.SHORTCUT_MENU));
-        
-        vBox.getChildren().addAll(hBoxTitle, toggleEyeTracking, toggleSpeechControl, toggleOnScreenKeyboard, toggleAutorun, openShortCutMenu);
+        return openShortCutMenu;
+    }
+
+    private HandsFreeTextButton initCommandsListButton(HandsFreeApplication application) {
+        HandsFreeTextButton commandsList = new HandsFreeTextButton("List of commands");
+        commandsList.setOnAction(event -> application.getNavigator().navigateTo(SceneType.COMMANDS_LIST));
+        return commandsList;
     }
     
     private void initToggleButtons(HandsFreeContext context) {
         initToggleEyeTracking(context);
+        initToggleHeadTracking(context);
         initToggleSpeechControl(context);
         initToggleOnScreenKeyboard();
         initToggleAutorun();
         toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
+        toggleHeadTracking.setEnabled(Configuration.readConfiguration(Const.HEAD_TRACKING_STATE));
         toggleSpeechControl.setEnabled(Configuration.readConfiguration(Const.SPEECH_CONTROL_STATE));
         toggleAutorun.setEnabled(Configuration.readConfiguration(Const.AUTORUN_STATE));
         hasBeenRead = true;
@@ -86,6 +88,22 @@ public class MainMenu extends HandsFreeScene {
         });
         toggleEyeTracking.setOnDisabled(() -> {
             context.getEyeTracker().stop();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
+        });
+    }
+
+    private void initToggleHeadTracking(HandsFreeContext context) {
+        toggleHeadTracking = new HandsFreeToggleButton("Head Tracking");
+        toggleHeadTracking.setOnEnabled(() -> {
+            context.getHeadTracker().start();
+            if(hasBeenRead) {
+                saveConfiguration();
+            }
+        });
+        toggleEyeTracking.setOnDisabled(() -> {
+            context.getHeadTracker().stop();
             if(hasBeenRead) {
                 saveConfiguration();
             }
@@ -163,7 +181,7 @@ public class MainMenu extends HandsFreeScene {
     }
     
     private void saveConfiguration() {
-        Configuration.writeConfiguration(toggleEyeTracking.isEnabled(), toggleSpeechControl.isEnabled(), toggleAutorun.isEnabled());
+        Configuration.writeConfiguration(toggleEyeTracking.isEnabled(), toggleHeadTracking.isEnabled(), toggleSpeechControl.isEnabled(), toggleAutorun.isEnabled());
     }
 }
 
