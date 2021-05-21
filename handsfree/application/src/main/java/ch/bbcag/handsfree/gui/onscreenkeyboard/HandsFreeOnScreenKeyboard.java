@@ -44,7 +44,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         rootPane.setBorder(new Border(new BorderStroke(Colors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         rootPane.setPadding(new Insets(20));
 
-        wordSuggestionPanel = new HandsFreeWordSuggestionPanel();
+        wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context);
         rootPane.getChildren().add(wordSuggestionPanel);
 
         pane = new Pane();
