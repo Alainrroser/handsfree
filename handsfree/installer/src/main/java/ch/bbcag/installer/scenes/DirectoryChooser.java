@@ -1,6 +1,7 @@
 package ch.bbcag.installer.scenes;
 
 import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
@@ -8,9 +9,9 @@ import ch.bbcag.installer.Const;
 import ch.bbcag.installer.InstallerApplication;
 import ch.bbcag.installer.error.ErrorMessages;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +36,7 @@ public class DirectoryChooser extends InstallerScene {
         label.setWrapText(true);
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
-        application.setSelectedPath(new File("C:/Program Files/HandsFree/"));
+        application.setSelectedPath(new File("C:/HandsFree/"));
         directoryText = new HandsFreeLabel(application.getSelectedPath().getAbsolutePath());
 
         HBox directory = initDirectorySelector(application);

@@ -39,7 +39,7 @@ jar {
 
 launch4j {
     mainClassName = 'ch.bbcag.installer.Launcher'
-    icon = "$projectDir/src/main/resources/icon64.ico"
+    icon = "$projectDir/src/main/resources/icon.ico"
     manifest = "$projectDir/handsfree.manifest"
 }
 
