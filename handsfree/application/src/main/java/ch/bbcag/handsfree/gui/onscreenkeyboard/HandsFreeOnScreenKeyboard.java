@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 // We need this to be a popup so it doesn't steal focus from other windows
 // when pressing a button
@@ -137,7 +138,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private void updateSuggestions() {
         List<String> suggestions = new ArrayList<>();
         for(String word : allWords) {
-            if(word.startsWith(currentlyTypedWord)) {
+            if(word.toLowerCase().startsWith(currentlyTypedWord.toLowerCase())) {
                 suggestions.add(word);
 
                 if(suggestions.size() == 5) {
