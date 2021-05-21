@@ -1,13 +1,13 @@
-# Testprotokoll Sprint 3
-Tester: Piriyan Vijayanantha
-Testdatum: 21.05.2021
-Testzeit: 15.50
+# Testprotokoll Sprint 4
+Tester: 
+Testdatum: 
+Testzeit: 
 
 ID | Erfolgreich | Bemerkungen
 --- | --- | ---
 ST-01 | Ja | \-
 ST-02 | Ja | \-
 ST-03 | Ja | \-
-ST-04 | Ja | DAS WAR KRANK
+ST-04 | Ja | \-
 ST-05 | Ja | \-
 ST-06 | Ja | \-
