@@ -2,8 +2,9 @@ package ch.bbcag.handsfree.control.speechcontrol;
 
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
-import ch.bbcag.handsfree.control.shortcuts.Shortcut;
 import ch.bbcag.handsfree.error.Error;
+import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
+import javafx.application.Platform;
 
 import java.awt.*;
 import java.awt.event.InputEvent;
@@ -43,20 +44,28 @@ public class SpeechControl {
         context.getSpeechRecognizer().addListener("new tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_T));
         context.getSpeechRecognizer().addListener("close tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W));
     
-        context.getSpeechRecognizer().addListener("shutdown", () -> {
-            try {
-                Runtime.getRuntime().exec("shutdown -s");
-            } catch(IOException e) {
-                Error.reportMinor("The system could not be shut down!");
-            }
-        });
-        context.getSpeechRecognizer().addListener("restart", () -> {
-            try {
-                Runtime.getRuntime().exec("shutdown -r");
-            } catch(IOException e) {
-                Error.reportMinor("The system could not be restarted!");
-            }
-        });
+        context.getSpeechRecognizer().addListener("shut down", () -> Platform.runLater(() -> {
+            HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Shutdown", "Do you really want to shutdown your computer?");
+            dialog.setOnConfirmed(() -> {
+                try {
+                    Runtime.getRuntime().exec("shutdown -s");
+                } catch(IOException e) {
+                    Error.reportMinor("The system could not be shut down!");
+                }
+            });
+            dialog.show();
+        }));
+        context.getSpeechRecognizer().addListener("restart", () -> Platform.runLater(() -> {
+            HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Restart", "Do you really want to restart your computer?");
+            dialog.setOnConfirmed(() -> {
+                try {
+                    Runtime.getRuntime().exec("shutdown -r");
+                } catch(IOException e) {
+                    Error.reportMinor("The system could not be restarted!");
+                }
+            });
+            dialog.show();
+        }));
         
         context.getSpeechRecognizer().addListener("windows", () -> robot.keyTypeSpecial(91));
         context.getSpeechRecognizer().addListener("notifications", () -> robot.pressHotkey(91, KeyEvent.VK_A));

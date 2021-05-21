@@ -1,7 +1,6 @@
 package ch.bbcag.installer.scenes;
 
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
@@ -9,9 +8,9 @@ import ch.bbcag.installer.Const;
 import ch.bbcag.installer.InstallerApplication;
 import ch.bbcag.installer.error.ErrorMessages;
 import javafx.application.Platform;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,21 +35,14 @@ public class DirectoryChooser extends InstallerScene {
         label.setWrapText(true);
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
-        application.setSelectedPath(new File("C:/HandsFree/"));
+        application.setSelectedPath(new File("C:/Program Files/HandsFree/"));
         directoryText = new HandsFreeLabel(application.getSelectedPath().getAbsolutePath());
 
         HBox directory = initDirectorySelector(application);
 
-        addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));
-        addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
-            try {
-                saveFilesToSelectedPath(application);
-                application.getNavigator().navigateTo(SceneType.SHORTCUT);
-            } catch(IOException e) {
-                Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
-            }
-        });
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
+        addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));
+        addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> application.getNavigator().navigateTo(SceneType.SHORTCUT));
 
         getBorderPane().setTop(label);
         getBorderPane().setCenter(directory);
@@ -105,19 +97,24 @@ public class DirectoryChooser extends InstallerScene {
         Files.copy(inputStream, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
     }
 
-    private void saveFilesToSelectedPath(InstallerApplication application) throws IOException {
-        createSelectedPathIfNotCreated(application);
+    public void saveFilesToSelectedPath(InstallerApplication application) {
+        try {
+            createSelectedPathIfNotCreated(application);
 
-        File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.FILE_NAME);
-        createFileAndParentFileIfNotCreated(targetJarFile);
+            File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.FILE_NAME);
+            createFileAndParentFileIfNotCreated(targetJarFile);
 
-        File targetIconFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
-        createFileAndParentFileIfNotCreated(targetIconFile);
+            File targetIconFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
+            createFileAndParentFileIfNotCreated(targetIconFile);
 
-        InputStream jarInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.FILE_NAME);
-        InputStream iconInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.ICON_NAME);
+            InputStream jarInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.FILE_NAME);
+            InputStream iconInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.ICON_NAME);
 
-        copyFiles(jarInputStream, targetJarFile);
-        copyFiles(iconInputStream, targetIconFile);
+            copyFiles(jarInputStream, targetJarFile);
+            copyFiles(iconInputStream, targetIconFile);
+        } catch(IOException e) {
+            Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
+        }
+
     }
 }
