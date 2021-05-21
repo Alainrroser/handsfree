@@ -37,8 +37,8 @@ public class Shortcut extends InstallerScene {
         VBox checkBoxHBox = new VBox(Const.BOX_SPACING, desktopShortcutCheckBox, startMenuShortcutCheckBox);
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
-        addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.DIRECTORY_CHOOSER));
-        addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
+        addButton("< Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.DIRECTORY_CHOOSER));
+        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
             application.getNavigator().navigateTo(SceneType.END);
         });
 

@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
+import ch.bbcag.handsfree.control.ThreadedSystem;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Region;
@@ -9,35 +10,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EyeTracker {
+public class EyeTracker extends ThreadedSystem {
 
     private List<GazeListener> gazeListeners = new ArrayList<>();
     private List<RegionGazeListener> regionGazeListeners = new ArrayList<>();
-    private HeadTracker headTracker;
 
     private RegionGazeListener currentRegionGazeListener = null;
     private double currentGazeRegionActivationTime = 0;
     private boolean regionGazeHandlerActivated = false;
 
-    private boolean running;
-
     private static final int STARTUP_DELAY = 1000;
-
-    public EyeTracker() {
-        headTracker = new HeadTracker();
-    }
-
-    public void start() {
-        this.running = true;
-
-        Thread thread = new Thread(this::doTracking);
-        thread.setDaemon(true);
-        thread.start();
-    }
-
-    public void stop() {
-        this.running = false;
-    }
 
     public void addGazeListener(GazeListener listener) {
         gazeListeners.add(listener);
@@ -55,22 +37,15 @@ public class EyeTracker {
         regionGazeListeners.remove(listener);
     }
 
-    public void addHeadGestureListener(HeadGestureListener listener) {
-        headTracker.addHeadGestureListener(listener);
-    }
-
-    public void removeHeadGestureListener(HeadGestureListener listener) {
-        headTracker.removeHeadGestureListener(listener);
-    }
-
-    private void doTracking() {
+    @Override
+    protected void run() {
         try {
             Thread.sleep(STARTUP_DELAY);
         } catch(InterruptedException e) {
             e.printStackTrace();
         }
 
-        while(running) {
+        while(isRunning()) {
             float[] position = Tobii.getGazePosition();
             float xRelative = position[0];
             float yRelative = position[1];
@@ -82,8 +57,6 @@ public class EyeTracker {
 
             runGazeHandlers(x, y);
             runActivatedRegionGazeHandlers(x, y);
-
-            headTracker.update();
 
             sleepThread();
         }

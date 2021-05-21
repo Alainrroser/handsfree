@@ -18,7 +18,7 @@ public class Start extends InstallerScene {
         SceneType nextSceneType = SceneType.DIRECTORY_CHOOSER;
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
-        addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> navigator.navigateTo(nextSceneType));
+        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> navigator.navigateTo(nextSceneType));
     }
 
     private void initGUI() {

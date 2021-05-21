@@ -6,7 +6,7 @@ import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
 public class HeadGestureController {
 
     public HeadGestureController(HandsFreeContext context) {
-        context.getEyeTracker().addHeadGestureListener(new HeadGestureListener() {
+        context.getHeadTracker().addHeadGestureListener(new HeadGestureListener() {
             @Override
             public void nod() {
                 context.getRobot().keyTypeSpecial(HandsFreeKeyCodes.ENTER);

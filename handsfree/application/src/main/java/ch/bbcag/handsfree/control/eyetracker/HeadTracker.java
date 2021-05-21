@@ -1,11 +1,12 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
+import ch.bbcag.handsfree.control.ThreadedSystem;
 import tobii.Tobii;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeadTracker {
+public class HeadTracker extends ThreadedSystem {
 
     enum HeadShakeStage {
         NOT_SHAKING, ONE_SIDE_ACTIVATED, TWO_SIDES_ACTIVATED
@@ -39,7 +40,14 @@ public class HeadTracker {
         headGestureListeners.remove(listener);
     }
 
-    public void update() {
+    @Override
+    public void run() {
+        while(isRunning()) {
+            update();
+        }
+    }
+
+    private void update() {
         float pitch = (float) Math.toDegrees(Tobii.getHeadRotation()[0]);
         float yaw = (float) Math.toDegrees(Tobii.getHeadRotation()[1]);
 

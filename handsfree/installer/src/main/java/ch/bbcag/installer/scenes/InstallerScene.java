@@ -5,6 +5,7 @@ import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.installer.Const;
+import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -39,6 +40,8 @@ public class InstallerScene extends HandsFreeScene {
         borderPane.setBottom(buttonHBox);
     }
 
+    private long last = System.currentTimeMillis();
+
     public void addIconImageBackground() {
         Color color = Color.web("D34715");
         Stop[] stops = {
@@ -62,6 +65,17 @@ public class InstallerScene extends HandsFreeScene {
         HBox root = (HBox) getContentRoot();
         root.getChildren().clear();
         root.getChildren().addAll(imageContainer, borderPane);
+
+        new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                double delta = (now - last) / 1e9d;
+                last = now;
+
+                imageView.setTranslateY(10 + Math.sin(now / 1e9d * 2) * 10);
+//                imageView.setRotate(now * 0.0000001);
+            }
+        }.start();
     }
 
     public BorderPane getBorderPane() {

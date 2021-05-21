@@ -4,6 +4,7 @@ import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.EyeMouseController;
 import ch.bbcag.handsfree.control.eyetracker.EyeTracker;
 import ch.bbcag.handsfree.control.eyetracker.HeadGestureController;
+import ch.bbcag.handsfree.control.eyetracker.HeadTracker;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechRecognizer;
@@ -16,6 +17,8 @@ public class HandsFreeContext {
 
     private EyeTracker eyeTracker;
     private EyeMouseController eyeMouseController;
+
+    private HeadTracker headTracker;
     private HeadGestureController headGestureController;
 
     private SpeechRecognizer speechRecognizer;
@@ -28,6 +31,8 @@ public class HandsFreeContext {
 
         eyeTracker = new EyeTracker();
         eyeMouseController = new EyeMouseController(this);
+
+        headTracker = new HeadTracker();
         headGestureController = new HeadGestureController(this);
 
         speechRecognizer = new SpeechRecognizer();
@@ -46,6 +51,10 @@ public class HandsFreeContext {
 
     public EyeMouseController getEyeMouseController() {
         return eyeMouseController;
+    }
+
+    public HeadTracker getHeadTracker() {
+        return headTracker;
     }
 
     public HeadGestureController getHeadGestureController() {

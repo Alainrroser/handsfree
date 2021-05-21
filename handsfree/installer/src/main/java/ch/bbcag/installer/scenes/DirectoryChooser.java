@@ -41,8 +41,8 @@ public class DirectoryChooser extends InstallerScene {
         HBox directory = initDirectorySelector(application);
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
-        addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));
-        addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> application.getNavigator().navigateTo(SceneType.SHORTCUT));
+        addButton("< Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));
+        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> application.getNavigator().navigateTo(SceneType.SHORTCUT));
 
         getBorderPane().setTop(label);
         getBorderPane().setCenter(directory);
