@@ -79,6 +79,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         } catch(IOException e) {
             e.printStackTrace();
         }
+
+        setOnHiding(event -> resetSuggestions());
     }
 
     private void addPositioningListeners() {

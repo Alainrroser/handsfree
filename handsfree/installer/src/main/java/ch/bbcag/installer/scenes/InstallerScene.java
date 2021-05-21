@@ -40,8 +40,6 @@ public class InstallerScene extends HandsFreeScene {
         borderPane.setBottom(buttonHBox);
     }
 
-    private long last = System.currentTimeMillis();
-
     public void addIconImageBackground() {
         Color color = Color.web("D34715");
         Stop[] stops = {
@@ -69,11 +67,7 @@ public class InstallerScene extends HandsFreeScene {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                double delta = (now - last) / 1e9d;
-                last = now;
-
                 imageView.setTranslateY(10 + Math.sin(now / 1e9d * 2) * 10);
-//                imageView.setRotate(now * 0.0000001);
             }
         }.start();
     }
