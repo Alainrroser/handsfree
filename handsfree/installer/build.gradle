@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'edu.sc.seis.launch4j' version '2.5.0'
 }
 
 group 'ch.bbcag'
@@ -34,6 +35,12 @@ jar {
             it.isDirectory() ? it : zipTree(it)
         }
     }
+}
+
+launch4j {
+    mainClassName = 'ch.bbcag.installer.Launcher'
+    icon = "$projectDir/src/main/resources/icon64.ico"
+    manifest = "$projectDir/handsfree.manifest"
 }
 
 test {

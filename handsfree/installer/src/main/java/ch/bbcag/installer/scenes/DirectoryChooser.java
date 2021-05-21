@@ -35,7 +35,7 @@ public class DirectoryChooser extends InstallerScene {
         label.setWrapText(true);
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
-        application.setSelectedPath(new File("C:/HandsFree/"));
+        application.setSelectedPath(new File("C:/Program Files/HandsFree/"));
         directoryText = new HandsFreeLabel(application.getSelectedPath().getAbsolutePath());
 
         HBox directory = initDirectorySelector(application);
