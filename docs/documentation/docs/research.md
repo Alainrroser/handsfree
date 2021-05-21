@@ -35,6 +35,8 @@ die Library [Launch4J](https://github.com/TheBoegl/gradle-launch4j) gefunden, we
 ## Shortcuts
 Im Installer wollten wir zusätzlich die Funktion einbauen, ein Desktop-, sowie ein Start Menu Shortcut zu erstellen.
 Nach kurzer Recherche fanden wir die Library [MSLinks](https://github.com/vatbub/mslinks), welche genau dies ermöglicht. 
-## Wörterbuch
+## Wörterliste
 Als zusätzliches Feature wollten wir noch einbauen, dass bei unserer Bildschirmtastatur je nach Eingabe, Vorschläge gemacht werden, 
-was man vielleicht schreiben will. Dies haben wir dann mithilfe dieser [Wörterliste](https://gist.github.com/deekayen/4148741) erreicht.
+was man vielleicht schreiben will. Dies haben wir dann mithilfe dieser
+[Wörterliste](https://github.com/first20hours/google-10000-english/blob/master/google-10000-english.txt) erreicht.
+Die Wörter sind nach Häufigkeit sortiert, sodass das immer die wahrscheinlichsten Wörter angezeigt werden.

@@ -71,8 +71,8 @@
         * Link: <https://github.com/kwhat/jnativehook>
         * Mit JNativeHook werden Mausklicks registriert, damit Shortcuts aufgenommen werden können
     * Wörterliste
-        * Link: <https://gist.github.com/deekayen/4148741>
-        * words.txt enthält die 1000 am meisten benutzen englischen Wörter 
+        * Link: <https://github.com/first20hours/google-10000-english/blob/master/google-10000-english.txt>
+        * words.txt enthält die 10000 am meisten benutzten englischen Wörter, sortiert nach Häufigkeit
     * TestFX
         * Link: <https://github.com/TestFX/TestFX>
         * TestFx ermöglicht das Testen von GUI-Elementen
