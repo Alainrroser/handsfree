@@ -47,7 +47,7 @@ public class ScrollScene extends HandsFreeScene {
     protected HBox initBackButton(HandsFreeApplication application) {
         HBox hBoxBack = new HBox();
         HandsFreeIconButton back = new HandsFreeIconButton("/images/back.png");
-        back.setPrefSize(64, 48);
+        back.setContentSize(64, 48);
         back.setOnAction(event -> application.getNavigator().navigateTo(SceneType.MAIN_MENU));
         hBoxBack.getChildren().add(back);
         return hBoxBack;

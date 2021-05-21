@@ -32,7 +32,7 @@ public class HandsFreeIconifiedWidget {
         frame.setType(Window.Type.UTILITY);
 
         button = new HandsFreeIconButton("/images/icon64.png");
-        button.setPrefSize(64, 64);
+        button.setButtonSize(64, 64);
         button.setOnAction(event -> returnToStage());
 
         Group root = new Group();

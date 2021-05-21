@@ -7,19 +7,35 @@ import javafx.scene.image.ImageView;
 import java.util.Objects;
 
 public class HandsFreeIconButton extends HandsFreeButton {
-    ImageView view;
-    
+
+    private ImageView view;
+
+    public HandsFreeIconButton() {
+        addBorder();
+        setGraphic(view = new ImageView());
+    }
+
     public HandsFreeIconButton(String iconLocation) {
         Image icon = new Image(Objects.requireNonNull(HandsFreeStageDecoration.class.getResourceAsStream(iconLocation)));
-        this.view = new ImageView(icon);
-        setGraphic(view);
+        setGraphic(view = new ImageView(icon));
     }
-    
-    @Override
-    public void setPrefSize(double width, double height) {
-        super.setPrefSize(width, height);
+
+    public Image getImage() {
+        return view.getImage();
+    }
+
+    public void setImage(Image image) {
+        view.setImage(image);
+    }
+
+    public void setContentSize(double width, double height) {
         view.setFitWidth(width);
         view.setFitHeight(height);
+    }
+
+    public void setButtonSize(double width, double height) {
+        setMinSize(width, height);
+        setMaxSize(width, height);
     }
 
 }
