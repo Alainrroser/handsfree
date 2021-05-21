@@ -9,6 +9,7 @@ extern "C" {
 
 JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_control_HandsFreeRobot_jniKeyPress(JNIEnv *, jobject, jshort);
 JNIEXPORT void JNICALL Java_ch_bbcag_handsfree_control_HandsFreeRobot_jniKeyRelease(JNIEnv *, jobject, jshort);
+JNIEXPORT jchar JNICALL Java_ch_bbcag_handsfree_control_HandsFreeRobot_jniKeyCodeToChar(JNIEnv *, jobject, jshort);
 
 #ifdef __cplusplus
 }

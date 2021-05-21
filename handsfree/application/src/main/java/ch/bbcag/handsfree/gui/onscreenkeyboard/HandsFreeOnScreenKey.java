@@ -1,6 +1,8 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
+import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
+import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.RegionGazeListener;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
@@ -132,6 +134,17 @@ public class HandsFreeOnScreenKey extends StackPane {
                 button.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
             } else {
                 button.setPalette(HandsFreeButtonPalette.ULTRA_PRIMARY_PALETTE);
+            }
+        }
+
+        int keyCode = getKey().getKeyCode();
+        if(keyCode == HandsFreeKeyCodes.ENTER || keyCode == HandsFreeKeyCodes.SPACE ||
+           keyCode == HandsFreeKeyCodes.ESCAPE || keyCode == HandsFreeKeyCodes.BACKSPACE) {
+            keyboard.resetSuggestions();
+        } else {
+            char c = context.getRobot().keyCodeToChar(keyCode);
+            if(c != 0) {
+                keyboard.writeCharacter(c);
             }
         }
     }

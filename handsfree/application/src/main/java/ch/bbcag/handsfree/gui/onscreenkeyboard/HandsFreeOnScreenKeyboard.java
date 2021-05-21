@@ -13,6 +13,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +31,10 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private Stage stage; // The fake stage the popup is attached to
 
     private List<HandsFreeOnScreenKey> keys = new ArrayList<>();
+
+    private String currentlyTypedWord = "";
     private HandsFreeWordSuggestionPanel wordSuggestionPanel;
+    private List<String> allWords = new ArrayList<>();
 
     public HandsFreeOnScreenKeyboard(HandsFreeContext context) {
         stage = new Stage();
@@ -36,15 +43,12 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         stage.setWidth(0);
         stage.setHeight(0);
 
-        double screenWidth = Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-        double screenHeight = Toolkit.getDefaultToolkit().getScreenSize().getHeight();
-
         VBox rootPane = new VBox(50);
         rootPane.setBackground(new Background(new BackgroundFill(Colors.BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
         rootPane.setBorder(new Border(new BorderStroke(Colors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         rootPane.setPadding(new Insets(20));
 
-        wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context);
+        wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context, this);
         rootPane.getChildren().add(wordSuggestionPanel);
 
         pane = new Pane();
@@ -59,8 +63,28 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         getContent().add(rootPane);
         setHideOnEscape(false);
 
-        widthProperty().addListener(observable -> setX(screenWidth / 2 - getWidth() / 2));
-        heightProperty().addListener(observable -> setY(screenHeight - getHeight()));
+        addPositioningListeners();
+
+        try {
+            InputStream in = HandsFreeOnScreenKeyboard.class.getResourceAsStream("/words.txt");
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+            String line;
+            while((line = reader.readLine()) != null) {
+                allWords.add(line);
+            }
+
+            reader.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addPositioningListeners() {
+        double environmentWidth = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
+        double environmentHeight = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
+        widthProperty().addListener(observable -> setX(environmentWidth / 2 - getWidth() / 2));
+        heightProperty().addListener(observable -> setY(environmentHeight - getHeight()));
     }
 
     public void display() {
@@ -103,6 +127,31 @@ public class HandsFreeOnScreenKeyboard extends Popup {
                 key.release();
             }
         }
+    }
+
+    protected void writeCharacter(char c) {
+        currentlyTypedWord += c;
+        updateSuggestions();
+    }
+
+    private void updateSuggestions() {
+        List<String> suggestions = new ArrayList<>();
+        for(String word : allWords) {
+            if(word.startsWith(currentlyTypedWord)) {
+                suggestions.add(word);
+
+                if(suggestions.size() == 5) {
+                    break;
+                }
+            }
+        }
+
+        wordSuggestionPanel.updateSuggestions(suggestions, currentlyTypedWord.length());
+    }
+
+    protected void resetSuggestions() {
+        currentlyTypedWord = "";
+        wordSuggestionPanel.updateSuggestions(new ArrayList<>(), 0);
     }
 
 }

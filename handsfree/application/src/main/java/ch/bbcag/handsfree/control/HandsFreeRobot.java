@@ -69,6 +69,10 @@ public class HandsFreeRobot {
         pressedKeys.remove((Integer) keyCode);
     }
 
+    public char keyCodeToChar(int keyCode) {
+        return jniKeyCodeToChar((short) keyCode);
+    }
+
     public void mouseMove(int x, int y) {
         robot.mouseMove(x, y);
     }
@@ -129,7 +133,7 @@ public class HandsFreeRobot {
     }
 
     private native void jniKeyPress(short keyCode);
-
     private native void jniKeyRelease(short keyCode);
+    private native char jniKeyCodeToChar(short keyCode);
 
 }
