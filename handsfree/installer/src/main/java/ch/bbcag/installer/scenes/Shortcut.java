@@ -36,19 +36,21 @@ public class Shortcut extends InstallerScene {
         startMenuShortcutCheckBox = new HandsFreeCheckBox("Create a start menu shortcut");
         VBox checkBoxHBox = new VBox(Const.BOX_SPACING, desktopShortcutCheckBox, startMenuShortcutCheckBox);
 
+        addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.DIRECTORY_CHOOSER));
         addButton("Next", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
-            ShellLink shortcut = ShellLink.createLink(application.getSelectedPath() + "/" + Const.FILE_NAME)
-                    .setIconLocation(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
-            setDesktopShortcut(shortcut);
-            setStartMenuShortcut(shortcut);
-
             application.getNavigator().navigateTo(SceneType.END);
         });
-        addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
 
         getBorderPane().setTop(label);
         getBorderPane().setCenter(checkBoxHBox);
+    }
+
+    public void createShortcuts(InstallerApplication application) {
+        ShellLink shortcut = ShellLink.createLink(application.getSelectedPath() + "/" + Const.FILE_NAME)
+                                      .setIconLocation(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
+        setDesktopShortcut(shortcut);
+        setStartMenuShortcut(shortcut);
     }
 
     private void setDesktopShortcut(ShellLink shortcut) {

@@ -43,9 +43,10 @@
 * [2021-05-27](docs/journals/marino/2021-05-27.md)
 * [2021-05-28](docs/journals/marino/2021-05-28.md)
 ## Dokumentation
-* [Benutzerhandbuch](docs/documentation/usermanual.md)
-* [Technische Dokumentation](docs/documentation/technical.md)
-* [Design](docs/documentation/design.xd)
+* [Benutzerhandbuch](docs/documentation/docs/usermanual.md)
+* [Technische Dokumentation](docs/documentation/docs/technical.md)
+* [Research](docs/documentation/docs/research.md)
+* [Design](docs/design/design.xd)
 ### Testing
 * Sprint 1
     * [Testkonzept](docs/documentation/testing/sprint_1.md)
@@ -53,6 +54,9 @@
 * Sprint 2
     * [Testkonzept](docs/documentation/testing/sprint_2.md)
     * [Testprotokoll](docs/documentation/testprotocol/sprint_2.md)
+* Sprint 3
+	* [Testkonzept](docs/documentation/testing/sprint_3.md)
+    * [Testprotokoll](docs/documentation/testprotocol/sprint_3.md) 	
 ## Daily Scrum
 Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 ## Definition of Done

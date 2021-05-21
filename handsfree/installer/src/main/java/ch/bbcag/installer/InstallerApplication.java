@@ -19,6 +19,11 @@ public class InstallerApplication extends Application {
 
     private File selectedPath;
 
+    private Start start;
+    private DirectoryChooser directoryChooser;
+    private Shortcut shortcut;
+    private End end;
+
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -32,10 +37,15 @@ public class InstallerApplication extends Application {
         configuration = new HandsFreeSceneConfiguration();
         configuration.setTitle("HandsFree Installer");
 
-        navigator.registerScene(SceneType.START, new Start(this));
-        navigator.registerScene(SceneType.DIRECTORY_CHOOSER, new DirectoryChooser(this));
-        navigator.registerScene(SceneType.SHORTCUT, new Shortcut(this));
-        navigator.registerScene(SceneType.END, new End(this));
+        start = new Start(this);
+        directoryChooser = new DirectoryChooser(this);
+        shortcut = new Shortcut(this);
+        end = new End(this);
+
+        navigator.registerScene(SceneType.START, start);
+        navigator.registerScene(SceneType.DIRECTORY_CHOOSER, directoryChooser);
+        navigator.registerScene(SceneType.SHORTCUT, shortcut);
+        navigator.registerScene(SceneType.END, end);
         navigator.navigateTo(SceneType.START);
 
         primaryStage.setOnCloseRequest(event -> {
@@ -67,5 +77,10 @@ public class InstallerApplication extends Application {
 
     public void setSelectedPath(File selectedPath) {
         this.selectedPath = selectedPath;
+    }
+
+    public void execute() {
+        directoryChooser.saveFilesToSelectedPath(this);
+        shortcut.createShortcuts(this);
     }
 }

@@ -31,8 +31,10 @@ public class End extends InstallerScene {
         checkBoxContainer.getChildren().add(startAppCheckBox);
         checkBoxContainer.setAlignment(Pos.TOP_LEFT);
 
+        addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.SHORTCUT));
         addButton("Finish", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
+            application.execute();
             if(startAppCheckBox.isSelected()) {
                 try {
                     ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + Const.FILE_NAME);
@@ -43,7 +45,6 @@ public class End extends InstallerScene {
             }
             Platform.exit();
         });
-        addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
 
         getBorderPane().setTop(label);
         getBorderPane().setCenter(checkBoxContainer);
