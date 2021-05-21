@@ -25,3 +25,16 @@ registrieren, welche mithilfe der Augen ausgeführt wurden. Nach einiger Zeit in
 gesucht haben, umzusetzen, dass es auch Möglich ist, normale Mausklicks zu registrieren, sind wir auf die Library
 [JNativeHook](https://github.com/kwhat/jnativehook) gestossen. So konnten wir dann mithilfe eines NativeMouseListeners 
 festlegen, dass auch ein normaler Mausklick registriert wird.
+## GUI Testing
+Von unserem Coach haben wir von [TestFX](https://github.com/TestFX/TestFX) erfahren. 
+Dies ist eine Library, mit welcher man GUI Tests durchführen kann.
+## Installer
+Wir hatten von Anfang an die Idee, einen Installer zu machen. Dies taten wir dann auch mithilfe von JavaFX. 
+Damit man aber die Applikation an Pfaden installieren kann, für die man Admin-Rechte braucht, haben wir nach einiger Recherche
+die Library [Launch4J](https://github.com/TheBoegl/gradle-launch4j) gefunden, welche eine .exe Datei macht, welche Administrator-Rechte verlangt.
+## Shortcuts
+Im Installer wollten wir zusätzlich die Funktion einbauen, ein Desktop-, sowie ein Start Menu Shortcut zu erstellen.
+Nach kurzer Recherche fanden wir die Library [MSLinks](https://github.com/vatbub/mslinks), welche genau dies ermöglicht. 
+## Wörterbuch
+Als zusätzliches Feature wollten wir noch einbauen, dass bei unserer Bildschirmtastatur je nach Eingabe, Vorschläge gemacht werden, 
+was man vielleicht schreiben will. Dies haben wir dann mithilfe dieser [Wörterliste](https://gist.github.com/deekayen/4148741) erreicht.

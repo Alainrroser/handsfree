@@ -35,10 +35,15 @@
         * Man wird den Computer mithilfe von Eye Tracking steuern können
             * Blinzeln mit beiden Augen löst einen Linksklick aus
             * Blinzeln mit dem rechten Auge löst einen Rechtsklick aus
+        * Man wird mithilfe von Head Tracking bei Dialogen Ja- sowie Nein sagen können
+            * Wenn man nickt, wird ja (Weiter, …) angeklickt und beim Schütteln des Kopfes nein (Abbrechen, …)
         * Man wird den Computer mithilfe von Sprachsteuerung steuern können
             * Man wird die obengenannten Shortcuts mithilfe von Sprachbefehlen starten können
             * Man wird einzelne Sprachbefehle ausführen können
-        * Man wird ein On-Screen Keyboard zur Verfügung haben, welches steuern kann, indem man die Tasten ansieht  
+        * Man wird ein On-Screen Keyboard zur Verfügung haben
+            * Man kann die Tasten ansehen und so schreiben
+            * Linksklicks auf spezielle Tasten behalten sie für den nächsten Klick gedrückt
+            * Rechtsklicks behalten sie bis zum nächsten Linksklick darauf gedrückt
         * Man wird die Applikation automatisch beim Start von Windows starten können
     * Klassendiagramm
 * Design
@@ -49,16 +54,34 @@
         * Das Dritte ein Warnungs-Fenster
         * Das Vierte ein Informations-Fenster
 * Verwendete APIs / Quellenangaben
+    * JavaFX:
+        * Link: <https://openjfx.io/>
+        * JavaFX ist ein GUI-Framework mit dem man GUI Elemente zu seiner Applikation hinzufügen kann
     * Tobii Stream Engine SDK
         * Link: <https://developer.tobii.com/product-integration/stream-engine/>
         * Die Tobii Stream Engine SDK ermöglicht es, Daten vom Eye Tracker zu bekommen
     * Tobii Stream Engine for Java
         * Link: <https://github.com/GazePlay/TobiiStreamEngineForJava>
         * Die Tobii Stream Engine for Java ermöglicht es, den Blickpunkt im Java zu erhalten
-        * Wir haben viele Modifikationen am Source Code vorgenommen, um beispielsweise auch geschlossene Augen erkennen zu können.
+        * Wir haben viele Modifikationen am Source Code vorgenommen, um beispielsweise auch geschlossene Augen erkennen zu können
+    * Sphinx4
+        * Link: <https://cmusphinx.github.io/wiki/tutorialsphinx4/>
+        * Sphinx4 ermöglicht die Spracherkennung mithilfe eines grammar files, welches die gewünschten Befehle enthält
     * JNativeHook
         * Link: <https://github.com/kwhat/jnativehook>
         * Mit JNativeHook werden Mausklicks registriert, damit Shortcuts aufgenommen werden können
     * Wörterliste
         * Link: <https://gist.github.com/deekayen/4148741>
         * words.txt enthält die 1000 am meisten benutzen englischen Wörter 
+    * TestFX
+        * Link: <https://github.com/TestFX/TestFX>
+        * TestFx ermöglicht das Testen von GUI-Elementen
+    * JUnit
+        * Link: <https://junit.org/junit5/>
+        * JUnit ermöglicht das Testen von (Nicht GUI-)Code-Teilen
+    * Gradle-Launch4J
+        * Link: <https://github.com/TheBoegl/gradle-launch4j>
+        * Erstellt ein .exe, welches die nötigen Berechtigungen verlangt, um auf bestimmte Pfade zugreifen zu können
+    * MSLinks
+        * Link: <https://github.com/vatbub/mslinks>
+        * Erstellt ein Shortcut von einem Jar
