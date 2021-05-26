@@ -26,11 +26,13 @@ public class HandsFreeOnScreenKey extends StackPane {
     private HandsFreeContext context;
     private HandsFreeButton button;
     private HandsFreeOnScreenKeyboard keyboard;
+    private WordSuggestions wordSuggestions;
 
-    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeContext context, HandsFreeOnScreenKeyboard keyboard) {
+    public HandsFreeOnScreenKey(VirtualKey key, HandsFreeContext context, HandsFreeOnScreenKeyboard keyboard, WordSuggestions wordSuggestions) {
         this.key = key;
         this.context = context;
         this.keyboard = keyboard;
+        this.wordSuggestions = wordSuggestions;
 
         setMinWidth(key.getWidth() * SCALE);
         setMaxWidth(key.getWidth() * SCALE);
@@ -142,11 +144,11 @@ public class HandsFreeOnScreenKey extends StackPane {
         int keyCode = getKey().getKeyCode();
         if(keyCode == HandsFreeKeyCodes.ENTER || keyCode == HandsFreeKeyCodes.SPACE ||
            keyCode == HandsFreeKeyCodes.ESCAPE || keyCode == HandsFreeKeyCodes.BACKSPACE) {
-            keyboard.resetSuggestions();
+            wordSuggestions.resetSuggestions();
         } else {
             char c = context.getRobot().keyCodeToChar(keyCode);
             if(c != 0) {
-                keyboard.writeCharacter(c);
+                wordSuggestions.writeCharacter(c);
             }
         }
     }

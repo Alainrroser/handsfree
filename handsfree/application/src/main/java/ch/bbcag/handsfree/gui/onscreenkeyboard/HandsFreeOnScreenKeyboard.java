@@ -32,9 +32,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
     private List<HandsFreeOnScreenKey> keys = new ArrayList<>();
 
-    private String currentlyTypedWord = "";
+    private WordSuggestions suggestions;
     private HandsFreeWordSuggestionPanel wordSuggestionPanel;
-    private List<String> allWords = new ArrayList<>();
 
     public HandsFreeOnScreenKeyboard(HandsFreeContext context) {
         stage = new Stage();
@@ -48,7 +47,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         rootPane.setBorder(new Border(new BorderStroke(Colors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         rootPane.setPadding(new Insets(20));
 
-        wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context, this);
+        suggestions = new WordSuggestions();
+        wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context, suggestions);
         rootPane.getChildren().add(wordSuggestionPanel);
 
         pane = new Pane();
@@ -65,21 +65,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
         addPositioningListeners();
 
-        try {
-            InputStream in = HandsFreeOnScreenKeyboard.class.getResourceAsStream("/words.txt");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-
-            String line;
-            while((line = reader.readLine()) != null) {
-                allWords.add(line);
-            }
-
-            reader.close();
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
-
-        setOnHiding(event -> resetSuggestions());
+        setOnHiding(event -> suggestions.resetSuggestions());
     }
 
     private void addPositioningListeners() {
@@ -107,7 +93,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
         for(VirtualKeyRow row : layout.getKeyRows()) {
             for(VirtualKey key : row.getKeys()) {
-                addKey(new HandsFreeOnScreenKey(key, context, this));
+                addKey(new HandsFreeOnScreenKey(key, context, this, suggestions));
             }
 
             nextKeyY += HandsFreeOnScreenKey.SCALE;
@@ -129,43 +115,6 @@ public class HandsFreeOnScreenKeyboard extends Popup {
                 key.release();
             }
         }
-    }
-
-    protected void writeCharacter(char c) {
-        currentlyTypedWord += c;
-        updateSuggestions();
-    }
-
-    private void updateSuggestions() {
-        List<String> suggestions = getSuggestedWords();
-        wordSuggestionPanel.updateSuggestions(suggestions, currentlyTypedWord.length());
-    }
-
-    private List<String> getSuggestedWords() {
-        List<String> suggestions = new ArrayList<>();
-        for(String word : allWords) {
-            tryAddToSuggestions(word, suggestions);
-            if(suggestions.size() == 5) {
-                break;
-            }
-        }
-
-        return suggestions;
-    }
-
-    private void tryAddToSuggestions(String word, List<String> suggestions) {
-        if(canWordBeSuggested(word)) {
-            suggestions.add(word);
-        }
-    }
-
-    private boolean canWordBeSuggested(String word) {
-        return word.toLowerCase().startsWith(currentlyTypedWord.toLowerCase());
-    }
-
-    protected void resetSuggestions() {
-        currentlyTypedWord = "";
-        wordSuggestionPanel.updateSuggestions(new ArrayList<>(), 0);
     }
 
 }

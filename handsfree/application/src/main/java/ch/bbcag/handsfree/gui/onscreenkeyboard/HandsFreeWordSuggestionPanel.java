@@ -4,6 +4,12 @@ import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
@@ -15,11 +21,11 @@ public class HandsFreeWordSuggestionPanel extends HBox {
 
     private HBox suggestionHBox;
     private HandsFreeContext context;
-    private HandsFreeOnScreenKeyboard keyboard;
+    private WordSuggestions wordSuggestions;
 
-    public HandsFreeWordSuggestionPanel(HandsFreeContext context, HandsFreeOnScreenKeyboard keyboard) {
+    public HandsFreeWordSuggestionPanel(HandsFreeContext context, WordSuggestions wordSuggestions) {
         this.context = context;
-        this.keyboard = keyboard;
+        this.wordSuggestions = wordSuggestions;
 
         setMinHeight(HandsFreeOnScreenKey.SCALE);
         setMaxHeight(HandsFreeOnScreenKey.SCALE);
@@ -29,6 +35,15 @@ public class HandsFreeWordSuggestionPanel extends HBox {
         suggestionHBox.setAlignment(Pos.CENTER);
         HBox.setHgrow(suggestionHBox, Priority.ALWAYS);
         getChildren().add(suggestionHBox);
+
+        wordSuggestions.getCurrentSuggestions().addListener((ListChangeListener<String>) c -> updateSuggestions());
+    }
+
+    public void updateSuggestions() {
+        suggestionHBox.getChildren().clear();
+        for(String suggestion : wordSuggestions.getCurrentSuggestions()) {
+            updateSuggestion(suggestion, wordSuggestions.getCurrentlyTypedCharacterCount());
+        }
     }
 
     private void updateSuggestion(String suggestion, int typeCount) {
@@ -39,19 +54,12 @@ public class HandsFreeWordSuggestionPanel extends HBox {
             }
             context.getRobot().keyTypeSpecial(HandsFreeKeyCodes.SPACE);
 
-            keyboard.resetSuggestions();
+            wordSuggestions.resetSuggestions();
         });
         suggestionButton.setMaxWidth(Double.MAX_VALUE);
         suggestionButton.setPadding(new Insets(10, 0, 10, 0));
         HBox.setHgrow(suggestionButton, Priority.ALWAYS);
         suggestionHBox.getChildren().add(suggestionButton);
-    }
-
-    public void updateSuggestions(List<String> suggestions, int typeCount) {
-        suggestionHBox.getChildren().clear();
-        for(String suggestion : suggestions) {
-            updateSuggestion(suggestion, typeCount);
-        }
     }
 
 }
