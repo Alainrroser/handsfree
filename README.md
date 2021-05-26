@@ -55,8 +55,8 @@
     * [Testkonzept](docs/documentation/testing/sprint_2.md)
     * [Testprotokoll](docs/documentation/testprotocol/sprint_2.md)
 * Sprint 3
-	* [Testkonzept](docs/documentation/testing/sprint_3.md)
-    * [Testprotokoll](docs/documentation/testprotocol/sprint_3.md) 	
+    * [Testkonzept](docs/documentation/testing/sprint_3.md)
+    * [Testprotokoll](docs/documentation/testprotocol/sprint_3.md)
 ## Daily Scrum
 Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 ## Definition of Done
@@ -64,4 +64,10 @@ Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 * Testprotokolle vorhanden und ausgefüllt
 * Von anderen Benutzern getestet
 ## Fazit
-Coming soon
+* Positives
+    * Alle Ziele erfüllt
+    * Alle optionalen Ziele erfüllt
+    * Die Zusammenarbeit lief gut
+* Lessons learned
+    * Bessere Planung, Projektstruktur musste einige Male angepasst werden
+    * Bessere Absprache, beide arbeiteten manchmal an derselben Datei

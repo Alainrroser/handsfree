@@ -2,12 +2,11 @@ package ch.bbcag.uninstaller.scenes;
 
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
 import ch.bbcag.handsfree.scenes.Navigator;
 import ch.bbcag.uninstaller.UninstallerApplication;
 import javafx.application.Platform;
 
-public class Start extends UnInstallerScene {
+public class Start extends UninstallerScene {
 
     public Start(UninstallerApplication application) {
         super(application.getPrimaryStage(), application.getConfiguration());
@@ -18,18 +17,7 @@ public class Start extends UnInstallerScene {
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
-            HandsFreeConfirmDialog dialog1 = new HandsFreeConfirmDialog("Uninstalling", "Wait - You clicked, why would you even consider going?!");
-            dialog1.show();
-            dialog1.setOnConfirmed(() -> {
-                HandsFreeConfirmDialog dialog2 = new HandsFreeConfirmDialog("Uninstalling", "You're really serious aren't you?!");
-                dialog2.show();
-                dialog2.setOnConfirmed(() -> {
-                    HandsFreeConfirmDialog dialog3 = new HandsFreeConfirmDialog("Uninstalling", "Okay, seems like we can't stop you if you really " +
-                                                                                                "want to go. We will miss you...");
-                    dialog3.show();
-                    dialog3.setOnConfirmed(() -> navigator.navigateTo(SceneType.END));
-                });
-            });
+            navigator.navigateTo(SceneType.END);
         });
     }
 

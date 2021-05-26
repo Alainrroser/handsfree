@@ -16,7 +16,7 @@ import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class MainMenu extends ScrollScene {
+public class MainMenu extends ApplicationScene {
 
     private HandsFreeOnScreenKeyboard keyboard;
 

@@ -13,7 +13,12 @@
         * Cursor mit den Augen bewegen
         * Mit den Augen klicken
         * Eye Tracking an- und ausschalten
+    * Head Tracking
+        * Bestätigen mit Nicken
+        * Ablehnen mit Kopfschütteln
+        * Head Tracking an- und ausschalten
     * Speech Control
+        * Liste mit Befehlen anzeigen
         * Befehle ausführen
         * Shortcuts ausführen
         * Speech Control ein- und ausschalten
@@ -21,6 +26,9 @@
         * Shortcuts aufnehmen
         * Shortcuts löschen
         * Shortcuts abspielen
+    * Autostart
+        * Applikation beim Start von Windows starten
+        * Autostart an- und ausschalten
 * Beschreibung der wichtigsten Funktionen
     * Einstellungs-Menu
         * Buttons, um die verschiedenen System ein- und auszuschalten
@@ -31,15 +39,21 @@
         * Mit den Augen klicken
             * Du kannst einen Linksklick ausführen, indem du mit beiden Augen blinzelst
             * Du kannst einen Rechtsklick ausführen, indem du mit dem rechten Auge blinzelst
+    * Head Tracking
+        * Indem man mit dem Kopf nickt, können Dialoge bestätigt
+        * Oder indem man den Kopf schüttelt abgelehnt werden
     * Speech Control
         * Man kann den Namen eines Befehls sagen und ihn so ausführen
+            * Alle Befehle können aufgelistet werden
             * Befehle sind voreingestellte Aktionen, die durch Sprachsteuerung gestartet werden
             * Die Liste aller Befehle findet sich im Hauptmenü
         * Auch aufgenommene Shortcuts können nach einem Neustart durch das Aussprechen ihres Namens gestartet werden
     * On-Screen Keyboard
         * Tasten können angeklickt oder angeschaut werden, damit sie gedrückt werden
-        * Man kann normale und auch spezielle Tastenklicks ausführen (Zum Beispiel Shift wird Orange, wenn man es anklickt und der nächste Buchstabe gross)
-        * Man kann spezielle Tasten mit der rechten Maustaste anklicken, um Tastenkombinationen auszuführen, für die man mehr als zwei Klicks braucht (zum Beispiel CTRl+SHIFT+ESC), diese Tasten färben sich dann rot
+        * Man kann normale und auch spezielle Tastenklicks ausführen (Zum Beispiel Shift wird Orange, wenn man es
+          anklickt und der nächste Buchstabe gross)
+        * Man kann spezielle Tasten mit der rechten Maustaste anklicken, um Tastenkombinationen auszuführen, für die man
+          mehr als zwei Klicks braucht (zum Beispiel CTRl+SHIFT+ESC), diese Tasten färben sich dann rot
     * Shortcuts
         * Wenn man vom Einstellungs-Menu in das Shortcuts-Menu wechselt, können dort die Shortcuts verwaltet werden
         * Man kann bestehende starten, neue aufnehmen und schon aufgenommene wieder löschen

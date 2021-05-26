@@ -11,11 +11,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ScrollScene extends HandsFreeScene {
+public class ApplicationScene extends HandsFreeScene {
 
     private String title;
 
-    public ScrollScene(Stage primaryStage, Region contentRoot, HandsFreeSceneConfiguration configuration, String title) {
+    public ApplicationScene(Stage primaryStage, Region contentRoot, HandsFreeSceneConfiguration configuration, String title) {
         super(primaryStage, contentRoot, configuration);
         this.title = title;
     }

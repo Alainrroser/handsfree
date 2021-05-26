@@ -8,7 +8,7 @@ import ch.bbcag.handsfree.gui.HandsFreeListView;
 import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import javafx.scene.layout.VBox;
 
-public class CommandsList extends ScrollScene {
+public class CommandsList extends ApplicationScene {
 
     public CommandsList(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration(), "Commands List");

@@ -3,16 +3,15 @@
     * Setup
     * Code Style
         * Keine Lücken zwischen Schlüsselwort und Klammer
-            * if() statt 
+            * if() statt
             * if ()
         * Öffnende geschweifte Klammern auf selbe Zeile
             * while(true) {  
               } statt
-            * while (true) 
-              {
-              }
+            * while (true)
+              { }
         * Einrückung mit Leerzeichen statt mit Tabs
-        * Für die Benennung verwenden wir überall camelCase ausser bei Klassen, wo wir PascalCase verwenden
+        * Für die Benennung verwenden wir überall camelCase ausser bei Klassen, bei welchen wir PascalCase verwenden
             * aVariable
             * AClass
         * Alle GUI-Komponente werden mit „HandsFree“ und dem Namen der Komponenten benannt
@@ -45,10 +44,15 @@
             * Linksklicks auf spezielle Tasten behalten sie für den nächsten Klick gedrückt
             * Rechtsklicks behalten sie bis zum nächsten Linksklick darauf gedrückt
         * Man wird die Applikation automatisch beim Start von Windows starten können
-    * Klassendiagramm
+    * Klassen
+        * [Klassen](../classes/classes.md)
+        * ![Klassendiagramm Applikation](../classes/application.png)
+        * ![Klassendiagramm Common](../classes/common.png)
+        * ![Klassendiagramm Installer](../classes/installer.png)
+        * ![Klassendiagramm Uninstaller](../classes/uninstaller.png)
+
 * Design
-    * Mockups
-        ![Design](../design/design.png)
+    * ![Mockup](../../design/design.png)
         * Das erste Fenster ist das Haupt-Menu
         * Das Zweite das Shortcut-Menu
         * Das Dritte ein Warnungs-Fenster
@@ -63,7 +67,8 @@
     * Tobii Stream Engine for Java
         * Link: <https://github.com/GazePlay/TobiiStreamEngineForJava>
         * Die Tobii Stream Engine for Java ermöglicht es, den Blickpunkt im Java zu erhalten
-        * Wir haben viele Modifikationen am Source Code vorgenommen, um beispielsweise auch geschlossene Augen erkennen zu können
+        * Wir haben viele Modifikationen am Source Code vorgenommen, um beispielsweise auch geschlossene Augen erkennen
+          zu können
     * Sphinx4
         * Link: <https://cmusphinx.github.io/wiki/tutorialsphinx4/>
         * Sphinx4 ermöglicht die Spracherkennung mithilfe eines grammar files, welches die gewünschten Befehle enthält

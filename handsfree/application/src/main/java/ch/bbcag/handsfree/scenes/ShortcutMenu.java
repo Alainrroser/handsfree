@@ -20,7 +20,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
-public class ShortcutMenu extends ScrollScene {
+public class ShortcutMenu extends ApplicationScene {
 
     private ShortcutManager shortcutManager;
     private ShortcutRecorder recorder;

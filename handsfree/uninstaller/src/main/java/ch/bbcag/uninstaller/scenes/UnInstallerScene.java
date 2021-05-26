@@ -19,12 +19,12 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class UnInstallerScene extends HandsFreeScene {
+public class UninstallerScene extends HandsFreeScene {
 
     private BorderPane borderPane;
     private HBox buttonHBox;
 
-    public UnInstallerScene(Stage stage, HandsFreeSceneConfiguration configuration) {
+    public UninstallerScene(Stage stage, HandsFreeSceneConfiguration configuration) {
         super(stage, new HBox(), configuration);
 
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);

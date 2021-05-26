@@ -12,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.File;
 import java.io.IOException;
 
-public class End extends UnInstallerScene {
+public class End extends UninstallerScene {
 
     public End(UninstallerApplication application) {
         super(application.getPrimaryStage(), application.getConfiguration());
@@ -22,7 +22,8 @@ public class End extends UnInstallerScene {
 
     private void initGUI(UninstallerApplication application) {
         HandsFreeLabel label = new HandsFreeLabel("Okay, we're sad you're here.\n" +
-                                                  "You can still make the right decision and cancel the uninstallation below...");
+                                                  "You can still make the right decision and cancel the uninstallation below... \n But if you " +
+                                                  "really want to continue, click finish and all your files get deleted.");
         label.setWrapText(true);
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
@@ -41,7 +42,7 @@ public class End extends UnInstallerScene {
             deleteFileOrFolderIfExists(desktopShortcut);
             try {
                 ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "ping", "localhost", "-n", "6", ">", "nul", "&&", "rmdir",
-                                   "C:\\Program Files\\HandsFree", "/S", "/Q");
+                                                                   "C:\\Program Files\\HandsFree", "/S", "/Q");
                 processBuilder.directory(new File("C:/Program Files"));
                 processBuilder.start();
             } catch(IOException e) {
