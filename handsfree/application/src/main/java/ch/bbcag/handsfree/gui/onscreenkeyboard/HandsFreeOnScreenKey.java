@@ -135,6 +135,10 @@ public class HandsFreeOnScreenKey extends StackPane {
             }
         }
 
+        updateSuggestions();
+    }
+
+    private void updateSuggestions() {
         int keyCode = getKey().getKeyCode();
         if(keyCode == HandsFreeKeyCodes.ENTER || keyCode == HandsFreeKeyCodes.SPACE ||
            keyCode == HandsFreeKeyCodes.ESCAPE || keyCode == HandsFreeKeyCodes.BACKSPACE) {

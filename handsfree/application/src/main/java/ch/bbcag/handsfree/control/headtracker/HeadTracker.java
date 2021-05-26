@@ -70,11 +70,9 @@ public class HeadTracker extends ThreadedSystem {
     }
 
     private void updateShakeStage(float yaw) {
-        boolean sideActivationThresholdPassed = Math.abs(yaw) >= SHAKE_THRESHOLD_ANGLE;
-
-        if(shakeStage == HeadShakeStage.NOT_SHAKING && sideActivationThresholdPassed) {
+        if(shakeStage == HeadShakeStage.NOT_SHAKING && isShakeSideActivationThresholdPassed(yaw)) {
             finishFirstShakeSide(yaw);
-        } else if(shakeStage == HeadShakeStage.ONE_SIDE_ACTIVATED && sideActivationThresholdPassed) {
+        } else if(shakeStage == HeadShakeStage.ONE_SIDE_ACTIVATED && isShakeSideActivationThresholdPassed(yaw)) {
             finishSecondShakeSide(yaw);
         } else if(shakeStage == HeadShakeStage.TWO_SIDES_ACTIVATED && isShakeResetThresholdPassed(yaw)) {
             finishShake();
@@ -110,6 +108,10 @@ public class HeadTracker extends ThreadedSystem {
     private void abortCurrentShake() {
         shakeStage = HeadShakeStage.NOT_SHAKING;
         waitingForShakeReset = true;
+    }
+
+    private boolean isShakeSideActivationThresholdPassed(float yaw) {
+        return Math.abs(yaw) >= SHAKE_THRESHOLD_ANGLE;
     }
 
     private boolean isShakeResetThresholdPassed(float yaw) {
