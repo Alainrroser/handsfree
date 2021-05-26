@@ -116,7 +116,7 @@ public class HandsFreeOnScreenKey extends StackPane {
             }
         });
 
-        RegionGazeListener gazeListener = new RegionGazeListener(this, 750, (x, y) -> Platform.runLater(() -> press(false)));
+        RegionGazeListener gazeListener = new RegionGazeListener(this, 750, event -> Platform.runLater(() -> press(false)));
         context.getEyeTracker().addRegionGazeListener(gazeListener);
     }
 

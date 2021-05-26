@@ -45,7 +45,7 @@ public class HandsFreeIconifiedWidget {
 
         updateBounds();
 
-        RegionGazeListener regionGazeListener = new RegionGazeListener(button, 250, (x, y) -> {
+        RegionGazeListener regionGazeListener = new RegionGazeListener(button, 250, event -> {
             Platform.runLater(() -> button.fire()); // Click button on the JavaFX thread
         });
         context.getEyeTracker().addRegionGazeListener(regionGazeListener);

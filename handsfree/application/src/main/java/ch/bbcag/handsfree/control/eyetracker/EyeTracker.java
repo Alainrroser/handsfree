@@ -63,8 +63,10 @@ public class EyeTracker extends ThreadedSystem {
     }
 
     private void runGazeHandlers(int x, int y) {
+        GazeEvent event = new GazeEvent(x, y, Tobii.isLeftEyePresent(), Tobii.isRightEyePresent());
+
         for(GazeListener gazeListener : gazeListeners) {
-            gazeListener.gaze(x, y);
+            gazeListener.gaze(event);
         }
     }
 
@@ -93,7 +95,8 @@ public class EyeTracker extends ThreadedSystem {
             startRegionGazeTimer(handler);
         } else {
             if(!regionGazeHandlerActivated && System.currentTimeMillis() >= currentGazeRegionActivationTime) {
-                currentRegionGazeListener.getGazeListener().gaze(x, y);
+                GazeEvent event = new GazeEvent(x, y, Tobii.isLeftEyePresent(), Tobii.isRightEyePresent());
+                currentRegionGazeListener.getGazeListener().gaze(event);
                 regionGazeHandlerActivated = true;
             }
         }

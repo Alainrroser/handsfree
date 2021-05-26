@@ -1,7 +1,6 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
 import ch.bbcag.handsfree.HandsFreeContext;
-import tobii.Tobii;
 
 import java.awt.event.InputEvent;
 
@@ -20,19 +19,19 @@ public class EyeMouseController {
         context.getEyeTracker().addGazeListener(this::controlCursor);
     }
 
-    private void controlCursor(int x, int y) {
-        if(Tobii.isLeftEyePresent() && Tobii.isRightEyePresent()) { // Both eyes are open
-            context.getRobot().mouseMove(x, y);
+    private void controlCursor(GazeEvent event) {
+        if(event.isLeftEyeOpen() && event.isRightEyeOpen()) { // Both eyes are open
+            context.getRobot().mouseMove(event.getX(), event.getY());
 
             isLeftButtonPressed = false;
             isRightButtonPressed = false;
-        } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
+        } else if(!event.isLeftEyeOpen() && !event.isRightEyeOpen()) { // Both eyes are closed
             doLeftClick();
-        } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
+        } else if(!event.isRightEyeOpen()) { // The right eye is closed
             startRightClick();
         }
 
-        stopRightClick();
+        stopRightClick(event);
     }
 
     private void startRightClick() {
@@ -43,15 +42,15 @@ public class EyeMouseController {
         }
     }
 
-    private void stopRightClick() {
+    private void stopRightClick(GazeEvent event) {
         if(isRightClickTimerRunning && ((System.currentTimeMillis() - startTime) >= 150)) {
-            doRightClick();
+            doRightClick(event);
             isRightClickTimerRunning = false;
         }
     }
 
-    private void doRightClick() {
-        if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
+    private void doRightClick(GazeEvent event) {
+        if(!event.isRightEyeOpen() && event.isLeftEyeOpen()) {
             context.getRobot().mouseClick(InputEvent.BUTTON3_DOWN_MASK);
         }
     }

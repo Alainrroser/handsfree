@@ -1,28 +1,35 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
-import com.sun.javafx.geom.Point2D;
+import javafx.geometry.Point2D;
 
 public class GazeEvent {
-    private Point2D position;
-    private boolean rightEyeOpen;
+
+    private int x;
+    private int y;
     private boolean leftEyeOpen;
+    private boolean rightEyeOpen;
 
-    public GazeEvent(Point2D position, boolean rightEyeOpen, boolean leftEyeOpen) {
-        this.position = position;
-        this.rightEyeOpen = rightEyeOpen;
+    public GazeEvent(int x, int y, boolean leftEyeOpen, boolean rightEyeOpen) {
+        this.x = x;
+        this.y = y;
         this.leftEyeOpen = leftEyeOpen;
+        this.rightEyeOpen = rightEyeOpen;
     }
 
-    public Point2D getPosition() {
-        return position;
+    public int getX() {
+        return x;
     }
 
-    public boolean isRightEyeOpen() {
-        return rightEyeOpen;
+    public int getY() {
+        return y;
     }
 
     public boolean isLeftEyeOpen() {
         return leftEyeOpen;
+    }
+
+    public boolean isRightEyeOpen() {
+        return rightEyeOpen;
     }
 
 }
