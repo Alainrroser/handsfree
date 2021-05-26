@@ -22,9 +22,9 @@
         * Shortcuts löschen
         * Shortcuts abspielen
 * Beschreibung der wichtigsten Funktionen
-    * Einstellungs-Menu anzeigen
-        * Hier kann man diverse Einstellungen treffen
-        * Unter anderem das Eye Tracking ein- und ausschalten und auf das Shortcuts-Menu zugreifen
+    * Einstellungs-Menu
+        * Buttons, um die verschiedenen System ein- und auszuschalten
+        * Es kann ins Shortcut-Menu gewechselt werden
     * Eye Tracking
         * Cursor mit den Augen bewegen
             * Du kannst den Cursor mit deinen Augen steuern. Das heisst, der Cursor geht dahin, wo du hinsiehst.
@@ -33,8 +33,11 @@
             * Du kannst einen Rechtsklick ausführen, indem du mit dem rechten Auge blinzelst
     * Speech Control
         * Man kann den Namen eines Befehls sagen und ihn so ausführen
-        * Dasselbe gilt für Shortcuts
+            * Befehle sind voreingestellte Aktionen, die durch Sprachsteuerung gestartet werden
+            * Die Liste aller Befehle findet sich im Hauptmenü
+        * Auch aufgenommene Shortcuts können nach einem Neustart durch das Aussprechen ihres Namens gestartet werden
     * On-Screen Keyboard
+        * Tasten können angeklickt oder angeschaut werden, damit sie gedrückt werden
         * Man kann normale und auch spezielle Tastenklicks ausführen (Zum Beispiel Shift wird Orange, wenn man es anklickt und der nächste Buchstabe gross)
         * Man kann spezielle Tasten mit der rechten Maustaste anklicken, um Tastenkombinationen auszuführen, für die man mehr als zwei Klicks braucht (zum Beispiel CTRl+SHIFT+ESC), diese Tasten färben sich dann rot
     * Shortcuts

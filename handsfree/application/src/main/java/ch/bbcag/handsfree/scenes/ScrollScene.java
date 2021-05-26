@@ -31,7 +31,6 @@ public class ScrollScene extends HandsFreeScene {
     protected HandsFreeListView initList() {
         HandsFreeListView list = new HandsFreeListView();
         list.setMaxWidth(Double.MAX_VALUE);
-        list.setMinHeight(600);
         return list;
     }
 

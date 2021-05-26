@@ -33,7 +33,7 @@ public class CommandsList extends ScrollScene {
 
     private void addCommands(HandsFreeListView list, HandsFreeContext context) {
         for(Command command : context.getSpeechRecognizer().getCommands()) {
-            list.getItems().add(command.getName() + ": " + command.getDescription());
+            list.addItem(command.getName() + ": " + command.getDescription());
         }
     }
 

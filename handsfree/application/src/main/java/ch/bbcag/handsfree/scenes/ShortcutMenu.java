@@ -70,7 +70,7 @@ public class ShortcutMenu extends ScrollScene {
     }
 
     private void manageDeleteShortcut(HandsFreeListView list, HandsFreeContext context) {
-        if(list.getSelectionModel().getSelectedItem() != null) {
+        if(list.getSelectedItem() != null) {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Delete Shortcut", "Do you really want to delete \"Name\"? This shortcut" +
                                                                                           " will be lost forever! (A long time!)");
             dialog.setOnConfirmed(() -> tryToRemoveShortcut(list, context));
@@ -82,9 +82,9 @@ public class ShortcutMenu extends ScrollScene {
 
     private void tryToRemoveShortcut(HandsFreeListView list, HandsFreeContext context) {
         try {
-            shortcutManager.removeShortcut(list.getSelectionModel().getSelectedItem());
-            context.getSpeechRecognizer().removeListener(list.getSelectionModel().getSelectedItem());
-            list.getItems().remove(list.getSelectionModel().getSelectedIndex());
+            shortcutManager.removeShortcut(list.getSelectedItem());
+            context.getSpeechRecognizer().removeListener(list.getSelectedItem());
+            list.removeItem(list.getSelectedItem());
         } catch(IOException e) {
             Error.reportMinor(ErrorMessages.DELETE_SHORTCUT);
         }
@@ -113,7 +113,7 @@ public class ShortcutMenu extends ScrollScene {
         } else if(!Pattern.matches(SHORTCUT_NAMING_REGEX, value)) {
             Error.reportMinor("Your shortcut contains invalid characters (only letters are allowed)!");
         } else {
-            list.getItems().add(value);
+            list.addItem(value);
             HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts " +
                                                                                      "if you either move the jar file or the shortcut files");
             dialog.show();
@@ -134,7 +134,7 @@ public class ShortcutMenu extends ScrollScene {
 
     private void addShortcuts(HandsFreeListView list) {
         for(Shortcut shortcut : shortcutManager.getShortcuts()) {
-            list.getItems().add(shortcut.getName());
+            list.addItem(shortcut.getName());
         }
     }
 }
