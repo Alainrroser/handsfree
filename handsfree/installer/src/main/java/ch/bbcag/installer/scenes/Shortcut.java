@@ -45,7 +45,7 @@ public class Shortcut extends InstallerScene {
     }
 
     public void createShortcuts(InstallerApplication application) {
-        ShellLink shortcut = ShellLink.createLink(application.getSelectedPath() + "/" + Const.FILE_NAME)
+        ShellLink shortcut = ShellLink.createLink(application.getSelectedPath() + "/" + Const.JAR_FILE_NAME)
                                       .setIconLocation(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
         setDesktopShortcut(shortcut);
         setStartMenuShortcut(shortcut);

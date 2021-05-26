@@ -16,7 +16,8 @@ public class Const {
 
     public static final Insets LABEL_MARGIN = new Insets(0, 0, 30, 0);
 
-    public static final String FILE_NAME = "application-1.0-SNAPSHOT.jar";
+    public static final String JAR_FILE_NAME = "application-1.0-SNAPSHOT.jar";
+    public static final String EXE_FILE_NAME = "uninstaller.exe";
     public static final String ICON_NAME = "icon.ico";
 
 }

@@ -101,17 +101,22 @@ public class DirectoryChooser extends InstallerScene {
         try {
             createSelectedPathIfNotCreated(application);
 
-            File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.FILE_NAME);
+            File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.JAR_FILE_NAME);
             createFileAndParentFileIfNotCreated(targetJarFile);
 
             File targetIconFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
             createFileAndParentFileIfNotCreated(targetIconFile);
 
-            InputStream jarInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.FILE_NAME);
+            File targetExeFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.EXE_FILE_NAME);
+            createFileAndParentFileIfNotCreated(targetExeFile);
+
+            InputStream jarInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.JAR_FILE_NAME);
             InputStream iconInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.ICON_NAME);
+            InputStream exeInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.EXE_FILE_NAME);
 
             copyFiles(jarInputStream, targetJarFile);
             copyFiles(iconInputStream, targetIconFile);
+            copyFiles(exeInputStream, targetExeFile);
         } catch(IOException e) {
             Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
         }
