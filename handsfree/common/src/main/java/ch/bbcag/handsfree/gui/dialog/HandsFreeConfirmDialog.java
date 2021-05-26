@@ -21,13 +21,13 @@ public class HandsFreeConfirmDialog extends HandsFreeDialog {
         buttonOk.setOnAction(event -> close());
         buttonOk.setPadding(new Insets(10, 0, 10, 0));
         buttonOk.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
-        getContentBox().setLeft(buttonOk);
+        getContentBox().setRight(buttonOk);
 
         buttonCancel = new HandsFreeTextButton("No way!");
         buttonCancel.setPrefWidth(200);
         buttonCancel.setOnAction(event -> close());
         buttonCancel.setPadding(new Insets(10, 0, 10, 0));
-        getContentBox().setRight(buttonCancel);
+        getContentBox().setLeft(buttonCancel);
     }
 
     public void setOnConfirmed(Runnable runnable) {

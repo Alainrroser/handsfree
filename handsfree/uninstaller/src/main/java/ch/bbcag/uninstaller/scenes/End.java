@@ -28,7 +28,7 @@ public class End extends UnInstallerScene {
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("< Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));
-        addButton("Finish >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
+        addButton("Finish", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
             String userHome = System.getProperty("user.home");
 
             File appData = new File(userHome + "\\AppData\\HandsFree");
@@ -40,8 +40,10 @@ public class End extends UnInstallerScene {
             deleteFileOrFolderIfExists(startMenuShortcut);
             deleteFileOrFolderIfExists(desktopShortcut);
             try {
-                new ProcessBuilder("cmd", "/c", "ping", "localhost", "-n", "6", ">", "nul", "&&", "rmdir",
-                                                            "C:\\Program Files\\HandsFree").start();
+                ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "ping", "localhost", "-n", "6", ">", "nul", "&&", "rmdir",
+                                   "C:\\Program Files\\HandsFree", "/S", "/Q");
+                processBuilder.directory(new File("C:/Program Files"));
+                processBuilder.start();
             } catch(IOException e) {
                 Error.reportMinor(ErrorMessages.DELETE);
             }

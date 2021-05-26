@@ -33,11 +33,11 @@ public class End extends InstallerScene {
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("< Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.SHORTCUT));
-        addButton("Finish >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
+        addButton("Finish", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
             application.execute();
             if(startAppCheckBox.isSelected()) {
                 try {
-                    ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + Const.FILE_NAME);
+                    ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + Const.JAR_FILE_NAME);
                     processBuilder.start();
                 } catch(Exception e) {
                     Error.reportMinor(ErrorMessages.APPLICATION_START);
