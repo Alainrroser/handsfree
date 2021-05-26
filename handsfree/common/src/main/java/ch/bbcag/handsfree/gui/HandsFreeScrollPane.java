@@ -12,7 +12,7 @@ public class HandsFreeScrollPane extends StackPane {
 
     public HandsFreeScrollPane() {
         scrollBar = new HandsFreeScrollBar();
-        scrollBar.setScrollCallback(scroll -> content.setTranslateY(-scroll));
+        scrollBar.setScrollListener(scroll -> content.setTranslateY(-scroll));
 
         widthProperty().addListener(observable -> updateClip());
         heightProperty().addListener(observable -> {

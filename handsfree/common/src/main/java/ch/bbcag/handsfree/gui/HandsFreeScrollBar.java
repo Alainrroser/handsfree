@@ -13,7 +13,7 @@ public class HandsFreeScrollBar extends VBox {
     private HandsFreeButton thumb;
     private double dragLastMouseY;
 
-    private HandsFreeScrollCallback callback;
+    private HandsFreeScrollListener listener;
     private double contentHeight;
 
     private static final double WIDTH = 50;
@@ -72,13 +72,13 @@ public class HandsFreeScrollBar extends VBox {
 
         double progress = thumb.getTranslateY() / (track.getHeight() - thumb.getHeight());
         double scroll = progress * (contentHeight - getHeight());
-        if(callback != null) {
-            callback.handle(scroll);
+        if(listener != null) {
+            listener.scroll(scroll);
         }
     }
 
-    public void setScrollCallback(HandsFreeScrollCallback callback) {
-        this.callback = callback;
+    public void setScrollListener(HandsFreeScrollListener listener) {
+        this.listener = listener;
     }
 
     public void setContentHeight(double contentHeight) {

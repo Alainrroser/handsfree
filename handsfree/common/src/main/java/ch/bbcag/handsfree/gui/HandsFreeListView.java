@@ -93,7 +93,4 @@ public class HandsFreeListView extends VBox {
         return clickListener;
     }
 
-    public interface RightClickCallBack {
-        void run(String item);
-    }
 }

@@ -4,6 +4,9 @@ import ch.bbcag.handsfree.gui.button.HandsFreeButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import javafx.geometry.Insets;
+import javafx.scene.input.KeyCode;
+
+import java.awt.event.KeyEvent;
 
 public class HandsFreeConfirmDialog extends HandsFreeDialog {
 
@@ -28,6 +31,18 @@ public class HandsFreeConfirmDialog extends HandsFreeDialog {
         buttonCancel.setOnAction(event -> close());
         buttonCancel.setPadding(new Insets(10, 0, 10, 0));
         getContentBox().setLeft(buttonCancel);
+
+        addKeyListener();
+    }
+
+    private void addKeyListener() {
+        getScene().setOnKeyReleased(event -> {
+            if(event.getCode() == KeyCode.ENTER) {
+                buttonOk.fire();
+            } else if(event.getCode() == KeyCode.ESCAPE) {
+                buttonCancel.fire();
+            }
+        });
     }
 
     public void setOnConfirmed(Runnable runnable) {

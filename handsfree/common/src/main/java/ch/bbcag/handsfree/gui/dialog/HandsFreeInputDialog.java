@@ -5,6 +5,7 @@ import ch.bbcag.handsfree.gui.button.HandsFreeButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import javafx.geometry.Insets;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 
 public class HandsFreeInputDialog extends HandsFreeDialog {
@@ -36,11 +37,23 @@ public class HandsFreeInputDialog extends HandsFreeDialog {
         buttonCancel.setOnAction(event -> close());
         buttonCancel.setPadding(new Insets(10, 0, 10, 0));
         getContentBox().setLeft(buttonCancel);
+
+        addKeyListener();
     }
 
-    public void setOnOk(ConfirmedCallback callback) {
+    private void addKeyListener() {
+        getScene().setOnKeyReleased(event -> {
+            if(event.getCode() == KeyCode.ENTER) {
+                buttonOk.fire();
+            } else if(event.getCode() == KeyCode.ESCAPE) {
+                buttonCancel.fire();
+            }
+        });
+    }
+
+    public void setOnOk(HandsFreeInputListener listener) {
         buttonOk.setOnAction(event -> {
-            callback.run(inputField.getText());
+            listener.run(inputField.getText());
             close();
         });
     }
@@ -58,10 +71,6 @@ public class HandsFreeInputDialog extends HandsFreeDialog {
 
     public HandsFreeButton getButtonCancel() {
         return buttonCancel;
-    }
-
-    public interface ConfirmedCallback {
-        void run(String value);
     }
 
 }
