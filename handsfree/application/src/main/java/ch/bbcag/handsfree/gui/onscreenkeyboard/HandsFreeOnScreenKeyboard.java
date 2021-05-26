@@ -137,18 +137,30 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     }
 
     private void updateSuggestions() {
+        List<String> suggestions = getSuggestedWords();
+        wordSuggestionPanel.updateSuggestions(suggestions, currentlyTypedWord.length());
+    }
+
+    private List<String> getSuggestedWords() {
         List<String> suggestions = new ArrayList<>();
         for(String word : allWords) {
-            if(word.toLowerCase().startsWith(currentlyTypedWord.toLowerCase())) {
-                suggestions.add(word);
-
-                if(suggestions.size() == 5) {
-                    break;
-                }
+            tryAddToSuggestions(word, suggestions);
+            if(suggestions.size() == 5) {
+                break;
             }
         }
 
-        wordSuggestionPanel.updateSuggestions(suggestions, currentlyTypedWord.length());
+        return suggestions;
+    }
+
+    private void tryAddToSuggestions(String word, List<String> suggestions) {
+        if(canWordBeSuggested(word)) {
+            suggestions.add(word);
+        }
+    }
+
+    private boolean canWordBeSuggested(String word) {
+        return word.toLowerCase().startsWith(currentlyTypedWord.toLowerCase());
     }
 
     protected void resetSuggestions() {

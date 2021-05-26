@@ -1,4 +1,4 @@
-package ch.bbcag.handsfree.control.eyetracker;
+package ch.bbcag.handsfree.control.headtracker;
 
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeKeyCodes;

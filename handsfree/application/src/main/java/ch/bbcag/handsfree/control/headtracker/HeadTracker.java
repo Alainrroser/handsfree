@@ -1,4 +1,4 @@
-package ch.bbcag.handsfree.control.eyetracker;
+package ch.bbcag.handsfree.control.headtracker;
 
 import ch.bbcag.handsfree.control.ThreadedSystem;
 import tobii.Tobii;
@@ -58,23 +58,26 @@ public class HeadTracker extends ThreadedSystem {
     }
 
     private void trackShaking(float yaw) {
-        boolean sideActivationThresholdPassed = Math.abs(yaw) >= SHAKE_THRESHOLD_ANGLE;
-        boolean resetThresholdPassed = Math.abs(yaw) <= SHAKE_RESET_THRESHOLD_ANGLE;
-
         if(!waitingForShakeReset) {
-            if(shakeStage == HeadShakeStage.NOT_SHAKING && sideActivationThresholdPassed) {
-                finishFirstShakeSide(yaw);
-            } else if(shakeStage == HeadShakeStage.ONE_SIDE_ACTIVATED && sideActivationThresholdPassed) {
-                finishSecondShakeSide(yaw);
-            } else if(shakeStage == HeadShakeStage.TWO_SIDES_ACTIVATED && resetThresholdPassed) {
-                finishShake();
-            }
-        } else if(resetThresholdPassed) {
+            updateShakeStage(yaw);
+        } else if(isShakeResetThresholdPassed(yaw)) {
             waitingForShakeReset = false;
         }
 
-        if(shakeStage != HeadShakeStage.NOT_SHAKING && System.currentTimeMillis() > shakeExpireTimestamp) {
+        if(shouldShakeBeAborted()) {
             abortCurrentShake();
+        }
+    }
+
+    private void updateShakeStage(float yaw) {
+        boolean sideActivationThresholdPassed = Math.abs(yaw) >= SHAKE_THRESHOLD_ANGLE;
+
+        if(shakeStage == HeadShakeStage.NOT_SHAKING && sideActivationThresholdPassed) {
+            finishFirstShakeSide(yaw);
+        } else if(shakeStage == HeadShakeStage.ONE_SIDE_ACTIVATED && sideActivationThresholdPassed) {
+            finishSecondShakeSide(yaw);
+        } else if(shakeStage == HeadShakeStage.TWO_SIDES_ACTIVATED && isShakeResetThresholdPassed(yaw)) {
+            finishShake();
         }
     }
 
@@ -100,26 +103,38 @@ public class HeadTracker extends ThreadedSystem {
         }
     }
 
+    private boolean shouldShakeBeAborted() {
+        return shakeStage != HeadShakeStage.NOT_SHAKING && System.currentTimeMillis() > shakeExpireTimestamp;
+    }
+
     private void abortCurrentShake() {
         shakeStage = HeadShakeStage.NOT_SHAKING;
         waitingForShakeReset = true;
+    }
+
+    private boolean isShakeResetThresholdPassed(float yaw) {
+        return Math.abs(yaw) <= SHAKE_RESET_THRESHOLD_ANGLE;
     }
 
     private void trackNodding(float pitch) {
         boolean resetThresholdPassed = Math.abs(pitch) <= NOD_RESET_THRESHOLD_ANGLE;
 
         if(!waitingForNodReset) {
-            if(!nodDown && pitch < NOD_DOWN_THRESHOLD_ANGLE) {
-                finishNodDown();
-            } else if(nodDown && pitch > NOD_UP_THRESHOLD_ANGLE) {
-                finishNod();
-            }
+            updateNodStage(pitch);
         } else if(resetThresholdPassed) {
             waitingForNodReset = false;
         }
 
-        if(nodDown && System.currentTimeMillis() > nodExpireTimestamp) {
+        if(shouldNodBeAborted()) {
             abortCurrentNod();
+        }
+    }
+
+    private void updateNodStage(float pitch) {
+        if(!nodDown && pitch < NOD_DOWN_THRESHOLD_ANGLE) {
+            finishNodDown();
+        } else if(nodDown && pitch > NOD_UP_THRESHOLD_ANGLE) {
+            finishNod();
         }
     }
 
@@ -134,6 +149,10 @@ public class HeadTracker extends ThreadedSystem {
         }
 
         nodDown = false;
+    }
+
+    private boolean shouldNodBeAborted() {
+        return nodDown && System.currentTimeMillis() > nodExpireTimestamp;
     }
 
     private void abortCurrentNod() {
