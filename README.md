@@ -47,6 +47,12 @@
 * [Technische Dokumentation](docs/documentation/docs/technical.md)
 * [Research](docs/documentation/docs/research.md)
 * [Design](docs/design/design.xd)
+### Klassendiagramme
+* [Classes](docs/documentation/classes/classes.md)
+* [Application Diagram](docs/documentation/classes/application.png)
+* [Common Diagram](docs/documentation/classes/common.png)
+* [Installer Diagram](docs/documentation/classes/installer.png)
+* [Uninstaller Diagram](docs/documentation/classes/uninstaller.png)
 ### Testing
 * Sprint 1
     * [Testkonzept](docs/documentation/testing/sprint_1.md)
@@ -57,6 +63,9 @@
 * Sprint 3
     * [Testkonzept](docs/documentation/testing/sprint_3.md)
     * [Testprotokoll](docs/documentation/testprotocol/sprint_3.md)
+* Sprint 4
+    * [Testkonzept](docs/documentation/testing/sprint_4.md)
+    * [Testprotokoll](docs/documentation/testprotocol/sprint_4.md)
 ## Daily Scrum
 Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 ## Definition of Done
@@ -68,7 +77,7 @@ Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
     * Alle Ziele erfüllt
     * Alle optionalen Ziele erfüllt
     * Die Zusammenarbeit lief gut
-    * Viel neues gelernt (JNI, Launch4J, GUI Testing mit TestFX, Unterprojekte in Gradle, etc.)
+    * Viel Neues gelernt (JNI, Launch4J, GUI Testing mit TestFX, Unterprojekte in Gradle, etc.)
 * Lessons learned
     * Bessere Planung, Projektstruktur musste einige Male angepasst werden
     * Bessere Absprache, beide arbeiteten manchmal an derselben Datei
