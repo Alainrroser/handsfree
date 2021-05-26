@@ -1,7 +1,5 @@
 package ch.bbcag.handsfree.control.eyetracker;
 
-import javafx.geometry.Point2D;
-
 public class GazeEvent {
 
     private int x;

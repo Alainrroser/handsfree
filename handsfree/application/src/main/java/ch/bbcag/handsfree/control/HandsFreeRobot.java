@@ -90,6 +90,8 @@ public class HandsFreeRobot {
             mouseMove((int) cx, (int) cy);
             robot.delay(5);
         }
+
+        mouseMove(x, y);
     }
 
     public void mousePress(int button) {

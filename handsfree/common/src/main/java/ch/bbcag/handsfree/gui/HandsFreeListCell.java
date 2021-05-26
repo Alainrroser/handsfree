@@ -23,15 +23,13 @@ public class HandsFreeListCell extends Label {
         setPrefHeight(HEIGHT);
         setMaxWidth(Double.MAX_VALUE);
 
-        setOnMousePressed(event -> {
-            if(event.getButton() == MouseButton.PRIMARY) {
-                view.selectCell(this);
-            }
-        });
-
         setOnMouseClicked(event -> {
-            if(selected && view.getRightClickHandler() != null && event.getButton() == MouseButton.SECONDARY) {
-                view.getRightClickHandler().run(item);
+            if(selected) {
+                if(view.getClickListener() != null) {
+                    view.getClickListener().click(item);
+                }
+            } else {
+                view.selectCell(this);
             }
         });
 

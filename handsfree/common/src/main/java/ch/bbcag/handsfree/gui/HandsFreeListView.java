@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HandsFreeListView extends VBox {
 
-    private List<HandsFreeListCell> cells = new ArrayList<>();
+    private List<HandsFreeListCell> cells = new CopyOnWriteArrayList<>();
     private HandsFreeListCell selectedCell;
 
-    private RightClickCallBack rightClickHandler;
+    private HandsFreeListViewClickListener clickListener;
 
     public HandsFreeListView() {
         CornerRadii radii = new CornerRadii(5);
@@ -84,12 +85,12 @@ public class HandsFreeListView extends VBox {
         selectedCell = cell;
     }
 
-    public void setRightClickHandler(RightClickCallBack rightClickHandler) {
-        this.rightClickHandler = rightClickHandler;
+    public void setClickListener(HandsFreeListViewClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
-    protected RightClickCallBack getRightClickHandler() {
-        return rightClickHandler;
+    protected HandsFreeListViewClickListener getClickListener() {
+        return clickListener;
     }
 
     public interface RightClickCallBack {

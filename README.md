@@ -68,6 +68,7 @@ Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
     * Alle Ziele erfüllt
     * Alle optionalen Ziele erfüllt
     * Die Zusammenarbeit lief gut
+    * Viel neues gelernt (JNI, Launch4J, GUI Testing mit TestFX, Unterprojekte in Gradle, etc.)
 * Lessons learned
     * Bessere Planung, Projektstruktur musste einige Male angepasst werden
     * Bessere Absprache, beide arbeiteten manchmal an derselben Datei

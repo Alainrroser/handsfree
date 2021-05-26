@@ -32,6 +32,7 @@ public class HandsFreeIconifiedWidget {
         frame.setType(Window.Type.UTILITY);
 
         button = new HandsFreeIconButton("/images/icon64.png");
+        button.setContentSize(64, 64);
         button.setButtonSize(64, 64);
         button.setOnAction(event -> returnToStage());
 
@@ -64,7 +65,7 @@ public class HandsFreeIconifiedWidget {
         frame.setLocation(
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width - frame.getWidth(),
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height - frame.getHeight()
-                         );
+        );
     }
 
     public void show() {

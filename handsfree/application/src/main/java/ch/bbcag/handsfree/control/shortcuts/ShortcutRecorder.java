@@ -96,18 +96,24 @@ public class ShortcutRecorder {
 
     public void stopAndSave(String name) {
         if(running) {
+            stop();
             shortcut.setName(name);
             shortcutManager.addShortcut(shortcut);
-            stop();
         }
     }
 
     private void stop() {
         setRunning(false);
-        shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
-        shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
-
+        removeLastTwoClicks();
         GlobalScreen.removeNativeMouseListener(listener);
+    }
+
+    private void removeLastTwoClicks() {
+        // Remove the last two clicks since they are only used to stop recording
+        if(shortcut.getClicks().size() > 1) {
+            shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
+            shortcut.getClicks().remove(shortcut.getClicks().size() - 1);
+        }
     }
 
     public boolean isRunning() {

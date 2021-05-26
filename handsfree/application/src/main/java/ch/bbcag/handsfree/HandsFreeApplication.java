@@ -13,6 +13,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import jdk.jfr.Percentage;
 
 import java.io.File;
 
@@ -97,6 +98,15 @@ public class HandsFreeApplication extends Application {
                 }
             }
         }.start();
+    }
+
+    @Override
+    public void stop() {
+        // Sometimes there are still threads running that prevent shutdown
+        // event though every thread should be a daemon thread.
+        // This is why we just exit here so the application doesn't continue
+        // running in the background.
+        System.exit(0);
     }
 
     public Stage getPrimaryStage() {

@@ -45,7 +45,7 @@ public class ShortcutMenu extends ApplicationScene {
         VBox vBox = initVBox();
         VBox vBoxTop = initTop(application);
         HandsFreeListView list = initList();
-        list.setRightClickHandler(item -> shortcutManager.runShortcut(item));
+        list.setClickListener(item -> shortcutManager.runShortcut(item));
         addShortcuts(list);
 
         HandsFreeToggleButton recordShortcut = initRecordShortcutButton(context, list);
