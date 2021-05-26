@@ -46,10 +46,10 @@
         * Man wird die Applikation automatisch beim Start von Windows starten können
     * Klassen
         * [Klassen](../classes/classes.md)
-        * ![Klassendiagramm Applikation](../classes/application.png)
-        * ![Klassendiagramm Common](../classes/common.png)
-        * ![Klassendiagramm Installer](../classes/installer.png)
-        * ![Klassendiagramm Uninstaller](../classes/uninstaller.png)
+        * ![Applikationsdiagramm](../classes/application.png)
+        * ![Commondiagramm](../classes/common.png)
+        * ![Installerdiagramm](../classes/installer.png)
+        * ![Uninstallerdiagramm](../classes/uninstaller.png)
 
 * Design
     * ![Mockup](../../design/design.png)
