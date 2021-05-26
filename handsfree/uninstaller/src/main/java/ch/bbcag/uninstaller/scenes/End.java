@@ -4,13 +4,12 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.uninstaller.Const;
-import ch.bbcag.uninstaller.Error.ErrorMessages;
 import ch.bbcag.uninstaller.UninstallerApplication;
+import ch.bbcag.uninstaller.error.ErrorMessages;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 
 import java.io.File;
-import java.io.IOException;
 
 public class End extends UninstallerScene {
 
@@ -41,11 +40,12 @@ public class End extends UninstallerScene {
             deleteFileOrFolderIfExists(startMenuShortcut);
             deleteFileOrFolderIfExists(desktopShortcut);
             try {
+                File jarPath = new File(End.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
                 ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "ping", "localhost", "-n", "6", ">", "nul", "&&", "rmdir",
-                                                                   "C:\\Program Files\\HandsFree", "/S", "/Q");
-                processBuilder.directory(new File("C:/Program Files"));
+                                                                   jarPath.getParentFile().getAbsolutePath(), "/S", "/Q");
+                processBuilder.directory(new File(jarPath.getParentFile().getParentFile().getAbsolutePath()));
                 processBuilder.start();
-            } catch(IOException e) {
+            } catch(Exception e) {
                 Error.reportMinor(ErrorMessages.DELETE);
             }
 
