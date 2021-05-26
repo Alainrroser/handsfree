@@ -7,14 +7,13 @@ import java.util.concurrent.Callable;
 
 public class Tobii {
 
-    private static boolean verbose = true;
     private static boolean loaded = false;
     private static boolean errorReported = false;
 
     private static String OS = System.getProperty("os.name").toLowerCase();
 
     public static float[] getGazePosition() {
-        return getValueFromNativeFunction(Tobii::jniGetGazePosition, new float[]{ 0.5f, 0.5f });
+        return getValueFromNativeFunction(Tobii::jniGetGazePosition, new float[] {0.5f, 0.5f});
     }
 
     public static float getGazeX() {
@@ -26,7 +25,7 @@ public class Tobii {
     }
 
     public static float[] getHeadRotation() {
-        return getValueFromNativeFunction(Tobii::jniGetHeadRotation, new float[]{ 0.0f, 0.0f, 0.0f });
+        return getValueFromNativeFunction(Tobii::jniGetHeadRotation, new float[] {0.0f, 0.0f, 0.0f});
     }
 
     public static boolean isLeftEyePresent() {
@@ -84,6 +83,7 @@ public class Tobii {
     }
 
     private static void printIfVerbose(String what) {
+        boolean verbose = true;
         if(verbose) {
             System.out.println("Tobii: " + what);
         }
@@ -99,9 +99,11 @@ public class Tobii {
     private static native int jniInit();
 
     private static native float[] jniGetGazePosition();
+
     private static native float[] jniGetHeadRotation();
 
     private static native boolean jniIsLeftEyePresent();
+
     private static native boolean jniIsRightEyePresent();
 
 }

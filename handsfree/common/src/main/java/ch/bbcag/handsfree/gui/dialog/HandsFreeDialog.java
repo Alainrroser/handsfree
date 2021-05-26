@@ -14,14 +14,13 @@ import javafx.stage.Stage;
 public class HandsFreeDialog extends Stage {
 
     private BorderPane rootNode;
-    private Label textLabel;
     private BorderPane buttonBox;
 
     public HandsFreeDialog(String title, String text) {
         rootNode = new BorderPane();
         rootNode.setPadding(new Insets(0, 30, 30, 30));
 
-        textLabel = new Label(text);
+        Label textLabel = new Label(text);
         textLabel.setFont(HandsFreeFont.getFont(22));
         textLabel.setTextFill(Colors.FONT);
         textLabel.setWrapText(true);

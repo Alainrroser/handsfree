@@ -3,7 +3,7 @@ package ch.bbcag.handsfree.utils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Objects;
 
 public class TemporaryFile {
 
@@ -38,7 +38,7 @@ public class TemporaryFile {
     }
 
     private static void deleteRecursively(File file) {
-        for(File child : file.listFiles()) {
+        for(File child : Objects.requireNonNull(file.listFiles())) {
             if(child.isDirectory()) {
                 deleteRecursively(child);
             } else {

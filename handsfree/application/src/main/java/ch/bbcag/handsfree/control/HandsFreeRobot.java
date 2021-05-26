@@ -51,10 +51,10 @@ public class HandsFreeRobot {
     }
 
     public void pressHotkey(int... keys) {
-        for(int key: keys) {
+        for(int key : keys) {
             keyPressSpecial(key);
         }
-        for(int key: keys) {
+        for(int key : keys) {
             keyReleaseSpecial(key);
         }
     }
@@ -123,17 +123,19 @@ public class HandsFreeRobot {
     }
 
     public void exit() {
-        for(int pressedKey: pressedKeys) {
+        for(int pressedKey : pressedKeys) {
             keyReleaseInternal(pressedKey);
         }
 
-        for(int pressedButton: pressedMouseButtons) {
+        for(int pressedButton : pressedMouseButtons) {
             mouseRelease(pressedButton);
         }
     }
 
     private native void jniKeyPress(short keyCode);
+
     private native void jniKeyRelease(short keyCode);
+
     private native char jniKeyCodeToChar(short keyCode);
 
 }

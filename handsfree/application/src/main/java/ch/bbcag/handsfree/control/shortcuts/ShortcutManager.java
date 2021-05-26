@@ -36,7 +36,7 @@ public class ShortcutManager {
     }
 
     public void removeShortcut(String name) throws IOException {
-        for(Shortcut shortcut: shortcuts) {
+        for(Shortcut shortcut : shortcuts) {
             if(shortcut.getName() != null && shortcut.getName().equalsIgnoreCase(name)) {
                 shortcuts.remove(shortcut);
                 break;
@@ -47,7 +47,7 @@ public class ShortcutManager {
     }
 
     private void deleteShortcut(String name) throws IOException {
-        for(File file: Objects.requireNonNull(new File(Const.SHORTCUT_PATH).listFiles())) {
+        for(File file : Objects.requireNonNull(new File(Const.SHORTCUT_PATH).listFiles())) {
             FileInputStream in = new FileInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String firstLine = reader.readLine();
@@ -61,7 +61,7 @@ public class ShortcutManager {
     }
 
     public void runShortcut(String name) {
-        for(Shortcut shortcut: shortcuts) {
+        for(Shortcut shortcut : shortcuts) {
             if(shortcut.getName().equals(name)) {
                 shortcut.run(context.getRobot());
             }
@@ -70,7 +70,7 @@ public class ShortcutManager {
 
     public void readShortcuts(File directory) {
         if(directory.listFiles() != null) {
-            for(File file: Objects.requireNonNull(directory.listFiles())) {
+            for(File file : Objects.requireNonNull(directory.listFiles())) {
                 addShortcutFromFile(file);
             }
         }
@@ -99,7 +99,7 @@ public class ShortcutManager {
     public void checkIfExisting(String name) {
         setNotExistingAlready(true);
         if(shortcuts.size() > 1) {
-            for(Shortcut shortcut: shortcuts) {
+            for(Shortcut shortcut : shortcuts) {
                 checkIfNamesAreEqual(shortcut, name);
             }
         }

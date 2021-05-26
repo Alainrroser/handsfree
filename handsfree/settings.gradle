@@ -1,2 +1,2 @@
-rootProject.name = 'handsfree';
-include('application', 'installer', 'common')
+rootProject.name = 'handsfree'
+include('application', 'installer', 'uninstaller', 'common')

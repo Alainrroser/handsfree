@@ -9,7 +9,9 @@ import java.util.List;
 public class HeadTracker extends ThreadedSystem {
 
     enum HeadShakeStage {
-        NOT_SHAKING, ONE_SIDE_ACTIVATED, TWO_SIDES_ACTIVATED
+        NOT_SHAKING,
+        ONE_SIDE_ACTIVATED,
+        TWO_SIDES_ACTIVATED
     }
 
     private static final float NOD_DOWN_THRESHOLD_ANGLE = -15;
@@ -42,7 +44,6 @@ public class HeadTracker extends ThreadedSystem {
 
     @Override
     public void run() {
-        System.out.println("hi");
         while(isRunning()) {
             update();
         }

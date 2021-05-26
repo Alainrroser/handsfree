@@ -3,7 +3,6 @@ package ch.bbcag.handsfree.control.eyetracker;
 import com.sun.javafx.geom.Point2D;
 
 public class GazeEvent {
-
     private Point2D position;
     private boolean rightEyeOpen;
     private boolean leftEyeOpen;

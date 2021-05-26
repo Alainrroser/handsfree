@@ -1,10 +1,10 @@
-package ch.bbcag.installer.scenes;
+package ch.bbcag.uninstaller.scenes;
 
 import ch.bbcag.handsfree.gui.HandsFreeScene;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
-import ch.bbcag.installer.Const;
+import ch.bbcag.uninstaller.Const;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -19,12 +19,12 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class InstallerScene extends HandsFreeScene {
+public class UnInstallerScene extends HandsFreeScene {
 
     private BorderPane borderPane;
     private HBox buttonHBox;
 
-    public InstallerScene(Stage stage, HandsFreeSceneConfiguration configuration) {
+    public UnInstallerScene(Stage stage, HandsFreeSceneConfiguration configuration) {
         super(stage, new HBox(), configuration);
 
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
@@ -58,7 +58,7 @@ public class InstallerScene extends HandsFreeScene {
         imageView.setFitWidth(128);
         imageView.setFitHeight(128);
         imageView.setX(32);
-        imageView.setY(32);
+        imageView.setY(16);
         imageContainer.getChildren().add(imageView);
 
         HBox root = (HBox) getContentRoot();

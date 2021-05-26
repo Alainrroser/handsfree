@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 // We need this to be a popup so it doesn't steal focus from other windows
 // when pressing a button
@@ -106,8 +105,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private void loadKeyboardLayout(HandsFreeContext context) throws KeyboardLoadingException {
         VirtualKeyboardLayout layout = VirtualKeyboardLayoutLoader.loadFromResource("/keyboard_layouts/swiss.txt");
 
-        for(VirtualKeyRow row: layout.getKeyRows()) {
-            for(VirtualKey key: row.getKeys()) {
+        for(VirtualKeyRow row : layout.getKeyRows()) {
+            for(VirtualKey key : row.getKeys()) {
                 addKey(new HandsFreeOnScreenKey(key, context, this));
             }
 
@@ -125,7 +124,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     }
 
     public void releaseHeldKeys() {
-        for(HandsFreeOnScreenKey key: keys) {
+        for(HandsFreeOnScreenKey key : keys) {
             if(key.isKeyPressed() && key.getKey().isHold() && !key.isKeyHeld()) {
                 key.release();
             }

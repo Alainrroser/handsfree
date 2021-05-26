@@ -10,16 +10,13 @@ import javafx.scene.paint.Color;
 
 public class HandsFreeListCell extends ListCell<String> {
 
-    private HandsFreeListView view;
-    
     public HandsFreeListCell(HandsFreeListView view) {
-        this.view = view;
-        
+
         setFont(HandsFreeFont.getFont(25));
         setTextFill(Colors.FONT);
 
         updateBackground();
-        
+
         setOnMouseClicked(event -> {
             if(isSelected() && view.getRightClickHandler() != null && event.getButton() == MouseButton.SECONDARY) {
                 view.getRightClickHandler().run(getItem());
@@ -39,5 +36,5 @@ public class HandsFreeListCell extends ListCell<String> {
 
         updateBackground();
     }
-    
+
 }

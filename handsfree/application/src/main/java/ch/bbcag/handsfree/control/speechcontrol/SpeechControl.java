@@ -13,16 +13,16 @@ import java.io.IOException;
 import java.net.URI;
 
 public class SpeechControl {
-    
+
     private HandsFreeContext context;
-    
+
     public SpeechControl(HandsFreeContext context) {
         this.context = context;
         HandsFreeRobot robot = context.getRobot();
-        
+
         addCommand(new Command("press", "Left Mouse Button Press", () -> robot.mousePress(InputEvent.BUTTON1_DOWN_MASK)));
         addCommand(new Command("release", "Left Mouse Button Release", () -> robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK)));
-        
+
         addCommand(new Command("left", "Left arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_LEFT)));
         addCommand(new Command("up", "Up arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_UP)));
         addCommand(new Command("right", "Right arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_RIGHT)));
@@ -42,7 +42,7 @@ public class SpeechControl {
             }
         }));
         addCommand(new Command("new tab", "Makes new tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_T)));
-        addCommand(new Command("close tab", "closes tab", () ->  robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W)));
+        addCommand(new Command("close tab", "closes tab", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_W)));
 
         addCommand(new Command("shut down", "Shuts the computer down", () -> Platform.runLater(() -> {
             HandsFreeConfirmDialog dialog = new HandsFreeConfirmDialog("Shutdown", "Do you really want to shutdown your computer?");
@@ -93,7 +93,8 @@ public class SpeechControl {
         addCommand(new Command("redo", "Redoes something", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Y)));
         addCommand(new Command("undo", "Undoes something", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_Z)));
         addCommand(new Command("new folder", "Creates new folder", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_N)));
-        addCommand(new Command("task manager", "Opens task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT, KeyEvent.VK_ESCAPE)));
+        addCommand(new Command("task manager", "Opens task manager", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_SHIFT,
+                                                                                             KeyEvent.VK_ESCAPE)));
         addCommand(new Command("menu", "Opens menu", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_ALT, KeyEvent.VK_DELETE)));
 
         addCommand(new Command("close", "Closes window", () -> robot.pressHotkey(KeyEvent.VK_ALT, KeyEvent.VK_F4)));

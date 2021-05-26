@@ -7,15 +7,13 @@ import javafx.geometry.Insets;
 
 public class HandsFreeMessageDialog extends HandsFreeDialog {
 
-    private HandsFreeButton buttonOk;
-
     public HandsFreeMessageDialog(String title, String text) {
         super(title, text);
         init();
     }
 
     private void init() {
-        buttonOk = new HandsFreeTextButton("Got it!");
+        HandsFreeButton buttonOk = new HandsFreeTextButton("Got it!");
         buttonOk.setMaxWidth(200);
         buttonOk.setOnAction(event -> close());
         buttonOk.setPadding(new Insets(10, 0, 10, 0));

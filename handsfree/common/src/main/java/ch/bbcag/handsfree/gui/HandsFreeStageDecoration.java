@@ -38,7 +38,7 @@ public class HandsFreeStageDecoration extends BorderPane {
         HBox rightBox = new HBox();
         rightBox.setAlignment(Pos.CENTER_RIGHT);
         setRight(rightBox);
-        
+
         if(configuration.isHasMinimizeButton()) {
             minimizeButton = new HandsFreeIconButton("/images/minimize.png");
             minimizeButton.setOnAction(event -> stage.setIconified(true));

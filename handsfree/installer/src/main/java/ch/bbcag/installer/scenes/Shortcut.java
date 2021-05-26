@@ -26,9 +26,9 @@ public class Shortcut extends InstallerScene {
     }
 
     private void initGUI(InstallerApplication application) {
-        HandsFreeLabel label = new HandsFreeLabel("Okay, here you just have to select if " +
-                                "you want to have a desktop and a start menu shortcut.\n" +
-                                "Check them if you want and continue.");
+        HandsFreeLabel label = new HandsFreeLabel("Here you just have to select if " +
+                                                  "you want to have a desktop and a start menu shortcut.\n" +
+                                                  "Check them if you want and continue.");
         label.setWrapText(true);
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
@@ -38,9 +38,7 @@ public class Shortcut extends InstallerScene {
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("< Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.DIRECTORY_CHOOSER));
-        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
-            application.getNavigator().navigateTo(SceneType.END);
-        });
+        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> application.getNavigator().navigateTo(SceneType.END));
 
         getBorderPane().setTop(label);
         getBorderPane().setCenter(checkBoxHBox);

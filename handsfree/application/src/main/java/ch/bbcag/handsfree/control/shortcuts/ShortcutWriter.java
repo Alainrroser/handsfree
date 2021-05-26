@@ -48,7 +48,7 @@ public class ShortcutWriter {
     }
 
     private void writeClicks(FileWriter writer) throws IOException {
-        for(Click click: shortcut.getClicks()) {
+        for(Click click : shortcut.getClicks()) {
             writeClick(click, writer);
         }
     }

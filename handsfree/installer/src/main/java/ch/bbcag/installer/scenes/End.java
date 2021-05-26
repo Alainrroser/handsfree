@@ -21,8 +21,8 @@ public class End extends InstallerScene {
     }
 
     private void initGUI(InstallerApplication application) {
-        HandsFreeLabel label = new HandsFreeLabel("Okay, that was the last step.\n" +
-                                "You can select down below if you want to start the app and if it is nothing else, enjoy!");
+        HandsFreeLabel label = new HandsFreeLabel("That was the last step.\n" +
+                                                  "You can select down below if you want to start the app and if it is nothing else, enjoy!");
         label.setWrapText(true);
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 

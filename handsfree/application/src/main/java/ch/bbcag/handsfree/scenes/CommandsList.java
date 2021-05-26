@@ -4,7 +4,8 @@ import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.speechcontrol.Command;
-import ch.bbcag.handsfree.gui.*;
+import ch.bbcag.handsfree.gui.HandsFreeListView;
+import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import javafx.scene.layout.VBox;
 
 public class CommandsList extends ScrollScene {
@@ -31,7 +32,7 @@ public class CommandsList extends ScrollScene {
     }
 
     private void addCommands(HandsFreeListView list, HandsFreeContext context) {
-        for(Command command: context.getSpeechRecognizer().getCommands()) {
+        for(Command command : context.getSpeechRecognizer().getCommands()) {
             list.getItems().add(command.getName() + ": " + command.getDescription());
         }
     }

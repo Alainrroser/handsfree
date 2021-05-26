@@ -12,8 +12,6 @@ import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-// It just works!
-//          ~ Todd Howard
 public class VirtualKeyboardLayoutLoader {
 
     private String name;
@@ -40,7 +38,7 @@ public class VirtualKeyboardLayoutLoader {
         reset();
 
         try {
-            for(String line: readLinesFromStream(stream)) {
+            for(String line : readLinesFromStream(stream)) {
                 processLine(line);
             }
 

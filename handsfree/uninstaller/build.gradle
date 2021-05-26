@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'edu.sc.seis.launch4j' version '2.5.0'
+}
+
+group 'ch.bbcag'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.6.0'
+    implementation 'com.github.vatbub:mslinks:1.0.5'
+
+    implementation project(':common')
+}
+
+javafx {
+    modules = ['javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.graphics', 'javafx.swing']
+    mainClassName = 'ch.bbcag.uninstaller.Launcher'
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'ch.bbcag.uninstaller.Launcher'
+    }
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
+
+launch4j {
+    mainClassName = 'ch.bbcag.uninstaller.Launcher'
+    icon = "$projectDir/src/main/resources/icon.ico"
+    manifest = "$projectDir/handsfree.manifest"
+}
+
+test {
+    useJUnitPlatform()
+}

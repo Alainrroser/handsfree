@@ -10,7 +10,8 @@ public class Const {
 
     private static final int V_BOX_PADDING_TOP_BOTTOM = 50;
     private static final int V_BOX_PADDING_RIGHT_LEFT = 100;
-    public static final Insets PADDING = new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT);
+    public static final Insets PADDING = new Insets(Const.V_BOX_PADDING_TOP_BOTTOM, Const.V_BOX_PADDING_RIGHT_LEFT, Const.V_BOX_PADDING_TOP_BOTTOM,
+                                                    Const.V_BOX_PADDING_RIGHT_LEFT);
 
     public static final String SHORTCUT_PATH = System.getProperty("user.home") + "/AppData/HandsFree/shortcuts/";
     public static final String SHORTCUT_FILE_EXTENSION = ".txt";

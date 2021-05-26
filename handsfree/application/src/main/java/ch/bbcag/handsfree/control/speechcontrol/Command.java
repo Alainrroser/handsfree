@@ -1,8 +1,5 @@
 package ch.bbcag.handsfree.control.speechcontrol;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Command {
 
     private String name;

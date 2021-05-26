@@ -2,7 +2,6 @@ package ch.bbcag.handsfree.scenes;
 
 import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeApplication;
-import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.gui.*;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
 import javafx.geometry.Pos;
@@ -14,7 +13,7 @@ import javafx.stage.Stage;
 
 public class ScrollScene extends HandsFreeScene {
 
-    private String title = "";
+    private String title;
 
     public ScrollScene(Stage primaryStage, Region contentRoot, HandsFreeSceneConfiguration configuration, String title) {
         super(primaryStage, contentRoot, configuration);

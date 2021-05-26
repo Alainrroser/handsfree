@@ -5,7 +5,6 @@ import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.scenes.Navigator;
 import ch.bbcag.installer.InstallerApplication;
 import javafx.application.Platform;
-import javafx.scene.image.Image;
 
 public class Start extends InstallerScene {
 

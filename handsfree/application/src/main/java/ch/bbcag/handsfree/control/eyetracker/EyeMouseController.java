@@ -17,7 +17,7 @@ public class EyeMouseController {
 
     public EyeMouseController(HandsFreeContext context) {
         this.context = context;
-//        context.getEyeTracker().addGazeListener(this::controlCursor);
+        context.getEyeTracker().addGazeListener(this::controlCursor);
     }
 
     private void controlCursor(int x, int y) {
@@ -27,12 +27,12 @@ public class EyeMouseController {
             isLeftButtonPressed = false;
             isRightButtonPressed = false;
         } else if(!Tobii.isLeftEyePresent() && !Tobii.isRightEyePresent()) { // Both eyes are closed
-            doLeftClick(x, y);
+            doLeftClick();
         } else if(!Tobii.isRightEyePresent()) { // The right eye is closed
             startRightClick();
         }
 
-        stopRightClick(x, y);
+        stopRightClick();
     }
 
     private void startRightClick() {
@@ -43,20 +43,20 @@ public class EyeMouseController {
         }
     }
 
-    private void stopRightClick(int x, int y) {
+    private void stopRightClick() {
         if(isRightClickTimerRunning && ((System.currentTimeMillis() - startTime) >= 150)) {
-            doRightClick(x, y);
+            doRightClick();
             isRightClickTimerRunning = false;
         }
     }
 
-    private void doRightClick(int x, int y) {
+    private void doRightClick() {
         if(!Tobii.isRightEyePresent() && Tobii.isLeftEyePresent()) {
             context.getRobot().mouseClick(InputEvent.BUTTON3_DOWN_MASK);
         }
     }
 
-    private void doLeftClick(int x, int y) {
+    private void doLeftClick() {
         if(!isLeftButtonPressed) {
             context.getRobot().mouseClick(InputEvent.BUTTON1_DOWN_MASK);
 

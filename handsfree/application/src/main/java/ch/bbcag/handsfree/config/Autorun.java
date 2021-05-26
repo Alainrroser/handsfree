@@ -8,14 +8,14 @@ import java.io.FileWriter;
 import java.net.URI;
 
 public class Autorun {
-    
+
     public static final String AUTORUN_PATH = "\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup";
-    
+
     private static File file;
     private static String path = System.getProperty("user.home") + AUTORUN_PATH + "\\handsfree.bat";
-    
+
     private static boolean hasBeenCreatedBefore = false;
-    
+
     public static void saveToAutorunFolder() {
         try {
             file = new File(path);
@@ -28,7 +28,7 @@ public class Autorun {
             Error.reportCritical(ErrorMessages.AUTORUN, e);
         }
     }
-    
+
     public static void deleteFromAutorunFolder() {
         if(hasBeenCreatedBefore) {
             if(file.exists()) {
@@ -36,7 +36,7 @@ public class Autorun {
             }
         }
     }
-    
+
     private static void writeScript() throws Exception {
         URI jarURI = Autorun.class.getProtectionDomain().getCodeSource().getLocation().toURI();
         File jarFile = new File(jarURI);
@@ -45,5 +45,5 @@ public class Autorun {
         writer.write("java -jar " + jarFile.getName());
         writer.close();
     }
-    
+
 }

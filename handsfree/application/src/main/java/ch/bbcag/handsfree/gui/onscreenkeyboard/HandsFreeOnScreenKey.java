@@ -2,12 +2,12 @@ package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
-import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.control.eyetracker.RegionGazeListener;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.button.HandsFreeButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -26,8 +26,6 @@ public class HandsFreeOnScreenKey extends StackPane {
     private HandsFreeContext context;
     private HandsFreeButton button;
     private HandsFreeOnScreenKeyboard keyboard;
-
-    private RegionGazeListener gazeListener;
 
     public HandsFreeOnScreenKey(VirtualKey key, HandsFreeContext context, HandsFreeOnScreenKeyboard keyboard) {
         this.key = key;
@@ -56,7 +54,7 @@ public class HandsFreeOnScreenKey extends StackPane {
 
     private boolean isOnlyOneLabel() {
         int textCounter = 0;
-        for(String displayText: key.getDisplayTexts()) {
+        for(String displayText : key.getDisplayTexts()) {
             if(!displayText.equals("")) {
                 textCounter++;
             }
@@ -73,7 +71,7 @@ public class HandsFreeOnScreenKey extends StackPane {
         int row = 0;
         int column = 0;
 
-        for(String displayText: key.getDisplayTexts()) {
+        for(String displayText : key.getDisplayTexts()) {
             Label label = new Label(displayText);
             label.setFont(HandsFreeFont.getFont(22));
             label.setTextFill(Colors.FONT);
@@ -116,7 +114,7 @@ public class HandsFreeOnScreenKey extends StackPane {
             }
         });
 
-        gazeListener = new RegionGazeListener(this, 750, (x, y) -> press(false));
+        RegionGazeListener gazeListener = new RegionGazeListener(this, 750, (x, y) -> Platform.runLater(() -> press(false)));
         context.getEyeTracker().addRegionGazeListener(gazeListener);
     }
 

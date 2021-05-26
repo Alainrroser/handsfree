@@ -7,7 +7,7 @@ import javafx.scene.layout.*;
 public class HandsFreeListView extends ListView<String> {
 
     private RightClickCallBack rightClickHandler;
-    
+
     public HandsFreeListView() {
         CornerRadii radii = new CornerRadii(5);
         Insets insets = Insets.EMPTY;
@@ -19,15 +19,15 @@ public class HandsFreeListView extends ListView<String> {
 
         setCellFactory(param -> new HandsFreeListCell(this));
     }
-    
+
     public void setRightClickHandler(RightClickCallBack rightClickHandler) {
         this.rightClickHandler = rightClickHandler;
     }
-    
+
     protected RightClickCallBack getRightClickHandler() {
         return rightClickHandler;
     }
-    
+
     public interface RightClickCallBack {
         void run(String item);
     }

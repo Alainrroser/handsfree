@@ -8,7 +8,8 @@ import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutRecorder;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
-import ch.bbcag.handsfree.gui.*;
+import ch.bbcag.handsfree.gui.HandsFreeListView;
+import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
@@ -122,7 +123,7 @@ public class ShortcutMenu extends ScrollScene {
 
     private boolean checkIfEqualsCommand(String value, HandsFreeContext context) {
         boolean doesNotEqualCommand = true;
-        for(String command: context.getSpeechRecognizer().getCommandsAndShortcuts()) {
+        for(String command : context.getSpeechRecognizer().getCommandsAndShortcuts()) {
             if(command.equals(value)) {
                 doesNotEqualCommand = false;
                 break;
@@ -132,7 +133,7 @@ public class ShortcutMenu extends ScrollScene {
     }
 
     private void addShortcuts(HandsFreeListView list) {
-        for(Shortcut shortcut: shortcutManager.getShortcuts()) {
+        for(Shortcut shortcut : shortcutManager.getShortcuts()) {
             list.getItems().add(shortcut.getName());
         }
     }
