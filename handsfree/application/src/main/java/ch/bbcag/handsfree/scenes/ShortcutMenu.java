@@ -95,7 +95,6 @@ public class ShortcutMenu extends ApplicationScene {
             HandsFreeInputDialog input = new HandsFreeInputDialog("Name", "Enter a name for this shortcut");
             input.setOnOk(value -> {
                 boolean doesNotEqualCommand = checkIfEqualsCommand(value, context);
-
                 checkShortcutName(value, doesNotEqualCommand, list);
             });
             input.setOnCanceled(recorder::stopAndDiscard);
@@ -114,8 +113,10 @@ public class ShortcutMenu extends ApplicationScene {
             Error.reportMinor("Your shortcut contains invalid characters (only letters are allowed)!");
         } else {
             list.addItem(value);
-            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Move files", "Notice that you won't be able to start shortcuts " +
-                                                                                     "if you either move the jar file or the shortcut files");
+            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog(
+                    "Speech Control",
+                    "Notice that you may need to restart the application to start shortcuts with speech control."
+            );
             dialog.show();
             recorder.stopAndSave(value);
         }

@@ -14,8 +14,8 @@
         * Mit den Augen klicken
         * Eye Tracking an- und ausschalten
     * Head Tracking
-        * Bestätigen mit Nicken
-        * Ablehnen mit Kopfschütteln
+        * Bestätigen mit Nicken (drückt die Enter-Taste)
+        * Ablehnen mit Kopfschütteln (drückt die Escape-Taste)
         * Head Tracking an- und ausschalten
     * Speech Control
         * Liste mit Befehlen anzeigen
@@ -50,10 +50,8 @@
         * Auch aufgenommene Shortcuts können nach einem Neustart durch das Aussprechen ihres Namens gestartet werden
     * On-Screen Keyboard
         * Tasten können angeklickt oder angeschaut werden, damit sie gedrückt werden
-        * Man kann normale und auch spezielle Tastenklicks ausführen (Zum Beispiel Shift wird Orange, wenn man es
-          anklickt und der nächste Buchstabe gross)
-        * Man kann spezielle Tasten mit der rechten Maustaste anklicken, um Tastenkombinationen auszuführen, für die man
-          mehr als zwei Klicks braucht (zum Beispiel CTRl+SHIFT+ESC), diese Tasten färben sich dann rot
+        * Tasten, die für Tastenkombinationen verwendet verwendet (Ctrl, Shift, Alt, ...) bleiben gedrückt, bis eine gewöhnliche Taste gedrückt wird
+        * Mit einem Rechtsklick können diese speziellen Tasten runtergedrückt gehalten werden
     * Shortcuts
         * Wenn man vom Einstellungs-Menu in das Shortcuts-Menu wechselt, können dort die Shortcuts verwaltet werden
         * Man kann bestehende starten, neue aufnehmen und schon aufgenommene wieder löschen

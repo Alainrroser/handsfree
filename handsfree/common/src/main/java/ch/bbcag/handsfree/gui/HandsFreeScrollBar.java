@@ -61,6 +61,10 @@ public class HandsFreeScrollBar extends VBox {
     }
 
     private void scroll(double amount) {
+        if(!isVisible()) {
+            return;
+        }
+
         thumb.setTranslateY(thumb.getTranslateY() + amount);
 
         if(thumb.getTranslateY() < 0) {
@@ -87,6 +91,10 @@ public class HandsFreeScrollBar extends VBox {
     }
 
     public void update() {
+        if(contentHeight <= getHeight()) {
+            setVisible(false);
+        }
+
         double height = getHeight() * (getHeight() / contentHeight);
         height = Math.max(height, WIDTH);
 
