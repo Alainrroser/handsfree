@@ -1,9 +1,9 @@
-package ch.bbcag.installer;
+package ch.bbcag.uninstaller;
 
 import ch.bbcag.handsfree.Constants;
 import javafx.geometry.Insets;
 
-public class Const extends Constants {
+public class UninstallerConstants extends Constants {
 
     public static final double WIDTH = 800;
     public static final double HEIGHT = 400;
@@ -16,9 +16,5 @@ public class Const extends Constants {
     public static final Insets BUTTON_PADDING = new Insets(10, 0, 10, 0);
 
     public static final Insets LABEL_MARGIN = new Insets(0, 0, 30, 0);
-
-    public static final String JAR_FILE_NAME = "application-1.0-SNAPSHOT.jar";
-    public static final String EXE_FILE_NAME = "uninstaller.exe";
-    public static final String ICON_NAME = "icon.ico";
 
 }

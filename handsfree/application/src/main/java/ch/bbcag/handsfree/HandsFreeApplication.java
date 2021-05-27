@@ -31,7 +31,7 @@ public class HandsFreeApplication extends Application {
 
         try {
             context = new HandsFreeContext(primaryStage);
-            context.getShortcutManager().readShortcuts(new File(Const.SHORTCUT_FOLDER));
+            context.getShortcutManager().readShortcuts(new File(ApplicationConstants.SHORTCUT_FOLDER));
 
             initGUI();
         } catch(HandsFreeRobotException e) {

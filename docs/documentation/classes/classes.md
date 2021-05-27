@@ -5,7 +5,7 @@
         * Launcher: To start the application
         * HandsFreeApplication: To manage the scene, for example the close- or minimize requests
         * HandsFreeContext: To provide common control elements to other classes
-        * Const: All the common constants
+        * ApplicationConstants: All the common constants from the application
         * Config
             * Autorun: To make the app start on the start of windows
             * Configuration: To save and read the toggle state of the buttons to and from files
@@ -52,6 +52,7 @@
                 * VirtualKeyboardLayout: The layout of the on-screen keyboard
                 * VirtualKeyboardLayoutLoader: To load the keyboard layout from a file
                 * VirtualKeyRow: A row of virtual keys from a keyboard-layout
+                * WordSuggestions: To get the best word suggestions for the word you typed
         * Scenes
             * ApplicationScene: The parent scene with all the common content
             * SceneType: The list of the scenes
@@ -62,6 +63,7 @@
             * NativeLibraryLoader: To load native libraries
             * TemporaryFile: To write to temporary files
 * Common
+    * Constants: All the common constants from the subprojects
     * Error
         * Error: To report errors and amongst other things, write them in log files
     * GUI
@@ -72,6 +74,7 @@
         * HandsFreeLabel: A label in the HandsFreeStyle
         * HandsFreeListCell: A list cell in the HandsFreeStyle
         * HandsFreeListView: A list in the HandsFreeStyle
+        * HandsFreeViewClickListener: To track a click on a cell in a list
         * HandsFreeScene: A scene in the HandsFreeStyle
         * HandsFreeSceneConfiguration: The configuration, for example the title of a scene
         * HandsFreeScrollBar: A scrollbar in the HandsFreeStyle
@@ -89,6 +92,7 @@
             * HandsFreeDialog: The parent dialog with the common things of all the dialogs
             * HandsFreeConfirmDialog: A dialog with two buttons, one to confirm and one to deny
             * HandsFreeInputDialog: A dialog with an input field
+            * HandsFreeInputListener: To track if you, for example, click enter to close the dialog
             * HandsFreeMessageDialog: A dialog with only one button, to close it, to display messages
     * Scenes
         * ISceneType: The parent scene type of all the scene types
@@ -96,7 +100,7 @@
 * Installer
     * Launcher: To start the application
     * InstallerApplication: To manage the scene, for example the close- or minimize requests
-    * Const: All the common constants
+    * InstallerConstants: All the common constants from the installer
     * Error
         * ErrorMessages: All the error messages
     * Scenes
@@ -109,7 +113,7 @@
 * Uninstaller
     * Launcher: To start the application
     * UninstallerApplication: To manage the scene, for example the close- or minimize requests
-    * Const: All the common constants
+    * UninstallerConstants: All the common constants from the uninstaller
     * Error
         * ErrorMessages: All the error messages
     * Scenes

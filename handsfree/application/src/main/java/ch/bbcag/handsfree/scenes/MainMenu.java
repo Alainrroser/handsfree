@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.scenes;
 
-import ch.bbcag.handsfree.Const;
+import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.config.Autorun;
@@ -11,8 +11,6 @@ import ch.bbcag.handsfree.error.SpeechRecognizerException;
 import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeToggleButton;
-import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
-import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -29,8 +27,8 @@ public class MainMenu extends ApplicationScene {
     public MainMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration(), "HandsFree");
 
-        getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
-        getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
+        getContentRoot().setMinSize(ApplicationConstants.WIDTH, ApplicationConstants.HEIGHT);
+        getContentRoot().setMaxSize(ApplicationConstants.WIDTH, ApplicationConstants.HEIGHT);
 
         initGUI(application, context);
     }
@@ -68,10 +66,10 @@ public class MainMenu extends ApplicationScene {
         initToggleSpeechControl(context);
         initToggleOnScreenKeyboard(context);
         initToggleAutorun();
-        toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
-        toggleHeadTracking.setEnabled(Configuration.readConfiguration(Const.HEAD_TRACKING_STATE));
-        toggleSpeechControl.setEnabled(Configuration.readConfiguration(Const.SPEECH_CONTROL_STATE));
-        toggleAutorun.setEnabled(Configuration.readConfiguration(Const.AUTORUN_STATE));
+        toggleEyeTracking.setEnabled(Configuration.readConfiguration(ApplicationConstants.EYE_TRACKING_STATE));
+        toggleHeadTracking.setEnabled(Configuration.readConfiguration(ApplicationConstants.HEAD_TRACKING_STATE));
+        toggleSpeechControl.setEnabled(Configuration.readConfiguration(ApplicationConstants.SPEECH_CONTROL_STATE));
+        toggleAutorun.setEnabled(Configuration.readConfiguration(ApplicationConstants.AUTORUN_STATE));
         hasBeenRead = true;
     }
 

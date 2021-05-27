@@ -4,7 +4,7 @@ import ch.bbcag.handsfree.gui.HandsFreeScene;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
-import ch.bbcag.uninstaller.Const;
+import ch.bbcag.uninstaller.UninstallerConstants;
 import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -27,16 +27,16 @@ public class UninstallerScene extends HandsFreeScene {
     public UninstallerScene(Stage stage, HandsFreeSceneConfiguration configuration) {
         super(stage, new HBox(), configuration);
 
-        getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
-        getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
+        getContentRoot().setMinSize(UninstallerConstants.WIDTH, UninstallerConstants.HEIGHT);
+        getContentRoot().setMaxSize(UninstallerConstants.WIDTH, UninstallerConstants.HEIGHT);
 
         borderPane = new BorderPane();
-        borderPane.setPadding(new Insets(Const.BOX_PADDING_TOP_BOTTOM, Const.BOX_PADDING_RIGHT_LEFT, Const.BOX_PADDING_TOP_BOTTOM,
-                                         Const.BOX_PADDING_RIGHT_LEFT));
+        borderPane.setPadding(new Insets(UninstallerConstants.BOX_PADDING_TOP_BOTTOM, UninstallerConstants.BOX_PADDING_RIGHT_LEFT, UninstallerConstants.BOX_PADDING_TOP_BOTTOM,
+                                         UninstallerConstants.BOX_PADDING_RIGHT_LEFT));
         HBox.setHgrow(borderPane, Priority.ALWAYS);
         ((HBox) getContentRoot()).getChildren().add(borderPane);
 
-        buttonHBox = new HBox(Const.BOX_SPACING);
+        buttonHBox = new HBox(UninstallerConstants.BOX_SPACING);
         buttonHBox.setAlignment(Pos.BOTTOM_RIGHT);
         borderPane.setBottom(buttonHBox);
     }
@@ -50,8 +50,8 @@ public class UninstallerScene extends HandsFreeScene {
         LinearGradient gradient = new LinearGradient(0, 0, 1, 0, true, CycleMethod.NO_CYCLE, stops);
 
         Pane imageContainer = new Pane();
-        imageContainer.setMinWidth(Const.HEIGHT * 0.6);
-        imageContainer.setMinHeight(Const.HEIGHT);
+        imageContainer.setMinWidth(UninstallerConstants.HEIGHT * 0.6);
+        imageContainer.setMinHeight(UninstallerConstants.HEIGHT);
         imageContainer.setBackground(new Background(new BackgroundFill(gradient, null, null)));
 
         ImageView imageView = new ImageView(new Image(Objects.requireNonNull(Start.class.getResourceAsStream("/images/icon128.png"))));
@@ -79,8 +79,8 @@ public class UninstallerScene extends HandsFreeScene {
 
     public void addButton(String text, HandsFreeButtonPalette palette, Runnable onClicked) {
         HandsFreeTextButton button = new HandsFreeTextButton(text);
-        button.setPrefWidth(Const.BUTTON_WIDTH);
-        button.setPadding(Const.BUTTON_PADDING);
+        button.setPrefWidth(UninstallerConstants.BUTTON_WIDTH);
+        button.setPadding(UninstallerConstants.BUTTON_PADDING);
         button.setPalette(palette);
         button.setOnAction(event -> {
             if(onClicked != null) {

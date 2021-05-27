@@ -4,7 +4,7 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
-import ch.bbcag.installer.Const;
+import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.InstallerApplication;
 import ch.bbcag.installer.error.ErrorMessages;
 import javafx.application.Platform;
@@ -33,7 +33,7 @@ public class DirectoryChooser extends InstallerScene {
                 "Select a path where to install the program down below or leave it at the standard path and continue."
         );
         label.setWrapText(true);
-        BorderPane.setMargin(label, Const.LABEL_MARGIN);
+        BorderPane.setMargin(label, InstallerConstants.LABEL_MARGIN);
 
         application.setSelectedPath(new File("C:/Program Files/HandsFree/"));
         directoryText = new HandsFreeLabel(application.getSelectedPath().getAbsolutePath());
@@ -55,14 +55,14 @@ public class DirectoryChooser extends InstallerScene {
         }
 
         HandsFreeTextButton directorySelector = new HandsFreeTextButton("Select...");
-        directorySelector.setPrefWidth(Const.BUTTON_WIDTH);
-        directorySelector.setPadding(Const.BUTTON_PADDING);
+        directorySelector.setPrefWidth(InstallerConstants.BUTTON_WIDTH);
+        directorySelector.setPadding(InstallerConstants.BUTTON_PADDING);
         directorySelector.setOnAction(e -> {
             File chosenPath = directoryChooser.showDialog(application.getPrimaryStage());
             setSelectedPathAndText(application, chosenPath);
         });
 
-        HBox hBox = new HBox(Const.BOX_SPACING, directoryText, directorySelector);
+        HBox hBox = new HBox(InstallerConstants.BOX_SPACING, directoryText, directorySelector);
         hBox.maxHeightProperty().bind(directorySelector.heightProperty());
         hBox.setAlignment(Pos.CENTER_LEFT);
         BorderPane.setAlignment(hBox, Pos.TOP_LEFT);
@@ -101,18 +101,18 @@ public class DirectoryChooser extends InstallerScene {
         try {
             createSelectedPathIfNotCreated(application);
 
-            File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.JAR_FILE_NAME);
+            File targetJarFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + InstallerConstants.JAR_FILE_NAME);
             createFileAndParentFileIfNotCreated(targetJarFile);
 
-            File targetIconFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.ICON_NAME);
+            File targetIconFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + InstallerConstants.ICON_NAME);
             createFileAndParentFileIfNotCreated(targetIconFile);
 
-            File targetExeFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + Const.EXE_FILE_NAME);
+            File targetExeFile = new File(application.getSelectedPath().getAbsolutePath() + "/" + InstallerConstants.EXE_FILE_NAME);
             createFileAndParentFileIfNotCreated(targetExeFile);
 
-            InputStream jarInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.JAR_FILE_NAME);
-            InputStream iconInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.ICON_NAME);
-            InputStream exeInputStream = DirectoryChooser.class.getResourceAsStream("/" + Const.EXE_FILE_NAME);
+            InputStream jarInputStream = DirectoryChooser.class.getResourceAsStream("/" + InstallerConstants.JAR_FILE_NAME);
+            InputStream iconInputStream = DirectoryChooser.class.getResourceAsStream("/" + InstallerConstants.ICON_NAME);
+            InputStream exeInputStream = DirectoryChooser.class.getResourceAsStream("/" + InstallerConstants.EXE_FILE_NAME);
 
             copyFiles(jarInputStream, targetJarFile);
             copyFiles(iconInputStream, targetIconFile);

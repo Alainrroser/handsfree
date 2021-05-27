@@ -72,12 +72,16 @@ Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 * Angemessen dokumentiert
 * Testprotokolle vorhanden und ausgefüllt
 * Von anderen Benutzern getestet
+* Code Style wird eingehalten
+* Code ist aufgeräumt
 ## Fazit
+### Positiv
 Wir konnten alle Ziele, ob obligatorisch oder optional, erfüllen. Die Zusammenarbeit
 lief relativ gut. Beispielsweise war es möglich, dass zwei gleichzeitig an Teilen
 eines Systems arbeiteten, ohne dass sie sich in die Quere kamen oder die Teile nicht
 zusammengeführt werden konnten. Wir haben auch viel Neues gelernt
-(JNI, Launch4J, TestFX, C++, etc.).<br>
+(JNI, Launch4J, TestFX, C++, etc.).
+### Negativ
 Was allerdings nicht so gut lief, war, dass wir
 die Projektstruktur nicht sehr gut geplant haben. So musste das Projekt beispielsweise
 in mehrere Unterprojekte aufgeteilt werden, als wir einen Installer hinzufügen wollten.

@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.config;
 
-import ch.bbcag.handsfree.Const;
+import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
 
@@ -13,16 +13,16 @@ import java.util.Properties;
 public class Configuration {
 
     private static Properties configurations = new Properties();
-    private static File file = new File(Const.CONFIGURATION_FILE);
+    private static File file = new File(ApplicationConstants.CONFIGURATION_FILE);
 
     public static void writeConfiguration(boolean eyeTrackingState, boolean headTrackingState, boolean speechControlState, boolean autorunState) {
         try {
             createFileAndParentsIfNotCreated();
 
-            configurations.put(Const.EYE_TRACKING_STATE, String.valueOf(eyeTrackingState));
-            configurations.put(Const.HEAD_TRACKING_STATE, String.valueOf(headTrackingState));
-            configurations.put(Const.SPEECH_CONTROL_STATE, String.valueOf(speechControlState));
-            configurations.put(Const.AUTORUN_STATE, String.valueOf(autorunState));
+            configurations.put(ApplicationConstants.EYE_TRACKING_STATE, String.valueOf(eyeTrackingState));
+            configurations.put(ApplicationConstants.HEAD_TRACKING_STATE, String.valueOf(headTrackingState));
+            configurations.put(ApplicationConstants.SPEECH_CONTROL_STATE, String.valueOf(speechControlState));
+            configurations.put(ApplicationConstants.AUTORUN_STATE, String.valueOf(autorunState));
 
             FileOutputStream outputStream = new FileOutputStream(file);
             configurations.store(outputStream, "");
