@@ -34,7 +34,7 @@ public class ShortcutMenu extends ApplicationScene {
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
 
         shortcutManager = context.getShortcutManager();
-        recorder = new ShortcutRecorder(shortcutManager);
+        recorder = new ShortcutRecorder(shortcutManager, context.getKeyboard());
 
         initGUI(application, context);
     }

@@ -30,16 +30,22 @@ public class ShortcutReader {
 
     private void processLines(BufferedReader reader) throws IOException {
         String line;
-        boolean firstLine = true;
+        int lineIndex = 0;
         while((line = reader.readLine()) != null) {
-            processLine(line, firstLine);
-            firstLine = false;
+            processLine(line, lineIndex);
+            lineIndex++;
         }
     }
 
-    private void processLine(String line, boolean firstLine) {
-        if(firstLine) {
+    private void processLine(String line, int lineIndex) {
+        if(lineIndex == 0) {
             shortcut.setName(line);
+        } else if(lineIndex == 1) {
+            shortcut.setKeyboardVisible(Boolean.parseBoolean(line));
+        } else if(lineIndex == 2) {
+            shortcut.setKeyboardX(Double.parseDouble(line));
+        } else if(lineIndex == 3) {
+            shortcut.setKeyboardY(Double.parseDouble(line));
         } else {
             String[] components = line.split(";");
             int x = Integer.parseInt(components[0]);

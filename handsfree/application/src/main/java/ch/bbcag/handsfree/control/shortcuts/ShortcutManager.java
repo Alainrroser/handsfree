@@ -63,7 +63,7 @@ public class ShortcutManager {
     public void runShortcut(String name) {
         for(Shortcut shortcut : shortcuts) {
             if(shortcut.getName().equals(name)) {
-                shortcut.run(context.getRobot());
+                shortcut.run(context.getRobot(), context.getKeyboard());
             }
         }
     }

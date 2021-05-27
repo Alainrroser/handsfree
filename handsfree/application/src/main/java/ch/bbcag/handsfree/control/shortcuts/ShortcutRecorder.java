@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
+import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import org.jnativehook.GlobalScreen;
 import org.jnativehook.NativeHookException;
 import org.jnativehook.mouse.NativeMouseAdapter;
@@ -13,6 +14,7 @@ import java.util.logging.LogManager;
 public class ShortcutRecorder {
 
     private ShortcutManager shortcutManager;
+    private HandsFreeOnScreenKeyboard keyboard;
 
     private Shortcut shortcut;
     private boolean running = false;
@@ -20,8 +22,9 @@ public class ShortcutRecorder {
 
     private NativeMouseListener listener;
 
-    public ShortcutRecorder(ShortcutManager shortcutManager) {
+    public ShortcutRecorder(ShortcutManager shortcutManager, HandsFreeOnScreenKeyboard keyboard) {
         this.shortcutManager = shortcutManager;
+        this.keyboard = keyboard;
     }
 
     public void start() {
@@ -98,6 +101,9 @@ public class ShortcutRecorder {
         if(running) {
             stop();
             shortcut.setName(name);
+            shortcut.setKeyboardVisible(keyboard.isShowing());
+            shortcut.setKeyboardX(keyboard.getX());
+            shortcut.setKeyboardY(keyboard.getY());
             shortcutManager.addShortcut(shortcut);
         }
     }

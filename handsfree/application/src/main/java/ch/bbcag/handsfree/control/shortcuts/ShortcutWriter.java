@@ -1,6 +1,7 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
 import ch.bbcag.handsfree.Const;
+import javafx.geometry.Point2D;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -42,6 +43,12 @@ public class ShortcutWriter {
     private void writeFile(File file) throws IOException {
         FileWriter writer = new FileWriter(file, StandardCharsets.UTF_8);
         writer.write(shortcut.getName());
+        writer.write("\n");
+        writer.write(Boolean.toString(shortcut.isKeyboardVisible()));
+        writer.write("\n");
+        writer.write(Double.toString(shortcut.getKeyboardX()));
+        writer.write("\n");
+        writer.write(Double.toString(shortcut.getKeyboardY()));
         writer.write("\n");
         writeClicks(writer);
         writer.close();

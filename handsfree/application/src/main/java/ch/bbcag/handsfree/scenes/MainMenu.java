@@ -18,15 +18,12 @@ import javafx.scene.layout.VBox;
 
 public class MainMenu extends ApplicationScene {
 
-    private HandsFreeOnScreenKeyboard keyboard;
-
     private HandsFreeToggleButton toggleEyeTracking;
     private HandsFreeToggleButton toggleHeadTracking;
     private HandsFreeToggleButton toggleSpeechControl;
     private HandsFreeToggleButton toggleOnScreenKeyboard;
     private HandsFreeToggleButton toggleAutorun;
 
-    private boolean isFirstTime = true;
     private boolean hasBeenRead = false;
 
     public MainMenu(HandsFreeApplication application, HandsFreeContext context) {
@@ -35,7 +32,6 @@ public class MainMenu extends ApplicationScene {
         getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
         getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
 
-        keyboard = new HandsFreeOnScreenKeyboard(context);
         initGUI(application, context);
     }
 
@@ -70,7 +66,7 @@ public class MainMenu extends ApplicationScene {
         initToggleEyeTracking(context);
         initToggleHeadTracking(context);
         initToggleSpeechControl(context);
-        initToggleOnScreenKeyboard();
+        initToggleOnScreenKeyboard(context);
         initToggleAutorun();
         toggleEyeTracking.setEnabled(Configuration.readConfiguration(Const.EYE_TRACKING_STATE));
         toggleHeadTracking.setEnabled(Configuration.readConfiguration(Const.HEAD_TRACKING_STATE));
@@ -103,7 +99,7 @@ public class MainMenu extends ApplicationScene {
                 saveConfiguration();
             }
         });
-        toggleEyeTracking.setOnDisabled(() -> {
+        toggleHeadTracking.setOnDisabled(() -> {
             context.getHeadTracker().stop();
             if(hasBeenRead) {
                 saveConfiguration();
@@ -145,13 +141,13 @@ public class MainMenu extends ApplicationScene {
         }
     }
 
-    private void initToggleOnScreenKeyboard() {
+    private void initToggleOnScreenKeyboard(HandsFreeContext context) {
         toggleOnScreenKeyboard = new HandsFreeToggleButton("On-Screen Keyboard");
         toggleOnScreenKeyboard.setOnEnabled(() -> {
-            keyboard.display();
+            context.getKeyboard().display();
             stage.setIconified(true);
         });
-        toggleOnScreenKeyboard.setOnDisabled(() -> keyboard.hide());
+        toggleOnScreenKeyboard.setOnDisabled(() -> context.getKeyboard().close());
         toggleOnScreenKeyboard.setEnabled(false);
     }
 
@@ -159,7 +155,6 @@ public class MainMenu extends ApplicationScene {
         toggleAutorun = new HandsFreeToggleButton("Autorun");
         toggleAutorun.setOnEnabled(() -> {
             Autorun.saveToAutorunFolder();
-            checkIfFirstTimeTogglingAutorun();
             if(hasBeenRead) {
                 saveConfiguration();
             }
@@ -170,16 +165,6 @@ public class MainMenu extends ApplicationScene {
                 saveConfiguration();
             }
         });
-    }
-
-    private void checkIfFirstTimeTogglingAutorun() {
-        if(isFirstTime && Configuration.readConfiguration(Const.AUTORUN_STATE)) {
-            isFirstTime = false;
-        } else {
-            HandsFreeMessageDialog dialog = new HandsFreeMessageDialog("Autorun", "Notice that autorun won't work anymore if you move or rename the" +
-                                                                                  " application file.");
-            dialog.show();
-        }
     }
 
     private void saveConfiguration() {

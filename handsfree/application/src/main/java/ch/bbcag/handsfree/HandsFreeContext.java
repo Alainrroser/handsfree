@@ -10,6 +10,7 @@ import ch.bbcag.handsfree.control.speechcontrol.SpeechControl;
 import ch.bbcag.handsfree.control.speechcontrol.SpeechRecognizer;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
+import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 
 public class HandsFreeContext {
 
@@ -26,6 +27,8 @@ public class HandsFreeContext {
 
     private ShortcutManager shortcutManager;
 
+    private HandsFreeOnScreenKeyboard keyboard;
+
     public HandsFreeContext() throws HandsFreeRobotException, NativeException {
         robot = new HandsFreeRobot();
 
@@ -39,6 +42,8 @@ public class HandsFreeContext {
         speechControl = new SpeechControl(this);
 
         shortcutManager = new ShortcutManager(this);
+
+        keyboard = new HandsFreeOnScreenKeyboard(this);
     }
 
     public HandsFreeRobot getRobot() {
@@ -71,6 +76,10 @@ public class HandsFreeContext {
 
     public ShortcutManager getShortcutManager() {
         return shortcutManager;
+    }
+
+    public HandsFreeOnScreenKeyboard getKeyboard() {
+        return keyboard;
     }
 
 }

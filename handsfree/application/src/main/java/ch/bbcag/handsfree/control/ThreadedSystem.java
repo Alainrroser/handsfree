@@ -2,13 +2,13 @@ package ch.bbcag.handsfree.control;
 
 public abstract class ThreadedSystem {
 
-    private boolean running;
+    protected boolean running;
 
-    public final boolean isRunning() {
+    public boolean isRunning() {
         return running;
     }
 
-    public final void start() {
+    public void start() {
         this.running = true;
 
         Thread thread = new Thread(this::run);
@@ -16,7 +16,7 @@ public abstract class ThreadedSystem {
         thread.start();
     }
 
-    public final void stop() {
+    public void stop() {
         this.running = false;
     }
 

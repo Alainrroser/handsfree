@@ -80,6 +80,11 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         show(stage);
     }
 
+    public void close() {
+        stage.hide();
+        hide();
+    }
+
     private void tryLoadKeyboardLayout(HandsFreeContext context) {
         try {
             loadKeyboardLayout(context);
