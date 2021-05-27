@@ -66,7 +66,7 @@ public class HandsFreeIconifiedWidget {
         frame.setLocation(
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width - frame.getWidth(),
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height - frame.getHeight()
-        );
+                         );
     }
 
     public void show() {

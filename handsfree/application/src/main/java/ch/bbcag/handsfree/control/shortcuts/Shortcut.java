@@ -1,10 +1,7 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
 import ch.bbcag.handsfree.HandsFreeContext;
-import ch.bbcag.handsfree.control.HandsFreeRobot;
-import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import javafx.application.Platform;
-import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,8 +4,8 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeCheckBox;
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.InstallerApplication;
+import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.error.InstallerErrorMessages;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -38,7 +38,8 @@ public class End extends InstallerScene {
             application.execute();
             if(startAppCheckBox.isSelected()) {
                 try {
-                    ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + InstallerConstants.JAR_FILE_NAME);
+                    ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar",
+                                                                       application.getSelectedPath() + "/" + InstallerConstants.JAR_FILE_NAME);
                     processBuilder.start();
                 } catch(Exception e) {
                     Error.reportMinor(InstallerErrorMessages.APPLICATION_START);

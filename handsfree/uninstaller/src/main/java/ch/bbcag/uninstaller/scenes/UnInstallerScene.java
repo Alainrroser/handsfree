@@ -31,7 +31,8 @@ public class UninstallerScene extends HandsFreeScene {
         getContentRoot().setMaxSize(UninstallerConstants.WIDTH, UninstallerConstants.HEIGHT);
 
         borderPane = new BorderPane();
-        borderPane.setPadding(new Insets(UninstallerConstants.BOX_PADDING_TOP_BOTTOM, UninstallerConstants.BOX_PADDING_RIGHT_LEFT, UninstallerConstants.BOX_PADDING_TOP_BOTTOM,
+        borderPane.setPadding(new Insets(UninstallerConstants.BOX_PADDING_TOP_BOTTOM, UninstallerConstants.BOX_PADDING_RIGHT_LEFT,
+                                         UninstallerConstants.BOX_PADDING_TOP_BOTTOM,
                                          UninstallerConstants.BOX_PADDING_RIGHT_LEFT));
         HBox.setHgrow(borderPane, Priority.ALWAYS);
         ((HBox) getContentRoot()).getChildren().add(borderPane);

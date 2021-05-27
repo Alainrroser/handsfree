@@ -5,7 +5,8 @@ public class ApplicationErrorMessages extends ErrorMessages {
     private static final String TIP_REINSTALL = "Try reinstalling the application.";
 
     public static final String LIBRARY = "Couldn't load dependent library. Try closing all other HandsFree windows or reinstalling the application.";
-    public static final String ROBOT = "The application is not allowed to generate mouse and keyboard input. Please check that your system supports input generation.";
+    public static final String ROBOT = "The application is not allowed to generate mouse and keyboard input. Please check that your system supports" +
+                                       " input generation.";
 
     public static final String KEYBOARD_LAYOUT = "Failed to load keyboard layout.\n" + TIP_REINSTALL;
     public static final String WORD_LIST = "Failed to load word list for suggestions.\n" + TIP_REINSTALL;

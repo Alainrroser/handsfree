@@ -6,8 +6,6 @@ import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import javafx.geometry.Insets;
 import javafx.scene.input.KeyCode;
 
-import java.awt.event.KeyEvent;
-
 public class HandsFreeConfirmDialog extends HandsFreeDialog {
 
     private HandsFreeButton buttonOk;

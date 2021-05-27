@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
-import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ApplicationErrorMessages;
+import ch.bbcag.handsfree.error.Error;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

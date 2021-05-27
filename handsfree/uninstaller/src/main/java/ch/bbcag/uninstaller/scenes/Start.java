@@ -16,9 +16,7 @@ public class Start extends UninstallerScene {
         Navigator navigator = application.getNavigator();
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
-        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> {
-            navigator.navigateTo(SceneType.END);
-        });
+        addButton("Next >", HandsFreeButtonPalette.PRIMARY_PALETTE, () -> navigator.navigateTo(SceneType.END));
     }
 
     private void initGUI() {

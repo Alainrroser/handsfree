@@ -1,8 +1,8 @@
 package ch.bbcag.handsfree.config;
 
 import ch.bbcag.handsfree.ApplicationConstants;
-import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ApplicationErrorMessages;
+import ch.bbcag.handsfree.error.Error;
 
 import java.io.File;
 import java.io.FileInputStream;

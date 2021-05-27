@@ -1,13 +1,10 @@
 <svg width="128" height="128">
-
   <defs>
     <clipPath id="outer-clip">
-      <polygon points="64,0 120,32 120,96 64,128 8,96 8,32"></polygon>
+      <polygon points="64,0 120,32 120,96 64,128 8,96 8,32"/>
     </clipPath>
   </defs>
-    
-  <polygon clip-path="url(#outer-clip)" points="64,0 120,32 120,96 64,128 8,96 8,32" style="fill:none;stroke:#C16324;stroke-width:48"></polygon>
-  <polygon clip-path="url(#outer-clip)" points="64,0 120,32 120,96 64,128 8,96 8,32" style="fill:none;stroke:#FF7130;stroke-width:32"></polygon>
-  <circle cx="64" cy="64" r="16" style="fill:none;stroke:#FF7130;stroke-width:16"></circle>
-
+  <polygon clip-path="url(#outer-clip)" points="64,0 120,32 120,96 64,128 8,96 8,32" style="fill:none;stroke:#C16324;stroke-width:48"/>
+  <polygon clip-path="url(#outer-clip)" points="64,0 120,32 120,96 64,128 8,96 8,32" style="fill:none;stroke:#FF7130;stroke-width:32"/>
+  <circle cx="64" cy="64" r="16" style="fill:none;stroke:#FF7130;stroke-width:16"/>
 </svg>

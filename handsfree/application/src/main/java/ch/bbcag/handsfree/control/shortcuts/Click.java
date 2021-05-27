@@ -9,8 +9,8 @@ public class Click {
 
     private Point position;
 
-    public Click(int key, int time, Point position) {
-        this.button = key;
+    public Click(int button, int time, Point position) {
+        this.button = button;
         this.time = time;
         this.position = position;
     }
