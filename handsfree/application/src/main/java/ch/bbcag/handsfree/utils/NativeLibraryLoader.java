@@ -7,12 +7,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class NativeLibraryLoader {
 
+    private static final List<String> loadedLibraries = new ArrayList<>();
+
     public static void loadLibraryFromResource(String resource) throws NativeException {
+        if(loadedLibraries.contains(resource)) {
+            return;
+        }
+
         try {
             tryLoadLibrary(resource);
+            loadedLibraries.add(resource);
         } catch(IOException e) {
             throw new NativeException(resource, e.getMessage());
         }
