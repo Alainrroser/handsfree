@@ -106,7 +106,6 @@ public class HandsFreeRobot {
 
     public void mouseClick(int buttons) {
         mousePress(buttons);
-        robot.delay(100);
         mouseRelease(buttons);
     }
 

@@ -73,11 +73,14 @@ Das Daily Scrum wird jeweils um 08:30 Uhr durchgeführt
 * Testprotokolle vorhanden und ausgefüllt
 * Von anderen Benutzern getestet
 ## Fazit
-* Positives
-    * Alle Ziele erfüllt
-    * Alle optionalen Ziele erfüllt
-    * Die Zusammenarbeit lief gut
-    * Viel Neues gelernt (JNI, Launch4J, GUI Testing mit TestFX, Unterprojekte in Gradle, etc.)
-* Lessons learned
-    * Bessere Planung, Projektstruktur musste einige Male angepasst werden
-    * Bessere Absprache, beide arbeiteten manchmal an derselben Datei
+Wir konnten alle Ziele, ob obligatorisch oder optional, erfüllen. Die Zusammenarbeit
+lief relativ gut. Beispielsweise war es möglich, dass zwei gleichzeitig an Teilen
+eines Systems arbeiteten, ohne dass sie sich in die Quere kamen oder die Teile nicht
+zusammengeführt werden konnten. Wir haben auch viel Neues gelernt
+(JNI, Launch4J, TestFX, C++, etc.).<br>
+Was allerdings nicht so gut lief, war, dass wir
+die Projektstruktur nicht sehr gut geplant haben. So musste das Projekt beispielsweise
+in mehrere Unterprojekte aufgeteilt werden, als wir einen Installer hinzufügen wollten.
+Auch kam es immer noch gelegentlich vor, dass wir an derselben Datei arbeiteten. Weiterhin
+haben wir manche User Stories nicht gut genug getestet, sodass später in der Entwicklung
+oft noch Bugs auftauchten, deren Behebung viel Zeit kostete.

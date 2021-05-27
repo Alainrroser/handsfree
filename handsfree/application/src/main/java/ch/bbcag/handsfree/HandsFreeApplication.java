@@ -30,7 +30,7 @@ public class HandsFreeApplication extends Application {
         Error.initGlobalExceptionHandler();
 
         try {
-            context = new HandsFreeContext();
+            context = new HandsFreeContext(primaryStage);
             context.getShortcutManager().readShortcuts(new File(Const.SHORTCUT_FOLDER));
 
             initGUI();

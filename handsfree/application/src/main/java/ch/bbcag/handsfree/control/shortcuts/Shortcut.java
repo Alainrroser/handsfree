@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
+import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeRobot;
 import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
 import javafx.application.Platform;
@@ -60,41 +61,45 @@ public class Shortcut {
         this.keyboardY = keyboardY;
     }
 
-    public void run(HandsFreeRobot robot, HandsFreeOnScreenKeyboard keyboard) {
-        wasKeyboardVisibleBeforeRunning = keyboard.isShowing();
+    public void run(HandsFreeContext context) {
+        context.setShortcutRunning(true);
 
-        if(keyboardVisible != keyboard.isShowing()) {
+        wasKeyboardVisibleBeforeRunning = context.getKeyboard().isShowing();
+
+        if(keyboardVisible != context.getKeyboard().isShowing()) {
             if(keyboardVisible) {
-                keyboard.display();
+                context.getKeyboard().display();
             } else {
-                keyboard.close();
+                context.getKeyboard().close();
             }
         }
 
-        keyboard.setX(keyboardX);
-        keyboard.setY(keyboardY);
+        context.getKeyboard().setX(keyboardX);
+        context.getKeyboard().setY(keyboardY);
 
         Thread thread = new Thread(() -> {
             int lastClickTime = 0;
 
             for(Click click : clicks) {
-                robot.delay(click.getTime() - lastClickTime);
-                robot.mouseMoveSmooth((int) click.getPosition().getX(), (int) click.getPosition().getY());
-                robot.delay(100);
-                robot.mouseClick(click.getButton());
+                context.getRobot().delay(click.getTime() - lastClickTime);
+                context.getRobot().mouseMoveSmooth((int) click.getPosition().getX(), (int) click.getPosition().getY());
+                context.getRobot().delay(100);
+                context.getRobot().mouseClick(click.getButton());
 
                 lastClickTime = click.getTime();
             }
 
             Platform.runLater(() -> {
-                if(wasKeyboardVisibleBeforeRunning != keyboard.isShowing()) {
+                if(wasKeyboardVisibleBeforeRunning != context.getKeyboard().isShowing()) {
                     if(wasKeyboardVisibleBeforeRunning) {
-                        keyboard.display();
+                        context.getKeyboard().display();
                     } else {
-                        keyboard.close();
+                        context.getKeyboard().close();
                     }
                 }
             });
+
+            context.setShortcutRunning(false);
         });
         thread.setDaemon(true);
         thread.start();

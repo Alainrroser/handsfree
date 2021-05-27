@@ -11,6 +11,7 @@ import ch.bbcag.handsfree.control.speechcontrol.SpeechRecognizer;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
 import ch.bbcag.handsfree.gui.onscreenkeyboard.HandsFreeOnScreenKeyboard;
+import javafx.stage.Stage;
 
 public class HandsFreeContext {
 
@@ -29,7 +30,9 @@ public class HandsFreeContext {
 
     private HandsFreeOnScreenKeyboard keyboard;
 
-    public HandsFreeContext() throws HandsFreeRobotException, NativeException {
+    private boolean shortcutRunning = false;
+
+    public HandsFreeContext(Stage primaryStage) throws HandsFreeRobotException, NativeException {
         robot = new HandsFreeRobot();
 
         eyeTracker = new EyeTracker();
@@ -41,7 +44,7 @@ public class HandsFreeContext {
         speechRecognizer = new SpeechRecognizer();
         speechControl = new SpeechControl(this);
 
-        shortcutManager = new ShortcutManager(this);
+        shortcutManager = new ShortcutManager(this, primaryStage);
 
         keyboard = new HandsFreeOnScreenKeyboard(this);
     }
@@ -82,4 +85,11 @@ public class HandsFreeContext {
         return keyboard;
     }
 
+    public boolean isShortcutRunning() {
+        return shortcutRunning;
+    }
+
+    public void setShortcutRunning(boolean shortcutRunning) {
+        this.shortcutRunning = shortcutRunning;
+    }
 }

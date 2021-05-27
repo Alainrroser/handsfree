@@ -20,6 +20,10 @@ public class EyeMouseController {
     }
 
     private void controlCursor(GazeEvent event) {
+        if(context.isShortcutRunning()) {
+            return;
+        }
+
         if(event.isLeftEyeOpen() && event.isRightEyeOpen()) { // Both eyes are open
             context.getRobot().mouseMove(event.getX(), event.getY());
 

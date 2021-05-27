@@ -4,6 +4,7 @@ import ch.bbcag.handsfree.Const;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ErrorMessages;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,11 +14,14 @@ import java.util.Objects;
 public class ShortcutManager {
 
     private HandsFreeContext context;
+    private Stage primaryStage;
+
     private boolean notExistingAlready = true;
     private List<Shortcut> shortcuts = new ArrayList<>();
 
-    public ShortcutManager(HandsFreeContext context) {
+    public ShortcutManager(HandsFreeContext context, Stage primaryStage) {
         this.context = context;
+        this.primaryStage = primaryStage;
     }
 
     public List<Shortcut> getShortcuts() {
@@ -61,9 +65,11 @@ public class ShortcutManager {
     }
 
     public void runShortcut(String name) {
+        primaryStage.setIconified(true);
+
         for(Shortcut shortcut : shortcuts) {
             if(shortcut.getName().equals(name)) {
-                shortcut.run(context.getRobot(), context.getKeyboard());
+                shortcut.run(context);
             }
         }
     }
