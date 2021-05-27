@@ -13,7 +13,7 @@ public class Shortcut {
 
     private List<Click> clicks = new ArrayList<>();
 
-    private String name;
+    private String name = "";
 
     private boolean keyboardVisible = false;
     private double keyboardX = 0.0;

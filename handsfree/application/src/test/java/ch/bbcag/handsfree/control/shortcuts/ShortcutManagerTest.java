@@ -31,7 +31,6 @@ class ShortcutManagerTest extends ApplicationTest {
         deleteShortcutFiles();
 
         Shortcut shortcut = new Shortcut();
-        shortcut.setName("Test");
         shortcutManager.addShortcut(shortcut);
 
         Assertions.assertThat(countShortcutFiles()).isEqualTo(1);
