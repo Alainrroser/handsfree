@@ -28,6 +28,7 @@ public class End extends InstallerScene {
 
         HBox checkBoxContainer = new HBox();
         HandsFreeCheckBox startAppCheckBox = new HandsFreeCheckBox("Start the app");
+        startAppCheckBox.setSelected(true);
         checkBoxContainer.getChildren().add(startAppCheckBox);
         checkBoxContainer.setAlignment(Pos.TOP_LEFT);
 

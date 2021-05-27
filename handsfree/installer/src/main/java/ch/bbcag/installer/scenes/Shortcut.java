@@ -33,7 +33,9 @@ public class Shortcut extends InstallerScene {
         BorderPane.setMargin(label, Const.LABEL_MARGIN);
 
         desktopShortcutCheckBox = new HandsFreeCheckBox("Create a desktop shortcut");
+        desktopShortcutCheckBox.setSelected(true);
         startMenuShortcutCheckBox = new HandsFreeCheckBox("Create a start menu shortcut");
+        startMenuShortcutCheckBox.setSelected(true);
         VBox checkBoxHBox = new VBox(Const.BOX_SPACING, desktopShortcutCheckBox, startMenuShortcutCheckBox);
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
