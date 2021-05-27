@@ -91,9 +91,11 @@ public class HandsFreeApplication extends Application {
         new AnimationTimer() {
             @Override
             public void handle(long now) {
-                Window w = Stage.getWindows().stream().filter(Window::isFocused).findFirst().orElse(null);
-                if(w == null) { // No window of this application is focused
-                    primaryStage.setIconified(true);
+                if(primaryStage.isShowing()) {
+                    Window w = Stage.getWindows().stream().filter(Window::isFocused).findFirst().orElse(null);
+                    if(w == null) { // No window of this application is focused
+                        primaryStage.setIconified(true);
+                    }
                 }
             }
         }.start();

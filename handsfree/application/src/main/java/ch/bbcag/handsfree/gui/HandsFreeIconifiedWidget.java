@@ -56,6 +56,7 @@ public class HandsFreeIconifiedWidget {
         stage.show();
         stage.setIconified(false);
         stage.requestFocus();
+
         frame.dispose();
     }
 
