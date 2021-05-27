@@ -1,4 +1,8 @@
 # HandsFree
+## Abstract
+HandsFree ermöglicht es, den Computer ohne Hände zu steuern. Die Maus wird
+durch die Augen ersetzt, die Tastatur durch eine virtuelle und Shortcuts und
+Sprachsteuerung erleichtern regelmässige Aufgaben.
 ## Projektmitarbeiter
 * Yves Peissard (Product Owner)
 * Alain Roser (Team Member)
