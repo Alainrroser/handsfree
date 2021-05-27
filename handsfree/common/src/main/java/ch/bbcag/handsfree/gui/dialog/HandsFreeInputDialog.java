@@ -30,13 +30,13 @@ public class HandsFreeInputDialog extends HandsFreeDialog {
         buttonOk.setOnAction(event -> close());
         buttonOk.setPadding(new Insets(10, 0, 10, 0));
         buttonOk.setPalette(HandsFreeButtonPalette.PRIMARY_PALETTE);
-        getContentBox().setRight(buttonOk);
+        getContentBox().setLeft(buttonOk);
 
         buttonCancel = new HandsFreeTextButton("Nevermind");
         buttonCancel.setPrefWidth(200);
         buttonCancel.setOnAction(event -> close());
         buttonCancel.setPadding(new Insets(10, 0, 10, 0));
-        getContentBox().setLeft(buttonCancel);
+        getContentBox().setRight(buttonCancel);
 
         addKeyListener();
     }
