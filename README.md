@@ -49,10 +49,10 @@
 * [Design](docs/design/design.xd)
 ### Klassendiagramme
 * [Classes](docs/documentation/classes/classes.md)
-* ![Application Diagram](docs/documentation/classes/application.png)
-* ![Common Diagram](docs/documentation/classes/common.png)
-* ![Installer Diagram](docs/documentation/classes/installer.png)
-* ![Uninstaller Diagram](docs/documentation/classes/uninstaller.png)
+* Application ![Application Diagram](docs/documentation/classes/application.png)
+* Common ![Common Diagram](docs/documentation/classes/common.png)
+* Installer ![Installer Diagram](docs/documentation/classes/installer.png)
+* Uninstaller ![Uninstaller Diagram](docs/documentation/classes/uninstaller.png)
 ### Testing
 * Sprint 1
     * [Testkonzept](docs/documentation/testing/sprint_1.md)
