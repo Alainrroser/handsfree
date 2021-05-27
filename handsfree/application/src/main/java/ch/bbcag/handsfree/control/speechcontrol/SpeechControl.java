@@ -29,7 +29,7 @@ public class SpeechControl {
         addCommand(new Command("down", "Down arrow", () -> robot.keyTypeSpecial(KeyEvent.VK_DOWN)));
 
         addCommand(new Command("scroll down", "scrolls down", () -> robot.scrollContinuously(10)));
-        addCommand(new Command("scroll down", "scrolls up", () -> robot.scrollContinuously(-10)));
+        addCommand(new Command("scroll up", "scrolls up", () -> robot.scrollContinuously(-10)));
 
         addCommand(new Command("browser", "starts standard browser", () -> {
             if(Desktop.isDesktopSupported()) {
@@ -81,6 +81,17 @@ public class SpeechControl {
         addCommand(new Command("maximize", "Maximizes window", () -> robot.pressHotkey(91, KeyEvent.VK_UP)));
         addCommand(new Command("minimize", "Minimizes window", () -> robot.pressHotkey(91, KeyEvent.VK_DOWN)));
         addCommand(new Command("screenshot", "Makes screenshot", () -> robot.pressHotkey(91, 0x2C)));
+
+        addCommand(new Command("win one", "Open first taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_1)));
+        addCommand(new Command("win two", "Open second taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_2)));
+        addCommand(new Command("win three", "Open third taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_3)));
+        addCommand(new Command("win four", "Open fourth taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_4)));
+        addCommand(new Command("win five", "Open fifth taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_5)));
+        addCommand(new Command("win six", "Open sixth taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_6)));
+        addCommand(new Command("win seven", "Open seventh taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_7)));
+        addCommand(new Command("win eight", "Open eighth taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_8)));
+        addCommand(new Command("win nine", "Open ninth taskbar app", () -> robot.pressHotkey(91, KeyEvent.VK_9)));
+
 
         addCommand(new Command("select all", "Selects everything", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_A)));
         addCommand(new Command("copy", "Copies selected", () -> robot.pressHotkey(KeyEvent.VK_CONTROL, KeyEvent.VK_C)));
