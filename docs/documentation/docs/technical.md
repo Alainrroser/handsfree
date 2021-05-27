@@ -1,7 +1,15 @@
 # Technische Dokumentation
 * Entwicklungsumgebung
     * Setup
-    * Code Style
+		* IntelliJ für Java-Projekte
+		* Gradle als Build-Tool für Java
+		
+		* CLion für C++-Projekte
+		* Visual Studio Build Tools 2019 als C++-Compiler, Assembler und Linker
+		* CMake als Build-Tool für C++
+	
+		* Git für die Versionsverwaltung
+	* Code Style
         * Keine Lücken zwischen Schlüsselwort und Klammer
             * if() statt
             * if ()
@@ -18,6 +26,7 @@
             * HandsFreeDialog statt nur
             * Dialog
 * Architektur
+	* Die Applikation läuft ausschliesslich auf Windows
     * Genereller Aufbau der Applikation
         * Man hat ein Haupt-Menu wo man folgende Einstellungen treffen kann
             * Eye Tracking an- und ausschalten
@@ -50,7 +59,6 @@
         * ![Commondiagramm](../classes/common.png)
         * ![Installerdiagramm](../classes/installer.png)
         * ![Uninstallerdiagramm](../classes/uninstaller.png)
-
 * Design
     * ![Mockup](../../design/design.png)
         * Das erste Fenster ist das Haupt-Menu
