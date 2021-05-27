@@ -1,8 +1,8 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
-import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ApplicationErrorMessages;
+import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
 import ch.bbcag.handsfree.gui.HandsFreeColors;
 import ch.bbcag.handsfree.gui.WindowDragController;
@@ -29,7 +29,6 @@ public class HandsFreeOnScreenKeyboard extends Popup {
     private List<HandsFreeOnScreenKey> keys = new ArrayList<>();
 
     private WordSuggestions suggestions;
-    private HandsFreeWordSuggestionPanel wordSuggestionPanel;
 
     public HandsFreeOnScreenKeyboard(HandsFreeContext context) {
         stage = new Stage();
@@ -40,11 +39,12 @@ public class HandsFreeOnScreenKeyboard extends Popup {
 
         VBox rootPane = new VBox(50);
         rootPane.setBackground(new Background(new BackgroundFill(HandsFreeColors.BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
-        rootPane.setBorder(new Border(new BorderStroke(HandsFreeColors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+        rootPane.setBorder(new Border(new BorderStroke(HandsFreeColors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY,
+                                                       new BorderWidths(2))));
         rootPane.setPadding(new Insets(20));
 
         suggestions = new WordSuggestions();
-        wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context, suggestions);
+        HandsFreeWordSuggestionPanel wordSuggestionPanel = new HandsFreeWordSuggestionPanel(context, suggestions);
         rootPane.getChildren().add(wordSuggestionPanel);
 
         pane = new Pane();

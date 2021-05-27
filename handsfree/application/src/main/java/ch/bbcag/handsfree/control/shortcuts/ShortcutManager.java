@@ -2,8 +2,8 @@ package ch.bbcag.handsfree.control.shortcuts;
 
 import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.HandsFreeContext;
-import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ApplicationErrorMessages;
+import ch.bbcag.handsfree.error.Error;
 import javafx.stage.Stage;
 
 import java.io.*;

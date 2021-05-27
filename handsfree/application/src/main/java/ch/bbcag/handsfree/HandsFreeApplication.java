@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree;
 
-import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ApplicationErrorMessages;
+import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
 import ch.bbcag.handsfree.gui.HandsFreeIconifiedWidget;

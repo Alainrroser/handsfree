@@ -31,7 +31,8 @@ public class InstallerScene extends HandsFreeScene {
         getContentRoot().setMaxSize(InstallerConstants.WIDTH, InstallerConstants.HEIGHT);
 
         borderPane = new BorderPane();
-        borderPane.setPadding(new Insets(InstallerConstants.BOX_PADDING_TOP_BOTTOM, InstallerConstants.BOX_PADDING_RIGHT_LEFT, InstallerConstants.BOX_PADDING_TOP_BOTTOM,
+        borderPane.setPadding(new Insets(InstallerConstants.BOX_PADDING_TOP_BOTTOM, InstallerConstants.BOX_PADDING_RIGHT_LEFT,
+                                         InstallerConstants.BOX_PADDING_TOP_BOTTOM,
                                          InstallerConstants.BOX_PADDING_RIGHT_LEFT));
         HBox.setHgrow(borderPane, Priority.ALWAYS);
         ((HBox) getContentRoot()).getChildren().add(borderPane);

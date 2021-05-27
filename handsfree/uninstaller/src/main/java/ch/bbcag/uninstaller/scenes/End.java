@@ -2,8 +2,8 @@ package ch.bbcag.uninstaller.scenes;
 
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.uninstaller.UninstallerConstants;
 import ch.bbcag.uninstaller.UninstallerApplication;
+import ch.bbcag.uninstaller.UninstallerConstants;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 

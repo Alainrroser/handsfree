@@ -10,7 +10,8 @@ public class ApplicationConstants extends Constants {
 
     private static final int V_BOX_PADDING_TOP_BOTTOM = 50;
     private static final int V_BOX_PADDING_RIGHT_LEFT = 100;
-    public static final Insets PADDING = new Insets(ApplicationConstants.V_BOX_PADDING_TOP_BOTTOM, ApplicationConstants.V_BOX_PADDING_RIGHT_LEFT, ApplicationConstants.V_BOX_PADDING_TOP_BOTTOM,
+    public static final Insets PADDING = new Insets(ApplicationConstants.V_BOX_PADDING_TOP_BOTTOM, ApplicationConstants.V_BOX_PADDING_RIGHT_LEFT,
+                                                    ApplicationConstants.V_BOX_PADDING_TOP_BOTTOM,
                                                     ApplicationConstants.V_BOX_PADDING_RIGHT_LEFT);
 
     public static final String EYE_TRACKING_STATE = "Eye_Tracking_State";
