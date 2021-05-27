@@ -4,12 +4,16 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
 import ch.bbcag.handsfree.scenes.Navigator;
+import ch.bbcag.uninstaller.error.ErrorMessages;
 import ch.bbcag.uninstaller.scenes.End;
 import ch.bbcag.uninstaller.scenes.SceneType;
 import ch.bbcag.uninstaller.scenes.Start;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.io.IOException;
 
 public class UninstallerApplication extends Application {
 
@@ -55,5 +59,30 @@ public class UninstallerApplication extends Application {
 
     public HandsFreeSceneConfiguration getConfiguration() {
         return configuration;
+    }
+
+    public void execute() {
+        try {
+            deleteFileOrFolderIfExists(new File("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\HandsFree.lnk"));
+            deleteFileOrFolderIfExists(new File(System.getProperty("user.home") + "\\Desktop\\HandsFree.lnk"));
+            deleteFolder(new File(System.getProperty("user.home") + "/AppData/Local/HandsFree"));
+            deleteFolder(new File(End.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile());
+        } catch(Exception e) {
+            Error.reportMinor(ErrorMessages.DELETE);
+        }
+
+    }
+
+    private void deleteFolder(File folder) throws IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder("cmd", "/c", "ping", "localhost", "-n", "6", ">", "nul", "&&", "rmdir",
+                                                           folder.getAbsolutePath(), "/S", "/Q");
+        processBuilder.directory(new File(folder.getParentFile().getAbsolutePath()));
+        processBuilder.start();
+    }
+
+    private void deleteFileOrFolderIfExists(File file) {
+        if(file.exists()) {
+            file.delete();
+        }
     }
 }
