@@ -2,7 +2,7 @@ package ch.bbcag.uninstaller.scenes;
 
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.uninstaller.Const;
+import ch.bbcag.uninstaller.UninstallerConstants;
 import ch.bbcag.uninstaller.UninstallerApplication;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
@@ -20,7 +20,7 @@ public class End extends UninstallerScene {
                                                   "You can still make the right decision and cancel the uninstallation below... \n But if you " +
                                                   "really want to continue, click finish and all your files get deleted.");
         label.setWrapText(true);
-        BorderPane.setMargin(label, Const.LABEL_MARGIN);
+        BorderPane.setMargin(label, UninstallerConstants.LABEL_MARGIN);
 
         addButton("Cancel", HandsFreeButtonPalette.DEFAULT_PALETTE, Platform::exit);
         addButton("< Back", HandsFreeButtonPalette.DEFAULT_PALETTE, () -> application.getNavigator().navigateTo(SceneType.START));

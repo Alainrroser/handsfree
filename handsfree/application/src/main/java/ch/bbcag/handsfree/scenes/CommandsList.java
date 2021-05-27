@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.scenes;
 
-import ch.bbcag.handsfree.Const;
+import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.speechcontrol.Command;
@@ -13,8 +13,8 @@ public class CommandsList extends ApplicationScene {
     public CommandsList(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration(), "Commands List");
 
-        getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
-        getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
+        getContentRoot().setMinSize(ApplicationConstants.WIDTH, ApplicationConstants.HEIGHT);
+        getContentRoot().setMaxSize(ApplicationConstants.WIDTH, ApplicationConstants.HEIGHT);
 
         initGUI(application, context);
     }

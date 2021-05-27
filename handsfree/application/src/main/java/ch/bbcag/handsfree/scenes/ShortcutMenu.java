@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.scenes;
 
-import ch.bbcag.handsfree.Const;
+import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.shortcuts.Shortcut;
@@ -30,8 +30,8 @@ public class ShortcutMenu extends ApplicationScene {
     public ShortcutMenu(HandsFreeApplication application, HandsFreeContext context) {
         super(application.getPrimaryStage(), new HandsFreeScrollPane(), application.getConfiguration(), "Shortcuts");
 
-        getContentRoot().setMinSize(Const.WIDTH, Const.HEIGHT);
-        getContentRoot().setMaxSize(Const.WIDTH, Const.HEIGHT);
+        getContentRoot().setMinSize(ApplicationConstants.WIDTH, ApplicationConstants.HEIGHT);
+        getContentRoot().setMaxSize(ApplicationConstants.WIDTH, ApplicationConstants.HEIGHT);
 
         shortcutManager = context.getShortcutManager();
         recorder = new ShortcutRecorder(shortcutManager, context.getKeyboard());

@@ -4,7 +4,7 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeCheckBox;
 import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
-import ch.bbcag.installer.Const;
+import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.InstallerApplication;
 import ch.bbcag.installer.error.ErrorMessages;
 import javafx.application.Platform;
@@ -24,7 +24,7 @@ public class End extends InstallerScene {
         HandsFreeLabel label = new HandsFreeLabel("That was the last step.\n" +
                                                   "You can select down below if you want to start the app and if it is nothing else, enjoy!");
         label.setWrapText(true);
-        BorderPane.setMargin(label, Const.LABEL_MARGIN);
+        BorderPane.setMargin(label, InstallerConstants.LABEL_MARGIN);
 
         HBox checkBoxContainer = new HBox();
         HandsFreeCheckBox startAppCheckBox = new HandsFreeCheckBox("Start the app");
@@ -38,7 +38,7 @@ public class End extends InstallerScene {
             application.execute();
             if(startAppCheckBox.isSelected()) {
                 try {
-                    ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + Const.JAR_FILE_NAME);
+                    ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + InstallerConstants.JAR_FILE_NAME);
                     processBuilder.start();
                 } catch(Exception e) {
                     Error.reportMinor(ErrorMessages.APPLICATION_START);

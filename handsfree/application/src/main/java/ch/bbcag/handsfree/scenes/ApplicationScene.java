@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.scenes;
 
-import ch.bbcag.handsfree.Const;
+import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.HandsFreeApplication;
 import ch.bbcag.handsfree.gui.*;
 import ch.bbcag.handsfree.gui.button.HandsFreeIconButton;
@@ -22,8 +22,8 @@ public class ApplicationScene extends HandsFreeScene {
 
     protected VBox initVBox() {
         VBox vBox = new VBox();
-        vBox.setSpacing(Const.V_BOX_SPACING);
-        vBox.setPadding(Const.PADDING);
+        vBox.setSpacing(ApplicationConstants.V_BOX_SPACING);
+        vBox.setPadding(ApplicationConstants.PADDING);
         vBox.setMaxHeight(Double.MAX_VALUE);
         return vBox;
     }

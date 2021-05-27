@@ -1,7 +1,6 @@
 package ch.bbcag.handsfree.control.shortcuts;
 
-import ch.bbcag.handsfree.Const;
-import javafx.geometry.Point2D;
+import ch.bbcag.handsfree.ApplicationConstants;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -27,7 +26,7 @@ public class ShortcutWriter {
     }
 
     private String getFilename() {
-        return UUID.randomUUID() + Const.SHORTCUT_FILE_EXTENSION;
+        return UUID.randomUUID() + ApplicationConstants.SHORTCUT_FILE_EXTENSION;
     }
 
     private void createFileAndParentsIfNotCreated(File file) throws IOException {
