@@ -26,7 +26,6 @@ Sprachsteuerung erleichtern regelmässige Aufgaben.
 * [2021-05-21](docs/journals/alain/2021-05-21.md)
 * [2021-05-26](docs/journals/alain/2021-05-26.md)
 * [2021-05-27](docs/journals/alain/2021-05-27.md)
-* [2021-05-28](docs/journals/alain/2021-05-28.md)
 ### Marino von Wattenwyl
 * [2021-04-19](docs/journals/marino/2021-04-19.md)
 * [2021-04-20](docs/journals/marino/2021-04-20.md)
@@ -45,7 +44,6 @@ Sprachsteuerung erleichtern regelmässige Aufgaben.
 * [2021-05-21](docs/journals/marino/2021-05-21.md)
 * [2021-05-26](docs/journals/marino/2021-05-26.md)
 * [2021-05-27](docs/journals/marino/2021-05-27.md)
-* [2021-05-28](docs/journals/marino/2021-05-28.md)
 ## Dokumentation
 * [Benutzerhandbuch](docs/documentation/docs/usermanual.md)
 * [Technische Dokumentation](docs/documentation/docs/technical.md)
