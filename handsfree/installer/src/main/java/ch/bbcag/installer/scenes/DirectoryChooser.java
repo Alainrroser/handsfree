@@ -6,7 +6,7 @@ import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
 import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.InstallerApplication;
-import ch.bbcag.installer.error.ErrorMessages;
+import ch.bbcag.installer.error.InstallerErrorMessages;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
@@ -118,7 +118,7 @@ public class DirectoryChooser extends InstallerScene {
             copyFiles(iconInputStream, targetIconFile);
             copyFiles(exeInputStream, targetExeFile);
         } catch(IOException e) {
-            Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
+            Error.reportMinor(InstallerErrorMessages.MISSING_PRIVILEGES);
         }
 
     }

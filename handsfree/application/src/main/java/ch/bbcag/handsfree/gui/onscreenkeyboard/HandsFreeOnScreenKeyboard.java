@@ -2,7 +2,7 @@ package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
 import ch.bbcag.handsfree.gui.Colors;
 import ch.bbcag.handsfree.gui.WindowDragController;
@@ -13,10 +13,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +85,7 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         try {
             loadKeyboardLayout(context);
         } catch(KeyboardLoadingException e) {
-            Error.reportCritical(ErrorMessages.KEYBOARD_LAYOUT, e);
+            Error.reportCritical(ApplicationErrorMessages.KEYBOARD_LAYOUT, e);
         }
     }
 

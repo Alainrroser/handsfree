@@ -1,9 +1,7 @@
 package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -27,7 +25,7 @@ public class WordSuggestions {
         try {
             loadAllWordsFromFile();
         } catch(IOException e) {
-            Error.reportCritical(ErrorMessages.WORD_LIST, e);
+            Error.reportCritical(ApplicationErrorMessages.WORD_LIST, e);
         }
     }
 

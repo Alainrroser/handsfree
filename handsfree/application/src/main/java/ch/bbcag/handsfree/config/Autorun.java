@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree.config;
 
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -25,7 +25,7 @@ public class Autorun {
             hasBeenCreatedBefore = true;
             writeScript();
         } catch(Exception e) {
-            Error.reportCritical(ErrorMessages.AUTORUN, e);
+            Error.reportCritical(ApplicationErrorMessages.AUTORUN, e);
         }
     }
 

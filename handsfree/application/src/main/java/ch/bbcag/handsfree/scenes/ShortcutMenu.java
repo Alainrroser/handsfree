@@ -7,7 +7,7 @@ import ch.bbcag.handsfree.control.shortcuts.Shortcut;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutManager;
 import ch.bbcag.handsfree.control.shortcuts.ShortcutRecorder;
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import ch.bbcag.handsfree.gui.HandsFreeListView;
 import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
@@ -86,7 +86,7 @@ public class ShortcutMenu extends ApplicationScene {
             context.getSpeechRecognizer().removeListener(list.getSelectedItem());
             list.removeItem(list.getSelectedItem());
         } catch(IOException e) {
-            Error.reportMinor(ErrorMessages.DELETE_SHORTCUT);
+            Error.reportMinor(ApplicationErrorMessages.DELETE_SHORTCUT);
         }
     }
 

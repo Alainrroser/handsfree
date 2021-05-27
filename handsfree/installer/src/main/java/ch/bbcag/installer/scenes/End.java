@@ -6,7 +6,7 @@ import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.InstallerApplication;
-import ch.bbcag.installer.error.ErrorMessages;
+import ch.bbcag.installer.error.InstallerErrorMessages;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.layout.BorderPane;
@@ -41,7 +41,7 @@ public class End extends InstallerScene {
                     ProcessBuilder processBuilder = new ProcessBuilder("java", "-jar", application.getSelectedPath() + "/" + InstallerConstants.JAR_FILE_NAME);
                     processBuilder.start();
                 } catch(Exception e) {
-                    Error.reportMinor(ErrorMessages.APPLICATION_START);
+                    Error.reportMinor(InstallerErrorMessages.APPLICATION_START);
                 }
             }
             Platform.exit();

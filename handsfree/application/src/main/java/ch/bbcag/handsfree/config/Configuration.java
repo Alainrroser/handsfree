@@ -2,7 +2,7 @@ package ch.bbcag.handsfree.config;
 
 import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,7 +28,7 @@ public class Configuration {
             configurations.store(outputStream, "");
             outputStream.close();
         } catch(Exception e) {
-            Error.reportCritical(ErrorMessages.SAVE_CONFIGURATION, e);
+            Error.reportCritical(ApplicationErrorMessages.SAVE_CONFIGURATION, e);
         }
     }
 
@@ -43,7 +43,7 @@ public class Configuration {
                 writeConfiguration(false, false, false, false);
             }
         } catch(IOException e) {
-            Error.reportCritical(ErrorMessages.LOAD_CONFIGURATION, e);
+            Error.reportCritical(ApplicationErrorMessages.LOAD_CONFIGURATION, e);
         }
 
     }
@@ -57,7 +57,7 @@ public class Configuration {
             String value = (String) configurations.get(key);
             return "true".equals(value);
         } catch(Exception e) {
-            Error.reportCritical(ErrorMessages.LOAD_CONFIGURATION, e);
+            Error.reportCritical(ApplicationErrorMessages.LOAD_CONFIGURATION, e);
         }
 
         return false;

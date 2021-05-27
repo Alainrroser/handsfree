@@ -6,7 +6,7 @@ import ch.bbcag.handsfree.gui.HandsFreeLabel;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
 import ch.bbcag.installer.InstallerConstants;
 import ch.bbcag.installer.InstallerApplication;
-import ch.bbcag.installer.error.ErrorMessages;
+import ch.bbcag.installer.error.InstallerErrorMessages;
 import javafx.application.Platform;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -58,9 +58,9 @@ public class Shortcut extends InstallerScene {
             try {
                 shortcut.saveTo(System.getProperty("user.home") + "/Desktop/HandsFree.lnk");
             } catch(AccessDeniedException e) {
-                Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
+                Error.reportMinor(InstallerErrorMessages.MISSING_PRIVILEGES);
             } catch(Exception e) {
-                Error.reportMinor(ErrorMessages.DESKTOP_SHORTCUT);
+                Error.reportMinor(InstallerErrorMessages.DESKTOP_SHORTCUT);
             }
         }
     }
@@ -70,9 +70,9 @@ public class Shortcut extends InstallerScene {
             try {
                 shortcut.saveTo("C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\HandsFree.lnk");
             } catch(AccessDeniedException e) {
-                Error.reportMinor(ErrorMessages.MISSING_PRIVILEGES);
+                Error.reportMinor(InstallerErrorMessages.MISSING_PRIVILEGES);
             } catch(Exception e) {
-                Error.reportMinor(ErrorMessages.START_MENU_SHORTCUT);
+                Error.reportMinor(InstallerErrorMessages.START_MENU_SHORTCUT);
             }
         }
     }

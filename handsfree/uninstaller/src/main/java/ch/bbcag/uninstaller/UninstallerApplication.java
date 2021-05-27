@@ -4,7 +4,7 @@ import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeConfirmDialog;
 import ch.bbcag.handsfree.scenes.Navigator;
-import ch.bbcag.uninstaller.error.ErrorMessages;
+import ch.bbcag.uninstaller.error.UninstallerErrorMessages;
 import ch.bbcag.uninstaller.scenes.End;
 import ch.bbcag.uninstaller.scenes.SceneType;
 import ch.bbcag.uninstaller.scenes.Start;
@@ -68,7 +68,7 @@ public class UninstallerApplication extends Application {
             deleteFolder(new File(System.getProperty("user.home") + "/AppData/Local/HandsFree"));
             deleteFolder(new File(End.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile());
         } catch(Exception e) {
-            Error.reportMinor(ErrorMessages.DELETE);
+            Error.reportMinor(UninstallerErrorMessages.DELETE);
         }
 
     }

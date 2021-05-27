@@ -13,11 +13,10 @@ import java.util.Date;
 public class Error {
 
     private static final File LOG_FILE = new File(Constants.LOG_FILE);
-    public static final String UNKNOWN_ERROR = "An unknown error has occurred.";
 
     public static void initGlobalExceptionHandler() {
         Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            reportCritical(UNKNOWN_ERROR, throwable);
+            reportCritical(ErrorMessages.UNKNOWN_ERROR, throwable);
             throwable.printStackTrace();
         });
     }

@@ -1,7 +1,7 @@
 package ch.bbcag.handsfree;
 
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import ch.bbcag.handsfree.error.HandsFreeRobotException;
 import ch.bbcag.handsfree.error.NativeException;
 import ch.bbcag.handsfree.gui.HandsFreeIconifiedWidget;
@@ -35,9 +35,9 @@ public class HandsFreeApplication extends Application {
 
             initGUI();
         } catch(HandsFreeRobotException e) {
-            Error.reportCritical(ErrorMessages.ROBOT, e);
+            Error.reportCritical(ApplicationErrorMessages.ROBOT, e);
         } catch(NativeException e) {
-            Error.reportCritical(ErrorMessages.LIBRARY, e);
+            Error.reportCritical(ApplicationErrorMessages.LIBRARY, e);
         }
     }
 

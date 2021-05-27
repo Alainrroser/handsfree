@@ -1,6 +1,8 @@
 package ch.bbcag.installer.error;
 
-public class ErrorMessages {
+import ch.bbcag.handsfree.error.ErrorMessages;
+
+public class InstallerErrorMessages extends ErrorMessages {
 
     public static final String APPLICATION_START = "The application couldn't be started";
 

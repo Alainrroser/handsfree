@@ -3,7 +3,7 @@ package ch.bbcag.handsfree.control.shortcuts;
 import ch.bbcag.handsfree.ApplicationConstants;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -35,7 +35,7 @@ public class ShortcutManager {
             writer.write(shortcut, new File(ApplicationConstants.SHORTCUT_FOLDER));
             context.getSpeechRecognizer().addListener(shortcut.getName(), () -> runShortcut(shortcut.getName()));
         } catch(IOException e) {
-            Error.reportCritical(ErrorMessages.WRITE_SHORTCUT, e);
+            Error.reportCritical(ApplicationErrorMessages.WRITE_SHORTCUT, e);
         }
     }
 
@@ -89,7 +89,7 @@ public class ShortcutManager {
             getShortcuts().add(shortcut);
             context.getSpeechControl().addListenerForShortcut(shortcut.getName());
         } catch(IOException e) {
-            Error.reportCritical(ErrorMessages.READ_SHORTCUT, e);
+            Error.reportCritical(ApplicationErrorMessages.READ_SHORTCUT, e);
         }
     }
 

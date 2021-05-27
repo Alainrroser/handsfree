@@ -6,7 +6,7 @@ import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.config.Autorun;
 import ch.bbcag.handsfree.config.Configuration;
 import ch.bbcag.handsfree.error.Error;
-import ch.bbcag.handsfree.error.ErrorMessages;
+import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import ch.bbcag.handsfree.error.SpeechRecognizerException;
 import ch.bbcag.handsfree.gui.HandsFreeScrollPane;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
@@ -125,7 +125,7 @@ public class MainMenu extends ApplicationScene {
         if(context.getSpeechRecognizer().isSupported()) {
             startSpeechRecognizer(context);
         } else {
-            Error.reportMinor(ErrorMessages.NO_MICROPHONE);
+            Error.reportMinor(ApplicationErrorMessages.NO_MICROPHONE);
             toggleSpeechControl.setEnabledWithoutTriggering(false);
         }
     }

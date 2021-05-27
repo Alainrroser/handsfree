@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.error;
 
-public class ErrorMessages {
+public class ApplicationErrorMessages extends ErrorMessages {
 
     private static final String TIP_REINSTALL = "Try reinstalling the application.";
 
