@@ -69,7 +69,7 @@
 		* ErrorMessages: All the common error messages for the subprojects
 	* GUI
         * WindowDragController: Can be attached to a window to make it draggable
-        * Colors: Constants for all the colors
+        * HandsFreeColors: Constants for all the colors
         * HandsFreeFont: Generates fonts of a certain size and with the HandsFree font family
         * HandsFreeCheckBox: A checkbox in the HandsFree style
         * HandsFreeLabel: A label in the HandsFree style

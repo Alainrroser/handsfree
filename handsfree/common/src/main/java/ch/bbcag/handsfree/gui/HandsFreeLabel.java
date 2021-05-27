@@ -8,7 +8,7 @@ public class HandsFreeLabel extends Label {
         super(text);
 
         setFont(HandsFreeFont.getFont(25.0));
-        setTextFill(Colors.FONT);
+        setTextFill(HandsFreeColors.FONT);
     }
 
 }

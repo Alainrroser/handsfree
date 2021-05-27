@@ -55,7 +55,7 @@ public class ApplicationScene extends HandsFreeScene {
         HBox hBoxTitle = new HBox();
         Label title = new Label(this.title);
         title.setFont(HandsFreeFont.getFont(30));
-        title.setTextFill(Colors.FONT);
+        title.setTextFill(HandsFreeColors.FONT);
         hBoxTitle.getChildren().add(title);
         hBoxTitle.setAlignment(Pos.CENTER);
         return hBoxTitle;

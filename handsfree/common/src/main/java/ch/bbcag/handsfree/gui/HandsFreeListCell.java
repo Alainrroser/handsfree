@@ -2,8 +2,6 @@ package ch.bbcag.handsfree.gui;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
@@ -18,7 +16,7 @@ public class HandsFreeListCell extends Label {
         this.item = item;
 
         setFont(HandsFreeFont.getFont(25));
-        setTextFill(Colors.FONT);
+        setTextFill(HandsFreeColors.FONT);
         setPadding(new Insets(0, 0, 0, 10));
         setPrefHeight(HEIGHT);
         setMaxWidth(Double.MAX_VALUE);
@@ -51,7 +49,7 @@ public class HandsFreeListCell extends Label {
 
     private void update() {
         setText(item);
-        Color color = selected ? Colors.LIST_CELL_SELECTED : Colors.LIST_CELL;
+        Color color = selected ? HandsFreeColors.LIST_CELL_SELECTED : HandsFreeColors.LIST_CELL;
         setBackground(new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY)));
     }
 

@@ -2,20 +2,14 @@ package ch.bbcag.handsfree.gui.onscreenkeyboard;
 
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
-import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeColors;
 import ch.bbcag.handsfree.gui.button.HandsFreeTextButton;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 
 import java.awt.event.KeyEvent;
-import java.util.List;
 
 public class HandsFreeWordSuggestionPanel extends HBox {
 
@@ -29,7 +23,7 @@ public class HandsFreeWordSuggestionPanel extends HBox {
 
         setMinHeight(HandsFreeOnScreenKey.SCALE);
         setMaxHeight(HandsFreeOnScreenKey.SCALE);
-        setBackground(new Background(new BackgroundFill(Colors.PANEL_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
+        setBackground(new Background(new BackgroundFill(HandsFreeColors.PANEL_BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
 
         suggestionHBox = new HBox(5);
         suggestionHBox.setAlignment(Pos.CENTER);

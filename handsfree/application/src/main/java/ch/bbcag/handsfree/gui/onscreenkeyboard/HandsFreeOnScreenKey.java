@@ -3,7 +3,7 @@ package ch.bbcag.handsfree.gui.onscreenkeyboard;
 import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.control.HandsFreeKeyCodes;
 import ch.bbcag.handsfree.control.eyetracker.RegionGazeListener;
-import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeColors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.button.HandsFreeButton;
 import ch.bbcag.handsfree.gui.button.HandsFreeButtonPalette;
@@ -76,7 +76,7 @@ public class HandsFreeOnScreenKey extends StackPane {
         for(String displayText : key.getDisplayTexts()) {
             Label label = new Label(displayText);
             label.setFont(HandsFreeFont.getFont(22));
-            label.setTextFill(Colors.FONT);
+            label.setTextFill(HandsFreeColors.FONT);
             label.setMouseTransparent(true);
             label.setAlignment(Pos.CENTER);
             label.setMinWidth(SCALE * key.getWidth() * 0.5);
@@ -94,7 +94,7 @@ public class HandsFreeOnScreenKey extends StackPane {
     private void createSingleLabel() {
         Label label = new Label(key.getDisplayTexts()[0]);
         label.setFont(HandsFreeFont.getFont(22));
-        label.setTextFill(Colors.FONT);
+        label.setTextFill(HandsFreeColors.FONT);
         label.setMouseTransparent(true);
         label.setPadding(new Insets(5, 0, 0, 10));
         label.setAlignment(Pos.TOP_LEFT);

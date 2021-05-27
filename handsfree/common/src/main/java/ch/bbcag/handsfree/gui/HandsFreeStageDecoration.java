@@ -28,7 +28,7 @@ public class HandsFreeStageDecoration extends BorderPane {
     public HandsFreeStageDecoration(Stage stage, HandsFreeSceneConfiguration configuration) {
         setMinHeight(HEIGHT);
         setMaxHeight(HEIGHT);
-        setBackground(new Background(new BackgroundFill(Colors.BUTTON, null, null)));
+        setBackground(new Background(new BackgroundFill(HandsFreeColors.BUTTON, null, null)));
 
         HBox leftBox = new HBox(10);
         leftBox.setPadding(new Insets(0, 0, 0, 10));
@@ -61,7 +61,7 @@ public class HandsFreeStageDecoration extends BorderPane {
 
         Label title = new Label(configuration.getTitle());
         title.setFont(HandsFreeFont.getFont(20));
-        title.setTextFill(Colors.FONT);
+        title.setTextFill(HandsFreeColors.FONT);
         leftBox.getChildren().add(title);
 
         WindowDragController dragController = new WindowDragController(stage, this);

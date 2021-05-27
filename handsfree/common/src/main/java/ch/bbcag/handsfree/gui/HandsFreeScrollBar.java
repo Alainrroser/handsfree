@@ -36,7 +36,7 @@ public class HandsFreeScrollBar extends VBox {
 
         track = new VBox();
         track.setMaxHeight(Double.MAX_VALUE);
-        track.setBackground(new Background(new BackgroundFill(Colors.PANEL_BACKGROUND, null, null)));
+        track.setBackground(new Background(new BackgroundFill(HandsFreeColors.PANEL_BACKGROUND, null, null)));
         VBox.setVgrow(track, Priority.ALWAYS);
 
         thumb = new HandsFreeButton();

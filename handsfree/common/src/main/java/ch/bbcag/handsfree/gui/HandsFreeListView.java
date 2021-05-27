@@ -1,15 +1,10 @@
 package ch.bbcag.handsfree.gui;
 
-import javafx.animation.AnimationTimer;
 import javafx.geometry.Insets;
-import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class HandsFreeListView extends VBox {
@@ -22,10 +17,10 @@ public class HandsFreeListView extends VBox {
     public HandsFreeListView() {
         CornerRadii radii = new CornerRadii(5);
         Insets insets = Insets.EMPTY;
-        setBackground(new Background(new BackgroundFill(Colors.PANEL_BACKGROUND, radii, insets)));
+        setBackground(new Background(new BackgroundFill(HandsFreeColors.PANEL_BACKGROUND, radii, insets)));
 
         BorderWidths borderWidths = new BorderWidths(2);
-        BorderStroke stroke = new BorderStroke(Colors.BUTTON_BORDER, BorderStrokeStyle.SOLID, radii, borderWidths);
+        BorderStroke stroke = new BorderStroke(HandsFreeColors.BUTTON_BORDER, BorderStrokeStyle.SOLID, radii, borderWidths);
         setBorder(new Border(stroke));
 
         updateHeight();

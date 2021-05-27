@@ -1,36 +1,36 @@
 package ch.bbcag.handsfree.gui.button;
 
-import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeColors;
 import javafx.scene.paint.Color;
 
 public class HandsFreeButtonPalette {
 
     public static final HandsFreeButtonPalette DEFAULT_PALETTE = new HandsFreeButtonPalette(
-            Colors.BUTTON,
-            Colors.BUTTON_HOVERED,
-            Colors.BUTTON_PRESSED,
-            Colors.BUTTON_BORDER
+            HandsFreeColors.BUTTON,
+            HandsFreeColors.BUTTON_HOVERED,
+            HandsFreeColors.BUTTON_PRESSED,
+            HandsFreeColors.BUTTON_BORDER
     );
 
     public static final HandsFreeButtonPalette PRIMARY_PALETTE = new HandsFreeButtonPalette(
-            Colors.PRIMARY_BUTTON,
-            Colors.PRIMARY_BUTTON_HOVERED,
-            Colors.PRIMARY_BUTTON_PRESSED,
-            Colors.PRIMARY_BUTTON_BORDER
+            HandsFreeColors.PRIMARY_BUTTON,
+            HandsFreeColors.PRIMARY_BUTTON_HOVERED,
+            HandsFreeColors.PRIMARY_BUTTON_PRESSED,
+            HandsFreeColors.PRIMARY_BUTTON_BORDER
     );
 
     public static final HandsFreeButtonPalette ULTRA_PRIMARY_PALETTE = new HandsFreeButtonPalette(
-            Colors.ULTRA_PRIMARY_BUTTON,
-            Colors.ULTRA_PRIMARY_BUTTON_HOVERED,
-            Colors.ULTRA_PRIMARY_BUTTON_PRESSED,
-            Colors.ULTRA_PRIMARY_BUTTON_BORDER
+            HandsFreeColors.ULTRA_PRIMARY_BUTTON,
+            HandsFreeColors.ULTRA_PRIMARY_BUTTON_HOVERED,
+            HandsFreeColors.ULTRA_PRIMARY_BUTTON_PRESSED,
+            HandsFreeColors.ULTRA_PRIMARY_BUTTON_BORDER
     );
 
     public static final HandsFreeButtonPalette CLOSE_PALETTE = new HandsFreeButtonPalette(
-            Colors.BUTTON,
-            Colors.CLOSE_BUTTON_HOVERED,
-            Colors.CLOSE_BUTTON_PRESSED,
-            Colors.BUTTON_BORDER
+            HandsFreeColors.BUTTON,
+            HandsFreeColors.CLOSE_BUTTON_HOVERED,
+            HandsFreeColors.CLOSE_BUTTON_PRESSED,
+            HandsFreeColors.BUTTON_BORDER
     );
 
     private Color defaultColor;

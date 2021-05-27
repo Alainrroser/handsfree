@@ -2,7 +2,7 @@ package ch.bbcag.handsfree.gui;
 
 import javafx.scene.paint.Color;
 
-public class Colors {
+public class HandsFreeColors {
 
     public static final Color BACKGROUND = Color.web("3A3A3A");
     public static final Color STAGE_BORDER = Color.web("555555");

@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.gui.dialog;
 
-import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeColors;
 import ch.bbcag.handsfree.gui.HandsFreeFont;
 import ch.bbcag.handsfree.gui.HandsFreeScene;
 import ch.bbcag.handsfree.gui.HandsFreeSceneConfiguration;
@@ -22,7 +22,7 @@ public class HandsFreeDialog extends Stage {
 
         Label textLabel = new Label(text);
         textLabel.setFont(HandsFreeFont.getFont(22));
-        textLabel.setTextFill(Colors.FONT);
+        textLabel.setTextFill(HandsFreeColors.FONT);
         textLabel.setWrapText(true);
         textLabel.setTextAlignment(TextAlignment.CENTER);
         rootNode.setCenter(textLabel);

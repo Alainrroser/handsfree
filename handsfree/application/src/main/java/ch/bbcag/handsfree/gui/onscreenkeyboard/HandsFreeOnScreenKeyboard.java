@@ -4,7 +4,7 @@ import ch.bbcag.handsfree.HandsFreeContext;
 import ch.bbcag.handsfree.error.Error;
 import ch.bbcag.handsfree.error.ApplicationErrorMessages;
 import ch.bbcag.handsfree.error.KeyboardLoadingException;
-import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeColors;
 import ch.bbcag.handsfree.gui.WindowDragController;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
@@ -39,8 +39,8 @@ public class HandsFreeOnScreenKeyboard extends Popup {
         stage.setHeight(0);
 
         VBox rootPane = new VBox(50);
-        rootPane.setBackground(new Background(new BackgroundFill(Colors.BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
-        rootPane.setBorder(new Border(new BorderStroke(Colors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
+        rootPane.setBackground(new Background(new BackgroundFill(HandsFreeColors.BACKGROUND, CornerRadii.EMPTY, Insets.EMPTY)));
+        rootPane.setBorder(new Border(new BorderStroke(HandsFreeColors.STAGE_BORDER, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(2))));
         rootPane.setPadding(new Insets(20));
 
         suggestions = new WordSuggestions();
@@ -116,6 +116,10 @@ public class HandsFreeOnScreenKeyboard extends Popup {
                 key.release();
             }
         }
+    }
+
+    public List<HandsFreeOnScreenKey> getKeys() {
+        return keys;
     }
 
 }

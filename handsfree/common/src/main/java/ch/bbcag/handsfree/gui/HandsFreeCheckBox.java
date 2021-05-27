@@ -24,7 +24,7 @@ public class HandsFreeCheckBox extends HBox {
 
         Label label = new Label(text);
         label.setFont(HandsFreeFont.getFont(22));
-        label.setTextFill(Colors.FONT);
+        label.setTextFill(HandsFreeColors.FONT);
         getChildren().add(label);
 
         checkBox.setOnAction(event -> switchState());

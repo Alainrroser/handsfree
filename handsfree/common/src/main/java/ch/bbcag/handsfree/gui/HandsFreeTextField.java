@@ -10,14 +10,14 @@ public class HandsFreeTextField extends TextField {
         CornerRadii radii = new CornerRadii(2);
 
         BackgroundFill backgroundFill = new BackgroundFill(
-                Colors.PANEL_BACKGROUND,
+                HandsFreeColors.PANEL_BACKGROUND,
                 radii,
                 Insets.EMPTY
         );
         setBackground(new Background(backgroundFill));
 
         BorderStroke borderStroke = new BorderStroke(
-                Colors.BUTTON_BORDER,
+                HandsFreeColors.BUTTON_BORDER,
                 BorderStrokeStyle.SOLID,
                 radii,
                 new BorderWidths(2)
@@ -28,10 +28,10 @@ public class HandsFreeTextField extends TextField {
 
         StringBuilder style = new StringBuilder();
         style.append("-fx-text-fill: ");
-        style.append(Colors.colorToCssColor(Colors.FONT));
+        style.append(HandsFreeColors.colorToCssColor(HandsFreeColors.FONT));
         style.append("; ");
         style.append("-fx-accent: ");
-        style.append(Colors.colorToCssColor(Colors.PRIMARY_BUTTON));
+        style.append(HandsFreeColors.colorToCssColor(HandsFreeColors.PRIMARY_BUTTON));
         style.append("; ");
         setStyle(style.toString());
     }

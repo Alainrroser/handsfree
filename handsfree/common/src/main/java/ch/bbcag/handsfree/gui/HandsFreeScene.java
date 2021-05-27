@@ -23,7 +23,7 @@ public class HandsFreeScene {
 
         VBox rootNode = new VBox();
 
-        Paint borderColor = Colors.STAGE_BORDER;
+        Paint borderColor = HandsFreeColors.STAGE_BORDER;
         BorderStrokeStyle borderStrokeStyle = BorderStrokeStyle.SOLID;
         CornerRadii cornerRadii = CornerRadii.EMPTY;
         BorderWidths borderWidths = new BorderWidths(1);
@@ -37,7 +37,7 @@ public class HandsFreeScene {
         rootNode.getChildren().add(decoration);
 
         Pane bodyPane = new Pane();
-        bodyPane.setBackground(new Background(new BackgroundFill(Colors.BACKGROUND, null, null)));
+        bodyPane.setBackground(new Background(new BackgroundFill(HandsFreeColors.BACKGROUND, null, null)));
         bodyPane.setMinSize(contentRoot.getWidth(), contentRoot.getHeight());
         bodyPane.getChildren().add(contentRoot);
         rootNode.getChildren().add(bodyPane);

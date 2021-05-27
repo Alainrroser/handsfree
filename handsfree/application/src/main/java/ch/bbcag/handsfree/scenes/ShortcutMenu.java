@@ -63,7 +63,10 @@ public class ShortcutMenu extends ApplicationScene {
 
     private HandsFreeToggleButton initRecordShortcutButton(HandsFreeContext context, HandsFreeListView list) {
         HandsFreeToggleButton recordShortcut = new HandsFreeToggleButton("Recording");
-        recordShortcut.setOnEnabled(() -> recorder.start());
+        recordShortcut.setOnEnabled(() -> {
+            stage.setIconified(true);
+            recorder.start();
+        });
         recordShortcut.setOnDisabled(() -> manageShortcutName(context, list));
         recordShortcut.setEnabled(false);
         return recordShortcut;

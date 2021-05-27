@@ -1,6 +1,6 @@
 package ch.bbcag.handsfree.gui.button;
 
-import ch.bbcag.handsfree.gui.Colors;
+import ch.bbcag.handsfree.gui.HandsFreeColors;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -24,7 +24,7 @@ public class HandsFreeButton extends Button {
     public HandsFreeButton() {
         setFocusTraversable(false);
 
-        updateBackground(Colors.BUTTON);
+        updateBackground(HandsFreeColors.BUTTON);
         configureColorPalette();
     }
 
