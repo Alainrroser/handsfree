@@ -13,7 +13,7 @@ import java.util.Properties;
 public class Configuration {
 
     private static Properties configurations = new Properties();
-    private static File file = new File(System.getProperty("user.home") + "/AppData/Local/HandsFree/config.properties");
+    private static File file = new File(Const.CONFIGURATION_FILE);
 
     public static void writeConfiguration(boolean eyeTrackingState, boolean headTrackingState, boolean speechControlState, boolean autorunState) {
         try {

@@ -1,8 +1,9 @@
 package ch.bbcag.installer;
 
+import ch.bbcag.handsfree.Constants;
 import javafx.geometry.Insets;
 
-public class Const {
+public class Const extends Constants {
 
     public static final double WIDTH = 800;
     public static final double HEIGHT = 400;

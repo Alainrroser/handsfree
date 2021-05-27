@@ -1,5 +1,6 @@
 package ch.bbcag.handsfree.error;
 
+import ch.bbcag.handsfree.Constants;
 import ch.bbcag.handsfree.gui.dialog.HandsFreeMessageDialog;
 
 import java.io.File;
@@ -11,7 +12,7 @@ import java.util.Date;
 
 public class Error {
 
-    private static final File LOG_FILE = new File(System.getProperty("user.home") + "/AppData/Local/HandsFree/error.log");
+    private static final File LOG_FILE = new File(Constants.LOG_FILE);
     public static final String UNKNOWN_ERROR = "An unknown error has occurred.";
 
     public static void initGlobalExceptionHandler() {

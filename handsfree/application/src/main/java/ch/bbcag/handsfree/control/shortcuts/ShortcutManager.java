@@ -28,7 +28,7 @@ public class ShortcutManager {
         try {
             shortcuts.add(shortcut);
             ShortcutWriter writer = new ShortcutWriter();
-            writer.write(shortcut, new File(Const.SHORTCUT_PATH));
+            writer.write(shortcut, new File(Const.SHORTCUT_FOLDER));
             context.getSpeechRecognizer().addListener(shortcut.getName(), () -> runShortcut(shortcut.getName()));
         } catch(IOException e) {
             Error.reportCritical(ErrorMessages.WRITE_SHORTCUT, e);
@@ -47,7 +47,7 @@ public class ShortcutManager {
     }
 
     private void deleteShortcut(String name) throws IOException {
-        for(File file : Objects.requireNonNull(new File(Const.SHORTCUT_PATH).listFiles())) {
+        for(File file : Objects.requireNonNull(new File(Const.SHORTCUT_FOLDER).listFiles())) {
             FileInputStream in = new FileInputStream(file);
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             String firstLine = reader.readLine();

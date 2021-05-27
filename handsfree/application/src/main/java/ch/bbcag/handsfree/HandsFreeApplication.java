@@ -13,7 +13,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import jdk.jfr.Percentage;
 
 import java.io.File;
 
@@ -32,7 +31,7 @@ public class HandsFreeApplication extends Application {
 
         try {
             context = new HandsFreeContext();
-            context.getShortcutManager().readShortcuts(new File(Const.SHORTCUT_PATH));
+            context.getShortcutManager().readShortcuts(new File(Const.SHORTCUT_FOLDER));
 
             initGUI();
         } catch(HandsFreeRobotException e) {
