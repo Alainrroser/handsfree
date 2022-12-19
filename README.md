@@ -1,8 +1,7 @@
 # HandsFree
 ## Abstract
-HandsFree ermöglicht es, den Computer ohne Hände zu steuern. Die Maus wird
-durch die Augen ersetzt, die Tastatur durch eine virtuelle und Shortcuts und
-Sprachsteuerung erleichtern regelmässige Aufgaben.
+Handsfree is a project which makes it possible to control the computer handsfree with a Tobii Eye Tracker. 
+The mouse gets replaced with your eyes, the keyboard with a virtual one and shortcuts and speech control make your life easier. 
 ## Projektmitarbeiter
 * Yves Peissard (Product Owner)
 * Alain Roser (Team Member)
